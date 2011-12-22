@@ -1,0 +1,64 @@
+<div id="topbanner">
+    <div class="container">
+        <h1 id="sitename"><a href="/">Priv.ly </a><span>Share Priv(ate).ly</span></h1>
+        <div id="mainnav">
+            <ul>
+                <% if controller.controller_name == "welcome" %>
+                    <li class="active"><a href="/">Welcome <span>home</span></a></li>
+                <% else %>
+                    <li><a href="/">Welcome <span>home</span></a></li>
+                <% end %>
+                
+                <% if controller.controller_name == "posts" %>
+                    <li class="active"><a href="/posts">Posts <span>list</span></a></li>
+                <% else %>
+                    <li><a href="/posts">Posts <span>list</span></a></li>
+                <% end %>
+                
+                
+                <li <% if controller.controller_name == "pages" %>class="active"<% end %>>
+                    <% if user_signed_in? %>
+                        <%= link_to pages_account_path do %>
+                            Account <span>info</span>
+                        <% end %>
+                    <% else %>
+                        <%= link_to pages_about_path do %>
+                            About <span>info</span>
+                        <% end %>
+                    <% end %>
+                </li>
+                
+                <% if controller.controller_name == "sessions" %>
+                    <% if user_signed_in? %>
+                    <li class="active"><%= link_to destroy_user_session_path, :method => :delete do %>
+                        Logout
+                        <span>auth</span>
+                        <% end %>
+                    </li>
+                    <% else %>
+                    <li class="active"><%= link_to new_user_session_path do %>
+                        Login
+                        <span>auth</span>
+                        <% end %>
+                    </li>
+                    <% end %>
+                <% else %>
+                    <% if user_signed_in? %>
+                    <li><%= link_to destroy_user_session_path, :method => :delete do %>
+                        Logout
+                        <span>auth</span>
+                        <% end %>
+                    </li>
+                    <% else %>
+                    <li><%= link_to new_user_session_path do %>
+                        Login
+                        <span>auth</span>
+                        <% end %>
+                    </li>
+                    <% end %>
+                <% end %>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

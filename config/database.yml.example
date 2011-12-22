@@ -1,0 +1,26 @@
+# Example of a local database setup. 
+baseSettings: &baseSettings
+    adapter: mysql2
+    username: your_database_user_name
+    host: localhost
+    password: your_database_password
+    pool: 5
+    timeout: 5000
+    socket: /tmp/mysql.sock #Mac OSX
+    #socket: /var/run/mysqld/mysqld.sock #Ubuntu
+
+development:
+  <<: *baseSettings
+  database: privly_development
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *baseSettings
+  database: privly_test
+
+production:
+  <<: *baseSettings
+  database: privly_production
+

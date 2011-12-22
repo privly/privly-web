@@ -1,0 +1,24 @@
+<% content_for(:title) do %>
+    Posts
+<% end %>
+
+<h2 class="subhead"><span>Posts</span></h2>
+<% @posts.each do |post| %>
+    <div class="post">
+        <div class="posthead">
+            <label>
+            <p class="date">Posted <%= time_ago_in_words(post.created_at) %> ago.</p>
+            <h3><%= link_to post_path(post) do %><%= post.content.safe_markdown %><% end %></h3>
+            <p class="postmeta"><%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></p>
+        </div>
+    </div>
+<% end %>
+
+<div class="digg_pagination">
+    <div clas="page_info">
+      <%= page_entries_info @posts %>
+    </div>
+    <%= will_paginate @posts, :container => false %>
+</div>
+
+<%= link_to 'New Post', new_post_path %>
