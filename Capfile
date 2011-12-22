@@ -13,7 +13,7 @@ namespace :deploy do
       symlink_shared
     end
     
-    desc "Create a symlink to domain, dev.domain or test.domain gmap_api_key.yml file"
+    desc "Symbolic links the production environment and database.yml in the shared folder"
     task :symlink_shared, :hosts => "#{domain}" do
         run "ln -s #{privly_shared_path}production.rb #{latest_release}/config/environments/production.rb"
         run "ln -s #{privly_shared_path}database.yml #{latest_release}/config/database.yml"
