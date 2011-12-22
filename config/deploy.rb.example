@@ -4,12 +4,14 @@ set :application, "privly"
 set :repository,  "git@github.com:smcgregor/PrivateWebExtension.git"
 
 set :deploy_to, "/var/www"
+set :privly_shared_path, "#{deploy_to}../shared/"
 default_run_options[:pty] = true
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
 set :port, 22
+set :domain, "priv.ly"
 role :web, "priv.ly"                          # Your HTTP server, Apache/etc
 role :app, "priv.ly"                          # This may be the same as your `Web` server
 role :db,  "priv.ly", :primary => true # This is where Rails migrations will run
