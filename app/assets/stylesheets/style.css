@@ -1,5 +1,15 @@
-@import url(http://fonts.googleapis.com/css?family=Vollkorn);
-@import url(http://fonts.googleapis.com/css?family=Lobster);
+@font-face {
+  font-family: 'Vollkorn';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Vollkorn Regular'), local('Vollkorn-Regular'), url('https://priv.ly/volkorn.woff') format('woff');
+}
+@font-face {
+  font-family: 'Lobster';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Lobster'), url('https://priv.ly/lobster.woff') format('woff');
+}
 * {padding:0; margin:0;}
 body {background:#242424; font: 14px Georgia, "Times New Roman", Times, serif; color:#242424; }
 #topbanner {height:80px; border-bottom:solid 1px #f2efe9;}
