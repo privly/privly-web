@@ -1,0 +1,67 @@
+<!--MAIN CONTENT SIDEBAR-->
+<div id="sidebar">                
+    <div class="demo">
+        <div id="sidebar_accordion">
+            
+            <% if @sidebar %>
+            
+                <% if @sidebar[:post] %>
+            	<h2><a href="#">Post Info</a></h2>
+            	<div>
+            	    <ul class="posts">
+                        <li><a><%= request.url %></a></li>
+                        <li><a>By Anonymous</a></li>
+                        <li><%= link_to 'Edit', edit_post_path(@post) %></li>
+                        <li><%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete %></li>
+                    
+                        <% if user_signed_in? %>
+                        <li><%= link_to 'All Posts', posts_path %></li>
+                        <% end %>
+                    </ul>
+            	</div>
+            	<% end %>
+        	
+        	    <% if @sidebar[:posts] %>
+            	<h2><a href="#">Write Posts</a></h2>
+            	<div>
+            	    <ul class="posts">
+                        <li><%= link_to 'New Post', new_post_path %></li>
+                    </ul>
+            	</div>
+            	<% end %>
+        	
+        	    <% if @sidebar[:markdown] %>
+            	<h2><a id="sidebar_markdown" href="#sidebar_markdown">Markdown Tips</a></h2>
+            	<div>
+            		<ul class="posts">
+            		    <li><em>*Emphasis*</em></li>
+            		    <li><strong>**Strong**</strong></li>
+            		    <li>[link text here](link.address.here "link title here")</li>
+            		    <li>Line Break: a line ending in two spaces.</li>
+            		    <li>1. An ordered list</li>
+            		    <li>* An unordered list</li>
+            		    <li>`<code>code</code>`</li>
+            		    <li><h1># heading</h1></li>
+            		    <li><h2>## subheading</h2></li>
+            		    <li><h3>### sub-subheading</h3></li>
+            		    <li><h3>### sub-subheading</h3></li>
+            		    <li><%= link_to "More on Markdown", "http://en.wikipedia.org/wiki/Markdown" %></li>
+                    </ul>
+            	</div>
+            	<% end %>
+        	<% end %>
+        	
+        	<% if not @sidebar or @sidebar[:news] != false %>
+        	<h2><a id="sidebar_news" href="sidebar_news">Site News</a></h2>
+        	<div>
+        		<ul class="menu">
+        		    <li><a>System Status: Alpha</a></li>
+                    <li><%= link_to "Privly Twitter", "http://twitter.com/#!/Privly" %></li>
+                    <li><%= link_to "Seize Privacy Twitter", "http://twitter.com/#!/SeizePrivacy" %></li>
+                </ul>
+        	</div>
+        	<% end %>
+        	
+        </div>
+    </div><!-- End demo -->
+</div>

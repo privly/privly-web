@@ -16,6 +16,6 @@
     <%= f.text_area :content, :cols => 75, :rows => 18 %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <p><%= f.submit %> You can use the <%= link_to "Markdown", "#", {:onclick => "$('#sidebar_markdown').click()"} %> language for your posts.</p>
   </div>
 <% end %>

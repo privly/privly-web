@@ -5,11 +5,7 @@
 <h2 class="subhead"><span>Post</span></h2>
 <div class="post">
     <div class="posthead">
-        <p class="date">June 05, 2010</p>
-        <h3><a href="#"><%= @post.content.safe_markdown %></a></h3>
-        <p class="postmeta">By Anonymous, <%= link_to 'Edit', edit_post_path(@post) %> | <%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete %></p>
+        <p><%= @post.content.safe_markdown %></p>
     </div>
-    <p>
-        <%= link_to 'All Posts', posts_path %>
-    </p>
+
 </div>

@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+    @sidebar = {:news => false, :posts => true}
     @posts = current_user.posts.page(params[:page]).order('created_at DESC')
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +17,7 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
-
+    @sidebar = {:post => true, :news => false, :posts => true}
     respond_to do |format|
       format.html # show.html.erb
       format.gm { render }
@@ -29,7 +30,7 @@ class PostsController < ApplicationController
   # GET /posts/new.json
   def new
     @post = Post.new
-
+    @sidebar = {:markdown => true, :posts => true, :news => false}
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @post }
@@ -38,6 +39,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    @sidebar = {:markdown => true, :post => true, :news => false}
     @post = current_user.posts.find(params[:id])
   end
 
@@ -90,8 +92,7 @@ class PostsController < ApplicationController
     end
   end
   
-  # DELETE /posts/1
-  # DELETE /posts/1.json
+  # DELETE /posts/destroy_all
   def destroy_all
     posts = current_user.posts
 

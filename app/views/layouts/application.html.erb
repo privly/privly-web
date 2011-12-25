@@ -12,13 +12,13 @@
   <%= yield :extrajs %>
 
   <script>
-  	$(function() {
-  		$( "#accordion" ).accordion({autoHeight: false});
-  	});
-  	</script>
+    $(function() {
+        $( "#sidebar_accordion" ).accordion({autoHeight: false});
+    });
+  </script>
 
   <%= csrf_meta_tags %>
-  <%= stylesheet_link_tag 'style.css' %>
+  
 </head>
 <body>
 
@@ -26,7 +26,7 @@
 <%= render "shared/nav" %>
 
 <div id="pagewrap">
-    <div id="wrap">
+    <div id="wrap" style="min-height:400px;">
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
         <%= yield :top_column %>
@@ -42,45 +42,8 @@
                 <%= yield %>
             </div>
             
-            <!--MAIN CONTENT SIDEBAR-->
-            <div id="sidebar">                
-                <div class="demo">
-                    <div id="accordion">
-                    	<h2><a href="#">Special Posts</a></h2>
-                    	<div>
-                    	    <ul class="menu">
-                                <li><a href="#">Anonymous Post</a></li>
-                                <li><a href="#">Timed Post</a></li>
-                                <li><a href="#">Share Lists</a></li>
-                            </ul>
-                    	</div>
-                    	<h2><a href="#">Site News</a></h2>
-                    	<div>
-                    		<ul class="posts">
-                                <li><a href="http://twitter.com/#!/Privly">Privly Twitter</a></li>
-                                <li><a href="http://twitter.com/#!/SeizePrivacy">Seize Privacy Twitter</a></li>
-                            </ul>
-                    	</div>
-                    	<h2><a id="markdown_tips" href="#markdown_tips">Markdown Tips</a></h2>
-                    	<div>
-                    		<ul class="posts">
-                    		    <li><em>*Emphasis*</em></li>
-                    		    <li><strong>**Strong**</strong></li>
-                    		    <li>[link text here](link.address.here "link title here")</li>
-                    		    <li>Line Break: a line ending in two spaces.</li>
-                    		    <li>1. An ordered list</li>
-                    		    <li>* An unordered list</li>
-                    		    <li>`<code>code</code>`</li>
-                    		    <li><h1># heading</h1></li>
-                    		    <li><h2>## subheading</h2></li>
-                    		    <li><h3>### sub-subheading</h3></li>
-                    		    <li><h3>### sub-subheading</h3></li>
-                    		    <li><%= link_to "Markdown Wiki", "http://en.wikipedia.org/wiki/Markdown" %></li>
-                            </ul>
-                    	</div>
-                    </div>
-                </div><!-- End demo -->
-            </div>
+            <%= render "shared/sidebar" %>
+            
             <div class="clear"></div>
         </div>
     </div>
@@ -88,7 +51,6 @@
 
 
 <div id="bottom">
-    
     <!--Bottom Row -->
     <div id="btmcontent">
         <div class="col1">
