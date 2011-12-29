@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:show]
   
   # GET /posts
   # GET /posts.json
@@ -16,13 +16,47 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-    @post = Post.find(params[:id])
-    @sidebar = {:post => true, :news => false, :posts => true}
-    respond_to do |format|
-      format.html # show.html.erb
-      format.gm { render }
-      format.iframe { render }
-      format.json { render :json => @post, :callback => params[:callback] }
+    
+    if not Post.exists?(params[:id]) and user_signed_in?
+      respond_to do |format|
+        format.html {
+          @sidebar = {:post => true, :news => false, :posts => true}
+          render "noaccess"
+        }
+        format.gm { render "noaccess"  }
+        format.iframe { render "noaccess" }
+        format.json { render "noaccess" }
+      end
+    elsif not Post.exists?(params[:id]) or not user_signed_in?
+      respond_to do |format|
+        format.html {
+          redirect_to new_user_session_path
+        }
+        format.gm { render "login"  }
+        format.iframe { render "login" }
+        format.json { render "login" }
+      end
+    elsif Post.exists?(params[:id])
+      @post = Post.find(params[:id])
+      respond_to do |format|
+        format.html {
+          @sidebar = {:post => true, :news => false, :posts => true}
+          render
+        }
+        format.gm { render }
+        format.iframe { render }
+        format.json { render :json => @post, :callback => params[:callback] }
+      end
+    else
+      respond_to do |format|
+        format.html {
+          @sidebar = {:news => false, :posts => true}
+          render "noaccess"
+        }
+        format.gm { render "noaccess"  }
+        format.iframe { render "noaccess" }
+        format.json { render "noaccess" }
+      end
     end
   end
 

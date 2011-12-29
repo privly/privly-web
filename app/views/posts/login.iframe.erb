@@ -1,0 +1,24 @@
+<html>
+<head>
+</head>
+<body>
+This link might require you to <%= link_to "log in", new_user_session_url, {:target => "_blank"} %> to <%= link_to "Priv.ly", new_user_session_url, {:target => "_blank"} %>. 
+
+<script type="text/javascript" >
+window.onload = function () {
+	//set iframe body tag's height to scrollheight.
+	var scrollHeight = document.body.scrollHeight;
+	document.body.style.height = scrollHeight+"px";
+	
+	//dispatch an event 
+	var evt = document.createEvent("Events");  
+	evt.initEvent("IframeResizeEvent", true, true);
+	var element = document.createElement("privElement");  
+	element.setAttribute("height", document.body.scrollHeight);  
+	element.setAttribute("url", document.URL);  
+	document.documentElement.appendChild(element);    
+	element.dispatchEvent(evt);	
+}
+</script>
+</body>
+</html>
