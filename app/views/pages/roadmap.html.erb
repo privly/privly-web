@@ -1,18 +1,63 @@
+<script>
+  $(function() {
+      $( "#roadmap_accordion" ).accordion({autoHeight: false});
+  });
+</script>
+
 <h2 class="subhead"><span>Road Map</span></h2>
 
-<h3>From <%= link_to "Googles Terms of Service", "http://www.google.com/accounts/TOS" %></h3>
 <p>
-11.	Content license from you
+Privly and the associated browser extensions are an open source project, whose development is dictated by the passions and funding of its contributors. As such, this roadmap outlines development areas for the system, but not a timetable or ordering of deliverables. The best way for you to speed development is to <%= link_to "join the team", pages_join_path %> or <%= link_to "make a donation.", pages_donate_path %>. As we near completions of major features, we will make announcements on the site, as well as on <%= link_to "Twitter.", "http://twitter.com/#!/Privly" %>
 </p>
-<p>
-11.1	You retain copyright and any other rights you already hold in Content which you submit, post or display on or through, the Services. By submitting, posting or displaying the content you give Google a perpetual, irrevocable, worldwide, royalty-free, and non-exclusive license to reproduce, adapt, modify, translate, publish, publicly perform, publicly display and distribute any Content which you submit, post or display on or through, the Services. This license is for the sole purpose of enabling Google to display, distribute and promote the Services and may be revoked for certain Services as defined in the Additional Terms of those Services.
-</p>
-<p>
-11.2	You agree that this license includes a right for Google to make such Content available to other companies, organizations or individuals with whom Google has relationships for the provision of syndicated services, and to use such Content in connection with the provision of those services.
-</p>
-<p>
-11.3	You understand that Google, in performing the required technical steps to provide the Services to our users, may (a) transmit or distribute your Content over various public networks and in various media; and (b) make such changes to your Content as are necessary to conform and adapt that Content to the technical requirements of connecting networks, devices, services or media. You agree that this license shall permit Google to take these actions.
-</p>
-<p>
-11.4	You confirm and warrant to Google that you have all the rights, power and authority necessary to grant the above license.
-</p>
+
+<h1>Milestones</h1>
+
+<div id="roadmap_accordion">
+
+    <h2><a id="sidebar_markdown" href="#sidebar_markdown">Content Ownership</a></h2>
+    <div>
+    	<ul class="posts">
+    	    <li><em>Content Server with Authentication:</em>All content is hosted by default on private web servers.  Users must have both an account and permissions to view content.  The content is readily available to the private web browser extension.</li>
+    	    <li><em>Content protected by user account or from robots (via robots.txt):</em> Users will have the ability to limit their content to other users or to well-behaving robots (either via a captcha or well-behaving robot crawlers that obey robots.txt).</li>
+    	    <li><em>Content lifetime:</em>Users also have the ability to define a lifetime for their content (e.g. automatically delete after 30 days) as well as purge their content entirely.</li>
+        </ul>
+    </div>
+    
+    <h2><a id="sidebar_markdown" href="#sidebar_markdown">Security</a></h2>
+    <div>
+    	<ul class="posts">
+    	    <li><em>Isolate returned content from host page:</em> Not all foreign sites can be trusted.  If a user is using bookface.com plus the private web extension, and the remote content is injected into the page, is there any way this content could be indirectly shared (either with facebook or other users)?  The extension will take as many steps as possible to ensure that only the end user sees the content.</li>
+    	    <li><em>Differentiate remote content from page content (eliminate phishing risk):</em> Some malicious users may use private web as a method of phishing by posting content that may mislead extension users into thinking the content is from the originating site.  The extension will make it obvious which content is on the owning site and which content is private web content.</li>
+    	    <li><em>Prevent browser caching:</em>While it is likely impossible to prevent all forms of caching, the extension will provide some steps to ensure that content is not cached any longer than it needs to be.</li>
+        </ul>
+    </div>
+    
+    <h2><a id="sidebar_markdown" href="#sidebar_markdown">Share Everywhere</a></h2>
+    <div>
+    	<ul class="posts">
+    	    <li><em>Share with other user account</em></li>
+    	    <li><em>Share with users on PGP keyservers</em></li>
+    	    <li><em>Share by OpenID (Use any ID provider, and link them all together)</em></li>
+    	    <li><em>Share by Domain (Organizational sharing)</em></li>
+    	    <li><em>Share by Email</em></li>
+    	    <li><em>Share by Geography (geoIP)</em></li>
+    	    <li><em>Share by Aspect and Circle</em></li>
+        </ul>
+    </div>
+    
+    <h2><a id="sidebar_markdown" href="#sidebar_markdown">Enhanced security (trust no one)</a></h2>
+    <div>
+    	<ul class="posts">
+    	    <li><em>Confederated content via URL redirection or incorporation into the root parser:</em> I haven't talked about this very much, but it is one method for allowing content on systems like Diaspora to be incorporated without us needing to host it. Basically, they use one of our links to point to their content. We never see the content since we do a redirection to the actual resource.</li>
+    	    <li><em>Extension-side encryption/decryption of cryptography wallets: </em>Encrypted Content on URLs, key on remote server, Encrypted Content on remote server, key on URL</li>
+        </ul>
+    </div>
+    
+    <h2><a id="sidebar_markdown" href="#sidebar_markdown">Make it Look Good</a></h2>
+    <div>
+    	<ul class="posts">
+    	    <li><em>Provide markup language for customizing content display (simplified html that site-specific formatters optionally use)</em></li>
+    	    <li><em>Allow for site-specific content formatting rules  </em></li>
+        </ul>
+    </div>
+</div>
