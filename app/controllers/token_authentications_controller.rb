@@ -21,19 +21,35 @@ class TokenAuthenticationsController < ApplicationController
     @user = User.find_by_email(params[:email])
     if @user and @user.valid_password?(params[:password])
       sign_in(:user, @user)
-      current_user.reset_authentication_token!
-      redirect_to token_authentications_show_path
     else
       @user = nil
-      redirect_to new_token_authentication_path, :alert => "incorrect email or password"
     end
-    
+    respond_to do |format|
+      format.html {
+        if @user
+          current_user.reset_authentication_token!
+          redirect_to show_token_authentications_path
+        else
+          redirect_to new_token_authentication_path, :alert => "incorrect email or password"
+        end
+      }
+      format.json { 
+        if @user
+          redirect_to show_token_authentications_path({:format => :json})
+        else
+          render :json => {:error => "incorrect email or password"}, :callback => params[:callback] 
+        end
+      }
+    end
   end
 
   def destroy
+    unless user_signed_in?
+      redirect_to new_user_session_path, :error => "you are not signed in, we did not destroy a token"
+    end
     current_user.authentication_token = nil
     current_user.save
-    redirect_to new_user_session_path
+    redirect_to new_token_authentication_path, :notice => "Your login token is no longer valid"
   end
 
 end

@@ -1,5 +1,19 @@
+<h1>html</h1>
 <%= form_tag(token_authentications_path, :method => "post") do %>
   <p>Email</p><%= email_field_tag "email" %>
   <p>Password</p><%= password_field_tag "password" %>
   <p></p><%= submit_tag("New Token") %>
 <% end %>
+
+<br />
+
+<h1>json</h1>
+<%= form_tag(token_authentications_path(:format => :json), :method => "post") do %>
+  <p>Email</p><%= email_field_tag "email" %>
+  <p>Password</p><%= password_field_tag "password" %>
+  <p></p><%= submit_tag("New Token") %>
+<% end %>
+
+<br />
+
+<%= link_to 'Destroy Your Token', destroy_token_authentications_path, :confirm => 'Are you sure?', :method => :delete %>

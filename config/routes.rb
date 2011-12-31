@@ -5,8 +5,9 @@ Privly::Application.routes.draw do
   match '/posts/destroy_all' => 'posts#destroy_all', :method => :delete
   resources :authentications
 
-  resources :token_authentications, :only => [:create, :destroy, :new]
-  match "token_authentications" => "token_authentications#show", :as => :token_authentications_show
+  resources :token_authentications, :only => [:create, :new]
+  match "token_authentications" => "token_authentications#show", :as => :show_token_authentications, :via => [:get, :post]
+  match 'token_authentications' => 'token_authentications#destroy', :as => :destroy_token_authentications, :via => [:delete]
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
