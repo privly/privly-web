@@ -19,7 +19,7 @@ class PagesController < ApplicationController
   end
 
   def license
-    @sidebar = {:news => false, :about => true}
+    @sidebar = {:news => false, :contribute => true}
   end
 
   def privacy
@@ -39,7 +39,7 @@ class PagesController < ApplicationController
   end
 
   def irc
-    @sidebar = {:news => false, :contribute => true}
+    @sidebar = {:news => false, :help => true}
   end
 
   def bug

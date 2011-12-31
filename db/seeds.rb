@@ -12,10 +12,10 @@ user = User.create(
 user.confirm!
 
 #Create two example posts
-Post.create({:user => User.find_by_email('development@priv.ly'), 
+Post.create({:user => user, 
   :content => 'Hello World'})
 
-Post.create({:user => User.find_by_email('development@priv.ly'), :content => "
+Post.create({:user => user, :content => "
   **HAMLET:** To be, or not to be--that is the question:  
   Whether 'tis nobler in the mind to suffer  
   The slings and arrows of outrageous fortune  
@@ -52,3 +52,10 @@ Post.create({:user => User.find_by_email('development@priv.ly'), :content => "
   The fair Ophelia! -- Nymph, in thy orisons  
   Be all my sins remembered.
   "})
+  
+  Post.create({:user => user, :content => '
+[The Age of Privacy is Over](http://www.readwriteweb.com/archives/facebooks_zuckerberg_says_the_age_of_privacy_is_ov.php "The Age of Privacy is Over").
+    
+![Zuckerberg Meme](http://memegenerator.net/cache/instances/400x/12/12428/12726804.jpg)
+    
+'})
