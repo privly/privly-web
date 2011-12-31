@@ -29,6 +29,9 @@ gem 'johnson'
 #required for omniauth until they put the dependency in
 gem 'bcrypt-ruby', '~> 3.0.0'
 
+#authorization
+gem 'cancan'
+
 #Sessions
 #https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
 gem 'devise' #https://github.com/plataformatec/devise
