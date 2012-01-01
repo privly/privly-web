@@ -28,9 +28,12 @@
                             <%= link_to "log in for ownership information", new_user_session_url %>
                         <% end %>
                         </li>
+                        <% if can? :update, @post %>
                         <li><%= link_to 'Edit', edit_post_path(@post) %></li>
+                        <% end %>
+                        <% if can? :destroy, @post %>
                         <li><%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete %></li>
-                    
+                        <% end %>
                         <% if user_signed_in? %>
                         <li><%= link_to 'All Posts', posts_path %></li>
                         <% end %>
@@ -42,7 +45,8 @@
             	<h2><a href="#">Write Posts</a></h2>
             	<div>
             	    <ul class="posts">
-                        <li><%= link_to 'New Post', new_post_path %></li>
+                        <li><%= link_to 'New Private Post', new_post_path %></li>
+                        <li><%= link_to 'New Public Post', new_post_path("post[public]"=>true) %></li>
                     </ul>
             	</div>
             	<% end %>

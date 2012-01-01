@@ -9,6 +9,14 @@
     </div>
 </div>
 
+<% if can? :share, @post %>
+<h2>Sharing</h2>
+<% if @post.public %>
+    <p>This is a <strong>public</strong> post. Everyone has permission to read it.</p>
+<% else %>
+    <p>This post is not public. You have you share this post below for it to be viewable by others.</p>
+<% end %>
+
 <%= form_for(@email_share) do |f| %>
   <% if @email_share.errors.any? %>
     <div id="error_explanation">
@@ -65,5 +73,8 @@
         </div>
     </div>
 <% end %>
+<% end %>
+
+
 
 

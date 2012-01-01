@@ -13,7 +13,9 @@
 
   <div class="field">
     <%= f.label :content %><br />
-    <%= f.text_area :content, :cols => 75, :rows => 18 %>
+    <%= f.text_area :content, :cols => 75, :rows => 18 %><br /><br />
+    <%= f.check_box :public %>
+    <%= f.label :public %>
   </div>
   <div class="actions">
     <p><%= f.submit %> You can use the <%= link_to "Markdown", "#", {:onclick => "$('#sidebar_markdown').click()"} %> language for your posts.</p>
