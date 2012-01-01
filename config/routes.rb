@@ -35,7 +35,7 @@ Privly::Application.routes.draw do
   
   
   resources :posts
-  resources :email_shares, :only => [:create, :destroy]
+  resources :email_shares, :only => [:create, :destroy, :update]
 
   match '/' => 'welcome#index', :as => :welcome
 

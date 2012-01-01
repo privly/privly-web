@@ -18,10 +18,24 @@ class EmailSharesController < ApplicationController
   end
 
   def destroy
-    @email_share = EmailShare.find(params[:id])
     @post = @email_share.post
     @email_share.destroy
     redirect_to @post, :notice => 'Email Share was destroyed.'
+  end
+  
+  def update
+    
+    @post = @email_share.post
+    
+    respond_to do |format|
+      if @email_share.update_attributes(params[:email_share])
+        format.html { redirect_to @post, :notice => 'Email share was successfully updated.' }
+        format.json { head :ok }
+      else
+        format.html { redirect_to @post, :notice => 'We could not update that email share.' }
+        format.json { render :json => @email_share.errors, :status => :unprocessable_entity }
+      end
+    end
   end
 
 end

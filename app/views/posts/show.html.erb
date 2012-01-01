@@ -9,17 +9,6 @@
     </div>
 </div>
 
-<% @post.email_shares.each do |share| %>
-    <div class="post">
-        <div class="posthead">
-            <label>
-            <p class="date">Shared <%= time_ago_in_words(share.created_at) %> ago.</p>
-            <h3><%= share.email %></h3>
-            <p class="postmeta"><%= link_to 'Destroy', share, :confirm => 'Are you sure?', :method => :delete %></p>
-        </div>
-    </div>
-<% end %>
-
 <%= form_for(@email_share) do |f| %>
   <% if @email_share.errors.any? %>
     <div id="error_explanation">
@@ -33,11 +22,48 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-    <%= f.hidden_field :post_id, :value => @post.id %>
+    <p>
+        <%= f.label :email %><br />
+        <%= f.email_field :email %>
+        <%= f.submit %>
+        <br />
+        <%= f.check_box :can_show %>
+        <%= f.label :can_show, "Can View" %>
+        <%= f.check_box :can_destroy %>
+        <%= f.label :can_destroy %>
+        <%= f.check_box :can_update %>
+        <%= f.label :can_update %>
+        <%= f.check_box :can_share %>
+        <%= f.label :can_share %>
+        <%= f.hidden_field :post_id, :value => @post.id %>
+    </p>
   </div>
-  <div class="actions">
-    <p><%= f.submit %></p>
-  </div>
+
 <% end %>
+
+<% @post.email_shares.each do |share| %>
+    <div class="post">
+        <div class="posthead">
+            <h3><%= share.email %></h3>
+            
+            <%= form_for(share) do |f| %>
+                <div class="field">
+                    <p>
+                        <%= f.check_box :can_show %>
+                        <%= f.label :can_show, "Can View" %>
+                        <%= f.check_box :can_destroy %>
+                        <%= f.label :can_destroy %>
+                        <%= f.check_box :can_update %>
+                        <%= f.label :can_update %>
+                        <%= f.check_box :can_share %>
+                        <%= f.label :can_share %>
+                        <%= f.submit %>
+                        <%= link_to 'Destroy Share', share, :confirm => 'Are you sure?', :method => :delete %>
+                    </p>
+              </div>
+            <% end %>
+        </div>
+    </div>
+<% end %>
+
+
