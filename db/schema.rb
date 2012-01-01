@@ -10,12 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111215005257) do
+ActiveRecord::Schema.define(:version => 20111231204851) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "email_shares", :force => true do |t|
+    t.integer  "post_id",                        :null => false
+    t.string   "email",                          :null => false
+    t.boolean  "can_show",    :default => true,  :null => false
+    t.boolean  "can_destroy", :default => false, :null => false
+    t.boolean  "can_update",  :default => false, :null => false
+    t.boolean  "can_share",   :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

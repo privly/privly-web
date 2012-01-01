@@ -7,5 +7,37 @@
     <div class="posthead">
         <p><%= @post.content.safe_markdown %></p>
     </div>
-
 </div>
+
+<% @post.email_shares.each do |share| %>
+    <div class="post">
+        <div class="posthead">
+            <label>
+            <p class="date">Shared <%= time_ago_in_words(share.created_at) %> ago.</p>
+            <h3><%= share.email %></h3>
+            <p class="postmeta"><%= link_to 'Destroy', share, :confirm => 'Are you sure?', :method => :delete %></p>
+        </div>
+    </div>
+<% end %>
+
+<%= form_for(@email_share) do |f| %>
+  <% if @email_share.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@email_share.errors.count, "error") %> prohibited this email share from being saved:</h2>
+      <ul>
+      <% @email_share.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+    <%= f.hidden_field :post_id, :value => @post.id %>
+  </div>
+  <div class="actions">
+    <p><%= f.submit %></p>
+  </div>
+<% end %>

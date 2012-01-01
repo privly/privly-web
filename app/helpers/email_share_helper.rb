@@ -1,0 +1,2 @@
+module EmailShareHelper
+end

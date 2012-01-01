@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   
   before_filter :authenticate_user!, :except => [:show]
+  load_and_authorize_resource
   
   # GET /posts
   # GET /posts.json
@@ -16,7 +17,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-    
+    @email_share ||= EmailShare.new
     if not Post.exists?(params[:id]) and user_signed_in?
       respond_to do |format|
         format.html {
