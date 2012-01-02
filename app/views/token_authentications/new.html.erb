@@ -1,3 +1,7 @@
+<% content_for(:title) do %>
+    New Token Authentication
+<% end %>
+
 <h1>html</h1>
 <%= form_tag(token_authentications_path, :method => "post") do %>
   <p>Email</p><%= email_field_tag "email" %>
