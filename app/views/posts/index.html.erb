@@ -8,8 +8,8 @@
         <div class="posthead">
             <label>
             <p class="date">Posted <%= time_ago_in_words(post.created_at) %> ago.</p>
-            <h3><%= link_to post_path(post) do %><%= post.content.safe_markdown %><% end %></h3>
-            <p class="postmeta"><%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></p>
+            <%= post.content.safe_markdown %>
+            <p class="postmeta"><%= link_to "View", post_path(post) %> &middot; <%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></p>
         </div>
     </div>
 <% end %>
