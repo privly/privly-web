@@ -12,11 +12,19 @@ class Ability
     can :read, Post, :public => true
     
     #email shares
-    can :read, Post, :email_shares => {:email => user.email, :can_show => true} 
-    can :destroy, Post, :email_shares => {:email => user.email, :can_destroy => true} 
-    can :update, Post, :email_shares => {:email => user.email, :can_update => true}
     can :manage, EmailShare, :post => {:email_shares => {:email => user.email, :can_share => true}}
-    can :share, Post, :email_shares => {:email => user.email, :can_share => true}
+    
+    can :read, Post, ["EXISTS (SELECT * FROM email_shares WHERE post_id = posts.id AND email = ? AND can_show = true)", user.email] do |post|
+    end
+    
+    can :destroy, Post, ["EXISTS (SELECT * FROM email_shares WHERE post_id = posts.id AND email = ? AND can_destroy = true)", user.email] do |post|
+    end
+    
+    can :update, Post, ["EXISTS (SELECT * FROM email_shares WHERE post_id = posts.id AND email = ? AND can_update = true)", user.email] do |post|
+    end
+    
+    can :share, Post, ["EXISTS (SELECT * FROM email_shares WHERE post_id = posts.id AND email = ? AND can_share = true)", user.email] do |post|
+    end
     
   end
 end

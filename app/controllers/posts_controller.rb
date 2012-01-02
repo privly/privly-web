@@ -28,10 +28,12 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @sidebar = {:news => false, :posts => true}
     @posts = @posts.page(params[:page]).order('created_at DESC')
     respond_to do |format|
-      format.html # index.html.erb
+      format.html {
+        @sidebar = {:news => false, :posts => true}
+        render
+      } # index.html.erb
       format.json { render :json => @posts }
     end
   end
