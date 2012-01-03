@@ -21,8 +21,16 @@
 
 <div id="pagewrap">
     <div id="wrap" style="min-height:400px;">
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+        <% if notice %>
+        <div class="flash notice">
+            <p><%= notice %></p>
+        </div>
+        <% end %>
+        <% if alert %>
+        <div class="flash alert">
+            <p><%= alert %></p>
+        </div>
+        <% end %>
         <%= yield :top_column %>
         <div id="maincontent">
                 
