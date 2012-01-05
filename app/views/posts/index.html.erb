@@ -6,11 +6,9 @@
 <% @posts.each do |post| %>
     <div class="post">
         <div class="posthead">
-            <label>
-            <p class="date">Posted <%= time_ago_in_words(post.created_at) %> ago.</p>
-            <%= post.content.safe_markdown %>
-            <p class="postmeta"><%= link_to "View", post_path(post) %> &middot; <%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></p>
+            <p class="postmeta"><%= link_to "Edit", edit_post_path(post) %> &middot; <%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %> &middot; Posted <span class="date"><%= time_ago_in_words(post.created_at) %></span> ago</p>
         </div>
+        <%= post.content.safe_markdown %>
     </div>
 <% end %>
 

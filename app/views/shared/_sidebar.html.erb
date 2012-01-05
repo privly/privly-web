@@ -17,17 +17,17 @@
             	<div>
             	    <ul class="posts">
                         <li><a><%= request.url %></a></li>
-                        <li>
+                        
                         <% if user_signed_in? %>
                             <% if current_user == @post.user %>
-                                <a>You Own This</a>
+                                <li><a>You Own This</a></li>
+                                <li><a class="date">Posted <%= time_ago_in_words(@post.created_at) %> ago.</a></li>
                             <% else %>
-                                <a>An Anonymous User Owns This</a>
+                                <li><a>An Anonymous User Owns This</a></li>
                             <% end %>
                         <% else %>
-                            <%= link_to "log in for ownership information", new_user_session_url %>
+                            <li><%= link_to "log in for ownership information", new_user_session_url %></li>
                         <% end %>
-                        </li>
                         <% if can? :update, @post %>
                         <li><%= link_to 'Edit', edit_post_path(@post) %></li>
                         <% end %>

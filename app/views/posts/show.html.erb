@@ -4,9 +4,7 @@
 
 <h2 class="subhead"><span>Post</span></h2>
 <div class="post">
-    <div class="posthead">
-        <p><%= @post.content.safe_markdown %></p>
-    </div>
+    <%= @post.content.safe_markdown %>
 </div>
 
 <% if can? :share, @post %>
