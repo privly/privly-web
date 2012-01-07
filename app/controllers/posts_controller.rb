@@ -6,13 +6,15 @@ class PostsController < ApplicationController
   # Obscure whether the record exists when not found
   rescue_from ActiveRecord::RecordNotFound do |exception|
     if user_signed_in?
-      format.html {
-        @sidebar = {:post => true, :news => false, :posts => true}
-        render "noaccess"
-      }
-      format.gm { render "noaccess"  }
-      format.iframe { render "noaccess" }
-      format.json { render "noaccess" }
+      respond_to do |format|
+        format.html {
+          @sidebar = {:news => false, :posts => true}
+          render "noaccess"
+        }
+        format.gm { render "noaccess"  }
+        format.iframe { render "noaccess" }
+        format.json { render "noaccess" }
+      end
     else
       respond_to do |format|
         format.html {
