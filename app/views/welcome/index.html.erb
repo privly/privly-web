@@ -19,17 +19,25 @@ $(document).ready(function() {
 	</div>
 	<div id="rightboxes">
 		<div class="box1">
-			<p class="rotate"><a href="#"><span>Download Extension</span> </a></p>
+			<p class="rotate">
+			    <%= link_to("https://github.com/smcgregor/PrivateWebExtension/tree/master/FirefoxExtension/extension", :confirm => "You Will Need to Compress the Source as a ZIP File, then change the extension to .xpi in order to install.") do %>
+                  <span>Download Extension</span>
+                <% end %>
+			</p>
 		</div>
 		<div class="box2">
 			<p class="rotate">
-				<a href="#"><span>Download Greasemonkey Script</span> </a>
+			    <%= link_to("https://github.com/smcgregor/PrivateWebExtension/raw/master/GreaseMonkey/Firefox/privateweb.user.js", :target => "_blank") do %>
+                  <span>Download Greasemonkey Script</span>
+                <% end %>
 			</p>
 		</div>
 
 		<div class="box3">
 			<p class="rotate">
-				<a href="#"><span>Contribute Time or Money</span> </a>
+			    <%= link_to(pages_donate_path) do %>
+                  <span>Contribute Time or Money</span>
+                <% end %>
 			</p>
 		</div>
 
@@ -41,18 +49,18 @@ $(document).ready(function() {
 <% content_for :top_main_content_column do %>
 	<div id="threecol">
 		<div class="col1">
-			<h2><a href="http://seizeprivacy.org/sharing.html">Share Anywhere</a></h2>
-			<p>We will allow you to share data across platforms without giving the platform access to your communications. <a href="http://seizeprivacy.org/sharing.html">See How</a></p>
+			<h2><%= link_to "Share Anywhere", pages_about_path %></h2>
+			<p>We will allow you to share data across platforms without giving the platform access to your communications. <%= link_to "See How", pages_about_path %></p>
 		</div>
 		
 		<div class="col2">
-			<h2><a href="http://seizeprivacy.org/control.html">Can't Be Evil</a></h2>
-			<p>We don't want your trust. We want to make trust unnecessary. You can can control your own digital identity. <a href="http://seizeprivacy.org/control.html">See How</a></p>
+			<h2><%= link_to "Can't Be Evil", pages_about_path %></h2>
+			<p>We don't want your trust. We want to make trust unnecessary. You can can control your own digital identity. <%= link_to "See How", pages_about_path %></p>
 		</div>
 
 		<div class="col3">
-			<h2><a href="http://seizeprivacy.org">Seize Privacy</a></h2>
-			<p>Web companies say privacy is dead, but you can use webmail, blogs, and social networks without handing over your personal information. <a href="http://seizeprivacy.org">See How</a></p>
+			<h2><%= link_to "Seize Privacy", pages_about_path %></h2>
+			<p>Web companies say privacy is dead, but you can use webmail, blogs, and social networks without handing over your personal information. <%= link_to "See How", pages_about_path %></p>
 		</div>
 
 		<div class="clear"></div>
