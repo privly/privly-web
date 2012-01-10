@@ -15,7 +15,7 @@ window.onload = function () {
 	evt.initEvent("IframeResizeEvent", true, true);
 	var element = document.createElement("privElement");  
 	element.setAttribute("height", document.body.scrollHeight);  
-	element.setAttribute("url", document.URL);  
+	element.setAttribute("frame_id", <%= params[:frame_id] %>);  
 	document.documentElement.appendChild(element);    
 	element.dispatchEvent(evt);	
 }
