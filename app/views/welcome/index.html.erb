@@ -20,14 +20,14 @@ $(document).ready(function() {
 	<div id="rightboxes">
 		<div class="box1">
 			<p class="rotate">
-			    <%= link_to("https://github.com/smcgregor/PrivateWebExtension/tree/master/FirefoxExtension/extension", :confirm => "You Will Need to Compress the Source as a ZIP File, then change the extension to .xpi in order to install.") do %>
+			    <%= link_to(pages_download_path(:anchor => "extension")) do %>
                   <span>Download Extension</span>
                 <% end %>
 			</p>
 		</div>
 		<div class="box2">
 			<p class="rotate">
-			    <%= link_to("https://github.com/smcgregor/PrivateWebExtension/raw/master/GreaseMonkey/Firefox/privateweb.user.js", :target => "_blank") do %>
+			    <%= link_to(pages_download_path(:anchor => "greasemonkey")) do %>
                   <span>Download Greasemonkey Script</span>
                 <% end %>
 			</p>

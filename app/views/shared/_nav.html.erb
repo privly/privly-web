@@ -3,30 +3,6 @@
         <h1 id="sitename"><a href="/">Priv.ly </a><span>Share Priv(ate).ly</span></h1>
         <div id="mainnav">
             <ul>
-                <% if controller.controller_name == "welcome" %>
-                    <li class="active"><a href="/">Welcome <span>home</span></a></li>
-                <% else %>
-                    <li><a href="/">Welcome <span>home</span></a></li>
-                <% end %>
-                
-                <% if controller.controller_name == "posts" %>
-                    <li class="active"><a href="/posts">Posts <span>list</span></a></li>
-                <% else %>
-                    <li><a href="/posts">Posts <span>list</span></a></li>
-                <% end %>
-                
-                
-                <li <% if controller.controller_name == "pages" %>class="active"<% end %>>
-                    <% if user_signed_in? %>
-                        <%= link_to pages_account_path do %>
-                            Account <span>info</span>
-                        <% end %>
-                    <% else %>
-                        <%= link_to pages_about_path do %>
-                            About <span>info</span>
-                        <% end %>
-                    <% end %>
-                </li>
                 
                 <% if controller.controller_name == "sessions" %>
                     <% if user_signed_in? %>
@@ -57,6 +33,29 @@
                     </li>
                     <% end %>
                 <% end %>
+                
+                <% if user_signed_in? %>
+                    <li <% if controller.action_name == "account" %>class="active"<% end %>>
+                        <%= link_to pages_account_path do %>
+                            Account <span>info</span>
+                        <% end %>
+                    </li>
+                <% else %>
+                    <li <% if controller.controller_name == "pages" %>class="active"<% end %>>
+                        <%= link_to pages_about_path do %>
+                            About <span>info</span>
+                        <% end %>
+                    </li>
+                <% end %>
+                
+                <% if user_signed_in? %>
+                    <% if controller.controller_name == "posts" %>
+                        <li class="active"><a href="/posts">Posts <span>list</span></a></li>
+                    <% else %>
+                        <li><a href="/posts">Posts <span>list</span></a></li>
+                    <% end %>
+                <% end %>
+                
             </ul>
         </div>
         <div class="clear"></div>

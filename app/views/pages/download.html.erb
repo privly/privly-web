@@ -3,3 +3,41 @@
 <% end %>
 
 <h2 class="subhead"><span>Download</span></h2>
+
+<p>We need to bring Privly to other browsers and platforms, so if you don't see your endpoint here, please consider <%= link_to "joining", pages_join_path %> the team.</p>
+
+<br />
+
+<div id="extension">
+    <h1 id="firefox">Firefox Extension</h1>
+</div>
+<p>The extension is still pre-release. Please check back if you need a stable product. We will announce developments on Privly's <%= link_to "Twitter", "http://twitter.com/#!/Privly" %> account.</p>
+
+<br />
+
+<p>
+    <strong>To install the extension:</strong>
+    <ol>
+        <li><%= link_to "Download the source from Github", "https://github.com/smcgregor/PrivateWebExtension/tree/master/FirefoxExtension/extension" %></li>
+        <li>ZIP the source code for the extension</li>
+        <li>Change the ZIP extension to ".xpi"</li>
+        <li>Install the .xpi file from Firefox, tools &gt; add ons &gt; (click gear symbol on page) &gt; Install Add-on from File</li>
+    </ol>
+</p>
+
+<br />
+<br />
+
+<h1 id="greasemonkey">Greasemonkey Script</h1>
+<h2>Firefox</h2>
+<p>
+The Greasmonkey script will not create new links for you. Use the <%= link_to "extension", "#extension" %> if you want to do more than read links.
+</P>
+<p>
+    <strong>Installation Steps</strong>
+    <ol>
+        <li><%= link_to "Install Greasemonkey", "https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/" %></li>
+        <li>Restart your browser</li>
+        <li>Visit the <%= link_to "Greasemonkey Script", "https://github.com/smcgregor/PrivateWebExtension/raw/master/GreaseMonkey/Firefox/privateweb.user.js" %></li>
+    </ol>
+</p>

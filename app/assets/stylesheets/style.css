@@ -37,7 +37,7 @@ body {background:#242424; font: 14px Georgia, "Times New Roman", Times, serif; c
 #mainnav {float:right; float:right; height:80px; color:#ccc; min-width:600px;}
 #mainnav ul {list-style:none;}
 #mainnav li {display:inline; font: bold 18px "Trebuchet MS", Arial, Helvetica, sans-serif;}
-#mainnav li a {color:#827b6e; text-decoration:none; padding:25px 30px 0 30px; height:55px; display:block; float:left;}
+#mainnav li a {color:#827b6e; text-decoration:none; padding:25px 30px 0 30px; height:55px; display:block; float:right;}
 #mainnav li a span {display:block; font: normal 14px Vollkorn, Georgia, "Times New Roman", Times, serif; color:#6c675e; text-transform: capitalize;}
 #mainnav li a:hover {color:#f3ebd9;}
 #mainnav li a:hover span {color:#827b6e!important}
