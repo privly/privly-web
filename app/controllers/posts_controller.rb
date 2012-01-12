@@ -43,6 +43,9 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    
+    response.headers["privlyurl"] = request.url
+    
     @email_share = EmailShare.new
     respond_to do |format|
       format.html {
