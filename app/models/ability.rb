@@ -9,12 +9,12 @@ class Ability
     can :manage, EmailShare, :post => {:user_id => user.id}
     
     #if it is marked public
-    can :read, Post, :public => true
+    can :show, Post, :public => true
     
     #email shares
     can :manage, EmailShare, :post => {:email_shares => {:email => user.email, :can_share => true}}
     
-    can :read, Post, ["EXISTS (SELECT * FROM email_shares WHERE post_id = posts.id AND email = ? AND can_show = true)", user.email] do |post|
+    can :show, Post, ["EXISTS (SELECT * FROM email_shares WHERE post_id = posts.id AND email = ? AND can_show = true)", user.email] do |post|
     end
     
     can :destroy, Post, ["EXISTS (SELECT * FROM email_shares WHERE post_id = posts.id AND email = ? AND can_destroy = true)", user.email] do |post|
