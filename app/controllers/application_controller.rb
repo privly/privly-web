@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   
   http_basic_authenticate_with :name => "PrivateWeb", :password => "TrustNoOne"
   
+  helper_method :has_extension?, :extension_available?
+  
+  #Access denied routing
   rescue_from CanCan::AccessDenied do |exception|
     if exception.subject.class.name == "Post"
       if user_signed_in?
@@ -30,4 +33,25 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  protected 
+    Browser = Struct.new(:browser, :version)
+    ExtensionBrowsers = [
+      Browser.new("Firefox", "3.6.1.1")
+    ]
+    def extension_available?
+      user_agent = UserAgent.parse(request.user_agent)
+      if ExtensionBrowsers.detect { |browser| user_agent >= browser }
+        true
+      else
+        false
+      end
+    end
+    
+    def has_extension?
+      if request.headers['privlyversion']
+        true
+      else
+        false
+      end
+    end
 end

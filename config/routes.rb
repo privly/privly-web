@@ -25,7 +25,6 @@ Privly::Application.routes.draw do
   get "pages/privacy"
   get "pages/terms"
   get "pages/help"
-  get "pages/status"
   get "pages/irc"
   get "pages/bug"
   get "pages/donate"

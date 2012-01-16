@@ -34,10 +34,6 @@ class PagesController < ApplicationController
     @sidebar = {:news => false, :help => true}
   end
 
-  def status
-    @sidebar = {:news => false, :help => true}
-  end
-
   def irc
     @sidebar = {:news => false, :help => true}
   end
@@ -51,6 +47,7 @@ class PagesController < ApplicationController
   end
 
   def download
+    @sidebar = {:news => false, :contribute => true}
   end
 
   def about

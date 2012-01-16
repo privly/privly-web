@@ -56,6 +56,14 @@ body {background:#242424; font: 14px Georgia, "Times New Roman", Times, serif; c
                  M11=0.9996573249755573, M12=0.02617694830787315, M21=-0.02617694830787315, M22=0.9996573249755573); /* IE6,IE7 */
         -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(SizingMethod='auto expand',M11=0.9996573249755573, M12=0.02617694830787315, M21=-0.02617694830787315, M22=0.9996573249755573)"; /* IE8 */
                zoom: 1;}
+.rotate_sidebar {
+		-moz-transform: rotate(-5.5deg);  /* FF3.5+ */
+      	-o-transform: rotate(-5.5deg);  /* Opera 10.5 */
+ 		-webkit-transform: rotate(-5.5deg);  /* Saf3.1+, Chrome */
+       filter:  progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', 
+                M11=0.9996573249755573, M12=0.02617694830787315, M21=-0.02617694830787315, M22=0.9996573249755573); /* IE6,IE7 */
+       -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(SizingMethod='auto expand',M11=0.9996573249755573, M12=0.02617694830787315, M21=-0.02617694830787315, M22=0.9996573249755573)"; /* IE8 */
+              zoom: 1;}
 .post p {margin-bottom:15px;}
 .posthead {margin-bottom:15px;}
 .posthead p, .posthead h3 {margin-bottom:0!important;}

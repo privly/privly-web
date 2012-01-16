@@ -49,7 +49,12 @@ class PostsController < ApplicationController
     @email_share = EmailShare.new
     respond_to do |format|
       format.html {
-        @sidebar = {:post => true, :news => false, :posts => true}
+        if extension_available? and not has_extension?
+          @sidebar = {:post => true, :news => false, :posts => true, :download_extension => true}
+        else
+          @sidebar = {:post => true, :news => false, :posts => true, :download_extension => false}
+        end
+        
         render
       }
       format.gm { render }

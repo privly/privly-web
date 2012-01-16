@@ -50,3 +50,5 @@ gem 'omniauth-facebook' #https://github.com/mkdynamic/omniauth-facebook
 gem 'rdiscount'
 
 gem 'will_paginate'
+
+gem 'useragent'
