@@ -7,6 +7,11 @@
 $(document).ready(function() {
   $("#page").css("border-right","0px");
 });
+function newInvite()
+{
+    $("#invite_visual").slideUp("slow");
+    $("#invite_form").slideDown("slow");
+}
 </script>
 <% end %>
 
@@ -25,22 +30,30 @@ $(document).ready(function() {
                 <% end %>
 			</p>
 		</div>
-		<div class="box2">
-			<p class="rotate">
-			    <%= link_to(pages_download_path(:anchor => "greasemonkey")) do %>
-                  <span>Download Greasemonkey Script</span>
-                <% end %>
-			</p>
-		</div>
-
+        <div class="box2" id="invite_visual">
+            <p class="rotate">
+                <a href="#" onclick="newInvite();">
+                  <span>Sign-up for Invitation</span>
+                </a>
+            </p>
+        </div>
 		<div class="box3">
 			<p class="rotate">
 			    <%= link_to(pages_donate_path) do %>
-                  <span>Contribute Time or Money</span>
+                  <span>Make a Donation</span>
                 <% end %>
 			</p>
 		</div>
-
+        <div class="box2" id="invite_form" style="display:none;background:none">
+            <%= form_for(@invitation) do |f| %>
+                      <h2>Invitation</h2>
+                      <%= f.email_field :email, :value=>"Email" %>
+                      <br />
+                      <%= f.check_box :news %>
+                      <%= f.label "Also send major site news" %>
+                      <%= f.submit "submit" %>
+            <% end %>
+		</div>
 	</div>
 	<div class="clear"></div>
 </div>

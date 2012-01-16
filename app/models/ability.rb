@@ -26,5 +26,12 @@ class Ability
     can :share, Post, ["EXISTS (SELECT * FROM email_shares WHERE post_id = posts.id AND email = ? AND can_share = true)", user.email] do |post|
     end
     
+    #invitations
+    if user.admin?
+      can :manage, Invitation
+    else
+      can :create, Invitation
+    end
+    
   end
 end

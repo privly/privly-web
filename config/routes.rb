@@ -39,6 +39,8 @@ Privly::Application.routes.draw do
 
   match '/' => 'welcome#index', :as => :welcome
 
+  resources :invitations, :only => [:create, :destroy, :index, :new, :show]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
