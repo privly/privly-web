@@ -2,12 +2,40 @@
     Post
 <% end %>
 
-<h2 class="subhead"><span>Post</span></h2>
+
+
+<h2 class="subhead">
+    <span>
+        Post Start
+        <% if can? :update, @post %>
+            &middot;
+            <%= link_to 'Edit', edit_post_path(@post), :style => 'color:#b3a893;' %>
+        <% end %>
+        <% if can? :destroy, @post %>
+            &middot;
+            <%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+        <% end %>
+    </span>
+</h2>
 <div class="post">
     <%= @post.content.safe_markdown %>
 </div>
 
+<h2 class="subhead">
+    <span style="color:#b3a893;">Post End
+        <% if can? :update, @post %>
+            &middot;
+            <%= link_to 'Edit', edit_post_path(@post), :style => 'color:#b3a893;' %>
+        <% end %>
+        <% if can? :destroy, @post %>
+            &middot;
+            <%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+        <% end %>
+    </span>
+</h2>
+
 <% if can? :share, @post %>
+
 <h2>Sharing</h2>
 <% if @post.public %>
     <p>This is a <strong>public</strong> post. Everyone has permission to read it.</p>

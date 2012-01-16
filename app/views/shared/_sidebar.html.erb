@@ -29,12 +29,6 @@
                         <% else %>
                             <li><%= link_to "log in for ownership information", new_user_session_url %></li>
                         <% end %>
-                        <% if can? :update, @post %>
-                        <li><%= link_to 'Edit', edit_post_path(@post) %></li>
-                        <% end %>
-                        <% if can? :destroy, @post %>
-                        <li><%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete %></li>
-                        <% end %>
                         <% if user_signed_in? %>
                         <li><%= link_to 'All Posts', posts_path %></li>
                         <% end %>
