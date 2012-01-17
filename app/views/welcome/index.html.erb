@@ -22,11 +22,17 @@ function newInvite()
 		<p>We are in alpha: 0.1.1.1</p>
 		<p>TODO: Insert Video or animated GIF</p>
 	</div>
-	<div id="rightboxes">
-		<div class="box1">
-			<p class="rotate">
-			    <%= link_to(pages_download_path(:anchor => "extension")) do %>
-                  <span>Download Extension</span>
+    <div id="rightboxes">
+        <div class="box1">
+            <p class="rotate">
+                <% if extension_available? %>
+                    <%= link_to(pages_download_path(:anchor => "extension")) do %>
+                      <span>Download Extension</span>
+                    <% end %>
+                <% else %>
+                    <%= link_to pages_about_path do %>
+                      <span>About Privly</span>
+                    <% end %>
                 <% end %>
 			</p>
 		</div>

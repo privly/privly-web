@@ -1,35 +1,65 @@
 <% content_for(:title) do %>
-    Privacy
+    Privacy and TOS
 <% end %>
 
-<h2 class="subhead"><span>Privacy</span></h2>
+<% content_for(:extrajs) do %>
+    <script type="text/javascript">
+      $(function() {
+          $( "#rules_accordion" ).accordion({autoHeight: false, collapsible: false, active: 0});
+      });
+    </script>
+<% end %>
 
-<h1>Principles</h1>
+<h2 class="subhead"><span>Privacy and Terms of Service</span></h2>
 
-<div class="post">
-    <div class="posthead">
-        <h2>Make Privacy Automatic</h2>
-        <p>We will eventually store everything as cipher-text (encrypted), and execute all encryption services on the browser. We don't want to be able to read anything. Your content will be as secure as your password.</p>
+<div class="accordionhead">
+    <div id="rules_accordion">
+
+        <h2><a id="accordion_privacy" href="#accordion_privacy">Privacy</a></h2>
+        <div>
+            <h1>Principles</h1>
+
+            <div class="post">
+                <div class="posthead">
+                    <h2>Make Privacy Automatic</h2>
+                    <p>We will eventually store everything as cipher-text (encrypted), and execute all encryption services on the browser. We don't want to be able to read anything. Your content will be as secure as your password.</p>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="posthead">
+                    <h2>It is <strong>Your</strong> Data</h2>
+                    <p>We won't crawl your content for advertising purposes, or archive it after deletion.</p>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="posthead">
+                    <h2>Everything is Opt-In</h2>
+                    <p>When we add capabilities, access to existing content will not change unless the content-owner explicitly changes the settings.</p>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="posthead">
+                    <h2>Reading Content is Also Private</h2>
+                    <p>Content owners do not get to know which links you read. Privly will use reader information (example: geography) for optimization and debugging purposes only.</p>
+                </div>
+            </div>
+        </div>
+    
+        <h2><a id="accordion_security" href="#accordion_security">Terms of Service</a></h2>
+        <div>
+        	<%= render "terms" %>
+        </div>
+    
+
     </div>
+    
+    <br />
+
+    <p style="text-align: center;">
+        <%= link_to "Show All", "#", {:onclick => "$('#rules_accordion').accordion('destroy');$('#show_all_link').toggle();", :id => "show_all_link"} %>
+    </p>
 </div>
 
-<div class="post">
-    <div class="posthead">
-        <h2>It is <strong>Your</strong> Data</h2>
-        <p>We won't crawl your content for advertising purposes, or archive it after deletion.</p>
-    </div>
-</div>
-
-<div class="post">
-    <div class="posthead">
-        <h2>Everything is Opt-In</h2>
-        <p>When we add capabilities, access to existing content will not change unless the content-owner explicitly changes the settings.</p>
-    </div>
-</div>
-
-<div class="post">
-    <div class="posthead">
-        <h2>Reading Content is Also Private</h2>
-        <p>Content owners do not get to know which links you read. Privly will use reader information (example: geography) for optimization and debugging purposes only.</p>
-    </div>
-</div>

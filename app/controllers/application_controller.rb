@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  protected 
+  protected
     Browser = Struct.new(:browser, :version)
     ExtensionBrowsers = [
       Browser.new("Firefox", "3.6.1.1")
@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
     end
     
     def has_extension?
-      if request.headers['privlyversion']
+      if request.headers['Privly-Version']
         true
       else
         false

@@ -23,7 +23,7 @@ Privly::Application.routes.draw do
   get "pages/people"
   get "pages/license"
   get "pages/privacy"
-  get "pages/terms"
+  get "pages/terms" => redirect("/pages/privacy")
   get "pages/help"
   get "pages/irc"
   get "pages/bug"

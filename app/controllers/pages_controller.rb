@@ -26,10 +26,6 @@ class PagesController < ApplicationController
     @sidebar = {:news => false, :about => true}
   end
 
-  def terms
-    @sidebar = {:news => false, :about => true}
-  end
-
   def help
     @sidebar = {:news => false, :help => true}
   end
