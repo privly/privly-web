@@ -38,9 +38,31 @@
 
 <h2>Sharing</h2>
 <% if @post.public %>
-    <p>This is a <strong>public</strong> post. Everyone has permission to read it.</p>
+    <p>This is a <strong>public</strong> post. Everyone has permission to read it.
+    <% if can? :update, @post %>
+        <%= form_for(@post) do |f| %>
+          <div class="actions">
+              <%= f.hidden_field(:public, {:value=>0}) %>
+            <p><%= f.submit "Make Private" %></p>
+          </div>
+        <% end %>
+    <% else %>
+        You can make it private if you grant yourself the update permission on your email share.
+    <% end %>
+    </p>
 <% else %>
-    <p>This post is not public. You have you share this post below for it to be viewable by others.</p>
+    <p>This post is not public. You have you share this post below for it to be viewable by others.
+        <% if can? :update, @post %>
+            <%= form_for(@post) do |f| %>
+              <div class="actions">
+                  <%= f.hidden_field(:public, {:value=>1}) %>
+                <p><%= f.submit "Make Public" %></p>
+              </div>
+            <% end %>
+        <% else %>
+            You can make it public if you grant yourself the update permission on your email share.
+        <% end %>
+    </p>
 <% end %>
 
 <%= form_for(@email_share) do |f| %>

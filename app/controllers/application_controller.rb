@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
         end
       end
     else
-      render :file => "#{Rails.root}/public/403.html", :status => 403
+      render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false
     end
   end
   

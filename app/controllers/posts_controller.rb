@@ -66,7 +66,6 @@ class PostsController < ApplicationController
   # GET /posts/new
   # GET /posts/new.json
   def new
-    #@post = Post.new
     @sidebar = {:markdown => true, :posts => true, :news => false}
     respond_to do |format|
       format.html # new.html.erb
@@ -103,6 +102,11 @@ class PostsController < ApplicationController
   # PUT /posts/1
   # PUT /posts/1.json
   def update
+    
+    unless can? :share, @post
+      params[:post].delete :public
+    end
+    
     respond_to do |format|
       if @post.update_attributes(params[:post])
         format.html { redirect_to @post, :notice => 'Post was successfully updated.' }
