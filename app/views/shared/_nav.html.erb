@@ -6,11 +6,19 @@
                 
                 <% if controller.controller_name == "sessions" %>
                     <% if user_signed_in? %>
-                    <li class="active"><%= link_to destroy_user_session_path, :method => :delete do %>
-                        Logout
-                        <span>auth</span>
+                        <% if request.headers["auth_token"] %>
+                            <li><%= link_to destroy_user_session_path, :method => :delete, :confirm => "The extension is still signed in, are you sure you want to logout of the website?" do %>
+                                Logout
+                                <span>auth</span>
+                                <% end %>
+                            </li>
+                        <% else%>
+                            <li><%= link_to destroy_user_session_path, :method => :delete do %>
+                                Logout
+                                <span>auth</span>
+                                <% end %>
+                            </li>
                         <% end %>
-                    </li>
                     <% else %>
                     <li class="active"><%= link_to new_user_session_path do %>
                         Login
@@ -19,12 +27,20 @@
                     </li>
                     <% end %>
                 <% else %>
-                    <% if user_signed_in? %>
-                    <li><%= link_to destroy_user_session_path, :method => :delete do %>
-                        Logout
-                        <span>auth</span>
+                    <% if user_signed_in? %>                    
+                        <% if request.headers["auth_token"] %>
+                            <li><%= link_to destroy_user_session_path, :method => :delete, :confirm => "The extension is still signed in, are you sure you want to logout of the website?" do %>
+                                Logout
+                                <span>auth</span>
+                                <% end %>
+                            </li>
+                        <% else%>
+                            <li><%= link_to destroy_user_session_path, :method => :delete do %>
+                                Logout
+                                <span>auth</span>
+                                <% end %>
+                            </li>
                         <% end %>
-                    </li>
                     <% else %>
                     <li><%= link_to new_user_session_path do %>
                         Login

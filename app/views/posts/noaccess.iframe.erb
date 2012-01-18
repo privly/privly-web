@@ -1,24 +1,8 @@
 <html>
-<head>
-</head>
-<body>
-This <%= link_to "Priv.ly", welcome_url, {:target => "_blank"} %> link is not shared with you or does not exist.
-
-<script type="text/javascript" >
-window.onload = function () {
-	//set iframe body tag's height to scrollheight.
-	var scrollHeight = document.body.scrollHeight;
-	document.body.style.height = scrollHeight+"px";
-	
-	//dispatch an event 
-	var evt = document.createEvent("Events");  
-	evt.initEvent("IframeResizeEvent", true, true);
-	var element = document.createElement("privElement");  
-	element.setAttribute("height", document.body.scrollHeight);  
-	element.setAttribute("url", document.URL);  
-	document.documentElement.appendChild(element);    
-	element.dispatchEvent(evt);	
-}
-</script>
-</body>
+    <head>
+         <%= render 'iframe_script.html' %>
+    </head>
+    <body>
+        This <%= link_to "Priv.ly", welcome_url, {:target => "_blank"} %> link is not shared with you or does not exist.
+    </body>
 </html>

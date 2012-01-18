@@ -1,24 +1,8 @@
 <html>
-<head>
-</head>
-<body>
-<%= @post.content.safe_markdown %>
-
-<script type="text/javascript" >
-window.onload = function () {
-	//set iframe body tag's height to scrollheight.
-	var scrollHeight = document.body.scrollHeight;
-	document.body.style.height = scrollHeight+"px";
-	
-	//dispatch an event 
-	var evt = document.createEvent("Events");  
-	evt.initEvent("IframeResizeEvent", true, true);
-	var element = document.createElement("privElement");  
-	element.setAttribute("height", document.body.scrollHeight);  
-	element.setAttribute("frame_id", <%= params[:frame_id] %>);  
-	document.documentElement.appendChild(element);    
-	element.dispatchEvent(evt);	
-}
-</script>
-</body>
+    <head>
+        <%= render 'iframe_script.html' %>
+    </head>
+    <body>
+    <%= @post.content.safe_markdown %>
+    </body>
 </html>
