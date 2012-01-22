@@ -61,8 +61,7 @@
 </style>
 <% end %>
 
-<% if @authentications %>
-  <% unless @authentications.empty? %>
+<% if @authentications and not @authentications.empty? %>
     <p><strong>You can sign in to this account using:</strong></p>
     <div class="authentications">
       <% for authentication in @authentications %>
@@ -75,27 +74,31 @@
       <% end %>
       <div class="clear"></div>
     </div>
-  <% end %>
-  <p><strong>Add another service to sign in with:</strong></p>
 <% else %>
   <p><strong>Sign in through one of these services:</strong></p>
-<% end %>
+  <!-- 
+  <a href="/auth/twitter" class="auth_provider">
+    <%= image_tag "twitter_64.png", :size => "64x64", :alt => "Twitter" %>
+    Twitter
+  </a>
+  -->
 
-<a href="/auth/twitter" class="auth_provider">
-  <%= image_tag "twitter_64.png", :size => "64x64", :alt => "Twitter" %>
-  Twitter
-</a>
-<%= link_to user_omniauth_authorize_path(:facebook), :class => :auth_provider do %>
-    <%= image_tag "facebook_64.png", :size => "64x64", :alt => "Facebook" %>
-    Facebook
-<% end %>
+  <%= link_to user_omniauth_authorize_path(:facebook), :class => :auth_provider do %>
+      <%= image_tag "facebook_64.png", :size => "64x64", :alt => "Facebook" %>
+      Facebook
+  <% end %>
 
-<a href="/auth/google_apps" class="auth_provider">
-  <%= image_tag "google_64.png", :size => "64x64", :alt => "Google" %>
-  Google
-</a>
-<a href="/auth/open_id" class="auth_provider">
-  <%= image_tag "openid_64.png", :size => "64x64", :alt => "OpenID" %>
-  OpenID
-</a>
+  <!-- 
+  <a href="/auth/google_apps" class="auth_provider">
+    <%= image_tag "google_64.png", :size => "64x64", :alt => "Google" %>
+    Google
+  </a>
+  -->
+  <!-- 
+  <a href="/auth/open_id" class="auth_provider">
+    <%= image_tag "openid_64.png", :size => "64x64", :alt => "OpenID" %>
+    OpenID
+  </a>
+  -->
+<% end %>
 <div class="clear"></div>

@@ -1,4 +1,7 @@
 class AuthenticationsController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
   # GET /authentications
   # GET /authentications.json
   def index
@@ -28,12 +31,12 @@ class AuthenticationsController < ApplicationController
   # GET /authentications/new
   # GET /authentications/new.json
   def new
-    redirect_to new_authentication_path, :notice => "You can't manually create authentications."
+    redirect_to authentications_path, :notice => "You can't manually create authentications."
   end
 
   # GET /authentications/1/edit
   def edit
-    redirect_to authentications_new_path, :notice => "You can't edit authentications."
+    redirect_to new_authentication_path, :notice => "You can't edit authentications."
   end
 
   # POST /authentications
