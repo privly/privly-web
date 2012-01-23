@@ -17,5 +17,7 @@ namespace :deploy do
     task :symlink_shared, :hosts => "#{domain}" do
         run "ln -s #{privly_shared_path}production.rb #{latest_release}/config/environments/production.rb"
         run "ln -s #{privly_shared_path}database.yml #{latest_release}/config/database.yml"
+        run "rm #{latest_release}/config/initializers/secret_token.rb"
+        run "ln -s #{privly_shared_path}secret_token.rb #{latest_release}/config/initializers/secret_token.rb"
     end
 end

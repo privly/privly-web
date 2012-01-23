@@ -1,7 +1,12 @@
+# Example of a deployment file for
+# Capistrano. You should change the 
+# relevant lines to match your system, 
+# then copy this file to database.yml
+
 set :user, "your_server_username"
 set :scm_username, "your_scm_username"
 set :application, "privly"
-set :repository,  "git@github.com:smcgregor/PrivateWebExtension.git"
+set :repository,  "git@github.com:smcgregor/privly-web.git"
 
 set :deploy_to, "/var/www"
 set :privly_shared_path, "#{deploy_to}../shared/"

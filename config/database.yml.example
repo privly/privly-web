@@ -1,4 +1,7 @@
-# Example of a local database setup. 
+# Example of a database setup. 
+# You should change the relevant lines
+# to match your system, then copy
+# this file to database.yml
 baseSettings: &baseSettings
     adapter: mysql2
     username: your_database_user_name
