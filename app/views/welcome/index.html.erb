@@ -32,13 +32,13 @@ function newInvite()
         </div>
         <div class="box2">
             <p class="rotate">
-                <% if extension_available? %>
+                <% if extension_available? and not has_extension? %>
                     <%= link_to(pages_download_path(:anchor => "extension")) do %>
                       <span>Download Extension</span>
                     <% end %>
                 <% else %>
                     <%= link_to pages_about_path do %>
-                      <span>About Privly</span>
+                      <span>Learn More About Privly</span>
                     <% end %>
                 <% end %>
             </p>
@@ -69,12 +69,12 @@ function newInvite()
 	<div id="threecol">
 		<div class="col1">
 			<h2><%= link_to "About", pages_about_path %></h2>
-			<p>Privly is a proof-of-concept for a new standard of private sharing. It destroys the notion that you must sacrifice privacy to interact with the social web. <%= link_to "Learn More.", pages_about_path %></p>
+			<p>Privly is a proof-of-concept for a new standard of private sharing. It is the only way to maintain control of your data on the social web. <%= link_to "Learn More.", pages_about_path %></p>
 		</div>
 		
 		<div class="col2">
 			<h2><%= link_to "Roadmap", pages_roadmap_path %></h2>
-			<p>This proof-of-concept is the core of a system with novel sharing and security concepts. For more information, read our <%= link_to "Roadmap", pages_roadmap_path %> or <%= link_to "About Page.", pages_about_path %></p>
+			<p>Privly is the core of a novel sharing and privacy feature set. For more information, read our <%= link_to "Roadmap", pages_roadmap_path %> or <%= link_to "About Page.", pages_about_path %></p>
 		</div>
 
 		<div class="col3">
