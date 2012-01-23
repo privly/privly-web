@@ -1,0 +1,206 @@
+<h3>URL Structures</h3>
+<p>Each of these endpoints have different security arrangements, and collectively cover most secure sharing needs. The steps below the URL format outline what an extension would do when it encounters the URL. The current implementation supports the LEVEL 0, undistributed endpoint.</p>
+
+<hr/>
+<p>LEVEL 0: Intermediary with Access</p>
+
+<br/><br/>
+
+<h3>https://priv.ly/posts/</h3>
+<ul>
+    <li>Parameter: Post Identifier</li>
+</ul>
+<ol>
+    <li>The extension asks Privly for the content, which the user may or may not have access to</li>
+</ol>
+
+<br/><br/>
+
+<h3>https://priv.ly/distributed</h3>
+<ul>
+    <li>Parameter: Content Host (example: contenthost.org/privly/####?optional_additional_auth=)</li>
+</ul>
+
+<ol>    
+    <li>The extension checks the user preferences and the privacy status of contenthost.org</li>
+    <li>The extension decides which identities it will assert for the link and sends them to Privly</li>
+    <li>Privly signs the requested identities and a timestamp and returns the signature to the extension</li>
+    <li>The extension then requests the content from contenthost.org</li>
+</ol>
+
+<br/><br/>
+
+<hr/>
+<p>LEVEL 1: Separation of Content and Cryptography</p>
+<p>In this level of security and privacy, the link contains either the cipher text or the decryption key, and the link points to the server with the identified cipher text or decryption key. This level preserves content readability without needing an extension or user account, but the remote server only needs the link to have access to the cleartext.</p>
+
+<br/><br/>
+
+<h3>https://priv.ly/cipher_text/</h3>
+<ul>
+    <li>Parameter: Post Identifier</li>
+    <li>Parameter: PGP Key</li>
+</ul>
+<ol>
+<li>The extension asks Privly for the cipher text, which the user may or may not have access to</li>
+	<li>The extension decrypts the content according to the key on the url</li>
+</ol>
+
+<br/><br/>
+
+<h3>https://priv.ly/private_key/</h3>
+<ul>
+    <li>Parameter: Key Identifier</li>
+    <li>Parameter: Cipher Text</li>
+</ul>
+<ol>
+    <li>The extension asks Privly for the decryption key, which the user may or may not have access to</li>
+    <li>The extension decrypts the content from the URL according to the key from the server</li>
+</ol>
+
+<br/><br/>
+
+<h3>https://priv.ly/distributed/cipher_text</h3>
+<ul>
+    <li>Parameter: Cipher Text Host (example: contenthost.org/privly/####?optional_additional_auth=)</li>
+    <li>Parameter: PGP Key</li>
+</ul>
+<ol>
+    <li>The extension checks the user preferences and the privacy status of contenthost.org</li>
+    <li>The extension decides which identities it will assert for the link and sends them to Privly</li>
+    <li>Privly signs the requested identities and a timestamp and returns the signature to the extension</li>
+    <li>The extension then requests the cipher text from contenthost.org</li>
+    <li>The extension decrypts the content according to the key on the url</li>
+</ol>
+
+<br/><br/>
+
+<h3>https://priv.ly/distributed/private_key</h3>
+<ul>
+<li>Parameter: Key Host (example: keyhost.org/privly/####?optional_additional_auth=)</li>
+    <li>Parameter: Key Identifier</li>
+    <li>Parameter: Cipher Text</li>
+</ul>
+<ol>
+    <li>The extension checks the user preferences and the privacy status of keyhost.org</li>
+    <li>The extension decides which identities it will assert for the link and sends them to Privly</li>
+    <li>Privly signs the requested identities and a timestamp and returns the signature to the extension</li>
+    <li>The extension then requests the decryption key from keyhost.org</li>
+    <li>The extension decrypts the content according to the returned key</li>
+</ol>
+
+<br/><br/>
+
+<hr/>
+<p>LEVEL 1.5: Two Parties</p>
+<p>In this level of security and privacy, the link points to two different servers and organizations. The individuals or organizations storing the keys and cipher text could collaborate to gain access to the cleartext, but in many cases this would be unlikely.</p>
+
+<br/><br/>
+
+<h3>https://priv.ly/separation</h3>
+<ul>
+<li>Parameter: Cipher Text Host (example: contenthost.org/privly/####?optional_additional_auth=)</li>
+    <li>Parameter: Key Host (example: keyhost.org/privly/####?optional_additional_auth=)</li>
+    <li>Parameter: Key Identifier</li>
+    <li>Parameter: Cipher Text Identifier</li>
+</ul>
+<ol>
+    <li>The extension checks the user preferences and the privacy status of contenthost.org and keyhost.org</li>
+    <li>The extension decides which identities it will assert for the key and/or content and sends them to Privly</li>
+    <li>Privly signs the requested identities and a timestamp and returns the signature to the extension</li>
+    <li>The extension then requests the decryption key from keyhost.org</li>
+    <li>The extension then requests the cipher text from contenthost.org</li>
+    <li>The extension decrypts the content according to the returned key</li>
+</ol>
+
+<br/><br/>
+
+<hr/>
+<p>LEVEL 2 Intermediaries Have no Access</p>
+<p>These links have secondary layer of encryption. Private keys are encrypted according to the public key for a user’s encryption wallet. No one but the holder of the key for the wallet can access the clear text decryption keys. The procedures below all assume that the extension has checked out the encryption wallet and decrypted it on the extension.</p>
+
+<br/>
+
+<p>Sharing procedures in this level are more complex and require the generation of a group key (encrypted and sent to each member’s wallet) or keys for every individual that the content is shared with. Sharing procedures will be finalized when the viewing procedures below are finalized. All content can still be viewed on the web server on this level if the user gives the server access to their private keys. Giving the remote server access to private keys is discouraged.</p>
+
+<br/><br/>
+
+<h3>https://priv.ly/cipher_text/</h3>
+<ul>
+    <li>Parameter: Post Identifier</li>
+</ul>
+<ol>
+    <li>The extension asks Privly for the cipher text, which the user may or may not have access to</li>
+    <li>The extension decrypts the content according to their private key</li>
+</ol>
+
+<br/><br/>
+
+<h3>https://priv.ly/private_key/</h3>
+<ul>
+    <li>Parameter: Key Identifier</li>
+    <li>Parameter: Cipher Text</li>
+</ul>
+<ol>
+    <li>The extension decrypts the key with their private key if they have one</li>
+    <li>The extension decrypts the content from the URL</li>
+</ol>
+
+<br/><br/>
+
+<h3>https://priv.ly/distributed/cipher_text</h3>
+<ul>
+    <li>Parameter: Content Host (example: contenthost.org/privly/####?optional_additional_auth=)</li>
+    <li>Parameter: Encrypted PGP Key (encrypted by a public key)</li>
+</ul>
+
+<ol>
+    <li>The extension attempts to decrypt the PGP key in the parameter</li>
+    <li>The extension checks the user preferences and the privacy status of contenthost.org</li>
+    <li>The extension decides which identities it will assert for the link and sends them to Privly</li>
+    <li>Privly signs the requested identities and a timestamp and returns the signature to the extension</li>
+    <li>The extension then requests the cipher text from contenthost.org</li>
+    <li>The extension decrypts the content according to the key on the url</li>
+</ol>
+
+<br/><br/>
+
+<h3>https://priv.ly/distributed/private_key</h3>
+<ul>
+    <li>Parameter: Key Host (example: keyhost.org/privly/####?optional_additional_auth=)</li>
+    <li>Parameter: Key Identifier</li>
+    <li>Parameter: Cipher Text</li>
+</ul>
+
+<ol>
+    <li>The extension checks the user preferences and the privacy status of keyhost.org</li>
+    <li>The extension decides which identities it will assert for the link and sends them to Privly</li>
+    <li>Privly signs the requested identities and a timestamp and returns the signature to the extension</li>
+    <li>The extension then requests the decryption key from keyhost.org</li>
+    <li>The extension decrypts the private key</li>
+    <li>The extension decrypts the content according to the decrypted private key</li>
+</ol>
+
+<br/><br/>
+
+<h3>https://priv.ly/separation</h3>
+<ul>
+    <li>Parameter: Cipher Text Host (example: contenthost.org/privly/####?optional_additional_auth=)</li>
+    <li>Parameter: Key Host (example: keyhost.org/privly/####?optional_additional_auth=)</li>
+    <li>Parameter: Key Identifier</li>
+    <li>Parameter: Cipher Text Identifier</li>
+</ul>
+<ol>
+    <li>The extension checks the user preferences and the privacy status of contenthost.org and keyhost.org</li>
+    <li>The extension decides which identities it will assert for the key and/or content and sends them to Privly</li>
+    <li>Privly signs the requested identities and a timestamp and returns the signature to the extension</li>
+    <li>The extension then requests the decryption key from keyhost.org</li>
+    <li>The extension attempts to decrypt the decryption key</li>
+    <li>The extension then requests the cipher text from contenthost.org</li>
+    <li>The extension decrypts the content according to the decrypted key</li>
+</ol>
+
+<br/><br/>
+
+<h2>Version 2.0, Teaser</h2>
+<p>Ubiquitous privacy+security, distributed identity, access tokens, p2p, and site-specific parsers+formatters.</p>
