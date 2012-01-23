@@ -11,7 +11,7 @@ class PostsController < ApplicationController
           @sidebar = {:news => false, :posts => true}
           render "noaccess"
         }
-        format.gm { render "noaccess"  }
+        format.markdown { render "noaccess"  }
         format.iframe { render "noaccess" }
         format.json { render "noaccess" }
       end
@@ -20,7 +20,7 @@ class PostsController < ApplicationController
         format.html {
           redirect_to new_user_session_path, :message => "You might have access to that post if you log in."
         }
-        format.gm { render "login"  }
+        format.markdown { render "login"  }
         format.iframe { render "login" }
         format.json { render "login" }
       end
@@ -57,7 +57,7 @@ class PostsController < ApplicationController
         
         render
       }
-      format.gm { render }
+      format.markdown { render }
       format.iframe { render }
       format.json { render :json => @post, :callback => params[:callback] }
     end
