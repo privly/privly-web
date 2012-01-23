@@ -20,9 +20,9 @@
                             </li>
                         <% end %>
                     <% else %>
-                    <li class="active"><%= link_to new_user_session_path do %>
-                        Login
-                        <span>auth</span>
+                    <li class="active"><%= link_to new_invitation_path do %>
+                        Invitations
+                        <span>sign up</span>
                         <% end %>
                     </li>
                     <% end %>
@@ -42,9 +42,9 @@
                             </li>
                         <% end %>
                     <% else %>
-                    <li><%= link_to new_user_session_path do %>
-                        Login
-                        <span>auth</span>
+                    <li><%= link_to new_invitation_path do %>
+                        Invitations
+                        <span>sign up</span>
                         <% end %>
                     </li>
                     <% end %>
@@ -72,6 +72,13 @@
                     <% end %>
                 <% end %>
                 
+                <% if extension_available? and not has_extension? %>
+                    <li <% if controller.action_name == "pages" %>class="active"<% end %>>
+                        <%= link_to pages_download_path do %>
+                            Download Extension <span>Firefox</span>
+                        <% end %>
+                    </li>
+                <% end %>
             </ul>
         </div>
         <div class="clear"></div>

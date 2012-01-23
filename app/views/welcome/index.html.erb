@@ -25,6 +25,13 @@ function newInvite()
     <div id="rightboxes">
         <div class="box1">
             <p class="rotate">
+                <%= link_to(pages_donate_path) do %>
+                  <span>View in-depth Video (todo)</span>
+                <% end %>
+            </p>
+        </div>
+        <div class="box2">
+            <p class="rotate">
                 <% if extension_available? %>
                     <%= link_to(pages_download_path(:anchor => "extension")) do %>
                       <span>Download Extension</span>
@@ -34,23 +41,16 @@ function newInvite()
                       <span>About Privly</span>
                     <% end %>
                 <% end %>
-			</p>
-		</div>
-        <div class="box2" id="invite_visual">
+            </p>
+        </div>
+        <div class="box3" id="invite_visual">
             <p class="rotate">
                 <a href="#" onclick="newInvite();">
                   <span>Sign-up for Invitation</span>
                 </a>
             </p>
         </div>
-		<div class="box3">
-			<p class="rotate">
-			    <%= link_to(pages_donate_path) do %>
-                  <span>Make a Donation</span>
-                <% end %>
-			</p>
-		</div>
-        <div class="box2" id="invite_form" style="display:none;background:none">
+        <div class="box3" id="invite_form" style="display:none;background:none">
             <%= form_for(@invitation) do |f| %>
                       <h2>Invitation</h2>
                       <%= f.email_field :email, :value=>"Email" %>
@@ -68,18 +68,18 @@ function newInvite()
 <% content_for :top_main_content_column do %>
 	<div id="threecol">
 		<div class="col1">
-			<h2><%= link_to "Share Anywhere", pages_about_path %></h2>
-			<p>We will allow you to share data across platforms without giving the platform access to your communications. <%= link_to "See How", pages_about_path %></p>
+			<h2><%= link_to "About", pages_about_path %></h2>
+			<p>Privly is a proof-of-concept for a new standard of private sharing. It destroys the notion that you must sacrifice privacy to interact with the social web. <%= link_to "Learn More.", pages_about_path %></p>
 		</div>
 		
 		<div class="col2">
-			<h2><%= link_to "Can't Be Evil", pages_about_path %></h2>
-			<p>We don't want your trust. We want to make trust unnecessary. You can can control your own digital identity. <%= link_to "See How", pages_about_path %></p>
+			<h2><%= link_to "Roadmap", pages_roadmap_path %></h2>
+			<p>This proof-of-concept is the core of a system with novel sharing and security concepts. For more information, read our <%= link_to "Roadmap", pages_roadmap_path %> or <%= link_to "About Page.", pages_about_path %></p>
 		</div>
 
 		<div class="col3">
-			<h2><%= link_to "Seize Privacy", pages_about_path %></h2>
-			<p>Web companies say privacy is dead, but you can use webmail, blogs, and social networks without handing over your personal information. <%= link_to "See How", pages_about_path %></p>
+			<h2><%= link_to "Donate", pages_donate_path %></h2>
+			<p>We are operating on a 512 MB server, please help us upgrade! We accept <%= link_to "donations", pages_donate_path %> by Bitcoin, PayPal, and anything else you want us to set up.</p>
 		</div>
 
 		<div class="clear"></div>

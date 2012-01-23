@@ -1,5 +1,5 @@
 <% content_for(:title) do %>
-    Download
+    Download Extensions
 <% end %>
 
 <h2 class="subhead"><span>Download</span></h2>
@@ -8,6 +8,7 @@
 
 <br />
 
+<%= image_tag "firefox_logo_150.png", :alt => "Firefox Logo" %>
 <div id="extension">
     <h1 id="firefox">Firefox Extension</h1>
 </div>
@@ -22,22 +23,5 @@
         <li>ZIP the source code for the extension</li>
         <li>Change the ZIP extension to ".xpi"</li>
         <li>Install the .xpi file from Firefox, tools &gt; add ons &gt; (click gear symbol on page) &gt; Install Add-on from File</li>
-    </ol>
-</p>
-
-<br />
-<br />
-
-<h1 id="greasemonkey">Greasemonkey Script</h1>
-<h2>Firefox</h2>
-<p>
-The Greasmonkey script will not create new links for you. Use the <%= link_to "extension", "#extension" %> if you want to do more than read links.
-</P>
-<p>
-    <strong>Installation Steps</strong>
-    <ol>
-        <li><%= link_to "Install Greasemonkey", "https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/" %></li>
-        <li>Restart your browser</li>
-        <li>Visit the <%= link_to "Greasemonkey Script", "https://github.com/smcgregor/PrivateWebExtension/raw/master/GreaseMonkey/Firefox/privateweb.user.js" %></li>
     </ol>
 </p>

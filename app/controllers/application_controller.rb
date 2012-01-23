@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   protected
     Browser = Struct.new(:browser, :version)
     ExtensionBrowsers = [
-      Browser.new("Firefox", "3.6.1.1")
+      Browser.new("Firefox", "3.6.0.0")
     ]
     def extension_available?
       user_agent = UserAgent.parse(request.user_agent)
