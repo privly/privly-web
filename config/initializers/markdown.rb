@@ -1,5 +1,5 @@
 class String
   def safe_markdown
-    RDiscount.new(self).to_html.html_safe
+    RDiscount.new(self, :no_image).to_html.html_safe
   end
 end
