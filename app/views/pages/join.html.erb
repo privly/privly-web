@@ -3,3 +3,30 @@
 <% end %>
 
 <h2 class="subhead"><span>Join</span></h2>
+
+<div class="post">
+    <div class="posthead">
+        <h3>Like the project?</h3>
+        <p>Then Join Up! Introduce yourself to the <%= link_to "email list", pages_email_path %>, or contact Sean by email: privlycontact [at] seanbmcgregor.com. Also great ways to move the project forward:</p>
+        <ul>
+            <li>Fork a Repository
+                <ul>
+                    <li><%= link_to "Web App", "https://github.com/smcgregor/privly-web" %></li>
+                    <li><%= link_to "Firefox Extension", "https://github.com/smcgregor/privly-firefox" %></li>
+                </ul>
+            </li>
+            <li>Bring Privly to a new Platofrm
+                <ul>
+                    <li>(your extension here)</li>
+                </ul>
+            </li>
+            <li>Do one of the things listed <%= link_to "here", pages_roadmap_path %></li>
+            <li>Write documentation</li>
+            <li>Write tests</li>
+            <li><%= link_to "Submit bugs", pages_bug_path %></li>
+            <li>Redesign the site (as you can tell, we don't have anyone with a sense of style)</li>
+            <li>Integrate other content hosts with the priv.ly link</li>
+        </ul>
+        <p>If you don't have the time but you have the money, we accept <%= link_to "donations", pages_donate_path %>.</p>
+    </div>
+</div>
