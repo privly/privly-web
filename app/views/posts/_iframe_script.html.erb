@@ -2,15 +2,17 @@
 
 <script type="text/javascript" >
 window.onload = function () {
-    //set iframe body tag's height to scrollheight.
-    var scrollHeight = document.body.scrollHeight;
-    document.body.style.height = scrollHeight+"px";
+    //set iframe body tag's height to offsetHeight.
+    var offsetHeight = document.body.offsetHeight;
+    // add 15px just to accommodate the tooltip
+    offsetHeight = offsetHeight + 15;
+    document.body.style.height = offsetHeight+"px";
     
     //This event is fired with the required height of the iframe
     var evt = document.createEvent("Events");  
     evt.initEvent("IframeResizeEvent", true, false);
-    var element = document.createElement("privElement");  
-    element.setAttribute("height", document.body.scrollHeight);  
+    var element = document.createElement("privElement");
+    element.setAttribute("height", offsetHeight);  
     element.setAttribute("frame_id", "<%= (params[:frame_id] ? (params[:frame_id]).gsub(/[^0-9a-z ]/i, '') : (params[:id]).gsub(/[^0-9a-z ]/i, '')) %>");  
     document.documentElement.appendChild(element);    
     element.dispatchEvent(evt);  
@@ -58,9 +60,9 @@ this.tooltip = function(){
     position:absolute;
     border:1px solid #333;
     background:#f7f5d1;
-    padding:2px 2px;
+    padding:1px 1px;
     color:#333;
     display:none;
-    font:16px Arial;
+    font:14px Arial;
     }
 </style>
