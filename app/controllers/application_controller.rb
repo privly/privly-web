@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
             @sidebar = {:news => false, :posts => true}
             render "posts/noaccess"
           }
-          format.gm { render "posts/noaccess"  }
+          format.markdown { render "posts/noaccess"  }
           format.iframe { render "posts/noaccess" }
           format.json { render :json => {:error => "no access"} }
         end
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
           format.html {
             redirect_to new_user_session_path, :notice => 'You might have access to this if you login.'
           }
-          format.gm { render "login"  }
+          format.markdown { render "login"  }
           format.iframe { render "login" }
           format.json { render "login" }
         end
