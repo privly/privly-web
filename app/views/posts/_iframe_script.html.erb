@@ -1,16 +1,66 @@
+<%= javascript_include_tag("jquery.min.js") %>
+
 <script type="text/javascript" >
 window.onload = function () {
     //set iframe body tag's height to scrollheight.
     var scrollHeight = document.body.scrollHeight;
     document.body.style.height = scrollHeight+"px";
     
-    //dispatch an event 
+    //This event is fired with the required height of the iframe
     var evt = document.createEvent("Events");  
     evt.initEvent("IframeResizeEvent", true, false);
     var element = document.createElement("privElement");  
     element.setAttribute("height", document.body.scrollHeight);  
     element.setAttribute("frame_id", "<%= (params[:frame_id] ? (params[:frame_id]).gsub(/[^0-9a-z ]/i, '') : (params[:id]).gsub(/[^0-9a-z ]/i, '')) %>");  
     document.documentElement.appendChild(element);    
-    element.dispatchEvent(evt);	
+    element.dispatchEvent(evt);  
 }
+$(document).ready(function(){
+  tooltip();
+  $("body").click(function(evt){
+    if(evt.target.nodeName == "A"){
+      parent.window.location = evt.target.href;
+    }
+    else{
+      url = window.document.location.toString();
+      url = url.substring(0,url.indexOf(".iframe"));
+      window.open(url, '_blank');      
+    }  
+  });
+});
+
+
+//Tooltip script 
+//powered by jquery (http://www.jquery.com)
+//written by Alen Grakalic (http://cssglobe.com)
+//for more info visit http://cssglobe.com/post/1695/easiest-tooltip-and-image-preview-using-jquery
+this.tooltip = function(){
+  xOffset = 7;yOffset = 10;
+  $("body").hover(function(e){
+    $("body").append("<p id='tooltip'>This content is from Priv.ly</p>");
+    $("#tooltip").css("top",(e.pageY - xOffset) + "px").css("left",(e.pageX + yOffset) + "px").fadeIn("fast");    
+    },
+  function(){    
+    $("#tooltip").remove();
+    });  
+  $("body").mousemove(function(e){
+    $("#tooltip").css("top",(e.pageY - xOffset) + "px").css("left",(e.pageX + yOffset) + "px");
+  });
+};
+
 </script>
+
+<style type="text/css">
+  body{
+    cursor:pointer;
+  }
+  #tooltip{
+    position:absolute;
+    border:1px solid #333;
+    background:#f7f5d1;
+    padding:2px 2px;
+    color:#333;
+    display:none;
+    font:16px Arial;
+    }
+</style>
