@@ -35,6 +35,7 @@ class TokenAuthenticationsController < ApplicationController
       }
       format.json { 
         if @user
+          current_user.reset_authentication_token!
           redirect_to show_token_authentications_path({:format => :json})
         else
           render :json => {:error => "incorrect email or password"}, :callback => params[:callback] 
