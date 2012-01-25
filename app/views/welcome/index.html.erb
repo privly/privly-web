@@ -12,21 +12,30 @@ function newInvite()
     $("#invite_visual").slideUp("slow");
     $("#invite_form").slideDown("slow");
 }
+function nextVideo()
+{
+    $("#video_1").slideUp("slow");
+    $("#video_2").slideDown("slow");
+    $("#next_video_message").html("No More Videos");
+}
 </script>
 <% end %>
 
 <% content_for :top_column do %>
 <div id="homeheader">
-	<div id="mainimg">
-	    <h1>Project Status</h1>
-		<p>We are in alpha: 0.1.1.1</p>
-		<p>TODO: Insert Video or animated GIF</p>
-	</div>
+    <div id="mainimg">
+        <div id="video_1">
+            <iframe src="http://player.vimeo.com/video/34696986?title=0&amp;byline=0&amp;portrait=0" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        </div>
+        <div id="video_2" style="display:none;background:none">
+            <iframe src="http://player.vimeo.com/video/35603648?title=0&amp;byline=0&amp;portrait=0" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        </div>
+    </div>
     <div id="rightboxes">
         <div class="box1">
             <p class="rotate">
-                <%= link_to(pages_donate_path) do %>
-                  <span>View in-depth Video (todo)</span>
+                <%= link_to("#", :onclick=>"nextVideo();") do %>
+                  <span id="next_video_message">View Next Video</span>
                 <% end %>
             </p>
         </div>
