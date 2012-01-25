@@ -2,10 +2,12 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 
+# You should the emails if you don't want Sean to
+# have an account on this server
 development_user = User.find_by_email("development@priv.ly")
 unless development_user
   password = ActiveSupport::SecureRandom.hex(10)
-  user = User.create(
+  development_user = User.create(
     :email                  => 'development@priv.ly',
     :password               => password,
     :password_confirmation  => password
@@ -26,8 +28,6 @@ unless demonstration_user
   demonstration_user.confirm!
 end
 
-# You should remove this line if you don't want Sean to
-# have an account on this server
 sean = User.find_by_email("privly@seanbmcgregor.com")
 unless sean
   password = ActiveSupport::SecureRandom.hex(10)
@@ -41,7 +41,24 @@ unless sean
 end
 
 Post.create({:user => demonstration_user, :public => true, :content => '
-TODO I should put "about" content here.
+Privly is a method for taking control of everything you share electronically. Facebook, Google, Twitter, and the rest do not own your data. You do.
+
+By putting your content behind a link, and injecting it into the page on the browser side, your content is not subject to their terms. They can not even see it. Further, when we are done with our client side encryption library, even the place you store your content will not be able to read your content. Privly does not want your trust, we want to make Privly a protocol for connecting your life on the web.
+
+**Privly Gives You**
+
+* The ability to share/post/tweet/chat anywhere without giving the host site access to the content
+* The power to grant and take away access to your content to anyone, anywhere
+* The power to rewrite history, by changing the content behind the link
+
+**<a href="https://priv.ly/pages/roadmap">Privly Will Give You</a>**
+
+* The ability to share by email, aspect, circle, PGP key, List, geography, and other sharing methods
+* Easy to use encrypted communications</li>
+* And things we haven\'t thought of...yet
+
+Privly has proven itself as a concept. You can use it on Facebook, Gmail, Google+, Twitter, Reddit, and just about anywhere else. As we refine the <a href="/pages/download">Firefox extension</a> and develop versions for other browsers, we hope you will check back. Sign up for an <a href="/invitations/new">invitation</a>, <a href="/pages/donate">donate</a>, or <a href="/pages/join">join us</a>!
+
 '})
 
 Post.create({:user => demonstration_user, :public => true, :content => '

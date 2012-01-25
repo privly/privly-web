@@ -4,6 +4,9 @@
 
 <% content_for(:extrajs) do %>
 <script type="text/javascript">
+
+var current_video = 1;
+
 $(document).ready(function() {
   $("#page").css("border-right","0px");
 });
@@ -12,11 +15,16 @@ function newInvite()
     $("#invite_visual").slideUp("slow");
     $("#invite_form").slideDown("slow");
 }
+
 function nextVideo()
 {
-    $("#video_1").slideUp("slow");
-    $("#video_2").slideDown("slow");
-    $("#next_video_message").html("No More Videos");
+    $("#video_"+current_video).slideUp("slow");
+    current_video++;
+    if(current_video == 5)
+    {
+        current_video = 1;
+    }
+    $("#video_"+current_video).slideDown("slow");
 }
 </script>
 <% end %>
@@ -25,9 +33,15 @@ function nextVideo()
 <div id="homeheader">
     <div id="mainimg">
         <div id="video_1">
-            <iframe src="http://player.vimeo.com/video/34696986?title=0&amp;byline=0&amp;portrait=0" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+            <iframe src="http://player.vimeo.com/video/35618924?title=0&amp;byline=0&amp;portrait=0" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
         </div>
         <div id="video_2" style="display:none;background:none">
+            <iframe src="http://player.vimeo.com/video/35618470?title=0&amp;byline=0&amp;portrait=0" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        </div>
+        <div id="video_3" style="display:none;background:none">
+            <iframe src="http://player.vimeo.com/video/34696986?title=0&amp;byline=0&amp;portrait=0" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        </div>
+        <div id="video_4" style="display:none;background:none">
             <iframe src="http://player.vimeo.com/video/35603648?title=0&amp;byline=0&amp;portrait=0" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
         </div>
     </div>
