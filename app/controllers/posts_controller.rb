@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   
   before_filter :authenticate_user!, :except => [:show]
+  before_filter :redirect_bot, :only => :show
+  
   load_and_authorize_resource
   
   # Obscure whether the record exists when not found

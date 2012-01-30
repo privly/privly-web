@@ -52,4 +52,10 @@ class ApplicationController < ActionController::Base
         false
       end
     end
+    
+    def redirect_bot     
+      if request.user_agent =~ /\b(Baidu|Gigabot|Googlebot|libwww-perl|lwp-trivial|msnbot|SiteUptime|Slurp|WordPress|ZIBB|ZyBorg|fa|facebookexternalhit|facebookscraper)\b/i
+        redirect_to root_url, :notice => "You have been flagged as a bot, if you are in fact human, please let us know so we will give you access."
+      end
+    end
 end
