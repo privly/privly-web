@@ -2,9 +2,11 @@
     Sign Up
 <% end %>
 
-<h2>Sign up</h2>
+<br/>
 
-<p>We are leaving registrations open for a limited time. Remember that the code is still pre-alpha.</p>
+<h2>Register for an Account</h2>
+
+<p>The site is under active development. If you do not like change, you should sign up for an <%= link_to "invitation", new_invitation_path %> to the major release versions.</p>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -20,5 +22,6 @@
 
   <div><%= f.submit "Sign up" %></div>
 <% end %>
+
 
 <%= render :partial => "devise/shared/links" %>
