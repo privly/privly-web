@@ -61,6 +61,8 @@ Privly has proven itself as a concept. You can use it on Facebook, Gmail, Google
 
 '})
 
+Post.create({:user => demonstration_user, :public => true, :content => 'SUCCESS'})
+
 Post.create({:user => demonstration_user, :public => true, :content => '
 # The Apology
 ## By Plato
