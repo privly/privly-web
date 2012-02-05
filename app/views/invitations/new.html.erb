@@ -4,13 +4,8 @@
 
 <h2 class="subhead"><span>New Invitation</span></h2>
 
-<%= render 'form' %>
+<p>Privly is under active development. To get invited when we have a major release, enter your email below. You can also experiment with the development server by <%= link_to "registering", new_user_registration_path %>. Existing users can <%= link_to "Sign in", new_user_session_path %>.</p>
 
-<br/><br/>
-<p>
-    <%= link_to "Register", new_user_registration_path %>
-</p>
 <br/>
-<p>
-    <%= link_to "Sign in", new_user_session_path %>
-</p>
+
+<%= render 'form' %>
