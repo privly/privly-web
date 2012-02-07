@@ -10,10 +10,12 @@ class Invitation < ActiveRecord::Base
   
   def not_a_user
     if User.find_by_email(email)
-      errors.add(:email, "must be unique.")
+      errors.add(:email, "is already tied to a user account, try signing in or resetting your password.")
     end
   end
   
   self.per_page = 100
+  
+  attr_accessible :email, :news
   
 end

@@ -46,7 +46,7 @@ class InvitationsController < ApplicationController
 
     respond_to do |format|
       if @invitation.save
-        format.html { redirect_to welcome_path, :notice => 'Thanks for the interest! We will send you an invite as soon as we have the resources.' }
+        format.html { redirect_to welcome_path, :notice => 'Thanks for the interest! You can also play with the system as it develops by registering.' }
         format.json { render :json => @invitation, :status => :created, :location => @invitation }
       else
         format.html { render :action => "new" }

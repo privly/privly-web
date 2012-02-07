@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
   before_filter :redirect_bot, :only => :show
   
-  load_and_authorize_resource
+  load_and_authorize_resource, :except => [:destroy_all]
   
   # Obscure whether the record exists when not found
   rescue_from ActiveRecord::RecordNotFound do |exception|
@@ -84,12 +84,12 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     
+    @post = Post.new(params[:post])
+    
     if current_user
-      params[:post].merge!({:user => current_user})
+      @post.user = current_user
     end
     
-    @post = Post.new(params[:post])
-
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, :notice => 'Post was successfully created.' }
