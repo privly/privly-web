@@ -3,7 +3,7 @@ Privly::Application.routes.draw do
   match '/auth/:provider/callback' => 'authentications#create'
   match '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   match '/posts/destroy_all' => 'posts#destroy_all', :method => :delete
-  resources :authentications
+  #resources :authentications
 
   resources :token_authentications, :only => [:create, :new]
   match "token_authentications" => "token_authentications#show", :as => :show_token_authentications, :via => [:get, :post]
