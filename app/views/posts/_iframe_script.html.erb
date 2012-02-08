@@ -13,10 +13,15 @@ window.onload = function () {
     evt.initEvent("IframeResizeEvent", true, false);
     var element = document.createElement("privElement");
     element.setAttribute("height", offsetHeight);  
-    element.setAttribute("frame_id", "<%= (params[:frame_id] ? (params[:frame_id]).gsub(/[^0-9a-z ]/i, '') : (params[:id]).gsub(/[^0-9a-z ]/i, '')) %>");  
+    var frameId = "<%= (params[:frame_id] ? (params[:frame_id]).gsub(/[^0-9a-z ]/i, '') : (params[:id]).gsub(/[^0-9a-z ]/i, '')) %>";
+    element.setAttribute("frame_id", frameId);  
     document.documentElement.appendChild(element);    
-    element.dispatchEvent(evt);  
+    element.dispatchEvent(evt);
+    
+    // Send the message "id,height" to the parent window
+    parent.postMessage(frameId+","+offsetHeight,"*");
 }
+
 $(document).ready(function(){
   tooltip();
   $("body").click(function(evt){
