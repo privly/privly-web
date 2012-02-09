@@ -52,7 +52,11 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html {
         if extension_available? and not has_extension?
-          @sidebar = {:post => true, :news => false, :posts => true, :download_extension => true}
+          if chrome_browser?
+            @sidebar = {:post => true, :news => false, :posts => true, :download_extension => true, :download_chrome_extension => true}
+          else
+            @sidebar = {:post => true, :news => false, :posts => true, :download_extension => true}
+          end
         else
           @sidebar = {:post => true, :news => false, :posts => true, :download_extension => false}
         end

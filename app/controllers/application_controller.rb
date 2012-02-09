@@ -34,11 +34,24 @@ class ApplicationController < ActionController::Base
   protected
     Browser = Struct.new(:browser, :version)
     ExtensionBrowsers = [
-      Browser.new("Firefox", "3.6.0.0")
+      Browser.new("Firefox", "3.6.0.0"),
+      Browser.new("Chrome", "1.0")
+    ]
+    ChromeBrowser = [
+      Browser.new("Chrome", "1.0")
     ]
     def extension_available?
       user_agent = UserAgent.parse(request.user_agent)
       if ExtensionBrowsers.detect { |browser| user_agent >= browser }
+        true
+      else
+        false
+      end
+    end
+    
+    def chrome_browser?
+      user_agent = UserAgent.parse(request.user_agent)
+      if ChromeBrowser.detect { |browser| user_agent >= browser }
         true
       else
         false

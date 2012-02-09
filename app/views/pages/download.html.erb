@@ -7,15 +7,24 @@
 <p>We need to bring Privly to other browsers and platforms, so if you don't see your endpoint here, please consider <%= link_to "joining", pages_join_path %> the team.</p>
 
 <br />
-
-<%= image_tag "firefox_logo_150.png", :alt => "Firefox Logo" %>
-<div id="extension">
-    <h1 id="firefox">Firefox Extension</h1>
-</div>
-<p>The extension is still pre-release. Please check back if you need a stable product. We will announce developments on Privly's <%= link_to "Twitter", "http://twitter.com/#!/Privly" %> account.</p>
-
+<p>The extensions are under active development. Check back later if you do not like change and filing the occasional bug report. We will announce developments on Privly's <%= link_to "Twitter", "http://twitter.com/#!/Privly" %> account.</p>
 <br />
 
-<p>
-    <strong>Developers and Early Adopters: <%= link_to "Download the Extension", "/PrivlyFirefoxExtension.xpi" %></strong>
-</p>
+<%= link_to("/PrivlyFirefoxExtension.xpi") do %>
+    <%= image_tag "firefox_logo_150.png", :alt => "Firefox Logo" %>
+    <div name="extension">
+        <h1 id="firefox">Firefox Extension</h1>
+        
+    </div>
+<% end %>
+<p>Note: Automatic Updates are coming with the next version of the Firefox extension.</p>
+<br />
+<br />
+
+<%= link_to("https://chrome.google.com/webstore/detail/pkokikcdapfpkkkjpdaamjanniaempol") do %>
+    <%= image_tag "chrome-logo_150X.png", :alt => "Chrome Logo" %>
+    <div name="extension">
+        <h1 id="firefox">Google Chrome Extension</h1>
+    </div>
+<% end %>
+<p>Note: The Chrome extension allows you to view links, but extension-side link submission is still under development.</p>

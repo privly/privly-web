@@ -118,20 +118,30 @@
         </div>
     </div><!-- End demo -->
     
-    <% if @sidebar and @sidebar[:download_extension]%>
-
+    <% if @sidebar and @sidebar[:download_extension] %>
         <div id="downloadmessage" class="rotate_sidebar" style="display:none;">
             <h2>View this content automatically</h2>
         </div>
-
-        <div id="rightboxes" style="display:none;">
-            <div class="box1">
-                <p class="rotate">
-                    <%= link_to(pages_download_path(:anchor => "extension"), :style => "color:#ffffff;") do %>
-                      <span>Download the Extension</span>
-                    <% end %>
-                </p>
+        <% if @sidebar[:download_chrome_extension] %>
+            <div id="rightboxes" style="display:none;">
+                <div class="box1">
+                    <p class="rotate">
+                        <%= link_to("https://chrome.google.com/webstore/detail/pkokikcdapfpkkkjpdaamjanniaempol", :style => "color:#ffffff;") do %>
+                          <span>Download the Extension</span>
+                        <% end %>
+                    </p>
+                </div>
             </div>
-        </div>
+        <% else %>
+            <div id="rightboxes" style="display:none;">
+                <div class="box1">
+                    <p class="rotate">
+                        <%= link_to(pages_download_path(:anchor => "extension"), :style => "color:#ffffff;") do %>
+                          <span>Download the Extension</span>
+                        <% end %>
+                    </p>
+                </div>
+            </div>
+        <% end %>
     <% end %>
 </div>
