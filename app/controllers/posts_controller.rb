@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   
   before_filter :authenticate_user!, :except => [:show]
+  before_filter :authenticate_user_show!, :only => [:show]
   before_filter :redirect_bot, :only => :show
   
   load_and_authorize_resource :except => [:destroy_all]
@@ -144,6 +145,25 @@ class PostsController < ApplicationController
 
     redirect_to posts_url, :notice => "Destroyed all Posts."
 
+  end
+  
+  
+  def authenticate_user_show!
+    unless user_signed_in?
+      
+      if @post
+        @post = nil
+      end
+      
+      respond_to do |format|
+        format.html {
+          redirect_to new_user_session_path
+        }
+        format.markdown { render "login.markdown" }
+        format.iframe { render "login.iframe" }
+        format.json { render :json => {:error => "you need to login"}, :status => :unprocessable_entity }
+      end
+    end
   end
   
 end
