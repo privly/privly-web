@@ -1,8 +1,17 @@
 <html>
     <head>
+        <%= javascript_include_tag :application %>
         <%= render 'iframe_script.html' %>
+        <%= render 'tooltip_script.html' %>
     </head>
     <body>
-    <%= @post.content.safe_markdown %>
+        <div id="wrapper">
+            <div id="post_content">
+                <%= @post.content.safe_markdown %>
+            </div>
+            <div id="post_form" style="display:none;background:none">
+                <%= render 'iframe_form.html' %>
+            </div>
+        </div>
     </body>
 </html>

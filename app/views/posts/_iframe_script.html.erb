@@ -1,73 +1,93 @@
-<%= javascript_include_tag("jquery.min.js") %>
-
 <script type="text/javascript" >
-window.onload = function () {
-    //set iframe body tag's height to offsetHeight.
-    var offsetHeight = document.body.offsetHeight;
-    // add 15px just to accommodate the tooltip
-    offsetHeight = offsetHeight + 15;
-    document.body.style.height = offsetHeight+"px";
+var iframeBehavior = {
     
-    //This event is fired with the required height of the iframe
-    var evt = document.createEvent("Events");  
-    evt.initEvent("IframeResizeEvent", true, false);
-    var element = document.createElement("privElement");
-    element.setAttribute("height", offsetHeight);  
-    var frameId = "<%= (params[:frame_id] ? (params[:frame_id]).gsub(/[^0-9a-z ]/i, '') : (params[:id]).gsub(/[^0-9a-z ]/i, '')) %>";
-    element.setAttribute("frame_id", frameId);  
-    document.documentElement.appendChild(element);    
-    element.dispatchEvent(evt);
+    clickCount: 0,
     
-    // Send the message "id,height" to the parent window
-    parent.postMessage(frameId+","+offsetHeight,"*");
-}
-
-$(document).ready(function(){
-  tooltip();
-  $("body").click(function(evt){
-    if(evt.target.nodeName == "A"){
-      parent.window.location = evt.target.href;
-    }
-    else{
-      url = window.document.location.toString();
-      url = url.substring(0,url.indexOf(".iframe"));
-      window.open(url, '_blank');      
-    }  
-  });
-});
-
-
-//Tooltip script 
-//powered by jquery (http://www.jquery.com)
-//written by Alen Grakalic (http://cssglobe.com)
-//for more info visit http://cssglobe.com/post/1695/easiest-tooltip-and-image-preview-using-jquery
-this.tooltip = function(){
-  xOffset = 7;yOffset = 10;
-  $("body").hover(function(e){
-    $("body").append("<p id='tooltip'>This content is from Priv.ly</p>");
-    $("#tooltip").css("top",(e.pageY - xOffset) + "px").css("left",(e.pageX + yOffset) + "px").fadeIn("fast");    
+    singleClick: function(evt)
+    {
+        iframeBehavior.clickCount = 0;
+        
+        if(evt.target.nodeName == "A"){
+          parent.window.location = evt.target.href;
+        }
+        else{
+          url = window.document.location.toString();
+          url = url.substring(0,url.indexOf(".iframe"));
+          window.open(url, '_blank');
+        }  
     },
-  function(){    
-    $("#tooltip").remove();
-    });  
-  $("body").mousemove(function(e){
-    $("#tooltip").css("top",(e.pageY - xOffset) + "px").css("left",(e.pageX + yOffset) + "px");
-  });
+    
+    doubleClick: function()
+    {
+        iframeBehavior.clickCount = 0;
+        
+        jQuery("#post_content").toggle();
+        jQuery("#post_form").toggle();
+        iframeBehavior.resize();
+    },
+    
+    click: function(evt)
+    {
+        //if double click
+        if(iframeBehavior.clickCount > 1)
+        {
+            iframeBehavior.doubleClick();
+        }
+        else if(iframeBehavior.clickCount == 1 && jQuery("#post_content").is(":visible"))
+        {
+            //single click on rendered content, go to form
+            iframeBehavior.singleClick(evt);
+        }
+    },
+    
+    dispatchResize: function(height) {
+        //This event is fired with the required height of the iframe
+        var evt = document.createEvent("Events");  
+        evt.initEvent("IframeResizeEvent", true, false);
+        var element = document.createElement("privElement");
+        element.setAttribute("height", height);  
+        var frameId = "<%= (params[:frame_id] ? (params[:frame_id]).gsub(/[^0-9a-z ]/i, '') : (params[:id]).gsub(/[^0-9a-z ]/i, '')) %>";
+        element.setAttribute("frame_id", frameId);  
+        document.documentElement.appendChild(element);    
+        element.dispatchEvent(evt);
+        // Send the message "id,height" to the parent window
+        parent.postMessage(frameId+","+height,"*");
+        element.parentNode.removeChild(element);
+    },
+    
+    resize: function() {
+        iframeBehavior.dispatchResize(15);
+        jQuery("body").attr("height","100%");
+        
+        var newHeight = document.getElementById("wrapper").offsetHeight;
+        // add 15px just to accommodate the tooltip
+        newHeight = newHeight + 15;
+        iframeBehavior.dispatchResize(newHeight);
+    }
 };
 
+jQuery(document).ready(function(){
+    
+    iframeBehavior.resize();
+    
+    jQuery('#post_form').bind('ajax:complete',function(evt,xhr,status){
+        jQuery("#post_content").html(jQuery.parseJSON(xhr.responseText).content);
+        iframeBehavior.resize();
+    });
+    
+    jQuery("body").on("click",function(evt){
+        iframeBehavior.clickCount++;
+        if(iframeBehavior.clickCount < 2)
+        {   
+            //If the user can update the post then allow the double click
+            //behavior (opens the edit form)
+            <% if can? :update, @post %>
+                setTimeout(function(){iframeBehavior.click(evt)},
+                    300);
+            <% else %>
+                iframeBehavior.singleClick(evt);
+            <% end %>
+        }
+    });
+});
 </script>
-
-<style type="text/css">
-  body{
-    cursor:pointer;
-  }
-  #tooltip{
-    position:absolute;
-    border:1px solid #333;
-    background:#f7f5d1;
-    padding:1px 1px;
-    color:#333;
-    display:none;
-    font:14px Arial;
-    }
-</style>

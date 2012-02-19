@@ -1,0 +1,45 @@
+<script type="text/javascript" >
+$(document).ready(function(){
+  tooltip();
+});
+
+//Tooltip script 
+//powered by jquery (http://www.jquery.com)
+//written by Alen Grakalic (http://cssglobe.com)
+//for more info visit http://cssglobe.com/post/1695/easiest-tooltip-and-image-preview-using-jquery
+this.tooltip = function(){
+  <% if can? :update, @post %>
+       var tooltipMessage = "<p id='tooltip'>Double click to edit. (Priv.ly)</p>";
+  <% else %>
+       var tooltipMessage = "<p id='tooltip'>Read only. (Priv.ly)</p>";
+  <% end %>
+  
+  xOffset = 7;yOffset = 10;
+  $("body").hover(function(e){
+    $("body").append(tooltipMessage);
+    $("#tooltip").css("top",(e.pageY - xOffset) + "px").css("left",(e.pageX + yOffset) + "px").fadeIn("fast");    
+    },
+  function(){    
+    $("#tooltip").remove();
+    });  
+  $("body").mousemove(function(e){
+    $("#tooltip").css("top",(e.pageY - xOffset) + "px").css("left",(e.pageX + yOffset) + "px");
+  });
+};
+
+</script>
+
+<style type="text/css">
+  body{
+    cursor:pointer;
+  }
+  #tooltip{
+    position:absolute;
+    border:1px solid #333;
+    background:#f7f5d1;
+    padding:1px 1px;
+    color:#333;
+    display:none;
+    font:14px Arial;
+    }
+</style>

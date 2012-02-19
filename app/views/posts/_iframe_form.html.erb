@@ -1,0 +1,29 @@
+<%= form_for(@post, :remote => true, :format => "json", :class=>'update_post', :id => "post_form", :html => {:onsubmit => "iframeBehavior.doubleClick();"}) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.text_area :content, :style => "width: 100%;" %><br /><br />
+    
+    <% if can? :share, @post %>
+        <%= f.check_box :public %>
+        <%= f.label :public %>
+    <% end %>
+    
+  </div>
+  <div class="actions">
+    <p><%= f.submit %>
+    <% if can? :destroy, @post %>
+        <%= button_to 'Destroy Post', @post, :confirm => 'Are you sure you want to destroy this content?', :method => :delete %>
+    <% end %>
+    </p>
+  </div>
+<% end %>
