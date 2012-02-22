@@ -20,10 +20,6 @@
     
   </div>
   <div class="actions">
-    <p><%= f.submit %>
-    <% if can? :destroy, @post %>
-        <%= button_to 'Destroy Post', @post, :confirm => 'Are you sure you want to destroy this content?', :method => :delete %>
-    <% end %>
-    </p>
+    <p><%= f.submit %></p>
   </div>
 <% end %>
