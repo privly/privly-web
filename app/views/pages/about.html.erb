@@ -2,41 +2,127 @@
     About
 <% end %>
 
+<% content_for(:extrajs) do %>
+    <script>
+    
+    $(document).ready(function() {        
+      $(".subhead").css("cssText","margin: 0 0 0px -10px !important");
+    });
+    
+    $(function() {
+        $( "#tabs" ).tabs();
+    });
+    </script>
+<% end %>
+
 <h2 class="subhead"><span>About</span></h2>
 
-<p>Your content should remain your content. At least at Privly, we think so. However, services like Facebook, Google, Twitter and the like, don’t seem to agree. Every time you accept their Terms of Service agreements, you give them the right to do whatever they wish with your data. More often than not, that involves selling your privacy.</p>
 
-<br />
+<div>
 
-<p>Privly makes it impossible for others to control your data. By simply installing our browser extension, you are able to keep your content, well, your content. For those who don’t have the extension installed, they see a simple link that sends them to your post, photo, video, etc. For those who do have the extension installed, they are able to see your post on the page as it was intended. That’s because the extension pulls the data from the other side of the link into your Facebook page, Twitter feed, etc, seamlessly, without supplying that data to data miners. Meaning your content stays, <i>your</i> content.</p>
+<div id="tabs">
+    
+    <ul>
+        <li><a href="#tabs-1">Own Your Content</a></li>
+        <li><a href="#tabs-2">Communicate Securely</a></li>
+        <li><a href="#tabs-3">How it Works</a></li>
+    </ul>
+    
 
-<br />
+    
+    <div id="tabs-1">
+        <p>Your content should remain your content. At least at Privly, we think so. However, services like Facebook, Google, Twitter and the like, don’t seem to agree. Every time you accept their Terms of Service agreements, you give them the right to do whatever they wish with your data. More often than not, that involves selling your privacy.</p>
 
-<p><b>Privly Does:</b></p>
+        <br />
 
-<ul>
-  <li>Give you the ability to share/post/tweet/chat anywhere without giving the host site access to the content</li>
-  <li>Give you the power to grant or revoke access to your content to anyone or anywhere</li>
-  <li>Give the content creator ownership of their data</li>
-</ul>
+        <p>Privly makes it impossible for others to control your data. By simply installing our browser extension, you are able to keep your content, well, your content. For those who don’t have the extension installed, they see a simple link that sends them to your post, photo, video, etc. For those who do have the extension installed, they are able to see your post on the page as it was intended. That’s because the extension pulls the data from the other side of the link into your Facebook page, Twitter feed, etc, seamlessly, without supplying that data to data miners. Meaning your content stays, <i>your</i> content.</p>
 
-<br />
+        <br />
 
-<p><b>Privly Does NOT:</b>
-<ul>
-  <li>Use or sell your data</li>
-  <li>Give your data to third party companies</li>
-  <li>Own your content, you do</li>
-</ul></p>
+        <p><b>Privly Does:</b></p>
 
-<br />
+        <ul>
+          <li>Give you the ability to share/post/tweet/chat anywhere without giving the host site access to the content</li>
+          <li>Give you the power to grant or revoke access to your content to anyone or anywhere</li>
+          <li>Give the content creator ownership of their data</li>
+        </ul>
 
-<p>Privly has proven itself as a concept. You can use it right now with Facebook, Gmail, Google+, Twitter, Reddit, and just about anywhere else. As we refine the <%= link_to "Firefox extension", pages_download_path %> and develop versions for other browsers, we hope you will check back. Sign up for an <%= link_to "invitation", new_invitation_path %>, <%= link_to "donate", pages_donate_path %>, or <%= link_to "join us", pages_join_path %>!</p>
+        <br />
 
-<br />
+        <p><b>Privly Does NOT:</b>
+        <ul>
+          <li>Use or sell your data</li>
+          <li>Give your data to third party companies</li>
+          <li>Own your content, you do</li>
+        </ul></p>
 
-<p>For more information, check out our <%= link_to "roadmap (technical)", pages_roadmap_path %> or <%= link_to "FAQ (organization information)", pages_faq_path %>.</p>
+        <br />
 
-<br />
+        <p>Privly has proven itself as a concept. You can use it right now with Facebook, Gmail, Google+, Twitter, Reddit, and just about anywhere else. As we refine the <%= link_to "Firefox extension", pages_download_path %> and develop versions for other browsers, we hope you will check back. Sign up for an <%= link_to "invitation", new_invitation_path %>, <%= link_to "donate", pages_donate_path %>, or <%= link_to "join us", pages_join_path %>!</p>
+        <br />
+        <p>For more information, check out our <%= link_to "roadmap (technical)", pages_roadmap_path %> or <%= link_to "FAQ (organization information)", pages_faq_path %>.</p>
+    </div>
+    
+    <div id="tabs-2">
+        
+        <p>Privly is not just about privacy--it is also about security. It doesn't help the problem if you shift your data and trust from an organization that sells your data to one that can't, in the long run, protect it. No company can be trusted to protect your data forever. Eventually a rogue employee, government, someone close to you, a hacking collective, or your dumb mistake will lay bare everything you have said in a chat, email, post, or message. So now that we said we can't be trusted, what is Privly's solution to security?</p>
+        
+        <br />
+        
+        <p>Privly will help lovers and "subversives" alike by encrypting your content before you send it to a public server for storage. This way, where you keep your content (a Privly affiliated server) never has access to your content.</p>
+        
+        <br />
+        
+        <p>Privly works with Facebook, Gmail, Google+, Twitter, Reddit, and just about anywhere else. As we add encryption capabilities to the <%= link_to "Firefox extension", pages_download_path %> and develop versions for other browsers, we hope you will check back. Sign up for an <%= link_to "invitation", new_invitation_path %>, <%= link_to "donate", pages_donate_path %>, or <%= link_to "join us", pages_join_path %>!</p>
+        <br />        
+        <br />
+        
+        <%= image_tag "protestor.png", :title => "Privly Protestor" %>
+        
+        <br />
+        <br />
+        
+        <p>For more information, check out our <%= link_to "roadmap (technical)", pages_roadmap_path %> or <%= link_to "FAQ (organization information)", pages_faq_path %>.</p>
+    </div>
+    
+    <div id="tabs-3">
+        
+        <h2>Posting Privly Content</h2>
+        
+        <ol>
+            <li>Type your text into any site on the web</li>
+            <li>Right click on the form you typed the text into, and select "Post to Privly"</li>
+            <li>(in development) Your browser encrypts the content and the decryption key</li>
+            <li>(in development) Your browser sends the encrypted decryption key to a storage server</li>
+            <li>The browser sends your content to a storage server</li>
+            <li>The storage server sends you a link</li>
+            <li>You submit the form with the Privly link</li>
+        </ol>
+        
+        <br />
+        
+        <h2>Viewing Privly Content</h2>
+        
+        <ol>
+            <li>The browser sees a Privly link on a website</li>
+            <li>The browser asks the content server for the content behind the link</li>
+            <li>(in development) The browser asks for the encrypted decryption key from the storage server</li>
+            <li>(in development) The browser decrypts the decryption key</li>
+            <li>(in development) The browser decrypts the content</li>
+            <li>The browser displays the link content wherever it found the link, without giving the host page access</li>
+        </ol>
+        
+        <br />
+        <br />
+        
+        <p>Privly works with Facebook, Gmail, Google+, Twitter, Reddit, and just about anywhere else. We need help to develop the <%= link_to "Firefox extension", pages_download_path %> and applications for other platforms. Sign up for an <%= link_to "invitation", new_invitation_path %>, <%= link_to "donate", pages_donate_path %>, or <%= link_to "join us", pages_join_path %>!</p>
+        
+        <br />
+        
+        <p>For more information, check out our <%= link_to "roadmap (technical)", pages_roadmap_path %> or <%= link_to "FAQ (organization information)", pages_faq_path %>.</p>
+    </div>
+</div>
 
-<%= image_tag "protestor.png", :title => "Privly Protestor" %>
+</div>
+
+
