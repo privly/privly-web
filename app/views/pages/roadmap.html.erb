@@ -7,12 +7,23 @@
     
     .listitemtitle {font-style:italic;font-weight: bold;}
     
+    .developmentkey {
+        float: right;
+        width: 33%;
+        text-align: center;
+        color: #FFFFFF;
+        
+    }
+    .developmentkeyreleased {background-color: #0000FF;}
+    .developmentkeydeveloping {background-color: #458B00;}
+    .developmentkeyvapor {background-color: #FF9900;}
+    
     .developmentstatus {font-style:italic;}
     .developmentstatusreleased {color:#0000FF;}
     .developmentstatusbeta {color:#00CCFF;}
     .developmentstatusalpha {color:#FFFF00;}
-    .developmentstatusdeveloping {color:#FF9900;}
-    .developmentstatusvapor {color:#FF0000;}
+    .developmentstatusdeveloping {color:#458B00;}
+    .developmentstatusvapor {color:#FF9900;}
     .accordionhead h2 {text-align: center;}
     .accordionhead h1 {text-align: center;}
     </style>
@@ -34,12 +45,6 @@
 
 <br />
 
-<p>
-    Please note that items are marked only if someone is currently working on that element.
-</p>
-
-<br />
-
 <div class="accordionhead">
     <h1>Development Priorities</h1>
     <div id="roadmap_accordion">
@@ -51,6 +56,17 @@
                 <li><span class="listitemtitle developmentstatusdeveloping">Browsers:</span> Several browser extensions are under active development. We usually develop features on the Mozilla platform, then port the code to other systems.</li>
                 <li><span class="listitemtitle developmentstatusvapor">Mobile:</span> Privly is primarily for personal content, and content generated or viewed on mobile devices fits that description. Development begins on the desktop, but the Privly protocol has a home in mobile.</li>
             </ul>
+            <div width="100%" style="margin-top: 20px;">
+                <div class="developmentkey developmentkeyvapor">
+                    <p>Not Started</p>
+                </div>
+                <div class="developmentkey developmentkeydeveloping">
+                    <p>Developing</p>
+                </div>
+                <div class="developmentkey developmentkeyreleased">
+                    <p>Completed</p>
+                </div>
+            </div>
         </div>
 
         <h2><a id="accordion_ownership" href="#accordion_ownership">2. Content Ownership</a></h2>
@@ -61,6 +77,17 @@
         	    <li><span class="listitemtitle developmentstatusvapor">Content Portability:</span> Users need the ability to export/import all their content to/from common formats.</li>
         	    <li><span class="listitemtitle developmentstatusdeveloping">Content lifetime:</span> Users have the ability to define a lifetime for their content (e.g. automatically delete after 30 days) as well as purge their content entirely.</li>
             </ul>
+            <div width="100%" style="margin-top: 20px;">
+                <div class="developmentkey developmentkeyvapor">
+                    <p>Not Started</p>
+                </div>
+                <div class="developmentkey developmentkeydeveloping">
+                    <p>Developing</p>
+                </div>
+                <div class="developmentkey developmentkeyreleased">
+                    <p>Completed</p>
+                </div>
+            </div>
         </div>
     
         <h2><a id="accordion_security" href="#accordion_security">3. Security</a></h2>
@@ -73,6 +100,17 @@
         	    <li><span class="listitemtitle developmentstatusvapor">Prevent browser caching:</span> While it is likely impossible to prevent all forms of caching, the extension will provide some steps to ensure that content is not cached any longer than it needs to be.</li>
         	    <li><span class="listitemtitle developmentstatusvapor">Isolate Privly Content from Other Extensions:</span> Privly content is currently injected into the frame using an iframe. While this method prevents the host site from reading the content, other extensions still have access to the displayed content. We need a solution to this problem.</li>
             </ul>
+            <div width="100%" style="margin-top: 20px;">
+                <div class="developmentkey developmentkeyvapor">
+                    <p>Not Started</p>
+                </div>
+                <div class="developmentkey developmentkeydeveloping">
+                    <p>Developing</p>
+                </div>
+                <div class="developmentkey developmentkeyreleased">
+                    <p>Completed</p>
+                </div>
+            </div>
         </div>
     
         <h2><a id="accordion_share" href="#accordion_share">4. Share Everywhere</a></h2>
@@ -87,6 +125,17 @@
         	    <li><span class="listitemtitle developmentstatusvapor">Share by Diaspora Aspect, Google+ Circle, Twitter List, etc</span></li>
         	    <li><span class="listitemtitle developmentstatusvapor">GeoIP Based Restrictions:</span> No major platforms have sharing rules for geographic regions. While GeoIP is not a robust security measure, it does make it difficult to access content outside an intended area.</li>
             </ul>
+            <div width="100%" style="margin-top: 20px;">
+                <div class="developmentkey developmentkeyvapor">
+                    <p>Not Started</p>
+                </div>
+                <div class="developmentkey developmentkeydeveloping">
+                    <p>Developing</p>
+                </div>
+                <div class="developmentkey developmentkeyreleased">
+                    <p>Completed</p>
+                </div>
+            </div>
         </div>
     
         <h2><a id="accordion_looks" href="#accordion_looks">5. Make it Look Good</a></h2>
@@ -97,6 +146,17 @@
         	    <li><span class="listitemtitle developmentstatusvapor">Provide Domain Specific Language (DSL):</span> Markdown is an excellent starting point for generating HTML for page injection, but it is not intended for systems like Privly. A DSL could solve many formatting problems.</li>
         	    <li><span class="listitemtitle developmentstatusvapor">Non-text Content:</span> Private information is not limited to text, and neither is Privly.</li>
             </ul>
+            <div width="100%" style="margin-top: 20px;">
+                <div class="developmentkey developmentkeyvapor">
+                    <p>Not Started</p>
+                </div>
+                <div class="developmentkey developmentkeydeveloping">
+                    <p>Developing</p>
+                </div>
+                <div class="developmentkey developmentkeyreleased">
+                    <p>Completed</p>
+                </div>
+            </div>
         </div>
     
         <h2><a id="accordion_other" href="#accordion_other">6. Other Items</a></h2>
@@ -106,6 +166,17 @@
                 <li><span class="listitemtitle developmentstatusvapor">Peer-to-peer storage:</span> Once data is encrypted, it doesn't matter where you store it. Success of systems like BitTorrent and Bitcoin suggest ways to decentralize storage, but we need to extend their ideas to ensure that browsing anonymity is maintained. Privly's researchers find this aspect fascinating, so we will probably revisit this soon.</li>
                 <li><span class="listitemtitle developmentstatusvapor">Personal Semantic Datastore:</span> Text conversations are not the only type of personal information. Many exciting applications rely on declarations of who you are. When you give Facebook your date of birth, hometown, and likes, you give them a rich dataset that is shared with third-party applications. An anonymized and encrypted personal information database would make it easier for you to use exciting functionality without allowing companies to correlate your personal information with a database of marketing information. You are the customer, not the product.</li>
             </ul>
+            <div width="100%" style="margin-top: 20px;">
+                <div class="developmentkey developmentkeyvapor">
+                    <p>Not Started</p>
+                </div>
+                <div class="developmentkey developmentkeydeveloping">
+                    <p>Developing</p>
+                </div>
+                <div class="developmentkey developmentkeyreleased">
+                    <p>Completed</p>
+                </div>
+            </div>
         </div>
         
         <h2><a id="accordion_protocol" href="#accordion_protocol">Appendix: Projected APIs</a></h2>
