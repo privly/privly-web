@@ -35,7 +35,7 @@
 <br />
 
 <p>
-    Please note that items are marked <span class="developmentstatus developmentstatusdeveloping">under development</span> only if someone is currently working on that element.
+    Please note that items are marked only if someone is currently working on that element.
 </p>
 
 <br />
@@ -48,8 +48,8 @@
         <div>
             <p>Anyone can read content on the priv.ly website. What sets the Privly protocol apart is the ability to pull content into any site on the web. We want the first Priv.ly link anyone follows to be their last. The first priority must be to bring the Privly system to as many platforms as possible.</p>
             <ul class="posts">
-                <li><span class="listitemtitle">Browsers:</span> Several browser extensions are under active development. We usually develop features on the Mozilla platform, then port the code to other systems. <span class="developmentstatus developmentstatusdeveloping">Under Development</span></li>
-                <li><span class="listitemtitle">Mobile:</span> Privly is primarily for personal content, and content generated or viewed on mobile devices fits that description. Development begins on the desktop, but the Privly protocol has a home in mobile. <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
+                <li><span class="listitemtitle developmentstatusdeveloping">Browsers:</span> Several browser extensions are under active development. We usually develop features on the Mozilla platform, then port the code to other systems.</li>
+                <li><span class="listitemtitle developmentstatusvapor">Mobile:</span> Privly is primarily for personal content, and content generated or viewed on mobile devices fits that description. Development begins on the desktop, but the Privly protocol has a home in mobile.</li>
             </ul>
         </div>
 
@@ -57,9 +57,9 @@
         <div>
             <p>Privly will never assert content ownership, but that promise is meaningless without providing ways for users to move their content into and out of content hosts.</p>
         	<ul class="posts">
-        	    <li><span class="listitemtitle">Content Server:</span> Users have a default server to post private content. The <%= link_to "server source code", "https://github.com/smcgregor/privly-web" %> is available for anyone to download and extend. As soon as we can guarantee browsing anonymity, anyone can host their own content. <span class="developmentstatus developmentstatusdeveloping">Under Development</span></li>
-        	    <li><span class="listitemtitle">Content Portability:</span> Users need the ability to export/import all their content to/from common formats. <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
-        	    <li><span class="listitemtitle">Content lifetime:</span> Users have the ability to define a lifetime for their content (e.g. automatically delete after 30 days) as well as purge their content entirely. <span class="developmentstatus developmentstatusdeveloping">Under Development</span></li>
+        	    <li><span class="listitemtitle developmentstatusdeveloping">Content Server:</span> Users have a default server to post private content. The <%= link_to "server source code", "https://github.com/smcgregor/privly-web" %> is available for anyone to download and extend. As soon as we can guarantee browsing anonymity, anyone can host their own content.</li>
+        	    <li><span class="listitemtitle developmentstatusvapor">Content Portability:</span> Users need the ability to export/import all their content to/from common formats.</li>
+        	    <li><span class="listitemtitle developmentstatusdeveloping">Content lifetime:</span> Users have the ability to define a lifetime for their content (e.g. automatically delete after 30 days) as well as purge their content entirely.</li>
             </ul>
         </div>
     
@@ -67,11 +67,11 @@
         <div>
         	<ul class="posts">
         	    <p>We want people to use Privly to protect themselves from data-mining and government attack, so we take security very seriously.</p>
-        	    <li><span class="listitemtitle">Extension-side encryption/decryption:</span> With a reliable cryptography library we can generate keys and encrypt content before sending it to any content server. We have big plans for this feature once the core system is fully functional. <span class="developmentstatus developmentstatusdeveloping">Under Development</span></li>
-        	    <li><span class="listitemtitle">Isolate returned content from host page:</span> The host page cannot have access to injected content. Pages hosting Privly links do not have access to the linked content. <span class="developmentstatus developmentstatusreleased">Completed</span></li>
-        	    <li><span class="listitemtitle">Differentiate remote content from page content (eliminate phishing risk):</span> Some malicious users may use Privly for phishing by posting content that looks like it originates from the host site.  The extension will make it obvious which content is from the host page and which content is from Privly. <span class="developmentstatus developmentstatusdeveloping">Under Development</span></li>
-        	    <li><span class="listitemtitle">Prevent browser caching:</span> While it is likely impossible to prevent all forms of caching, the extension will provide some steps to ensure that content is not cached any longer than it needs to be. <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
-        	    <li><span class="listitemtitle">Isolate Privly Content from Other Extensions:</span> Privly content is currently injected into the frame using an iframe. While this method prevents the host site from reading the content, other extensions still have access to the displayed content. We need a solution to this problem. <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
+        	    <li><span class="listitemtitle developmentstatusdeveloping">Extension-side encryption/decryption:</span> With a reliable cryptography library we can generate keys and encrypt content before sending it to any content server. We have big plans for this feature once the core system is fully functional.</li>
+        	    <li><span class="listitemtitle developmentstatusreleased">Isolate returned content from host page:</span> The host page cannot have access to injected content. Pages hosting Privly links do not have access to the linked content.</li>
+        	    <li><span class="listitemtitle developmentstatusdeveloping">Differentiate remote content from page content (eliminate phishing risk):</span> Some malicious users may use Privly for phishing by posting content that looks like it originates from the host site.  The extension will make it obvious which content is from the host page and which content is from Privly.</li>
+        	    <li><span class="listitemtitle developmentstatusvapor">Prevent browser caching:</span> While it is likely impossible to prevent all forms of caching, the extension will provide some steps to ensure that content is not cached any longer than it needs to be.</li>
+        	    <li><span class="listitemtitle developmentstatusvapor">Isolate Privly Content from Other Extensions:</span> Privly content is currently injected into the frame using an iframe. While this method prevents the host site from reading the content, other extensions still have access to the displayed content. We need a solution to this problem.</li>
             </ul>
         </div>
     
@@ -79,13 +79,13 @@
         <div>
             <p>There are numerous ways to identify who you want to share something with. Content should be permissioned by whichever platform you use.</p>
         	<ul class="posts">
-        	    <li><span class="listitemtitle">Share by Email</span> <span class="developmentstatus developmentstatusdeveloping">Under Development</span></li>
-        	    <li><span class="listitemtitle">Share by Password</span> <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
-        	    <li><span class="listitemtitle">Share with PGP key</span> <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
-        	    <li><span class="listitemtitle">Share by Domain (Organizational sharing)</span> <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
-        	    <li><span class="listitemtitle">Share by Geography (geoIP)</span> <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
-        	    <li><span class="listitemtitle">Share by Diaspora Aspect, Google+ Circle, Twitter List, etc</span> <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
-        	    <li><span class="listitemtitle">GeoIP Based Restrictions:</span> No major platforms have sharing rules for geographic regions. While GeoIP is not a robust security measure, it does make it difficult to access content outside an intended area. <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
+        	    <li><span class="listitemtitle developmentstatusdeveloping">Share by Email</span></li>
+        	    <li><span class="listitemtitle developmentstatusvapor">Share by Password</span></li>
+        	    <li><span class="listitemtitle developmentstatusvapor">Share with PGP key</span></li>
+        	    <li><span class="listitemtitle developmentstatusvapor">Share by Domain (Organizational sharing)</span></li>
+        	    <li><span class="listitemtitle developmentstatusvapor">Share by Geography (geoIP)</span></li>
+        	    <li><span class="listitemtitle developmentstatusvapor">Share by Diaspora Aspect, Google+ Circle, Twitter List, etc</span></li>
+        	    <li><span class="listitemtitle developmentstatusvapor">GeoIP Based Restrictions:</span> No major platforms have sharing rules for geographic regions. While GeoIP is not a robust security measure, it does make it difficult to access content outside an intended area.</li>
             </ul>
         </div>
     
@@ -93,9 +93,9 @@
         <div>
         	<ul class="posts">
         	    <p>The Privly developers survived the blink tag and midi song era of the internet, and we don't want to return to a time when sites are pieced together with inconsistent typography and generally bad style. Never. Again.</p>
-        	    <li><span class="listitemtitle">Allow for Site-Specific CSS:</span> Privly content should identify itself, but should also fit its context. User submitted or host-page CSS should provide generalized styling of text content. <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
-        	    <li><span class="listitemtitle">Provide Domain Specific Language (DSL):</span> Markdown is an excellent starting point for generating HTML for page injection, but it is not intended for systems like Privly. A DSL could solve many formatting problems. <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
-        	    <li><span class="listitemtitle">Non-text Content:</span> Private information is not limited to text, and neither is Privly. <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
+        	    <li><span class="listitemtitle developmentstatusvapor">Allow for Site-Specific CSS:</span> Privly content should identify itself, but should also fit its context. User submitted or host-page CSS should provide generalized styling of text content.</li>
+        	    <li><span class="listitemtitle developmentstatusvapor">Provide Domain Specific Language (DSL):</span> Markdown is an excellent starting point for generating HTML for page injection, but it is not intended for systems like Privly. A DSL could solve many formatting problems.</li>
+        	    <li><span class="listitemtitle developmentstatusvapor">Non-text Content:</span> Private information is not limited to text, and neither is Privly.</li>
             </ul>
         </div>
     
@@ -103,8 +103,8 @@
         <div>
             <ul class="posts">
                 <p>We have many other ideas for Privly. We expand on just two of them below.</p>
-                <li><span class="listitemtitle">Peer-to-peer storage:</span> Once data is encrypted, it doesn't matter where you store it. Success of systems like BitTorrent and Bitcoin suggest ways to decentralize storage, but we need to extend their ideas to ensure that browsing anonymity is maintained. Privly's researchers find this aspect fascinating, so we will probably revisit this soon. <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
-                <li><span class="listitemtitle">Personal Semantic Datastore:</span> Text conversations are not the only type of personal information. Many exciting applications rely on declarations of who you are. When you give Facebook your date of birth, hometown, and likes, you give them a rich dataset that is shared with third-party applications. An anonymized and encrypted personal information database would make it easier for you to use exciting functionality without allowing companies to correlate your personal information with a database of marketing information. You are the customer, not the product. <span class="developmentstatus developmentstatusvapor">Not Under Development</span></li>
+                <li><span class="listitemtitle developmentstatusvapor">Peer-to-peer storage:</span> Once data is encrypted, it doesn't matter where you store it. Success of systems like BitTorrent and Bitcoin suggest ways to decentralize storage, but we need to extend their ideas to ensure that browsing anonymity is maintained. Privly's researchers find this aspect fascinating, so we will probably revisit this soon.</li>
+                <li><span class="listitemtitle developmentstatusvapor">Personal Semantic Datastore:</span> Text conversations are not the only type of personal information. Many exciting applications rely on declarations of who you are. When you give Facebook your date of birth, hometown, and likes, you give them a rich dataset that is shared with third-party applications. An anonymized and encrypted personal information database would make it easier for you to use exciting functionality without allowing companies to correlate your personal information with a database of marketing information. You are the customer, not the product.</li>
             </ul>
         </div>
         
