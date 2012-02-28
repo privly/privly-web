@@ -4,30 +4,35 @@
 
 <h2 class="subhead"><span>Download</span></h2>
 
-<p>We need to bring Privly to other browsers and platforms, so if you don't see your endpoint here, please consider <%= link_to "joining", pages_join_path %> the team.</p>
-
-<br />
 <p>The extensions are under active development. Check back later if you do not like change and filing the occasional bug report. We will announce developments on Privly's <%= link_to "Twitter", "http://twitter.com/#!/Privly" %> account.</p>
 <br />
 
-<%= link_to("https://addons.mozilla.org/en-US/firefox/addon/privly/") do %>
-    <%= image_tag "firefox_logo_150.png", :alt => "Firefox Logo" %>
-    <div name="extension">
-        <h1 id="firefox">Firefox Extension</h1>
-    </div>
-<% end %>
-<br />
-<br />
+<div style="float: left; width: 50%; height: 200px">
+    
+    <%= link_to("https://addons.mozilla.org/en-US/firefox/addon/privly/") do %>
+        <div style="height: 150px">
+            <%= image_tag "firefox_logo_150.png", :alt => "Firefox Logo", :style=>"display: block;margin-left: auto;margin-right: auto;" %>
+        </div>
+        <div name="extension">
+            <h1 id="firefox" style="text-align: center">Firefox Extension</h1>
+        </div>
+    <% end %>
+    
+</div>
 
+<div  style="float: left; width: 50%; height: 200px">
 <%= link_to("https://chrome.google.com/webstore/detail/pkokikcdapfpkkkjpdaamjanniaempol") do %>
-    <%= image_tag "chrome-logo_150X.png", :alt => "Chrome Logo" %>
+    <div style="height: 150px">
+        <%= image_tag "chrome-logo_150X.png", :alt => "Chrome Logo", :style=>"display: block;margin-left: auto;margin-right: auto;" %>
+    </div>
     <div name="extension">
-        <h1 id="chrome">Google Chrome Extension</h1>
+        <h1 id="chrome" style="text-align: center">*Chrome Extension</h1>
     </div>
 <% end %>
-<p>Note: The Chrome extension allows you to view links, but extension-side link submission is still under development.</p>
+</div>
+<p>We need to bring Privly to other browsers and platforms, so if you don't see your endpoint here, please consider <%= link_to "joining", pages_join_path %> the team.</p>
 <br />
-<br />
+<p>*The Chrome extension allows you to view links, but extension-side link submission is still under development.</p>
 <br />
 <br />
 <h1>Test Sites</h1>
