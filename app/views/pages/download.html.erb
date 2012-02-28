@@ -2,38 +2,57 @@
     Download Extensions
 <% end %>
 
+<% content_for(:extrajs) do %>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $("#chrome_caveat").mouseenter(function(){$("#caveat").slideDown("slow")});
+    });
+</script>
+<% end %>
+
 <h2 class="subhead"><span>Download</span></h2>
 
-<p>The extensions are under active development. Check back later if you do not like change and filing the occasional bug report. We will announce developments on Privly's <%= link_to "Twitter", "http://twitter.com/#!/Privly" %> account.</p>
+<p>The extensions are under active development. Check back later if you do not like change and filing the occasional <%= link_to "bug report", pages_bug_path %>. We will announce developments on Privly's <%= link_to "Twitter", "http://twitter.com/#!/Privly" %> account.</p>
 <br />
 
-<div style="float: left; width: 50%; height: 200px">
+<div style="margin-bottom: 225px;">
+    <div style="float: left; width: 50%;">
     
-    <%= link_to("https://addons.mozilla.org/en-US/firefox/addon/privly/") do %>
+        <%= link_to("https://addons.mozilla.org/en-US/firefox/addon/privly/") do %>
+            <div style="height: 150px">
+                <%= image_tag "firefox_logo_150.png", :alt => "Firefox Logo", :style=>"display: block;margin-left: auto;margin-right: auto;" %>
+            </div>
+            <div name="extension">
+                <h1 id="firefox" style="text-align: center">Firefox Extension</h1>
+            </div>
+        <% end %>
+    
+    </div>
+
+    <div id="chrome_caveat" style="float: left; width: 50%;">
+    <%= link_to("https://chrome.google.com/webstore/detail/pkokikcdapfpkkkjpdaamjanniaempol") do %>
         <div style="height: 150px">
-            <%= image_tag "firefox_logo_150.png", :alt => "Firefox Logo", :style=>"display: block;margin-left: auto;margin-right: auto;" %>
+            <%= image_tag "chrome-logo_150X.png", :alt => "Chrome Logo", :style=>"display: block;margin-left: auto;margin-right: auto;" %>
         </div>
-        <div name="extension">
-            <h1 id="firefox" style="text-align: center">Firefox Extension</h1>
+        <div name="extension" style="text-align: center">
+            <h1 id="chrome">Chrome Extension</h1>
+            <div id="caveat" style="display:none;background:none">
+            <p>*The Chrome extension allows you to view links, but extension-side link submission is still under development.</p>
+            </div>
         </div>
     <% end %>
-    
+    </div>
 </div>
 
-<div  style="float: left; width: 50%; height: 200px">
-<%= link_to("https://chrome.google.com/webstore/detail/pkokikcdapfpkkkjpdaamjanniaempol") do %>
-    <div style="height: 150px">
-        <%= image_tag "chrome-logo_150X.png", :alt => "Chrome Logo", :style=>"display: block;margin-left: auto;margin-right: auto;" %>
-    </div>
-    <div name="extension">
-        <h1 id="chrome" style="text-align: center">*Chrome Extension</h1>
-    </div>
-<% end %>
-</div>
-<p>We need to bring Privly to other browsers and platforms, so if you don't see your endpoint here, please consider <%= link_to "joining", pages_join_path %> the team.</p>
 <br />
-<p>*The Chrome extension allows you to view links, but extension-side link submission is still under development.</p>
 <br />
 <br />
 <h1>Test Sites</h1>
 <p>The following pages are pre-seeded with Privly content so you can test the extension out: <%= link_to "Facebook", "https://www.facebook.com/profile.php?id=100002254562518&sk=wall" %>, <%= link_to "Twitter", "https://twitter.com/#!/PrivlyTest" %>.</p>
+
+<p style="text-align: center;">
+<%= link_to_function "Where is my browser?, ", "$('#browser_not_Listed').slideToggle('slow')" %>
+</p>
+<div id="browser_not_Listed" style="display:none;background:none">
+    <p>We need to bring Privly to other browsers and platforms, so if you don't see your endpoint here, please consider <%= link_to "joining", pages_join_path %> the team.</p>
+</div>
