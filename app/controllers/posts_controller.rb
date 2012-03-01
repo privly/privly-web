@@ -97,6 +97,7 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       if @post.save
+        response.headers["privlyurl"] = post_url @post
         format.html { redirect_to @post, :notice => 'Post was successfully created.' }
         format.json { render :json => @post, :status => :created, :location => @post }
       else
