@@ -45,12 +45,23 @@ class TokenAuthenticationsController < ApplicationController
   end
 
   def destroy
-    unless user_signed_in?
-      redirect_to new_user_session_path, :error => "you are not signed in, we did not destroy a token"
+    respond_to do |format|
+      format.html {
+        unless user_signed_in?
+          redirect_to new_user_session_path, :error => "you are not signed in, we did not destroy a token"
+        end
+        current_user.authentication_token = nil
+        current_user.save
+        redirect_to new_token_authentication_path, :notice => "Your login token is no longer valid"
+      }
+      format.json { 
+        unless user_signed_in?
+          render :json => {:error => "You are not signed into Priv.ly", :callback => params[:callback]}
+        end
+        current_user.authentication_token = nil
+        current_user.save
+        render :json => {:message => "Your extension is now logged out of Priv.ly, but you are still logged into the website", :callback => params[:callback]}
+      }
     end
-    current_user.authentication_token = nil
-    current_user.save
-    redirect_to new_token_authentication_path, :notice => "Your login token is no longer valid"
   end
-
 end
