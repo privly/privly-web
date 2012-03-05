@@ -172,6 +172,7 @@ class PostsController < ApplicationController
       elsif verify_recaptcha
         session[:person] = true
         session[:robot_count] = 1
+        flash[:notice] = "You are human!"
       end
       
       if @post 
