@@ -78,7 +78,7 @@ function nextVideo()
                       <h2>Invitation</h2>
                       <%= f.email_field :email, :value=>"Email" %>
                       <br />
-                      <%= f.check_box :news %>
+                      <%= f.check_box :news, :checked => true %>
                       <%= f.label "Also send major site news" %>
                       <%= f.submit "submit" %>
             <% end %>
