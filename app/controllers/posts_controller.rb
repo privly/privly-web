@@ -1,10 +1,11 @@
 class PostsController < ApplicationController
   
   before_filter :authenticate_user!, :except => [:show]
-  before_filter :authenticate_user_show!, :only => [:show]
-  before_filter :redirect_bot, :only => :show
   
   load_and_authorize_resource :except => [:destroy_all]
+  
+  before_filter :authenticate_user_show!, :only => [:show]
+  before_filter :redirect_bot, :only => :show
   
   # Obscure whether the record exists when not found
   rescue_from ActiveRecord::RecordNotFound do |exception|
