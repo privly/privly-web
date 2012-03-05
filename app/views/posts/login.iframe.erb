@@ -19,7 +19,7 @@
                 <div id="captcha" style="display:none;background:none">
                     <%= form_tag(request.url, :method => "get", :target => "privlyiframe", :onsubmit => "iframeBehavior.dispatchResize(1);") do -%>
                       <%= hidden_field_tag 'frame_id', (params[:frame_id] ? (params[:frame_id]).gsub(/[^0-9a-z ]/i, '') : (params[:id]).gsub(/[^0-9a-z ]/i, '')) %>
-                      <%= recaptcha_tags %>
+                      <%= recaptcha_tags :ssl => true %>
                     <% end -%>
                 </div>
             <% end %>
