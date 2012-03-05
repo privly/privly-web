@@ -1,8 +1,22 @@
 <html>
     <head>
+        <%= javascript_include_tag :application %>
         <%= render 'iframe_script.html' %>
+        <%= render 'tooltip_script.html' %>
     </head>
     <body>
-    This link might require you to <%= link_to "log in", new_user_session_url, {:target => "_blank"} %> to <%= link_to "Priv.ly", new_user_session_url, {:target => "_blank"} %>. 
+        <div id="wrapper">
+            <% if session[:person] %>
+                <p>This is not a public post, or it does not exist. You might have access to this if you <%= link_to "log in", new_user_session_url, {:target => "_blank"} %> to <%= link_to "Priv.ly", new_user_session_url, {:target => "_blank"} %></p>
+            <% else %>
+                <p><%= link_to_function "Prove you are human", "jQuery('#captcha').toggle();iframeBehavior.resize();"  %> or <%= link_to "log in", new_user_session_url, {:target => "_blank"} %> to <%= link_to "Priv.ly", new_user_session_url, {:target => "_blank"} %></p>
+                <div id="captcha" style="display:none;background:none">
+                    <%= form_tag(request.url, :method => "get", :target => "privlyiframe", :onsubmit => "iframeBehavior.dispatchResize(1);") do -%>
+                      <%= hidden_field_tag 'frame_id', (params[:frame_id] ? (params[:frame_id]).gsub(/[^0-9a-z ]/i, '') : (params[:id]).gsub(/[^0-9a-z ]/i, '')) %>
+                      <%= recaptcha_tags %>
+                    <% end -%>
+                </div>
+            <% end %>
+        </div>
     </body>
 </html>

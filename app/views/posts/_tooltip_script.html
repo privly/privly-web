@@ -1,5 +1,5 @@
 <script type="text/javascript" >
-$(document).ready(function(){
+jQuery(document).ready(function(){
   tooltip();
 });
 
@@ -15,15 +15,15 @@ this.tooltip = function(){
   <% end %>
   
   xOffset = 7;yOffset = 10;
-  $("body").hover(function(e){
-    $("body").append(tooltipMessage);
-    $("#tooltip").css("top",(e.pageY - xOffset) + "px").css("left",(e.pageX + yOffset) + "px").fadeIn("fast");    
+  jQuery("body").hover(function(e){
+    jQuery("body").append(tooltipMessage);
+    jQuery("#tooltip").css("top",(e.pageY - xOffset) + "px").css("left",(e.pageX + yOffset) + "px").fadeIn("fast");    
     },
-  function(){    
-    $("#tooltip").remove();
+    function(){    
+        jQuery("#tooltip").remove();
     });  
-  $("body").mousemove(function(e){
-    $("#tooltip").css("top",(e.pageY - xOffset) + "px").css("left",(e.pageX + yOffset) + "px");
+  jQuery("body").mousemove(function(e){
+      jQuery("#tooltip").css("top",(e.pageY - xOffset) + "px").css("left",(e.pageX + yOffset) + "px");
   });
 };
 

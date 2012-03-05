@@ -52,3 +52,5 @@ gem 'rdiscount'
 gem 'will_paginate'
 
 gem 'useragent'
+
+gem "recaptcha", :require => "recaptcha/rails"

@@ -3,6 +3,29 @@
         <%= javascript_include_tag :application %>
         <%= render 'iframe_script.html' %>
         <%= render 'tooltip_script.html' %>
+        <script type="text/javascript" >
+            jQuery(document).ready(function(){
+                jQuery('#post_form').bind('ajax:complete',function(evt,xhr,status){
+                    jQuery("#post_content").html(jQuery.parseJSON(xhr.responseText).content);
+                    iframeBehavior.resize();
+                });
+
+                jQuery("body").on("click",function(evt){
+                    iframeBehavior.clickCount++;
+                    if(iframeBehavior.clickCount < 2)
+                    {   
+                        //If the user can update the post then allow the double click
+                        //behavior (opens the edit form)
+                        <% if can? :update, @post %>
+                            setTimeout(function(){iframeBehavior.click(evt)},
+                                300);
+                        <% else %>
+                            iframeBehavior.singleClick(evt);
+                        <% end %>
+                    }
+                });
+            });
+        </script>
     </head>
     <body>
         <div id="wrapper">

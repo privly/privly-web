@@ -148,21 +148,46 @@ class PostsController < ApplicationController
 
   end
   
-  
+  # If the user is logged in, CanCan handles authorization before it gets to 
+  # this method. Otherwise, if the user is not logged in:
+  #
+  # a) User has not solved a captcha in the last 20
+  # show requests, the login and captcha page is displayed for all posts.
+  #
+  # b) User solved the captcha but the post is not public, the login page
+  # is displayed
+  #
+  # c) If the post is public and the user has fewer than 20 show requests,
+  # display the post
   def authenticate_user_show!
-    unless user_signed_in?
+    
+    unless user_signed_in?  
       
-      if @post
-        @post = nil
+      if session[:person] and session[:robot_count] >= 20
+        session[:person] = false
+        session[:robot_count] = 0
+      elsif session[:person]
+        session[:robot_count] += 1
+      elsif verify_recaptcha
+        session[:person] = true
+        session[:robot_count] = 1
       end
       
-      respond_to do |format|
-        format.html {
-          redirect_to new_user_session_path
-        }
-        format.markdown { render "login.markdown" }
-        format.iframe { render "login.iframe" }
-        format.json { render :json => {:error => "you need to login"}, :status => :unprocessable_entity }
+      if @post 
+        if not session[:person] or not @post.public
+          @post = nil
+        end
+      end
+      
+      unless @post
+        respond_to do |format|
+          format.html {
+            redirect_to new_user_session_path
+          }
+          format.markdown { render "login.markdown" }
+          format.iframe { render "login.iframe" }
+          format.json { render :json => {:error => "you need to login"}, :status => :unprocessable_entity }
+        end
       end
     end
   end
