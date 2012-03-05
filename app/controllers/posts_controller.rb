@@ -181,11 +181,19 @@ class PostsController < ApplicationController
       
       unless @post
         respond_to do |format|
-          format.html {
-            redirect_to new_user_session_path
+          format.html { 
+            if not session[:person] and params[:recaptcha_challenge_field]
+              flash[:notice] = "You did not solve a captcha properly, are you sure you are human?"
+            end
+            render "login.html" 
           }
           format.markdown { render "login.markdown" }
-          format.iframe { render "login.iframe" }
+          format.iframe { 
+            if not session[:person] and params[:recaptcha_challenge_field]
+              flash[:notice] = "You did not solve a captcha properly, are you sure you are human?"
+            end
+            render "login.iframe" 
+          }
           format.json { render :json => {:error => "you need to login"}, :status => :unprocessable_entity }
         end
       end

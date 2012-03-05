@@ -1,0 +1,21 @@
+<% content_for(:title) do %>
+    Post
+<% end %>
+
+<h2 class="subhead">
+    <span>
+        Login or Prove You are Human
+    </span>
+</h2>
+<div class="post">
+    <% if session[:person] %>
+        <p>This is not a public post, or it does not exist. You might have access to this if you <%= link_to "log in", new_user_session_url %>.</p>
+    <% else %>
+        <p><%= link_to_function "Prove you are human", "jQuery('#captcha').toggle();iframeBehavior.resize();"  %> or <%= link_to "log in", new_user_session_url, {:target => "_blank"} %></p>
+        <div id="captcha" style="display:none;background:none">
+            <%= form_tag(request.url, :method => "get") do -%>
+              <%= recaptcha_tags %>
+            <% end -%>
+        </div>
+    <% end %>
+</div>

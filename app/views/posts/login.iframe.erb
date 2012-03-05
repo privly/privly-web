@@ -6,6 +6,12 @@
     </head>
     <body>
         <div id="wrapper">
+            
+            <% if notice or alert %>
+                <p><%= notice %></p>
+                <p><%= alert %></p>
+            <% end %>
+            
             <% if session[:person] %>
                 <p>This is not a public post, or it does not exist. You might have access to this if you <%= link_to "log in", new_user_session_url, {:target => "_blank"} %> to <%= link_to "Priv.ly", new_user_session_url, {:target => "_blank"} %></p>
             <% else %>
