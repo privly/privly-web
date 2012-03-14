@@ -30,7 +30,7 @@
     function displayMessage(message_id){
         if(message_id == 1)
         {
-            $("#donate_text").html("<a href='#'>Kickstarter</a> is an all-or-nothing crowd funding platform. If we meet our goal, we will continue development. You can also <a href='/pages/donate'>donate to us directly.</a>")
+            $("#donate_text").html("<a href='/pages/kickstarter'>Kickstarter</a> is an all-or-nothing crowd funding platform. If we meet our goal, we will continue development. You can also <a href='/pages/donate'>donate to us directly.</a>")
             .animate({ backgroundColor: "#FF0000" }, 500);
             setTimeout(
               function(){
@@ -186,7 +186,7 @@
     <div id="rightboxes">
         <div class="box1">
             <p class="rotate">
-                <%= link_to("#kickstarter") do %>
+                <%= link_to(pages_kickstarter_path) do %>
                   <span id="go_to_kickstarter">Donate to our Kickstarter</span>
                 <% end %>
             </p>
@@ -240,7 +240,7 @@
 
 		<div class="col3">
 			<h2><%= link_to "Donate", pages_donate_path %></h2>
-			<p id="donate_text">The best place to donate is at our <%= link_to "Kickstarter campaign.", "#" %> We also accept <%= link_to "donations", pages_donate_path %> by Bitcoin, PayPal, and anything else you want us to set up.</p>
+			<p id="donate_text">The best place to donate is at our <%= link_to "Kickstarter campaign.", pages_kickstarter_path %> We also accept <%= link_to "donations", pages_donate_path %> by Bitcoin, PayPal, and anything else you want us to set up.</p>
 		</div>
 
 		<div class="clear"></div>

@@ -31,6 +31,7 @@ Privly::Application.routes.draw do
   get "pages/download"
   get "pages/about"
   get "pages/email"
+  get "pages/kickstarter"
   
   
   resources :posts

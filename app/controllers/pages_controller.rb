@@ -54,6 +54,10 @@ class PagesController < ApplicationController
     @sidebar = {:news => false, :help => true}
   end
   
+  def kickstarter
+    @sidebar = {:news => true, :about => true, :contribute => true}
+  end
+  
   def account
   end
 
