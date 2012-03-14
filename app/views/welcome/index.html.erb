@@ -2,54 +2,192 @@
     Welcome
 <% end %>
 
+<% content_for(:extracss) do %>
+<style type="text/css">
+.video_link {background-color: #242424;padding: 3px;}
+.video_link a:link {color:#FFFFFF;}      /* unvisited link */
+.video_link a:visited {color:#FFFFFF;}  /* visited link */
+.video_link a:hover {color:#FFFFCC;}  /* mouse over link */
+.video_link a:active {color:#0000FF;}  /* selected link */
+</style>
+<% end %>
+
 <% content_for(:extrajs) do %>
-<script type="text/javascript">
-
-var current_video = 1;
-
-$(document).ready(function() {
-  $("#page").css("border-right","0px");
-});
-function newInvite()
-{
-    $("#invite_visual").slideUp("slow");
-    $("#invite_form").slideDown("slow");
-}
-
-function nextVideo()
-{
-    $("#video_"+current_video).slideUp("slow");
-    current_video++;
-    if(current_video == 5)
+    <script>
+    
+    function flashKickstarter()
     {
-        current_video = 1;
+        $(".box1").animate({backgroundColor: "#FF0000"},1000);
+        setTimeout(
+          function(){
+            $(".box1").css("background-color", "");
+          },
+          1400);
     }
-    $("#video_"+current_video).slideDown("slow");
-}
-</script>
+    
+    var current_video_id;
+    
+    function displayMessage(message_id){
+        if(message_id == 1)
+        {
+            $("#donate_text").html("<a href='#'>Kickstarter</a> is an all-or-nothing crowd funding platform. If we meet our goal, we will continue development. You can also <a href='/pages/donate'>donate to us directly.</a>")
+            .animate({ backgroundColor: "#FF0000" }, 500);
+            setTimeout(
+              function(){
+                $("#donate_text").css("background-color", "");
+              },
+              600);
+        }
+        else if(message_id == 2)
+        {
+            $("#roadmap_text").html("We have big plans for Privly if we can get the support. After you are done with the <a href='/pages/roadmap'>Roadmap</a> video, you can look around.")
+            .animate({ backgroundColor: "#FF0000" }, 500);
+            setTimeout(
+              function(){
+                $("#roadmap_text").css("background-color", "");
+              },
+              600);
+        }
+        else if(message_id == 3)
+        {
+            $("#about_text").html("If you want to try the extension out, you can <a href='/pages/download'>download</a> it for Firefox or Chrome.")
+            .animate({ backgroundColor: "#FF0000" }, 500);
+            setTimeout(
+              function(){
+                $("#about_text").css("background-color", "");
+              },
+              600);
+        }
+    }
+    
+    function stopVideo(){
+        $("#video_back").slideUp();
+        var number = current_video_id.match(/\d/g);
+        var froogaloop = $f($("#player_" + number)[0]);
+        froogaloop.addEvent("stop");
+        $(current_video_id).toggle();
+    }
+    
+    function viewVideo(video_id){
+        $("#video_back").slideDown();
+        current_video_id = video_id;
+        $(video_id).toggle();
+    }
+    
+    $(document).ready(function() {
+        
+        $("#page").css("border-right","0px"); 
+        $("#mainimg").hover(function(){jQuery("#kickstarter_image").fadeOut(200)}, function(){jQuery("#kickstarter_image").fadeIn(200)});
+    
+        // when a vimeo video becomes ready, it calls ready.
+        // Ready registers the event listeners for play and
+        // finish. When a video finishes, the video area 
+        // returns to the video selection page
+        // events on it
+        function ready(player_id) {
+            //console.log('ready!');
+            var froogaloop = $f(player_id);
+
+            function onPlay() {
+                    froogaloop.addEvent('play', function(data) {
+                        //console.log(data);
+                    });
+            }
+
+            function onFinish() {
+                    froogaloop.addEvent('finish', function(data) {
+                        if(data.indexOf(1) >= 0)
+                        {
+                            flashKickstarter();
+                            $("#video_1").toggle();
+                        }
+                        else if(data.indexOf(2) >= 0)
+                        {
+                            $("#video_2").toggle();
+                        }
+                        else if(data.indexOf(3) >= 0)
+                        {
+                            $("#video_3").toggle();
+                        }
+                        $("#video_back").slideUp();
+                    });
+            }
+
+            onPlay();
+            onFinish();
+        }
+    
+        // Listen to the ready event
+        var player = $('#player_1')[0];
+        $f(player).addEvent('ready', ready);
+        
+        var player = $('#player_2')[0];
+        $f(player).addEvent('ready', ready);
+        
+        var player = $('#player_3')[0];
+        $f(player).addEvent('ready', ready);
+        
+        function addEvent(element, eventName, callback) {
+            if (element.addEventListener) {
+                element.addEventListener(eventName, callback, false);
+            }
+            else {
+                element.attachEvent(eventName, callback, false);
+            }
+        }
+    });
+    </script>
 <% end %>
 
 <% content_for :top_column do %>
 <div id="homeheader">
     <div id="mainimg">
-        <div id="video_1">
-            <iframe src="http://player.vimeo.com/video/35625555?title=0&amp;byline=0&amp;portrait=0" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-        </div>
-        <div id="video_2" style="display:none;background:none">
-            <iframe src="http://player.vimeo.com/video/35618924?title=0&amp;byline=0&amp;portrait=0" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-        </div>
-        <div id="video_3" style="display:none;background:none">
-            <iframe src="http://player.vimeo.com/video/34696986?title=0&amp;byline=0&amp;portrait=0" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-        </div>
-        <div id="video_4" style="display:none;background:none">
-            <iframe src="http://player.vimeo.com/video/35603648?title=0&amp;byline=0&amp;portrait=0" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        <div style="position:relative;">
+            <div id="video_controls" style="position:absolute;top:50px;left:160px;width:370px;">
+                <p style="font-size: 23px;">
+                    <span class="video_link"><%= link_to_function "1. Watch Kickstarter Pitch", "viewVideo('#video_1');displayMessage(1);" %></span><br /><br />
+                    <span class="video_link"><%= link_to_function "2. Watch 'How to Use Privly'", "viewVideo('#video_2');displayMessage(3);"  %></span><br /><br />
+                    <span class="video_link"><%= link_to_function "3. Watch Roadmap Tour", "viewVideo('#video_3');displayMessage(2);"  %></span><br /><br />
+                    <span class="video_link"><%= link_to_function "4. Watch Technical Tour", "$('#technical_message').slideToggle('slow');"  %></span><br /><br />
+                    <span id="technical_message" style="display:none;background:none;font-size:14px">
+                        We haven't recorded the technical video yet, but we will if enough people are interested in the project.
+                    </span>
+                </p>
+            </div>
+            
+            <div id="kickstarter_image" style="position:absolute;left:125px">
+                <%= image_tag "Kickstarter_play.png", :height => "330px" %>
+            </div>
+            
+            <noscript>
+                <p>You do not have scripts enabled, which means you are either running old technology, or are our kind of person. If you are the latter, we hope you will consider <%= link_to "helping out", pages_join_path %>.</p>
+            </noscript>
+            
+            <div id="video_1" style="display:none;background:none;position:absolute;">
+                <iframe id="player_1" src="http://player.vimeo.com/video/38477050?title=0&amp;byline=0&amp;portrait=0&amp;api=1&amp;player_id=player_1" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+            </div>
+            
+            <div id="video_2" style="display:none;background:none;position:absolute;">
+                <iframe id="player_2" src="http://player.vimeo.com/video/38477052?title=0&amp;byline=0&amp;portrait=0&amp;api=1&amp;player_id=player_2" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+            </div>
+            
+            <div id="video_3" style="display:none;background:none;position:absolute;">
+                <iframe id="player_3" src="http://player.vimeo.com/video/38477051?title=0&amp;byline=0&amp;portrait=0&amp;api=1&amp;player_id=player_3" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+            </div>
+            
+            <div id="video_back" style="display:none;background:none;position:absolute;top:10px;right:0px;width:370px;text-align: right;">
+                <p>
+                    <span class="video_link"><%= link_to_function "Back to Video List", "stopVideo();" %></span>
+                </p>
+            </div>
+            
         </div>
     </div>
     <div id="rightboxes">
         <div class="box1">
             <p class="rotate">
-                <%= link_to("#", :onclick=>"nextVideo();") do %>
-                  <span id="next_video_message">View Next Video</span>
+                <%= link_to("#kickstarter") do %>
+                  <span id="go_to_kickstarter">Donate to our Kickstarter</span>
                 <% end %>
             </p>
         </div>
@@ -68,7 +206,7 @@ function nextVideo()
         </div>
         <div class="box3" id="invite_visual">
             <p class="rotate">
-                <a href="#" onclick="newInvite();">
+                <a href="#" onclick="$('#invite_visual').slideUp('slow');$('#invite_form').slideDown('slow');">
                   <span>Sign-up for Invitation</span>
                 </a>
             </p>
@@ -92,17 +230,17 @@ function nextVideo()
 	<div id="threecol">
 		<div class="col1">
 			<h2><%= link_to "About", pages_about_path %></h2>
-			<p>Privly is a proof-of-concept for a new standard of private sharing. It is the only way to maintain control of your data on the social web. <%= link_to "Learn More.", pages_about_path %></p>
+			<p id="about_text">Privly is a proof-of-concept for a new standard of private sharing. It is the only way to maintain control of your data on the social web. <%= link_to "Learn More.", pages_about_path %></p>
 		</div>
 		
 		<div class="col2">
 			<h2><%= link_to "Roadmap", pages_roadmap_path %></h2>
-			<p>Privly is the core of a novel sharing and privacy feature set. For more information, read our <%= link_to "Roadmap", pages_roadmap_path %> or <%= link_to "About Page.", pages_about_path %></p>
+			<p id="roadmap_text">Privly is the core of a novel sharing and privacy feature set. For more information, read our <%= link_to "Roadmap", pages_roadmap_path %> or <%= link_to "About Page.", pages_about_path %></p>
 		</div>
 
 		<div class="col3">
 			<h2><%= link_to "Donate", pages_donate_path %></h2>
-			<p>We are operating on a 512 MB server, please help us upgrade! We accept <%= link_to "donations", pages_donate_path %> by Bitcoin, PayPal, and anything else you want us to set up.</p>
+			<p id="donate_text">The best place to donate is at our <%= link_to "Kickstarter campaign.", "#" %> We also accept <%= link_to "donations", pages_donate_path %> by Bitcoin, PayPal, and anything else you want us to set up.</p>
 		</div>
 
 		<div class="clear"></div>

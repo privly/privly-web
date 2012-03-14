@@ -39,6 +39,13 @@
 
 <h2 class="subhead"><span>Road Map</span></h2>
 
+<h2>Mission</h2>
+<p style="font-style: italic; font-weight: bold; font-size: 140%;">Privly is dedicated to building protocols for the secure sharing of data via any site on the web.</p>
+
+<br/>
+<br/>
+
+<h2>Plan</h2>
 <p>
     The Privly web site and its associated browser extensions are open source projects, whose development is dictated by the passions and funding of its contributors. As such, this roadmap outlines development areas for the system, but not a timetable or ordering of deliverables. The best way for you to speed development is to <%= link_to "join the team", pages_join_path %> or <%= link_to "make a donation", pages_donate_path %>. As we near completion of major features, we will make announcements on the site, as well as on <%= link_to "Twitter.", "http://twitter.com/#!/Privly" %>
 </p>
@@ -72,10 +79,11 @@
         <h2><a id="accordion_ownership" href="#accordion_ownership">2. Content Ownership</a></h2>
         <div>
             <p>Privly will never assert content ownership, but that promise is meaningless without providing ways for users to move their content into and out of content hosts.</p>
-        	<ul class="posts">
-        	    <li><span class="listitemtitle developmentstatusdeveloping">Content Server:</span> Users have a default server to post private content. The <%= link_to "server source code", "https://github.com/smcgregor/privly-web" %> is available for anyone to download and extend. As soon as we can guarantee browsing anonymity, anyone can host their own content.</li>
-        	    <li><span class="listitemtitle developmentstatusvapor">Content Portability:</span> Users need the ability to export/import all their content to/from common formats.</li>
-        	    <li><span class="listitemtitle developmentstatusdeveloping">Content lifetime:</span> Users have the ability to define a lifetime for their content (e.g. automatically delete after 30 days) as well as purge their content entirely.</li>
+            <ul class="posts">
+                <li><span class="listitemtitle developmentstatusdeveloping">Content Server:</span> Users have a default server to post private content. The <%= link_to "server source code", "https://github.com/smcgregor/privly-web" %> is available for anyone to download and extend. As soon as we can guarantee browsing anonymity, anyone can host their own content.</li>
+                <li><span class="listitemtitle developmentstatusvapor">Content Portability:</span> Users need the ability to export/import all their content to/from common formats.</li>
+                <li><span class="listitemtitle developmentstatusdeveloping">Content lifetime:</span> Users have the ability to define a lifetime for their content (e.g. automatically delete after 30 days) as well as purge their content entirely.</li>
+                <li><span class="listitemtitle developmentstatusvapor">Content Licensing:</span> Once privacy and security is established, we can allow users to embed licenses in Privly URLs. <%= link_to "Flickr", "http://www.flickr.com/creativecommons/" %> is a great example of what happens when users license their content.</li>
             </ul>
             <div width="100%" style="margin-top: 20px;">
                 <div class="developmentkey developmentkeyvapor">
@@ -116,14 +124,13 @@
         <h2><a id="accordion_share" href="#accordion_share">4. Share Everywhere</a></h2>
         <div>
             <p>There are numerous ways to identify who you want to share something with. Content should be permissioned by whichever platform you use.</p>
-        	<ul class="posts">
-        	    <li><span class="listitemtitle developmentstatusdeveloping">Share by Email</span></li>
-        	    <li><span class="listitemtitle developmentstatusvapor">Share by Password</span></li>
-        	    <li><span class="listitemtitle developmentstatusvapor">Share with PGP key</span></li>
-        	    <li><span class="listitemtitle developmentstatusvapor">Share by Domain (Organizational sharing)</span></li>
-        	    <li><span class="listitemtitle developmentstatusvapor">Share by Geography (geoIP)</span></li>
-        	    <li><span class="listitemtitle developmentstatusvapor">Share by Diaspora Aspect, Google+ Circle, Twitter List, etc</span></li>
-        	    <li><span class="listitemtitle developmentstatusvapor">GeoIP Based Restrictions:</span> No major platforms have sharing rules for geographic regions. While GeoIP is not a robust security measure, it does make it difficult to access content outside an intended area.</li>
+            <ul class="posts">
+                <li><span class="listitemtitle developmentstatusdeveloping">Share by Email</span></li>
+                <li><span class="listitemtitle developmentstatusvapor">Share by Password</span></li>
+                <li><span class="listitemtitle developmentstatusvapor">Share with PGP key</span></li>
+                <li><span class="listitemtitle developmentstatusvapor">Share by Domain (Organizational sharing)</span></li>
+                <li><span class="listitemtitle developmentstatusvapor">Share by Diaspora Aspect, Google+ Circle, Twitter List, etc</span></li>
+                <li><span class="listitemtitle developmentstatusvapor">Share by Geography (geoIP):</span> No major platforms have sharing rules for geographic regions. While GeoIP is not a robust security measure, it does make it difficult to access content outside an intended area.</li>
             </ul>
             <div width="100%" style="margin-top: 20px;">
                 <div class="developmentkey developmentkeyvapor">
@@ -140,11 +147,12 @@
     
         <h2><a id="accordion_looks" href="#accordion_looks">5. Make it Look Good</a></h2>
         <div>
-        	<ul class="posts">
-        	    <p>The Privly developers survived the blink tag and midi song era of the internet, and we don't want to return to a time when sites are pieced together with inconsistent typography and generally bad style. Never. Again.</p>
-        	    <li><span class="listitemtitle developmentstatusvapor">Allow for Site-Specific CSS:</span> Privly content should identify itself, but should also fit its context. User submitted or host-page CSS should provide generalized styling of text content.</li>
-        	    <li><span class="listitemtitle developmentstatusvapor">Provide Domain Specific Language (DSL):</span> Markdown is an excellent starting point for generating HTML for page injection, but it is not intended for systems like Privly. A DSL could solve many formatting problems.</li>
-        	    <li><span class="listitemtitle developmentstatusvapor">Non-text Content:</span> Private information is not limited to text, and neither is Privly.</li>
+            <ul class="posts">
+                <p>The Privly developers survived the blink tag and midi song era of the internet, and we don't want to return to a time when sites are pieced together with inconsistent typography and generally bad style. Never. Again.</p>
+                <li><span class="listitemtitle developmentstatusvapor">Allow for Site-Specific Behavior:</span> Privly replaces links too greedily in some places. So far we have had issues with WYSIWYG editors and preview panes, but most of these problems could be taken care of by building a community maintained rule base. A set of link exclusion rules would allow for more greedy replacement of links.</li>
+                <li><span class="listitemtitle developmentstatusvapor">Allow for Site-Specific CSS:</span> Privly content should identify itself, but should also fit its context. User submitted or host-page CSS should provide generalized styling of text content.</li>
+                <li><span class="listitemtitle developmentstatusvapor">Provide Domain Specific Language (DSL):</span> Markdown is an excellent starting point for generating HTML for page injection, but it is not intended for systems like Privly. A DSL could solve many formatting problems.</li>
+                <li><span class="listitemtitle developmentstatusvapor">Non-text Content:</span> Private information is not limited to text, and neither is Privly.</li>
             </ul>
             <div width="100%" style="margin-top: 20px;">
                 <div class="developmentkey developmentkeyvapor">
