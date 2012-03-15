@@ -220,29 +220,29 @@
                       <%= f.label "Also send major site news" %>
                       <%= f.submit "submit" %>
             <% end %>
-		</div>
-	</div>
-	<div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
 </div>
 <% end %>
 
 <% content_for :top_main_content_column do %>
-	<div id="threecol">
-		<div class="col1">
-			<h2><%= link_to "About", pages_about_path %></h2>
-			<p id="about_text">Privly is a proof-of-concept for a new standard of private sharing. It is the only way to maintain control of your data on the social web. <%= link_to "Learn More.", pages_about_path %></p>
-		</div>
-		
-		<div class="col2">
-			<h2><%= link_to "Roadmap", pages_roadmap_path %></h2>
-			<p id="roadmap_text">Privly is the core of a novel sharing and privacy feature set. For more information, read our <%= link_to "Roadmap", pages_roadmap_path %> or <%= link_to "About Page.", pages_about_path %></p>
-		</div>
+    <div id="threecol">
+        <div class="col1">
+            <h2><%= link_to "About", pages_about_path %></h2>
+            <p id="about_text">Privly is a proof-of-concept for a new standard of private sharing. It is the only way to maintain control of your data on the social web. <%= link_to "Learn More.", pages_about_path %></p>
+        </div>
+        
+        <div class="col2">
+            <h2><%= link_to "Roadmap", pages_roadmap_path %></h2>
+            <p id="roadmap_text">Privly is the core of a novel sharing and privacy feature set. For more information, read our <%= link_to "Roadmap", pages_roadmap_path %> or <%= link_to "About Page.", pages_about_path %></p>
+        </div>
 
-		<div class="col3">
-			<h2><%= link_to "Donate", pages_donate_path %></h2>
-			<p id="donate_text">The best place to donate is at our <%= link_to "Kickstarter campaign.", pages_kickstarter_path %> We also accept <%= link_to "donations", pages_donate_path %> by Bitcoin, PayPal, and anything else you want us to set up.</p>
-		</div>
+        <div class="col3">
+            <h2><%= link_to "Donate", pages_donate_path %></h2>
+            <p id="donate_text">The best place to donate is at our <%= link_to "Kickstarter campaign.", pages_kickstarter_path %> We also accept <%= link_to "donations", pages_donate_path %> by Bitcoin, PayPal, and anything else you want us to set up.</p>
+        </div>
 
-		<div class="clear"></div>
-	</div>
+        <div class="clear"></div>
+    </div>
 <% end %>
