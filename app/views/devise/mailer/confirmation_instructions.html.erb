@@ -1,7 +1,13 @@
 <p>Welcome <%= @resource.email %>!</p>
 
+<p>Privly is still an experimental application, so only use it...experimentally. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_path %>. We are going to destroy user content periodically (we won't take data we can't protect properly), and if we get too many registrations we are going to roll all non-developer, donor, and tester accounts into our invitation list.</p>
+
 <p>You can confirm your account through the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
 
-<p>Privly is still an experimental application, so only use it...experimentally. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_path %>.</p>
+<p>
+    Thanks!
+    <br />
+    -Privly
+</p>

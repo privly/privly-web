@@ -21,7 +21,6 @@
 
 <div style="margin-bottom: 225px;">
     <div id="firefox_link" style="float: left; width: 50%;">
-    
         <%= link_to("https://addons.mozilla.org/en-US/firefox/addon/privly/") do %>
             <div style="height: 150px">
                 <%= image_tag "firefox_logo_150.png", :alt => "Firefox Logo", :style=>"display: block;margin-left: auto;margin-right: auto;" %>
@@ -33,7 +32,6 @@
                 </div>
             </div>
         <% end %>
-    
     </div>
 
     <div id="chrome_link" style="float: left; width: 50%;">
@@ -54,8 +52,10 @@
 <br />
 <br />
 <br />
-<h1>Test Sites</h1>
+<h1>Test Your Extension on These Pages</h1>
 <p>The following pages are pre-seeded with Privly content so you can test the extension out: <%= link_to "Facebook", "https://www.facebook.com/profile.php?id=100002254562518&sk=wall" %>, <%= link_to "Twitter", "https://twitter.com/#!/PrivlyTest" %>.</p>
+
+<br />
 
 <p style="text-align: center;">
 <%= link_to_function "Where is my browser?", "$('#browser_not_Listed').slideToggle('slow')" %>
