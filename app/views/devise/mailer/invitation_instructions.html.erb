@@ -1,0 +1,13 @@
+<p>Hello <%= @resource.email %>!</p>
+
+<p>Someone has invited you to <%= root_url %>, you can accept it through the link below.</p>
+
+<p>Privly is still an experimental application, so only use it...experimentally. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_path %>. We are going to destroy user content periodically (we won't take data we can't protect properly), and if we get too many registrations we are going to roll all non-developer, donor, and tester accounts into our invitation list.</p>
+
+<p><%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></p>
+
+<p>
+    Thanks!
+    <br />
+    -Privly
+</p>

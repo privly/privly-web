@@ -32,6 +32,24 @@ class ApplicationController < ActionController::Base
   end
   
   protected
+  
+    #filter for devise_invitable
+    #https://github.com/scambra/devise_invitable
+    #I have no logic here because I have overloaded
+    #the invitation logic to never send an invite on
+    #first create. An admin must send the invite at
+    #a later date.
+    def authenticate_inviter!
+    end
+  
+    #checks current user to see if they are administrators
+    #and redirects them if they are not
+    def require_admin
+      unless user_signed_in? and current_user.admin?
+        redirect_to root_url, :notice => "Only administrators have access to that."
+      end
+    end
+  
     Browser = Struct.new(:browser, :version)
     ExtensionBrowsers = [
       Browser.new("Firefox", "3.6.0.0"),

@@ -191,13 +191,13 @@
             </p>
         </div>
         <div class="box3" id="invite_form" style="display:none;background:none">
-            <%= form_for(@invitation) do |f| %>
-                      <h2>Invitation</h2>
-                      <%= f.email_field :email, :value=>"Email" %>
-                      <br />
-                      <%= f.check_box :news, :checked => true %>
-                      <%= f.label "Also send major site news" %>
-                      <%= f.submit "submit" %>
+            
+            <%= form_for "user", :as => "user", :url => invitation_path("user"), :html => {:method => :post} do |f| %>
+              <h2>Invitation
+                  <%= f.label :email %><br />
+                  <%= f.text_field :email %><br />
+                  <%= f.submit "Sign up for an invitation" %>
+              </h2>
             <% end %>
         </div>
     </div>

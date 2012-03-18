@@ -1,0 +1,39 @@
+<% content_for(:title) do %>
+    Pending Invitations
+<% end %>
+
+<h2 class="subhead"><span>Pending Invitations</span></h2>
+<% @requested_invites.each do |invitation| %>
+    <div class="post">
+        <div class="posthead">
+            <p class="postmeta">Created <span class="date"><%= time_ago_in_words(invitation.created_at) %></span> ago</p>
+        </div>
+        <p>
+            <%= invitation.email %>
+            <%= button_to "Send", { :action => "send_invitation", :user => {:id => invitation.id} },
+                  :confirm => "Are you sure?", :method => :post %>
+        </p>
+    </div>
+    
+<% end %>
+
+<div class="digg_pagination">
+    <div clas="page_info">
+      <%= page_entries_info @requested_invites %>
+    </div>
+    <%= will_paginate @requested_invites, :container => false %>
+</div>
+
+<br/>
+<br/>
+
+<h2>Request an Invitation</h2>
+
+<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
+  <%= devise_error_messages! %>
+
+  <p><%= f.label :email %><br />
+  <%= f.text_field :email %></p>
+
+  <p><%= f.submit "Sign up for an invitation" %></p>
+<% end %>

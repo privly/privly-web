@@ -1,0 +1,23 @@
+<% content_for(:title) do %>
+    Setup Your Account
+<% end %>
+
+<h2 class="subhead"><span>Set your password</span></h2>
+
+<p>
+    Welcome developer, donor, tester, or cool person! Once you set your password your account will be ready to go.
+</p>
+<br/>
+
+<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
+  <%= devise_error_messages! %>
+  <%= f.hidden_field :invitation_token %>
+
+  <p><%= f.label :password %><br />
+  <%= f.password_field :password %></p>
+
+  <p><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></p>
+
+  <p><%= f.submit "Set my password" %></p>
+<% end %>

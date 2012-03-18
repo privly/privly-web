@@ -9,7 +9,12 @@ Privly::Application.routes.draw do
   match "token_authentications" => "token_authentications#show", :as => :show_token_authentications, :via => [:get, :post]
   match 'token_authentications' => 'token_authentications#destroy', :as => :destroy_token_authentications, :via => [:delete]
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :invitations => 'users/invitations' }
+
+  devise_scope :user do 
+    get "users/invitations" => "users/invitations#index", :as => :user_invitations
+    post "users/invitations" => "users/invitations#send_invitation", :as => :user_send_invitations
+  end 
 
   root :to => "welcome#index"
   
@@ -38,8 +43,6 @@ Privly::Application.routes.draw do
   resources :email_shares, :only => [:create, :destroy, :update]
 
   match '/' => 'welcome#index', :as => :welcome
-
-  resources :invitations, :only => [:create, :destroy, :index, :new, :show]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

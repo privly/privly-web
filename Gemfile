@@ -35,6 +35,8 @@ gem 'cancan'
 #Sessions
 #https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
 gem 'devise' #https://github.com/plataformatec/devise
+gem 'devise_invitable', '~> 1.0.0'
+
 
 #Gems for authorizing with other services, potentially many: 
 # https://github.com/intridea/omniauth/wiki/List-of-Strategies

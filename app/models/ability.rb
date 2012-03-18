@@ -30,12 +30,5 @@ class Ability
       EmailShare.find_by_can_share_and_post_id_and_email(true, post.id, user.email)
     end
     
-    #invitations
-    if user.admin?
-      can :manage, Invitation
-    else
-      can :create, Invitation
-    end
-    
   end
 end

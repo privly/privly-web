@@ -6,7 +6,7 @@
 
 <h2>Register for an Account</h2>
 
-<p>The site is under active development. If you do not like change, you should sign up for an <%= link_to "invitation", new_invitation_path %> to the major release versions.</p>
+<p>The site is under active development. If you do not like change, you should sign up for an <%= link_to "invitation", new_user_invitation_path %> to the major release versions.</p>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>

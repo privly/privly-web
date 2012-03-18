@@ -71,13 +71,33 @@ Devise.setup do |config|
   # Setup a pepper to generate the encrypted password.
   config.pepper = "50371be2caef033d91d010ad11adc768b47ac8909b5a31232ab51823ac31e7fa47460ac9c15b2a51d61b918e77e07ae5aa5a0b89a91d75f79af57401cec81851"
 
+  # ==> Configuration for :invitable
+  # The period the generated invitation token is valid, after
+  # this period, the invited resource won't be able to accept the invitation.
+  # When invite_for is 0 (the default), the invitation won't expire.
+  # config.invite_for = 2.weeks
+  
+  # Number of invitations users can send.
+  # If invitation_limit is nil, users can send unlimited invitations.
+  # If invitation_limit is 0, users can't send invitations.
+  # If invitation_limit n > 0, users can send n invitations.
+  # Default: nil
+  config.invitation_limit = 0
+  
+  # The key to be used to check existing users when sending an invitation
+  config.invite_key = :email
+  
+  # Flag that force a record to be valid before being actually invited 
+  # Default: false
+  # config.validate_on_invite = true
+
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
   # confirming his account. For instance, if set to 2.days, the user will be
   # able to access the website for two days without confirming his account,
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming his account.
-  config.confirm_within = 0.days
+  config.allow_unconfirmed_access_for = 0.days
 
   # Defines which key will be used when confirming an account
   config.confirmation_keys = [ :email ]
@@ -85,9 +105,6 @@ Devise.setup do |config|
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
   config.remember_for = 2.weeks
-
-  # If true, a valid remember token can be re-used between multiple browsers.
-  config.remember_across_browsers = false
 
   # If true, extends the user's remember period when remembered via cookie.
   config.extend_remember_period = false
@@ -98,7 +115,7 @@ Devise.setup do |config|
 
   # Options to be passed to the created cookie. For instance, you can set
   # :secure => true in order to force SSL only cookies.
-  config.cookie_options = {}
+  config.rememberable_options = {:secure => true}
 
   # ==> Configuration for :validatable
   # Range for password length. Default is 6..128.
@@ -159,9 +176,9 @@ Devise.setup do |config|
   # Defines name of the authentication token params key
   config.token_authentication_key = :auth_token
 
-  # If true, authentication through token does not store user in session and needs
+  # If uncommented, authentication through token does not store user in session and needs
   # to be supplied on each request. Useful if you are using the token as API token.
-  config.stateless_token = false
+  #config.skip_session_storage << :token_auth
 
   # ==> Scopes configuration
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
