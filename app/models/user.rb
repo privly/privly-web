@@ -44,12 +44,4 @@ class User < ActiveRecord::Base
   #  end
   #end
   
-  def posts_to_csv
-    CSV.generate do |csv|
-      self.posts do |post|
-        csv << post.content
-      end
-    end
-  end
-  
 end
