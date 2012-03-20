@@ -40,6 +40,17 @@ unless sean
   sean.confirm!
 end
 
+jesse = User.find_by_email("jpollak92@gmail.com")
+unless jesse
+  password = "password"
+  jesse = User.create(
+    :email                  => "jpollak92@gmail.com",
+    :password               => password,
+    :password_confirmation  => password
+  )
+  jesse.confirm!
+end
+
 Post.create({:user => demonstration_user, :public => true, :content => '
 Privly is a method for taking control of everything you share electronically. Facebook, Google, Twitter, and the rest do not own your data. You do.
 
