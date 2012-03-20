@@ -1,6 +1,7 @@
 <html>
     <head>
         <%= javascript_include_tag :application %>
+        <%= stylesheet_link_tag 'bootstrap_typography'%>
         <%= render 'iframe_script.html' %>
         <%= render 'tooltip_script.html' %>
         <script type="text/javascript" >
@@ -26,6 +27,9 @@
                 });
             });
         </script>
+        <style type="text/css">
+          #post_content {padding: 5px 10px 0 10px}
+        </style>
     </head>
     <body>
         <div id="wrapper">
