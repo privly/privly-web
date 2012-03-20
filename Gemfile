@@ -24,7 +24,6 @@ gem 'capistrano'
 
 #Javascript runtime
 gem 'execjs'
-gem 'johnson'
 
 #required for omniauth until they put the dependency in
 gem 'bcrypt-ruby', '~> 3.0.0'
