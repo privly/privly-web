@@ -1,3 +1,5 @@
+require 'csv'
+
 class PostsController < ApplicationController
   
   before_filter :authenticate_user!, :except => [:show]
@@ -34,13 +36,26 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = @posts.page(params[:page]).order('created_at DESC')
+    unless params[:format] == "csv"
+      @posts = @posts.page(params[:page]).order('created_at DESC')
+    end
     respond_to do |format|
       format.html {
         @sidebar = {:news => false, :posts => true}
         render
       } # index.html.erb
-      format.json { render :json => @posts }
+      format.json { render :json => @posts.to_json(:except => [:user_id, :updated_at, :public, :id, :created_at]) }
+      format.csv do |csv|
+        @filename = "posts_" + Time.now.strftime("%m-%d-%Y") + ".csv"
+        csv_data = CSV.generate("") do |csv|
+          @posts.each do |post|
+            csv << [post.content]
+          end
+        end       
+        send_data csv_data, :type => 'text/csv; charset=iso-8859-1; header=present',
+          :disposition => "attachment; filename=#{@filename}"  
+        flash[:notice] = "Posts successfully exported" 
+      end
     end
   end
 

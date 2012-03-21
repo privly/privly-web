@@ -26,4 +26,3 @@ test:
 production:
   <<: *baseSettings
   database: privly_production
-
