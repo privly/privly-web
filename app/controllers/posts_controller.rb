@@ -44,7 +44,7 @@ class PostsController < ApplicationController
         @sidebar = {:news => false, :posts => true}
         render
       } # index.html.erb
-      format.json { render :json => @posts }
+      format.json { render :json => @posts.to_json(:except => [:user_id, :updated_at, :public, :id, :created_at]) }
       format.csv do |csv|
         @filename = "posts_" + Time.now.strftime("%m-%d-%Y") + ".csv"
         csv_data = CSV.generate("") do |csv|
