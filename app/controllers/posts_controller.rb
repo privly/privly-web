@@ -1,5 +1,3 @@
-require 'csv'
-
 class PostsController < ApplicationController
   
   before_filter :authenticate_user!, :except => [:show]
@@ -44,12 +42,13 @@ class PostsController < ApplicationController
         @sidebar = {:news => false, :posts => true}
         render
       } # index.html.erb
-      format.json { render :json => @posts.to_json(:except => [:user_id, :updated_at, :public, :id, :created_at]) }
+      format.json { render :json => @posts.to_json() }
       format.csv do |csv|
         @filename = "posts_" + Time.now.strftime("%m-%d-%Y") + ".csv"
-        csv_data = CSV.generate("") do |csv|
+        csv_data = FasterCSV.generate("") do |csv|
+          csv << ["content", "created_at", "updated_at", "public"]
           @posts.each do |post|
-            csv << [post.content]
+            csv << [post.content, post.created_at, post.updated_at, post.public]
           end
         end       
         send_data csv_data, :type => 'text/csv; charset=iso-8859-1; header=present',
@@ -82,7 +81,7 @@ class PostsController < ApplicationController
       }
       format.markdown { render }
       format.iframe { render }
-      format.json { render :json => @post, :callback => params[:callback] }
+      format.json { render :json => @post.to_json(:except => [:user_id, :updated_at, :public, :created_at]), :callback => params[:callback] }
     end
   end
 
