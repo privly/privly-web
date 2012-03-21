@@ -1,3 +1,5 @@
+require 'csv'
+
 class PostsController < ApplicationController
   
   before_filter :authenticate_user!, :except => [:show]
@@ -45,7 +47,7 @@ class PostsController < ApplicationController
       format.json { render :json => @posts }
       format.csv do |csv|
         @filename = "posts_" + Time.now.strftime("%m-%d-%Y") + ".csv"
-        csv_data = CSV.generate do |csv|
+        csv_data = CSV.generate("") do |csv|
           @posts.each do |post|
             csv << [post.content]
           end
