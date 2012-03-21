@@ -5,5 +5,4 @@ class Post < ActiveRecord::Base
   attr_accessible :content, :public
   
   self.per_page = 5
-  
 end
