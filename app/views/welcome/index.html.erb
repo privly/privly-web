@@ -98,6 +98,9 @@
         var player = $('#player_3')[0];
         $f(player).addEvent('ready', ready);
         
+        var player = $('#player_4')[0];
+        $f(player).addEvent('ready', ready);
+        
         function addEvent(element, eventName, callback) {
             if (element.addEventListener) {
                 element.addEventListener(eventName, callback, false);
@@ -127,10 +130,9 @@
                     <span class="video_link"><%= link_to_function "3. Watch Roadmap Tour", 
                         "viewVideo('#video_3');$('#roadmap_text').slideToggle('slow');$('#roadmap_text_2').slideToggle('slow');" %>
                     </span><br /><br />
-                    <span class="video_link"><%= link_to_function "4. Watch Technical Tour", "$('#technical_message').slideToggle('slow');"  %></span><br /><br />
-                    <span id="technical_message" style="display:none;background:none;font-size:14px">
-                        We haven't recorded the technical video yet, but we will if enough people are interested in the project.
-                    </span>
+                    <span class="video_link"><%= link_to_function "4. Watch Encryption Tour", 
+                        "viewVideo('#video_4');" %>
+                    </span><br /><br />
                 </p>
             </div>
             
@@ -152,6 +154,10 @@
             
             <div id="video_3" style="display:none;background:none;position:absolute;">
                 <iframe id="player_3" src="https://player.vimeo.com/video/38477051?title=0&amp;byline=0&amp;portrait=0&amp;api=1&amp;player_id=player_3" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+            </div>
+            
+            <div id="video_4" style="display:none;background:none;position:absolute;">
+                <iframe id="player_4" src="https://player.vimeo.com/video/39095681?title=0&amp;byline=0&amp;portrait=0&amp;api=1&amp;player_id=player_4" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
             </div>
             
             <div id="video_back" style="display:none;background:none;position:absolute;top:10px;right:0px;width:370px;text-align: right;">
