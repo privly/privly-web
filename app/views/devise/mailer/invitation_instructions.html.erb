@@ -2,12 +2,22 @@
 
 <p>Someone has invited you to <%= root_url %>, you can accept it through the link below.</p>
 
-<p>Privly is still an experimental application, so only use it...experimentally. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_path %>. We are going to destroy user content periodically (we won't take data we can't protect properly), and if we get too many registrations we are going to roll all non-developer, donor, and tester accounts into our invitation list.</p>
+<p>We are in a stage of development we are calling "Proof of Concept." The extension works on most sites, but there are <%= link_to "bugs", pages_bug_url %> and we need to add more user controls. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_url %> so we can fix the problem for you. There are bound to be some rough edges when you are interfacing with the entire internet, but in most cases, Privly will work wherever you bring it.</p>
 
-<p><%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></p>
+<p>For the time being, we are going to destroy user content periodically (we won't take data we can't protect properly).</p>
+
+<p>The potential server demands for Privly are substantial, so until our financial picture improves, we are going to prioritize active accounts in this order: 1. Developers, 2. Testers (People who regularly submit bug reports), 3. Forever Account Holders, 4. Backers, 5. Friends of Backers</p>
+
+<p><%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %> then <%= link_to 'Learn how to Privly.', "http://vimeo.com/38477052" %></p>
+
+<p><%= link_to 'Follow our Twitter', "https://twitter.com/#!/Privly" %> for updates.</p>
 
 <p>
-    Thanks!
+    Thanks for the Support, and let us know how it goes!
     <br />
     -Privly
+</p>
+
+<p>
+Are you a developer, tester, graphic designer, crypo-expert, or all-round awesome individual? <%= link_to "Join Us!", pages_join_url %>
 </p>
