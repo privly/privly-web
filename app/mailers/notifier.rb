@@ -6,6 +6,6 @@ class Notifier < ActionMailer::Base
     @user = recipient
     @user.last_emailed = Time.now
     @user.save
-    mail(:to => recipient.email)
+    mail(:to => recipient.email, :subject => "Protecting Privacy on the Internet: Priv.ly")
   end
 end
