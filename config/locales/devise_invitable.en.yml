@@ -1,7 +1,7 @@
 en:
   devise:
     invitations:
-      send_instructions: 'Thanks %{email}! We will let you know when we are ready for users. If you are a dev, donor, or tester, you can start using the system as soon as we approve your account.'
+      send_instructions: 'Thanks %{email}! We will let you know when we are ready for users. If you are a dev, donor, or tester, you can start using the system as soon as you message us your email address (Kickstarter does not give it to us).'
       invitation_token_invalid: 'The invitation token provided is not valid!'
       updated: 'Your password was set successfully. You are now signed in.'
       no_invitations_remaining: "No invitations remaining"

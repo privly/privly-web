@@ -1,7 +1,7 @@
 class Users::InvitationsController < Devise::InvitationsController
   
-  before_filter :authenticate_user!, :only => [:index, :send]
-  before_filter :require_admin, :only => [:index, :send]
+  before_filter :authenticate_user!, :only => [:index, :send_invitation, :send_update]
+  before_filter :require_admin, :only => [:index, :send_invitation, :send_update]
   
   # POST /user/invitation
   def create
@@ -35,6 +35,19 @@ class Users::InvitationsController < Devise::InvitationsController
       user.save
       user.invite!
       redirect_to user_invitations_path, :notice => 'Invitation was sent.'
+    end
+    
+  end
+  
+  def send_update
+    
+    user = User.find_by_id(params[:user][:id])
+    
+    if not user.pending_invitation or not user.confirmation_sent_at.nil?
+      redirect_to user_invitations_path, :notice => 'That user is already pending an account.'
+    else
+      Notifier.update(user).deliver # sends the email
+      redirect_to user_invitations_path, :notice => 'You updated the user.'
     end
     
   end

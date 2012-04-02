@@ -13,7 +13,8 @@ Privly::Application.routes.draw do
 
   devise_scope :user do 
     get "users/invitations" => "users/invitations#index", :as => :user_invitations
-    post "users/invitations" => "users/invitations#send_invitation", :as => :user_send_invitations
+    post "users/invitations/send_invitation" => "users/invitations#send_invitation", :as => :user_send_invitations
+    post "users/invitations/send_update" => "users/invitations#send_update", :as => :user_send_update
   end 
 
   root :to => "welcome#index"

@@ -10,11 +10,12 @@
         </div>
         <p>
             <%= invitation.email %>
-            <%= button_to "Send", { :action => "send_invitation", :user => {:id => invitation.id} },
-                  :confirm => "Are you sure?", :method => :post %>
+            <%= button_to "Send Invitation", { :action => "send_invitation", :user => {:id => invitation.id} },
+                  :confirm => "Send Invitation: Are you sure?", :method => :post %>
+            <%= button_to "Update with Current Message", { :action => "send_update", :user => {:id => invitation.id} },
+                  :confirm => "Update User: Are you sure?", :method => :post %> (Last Updated Via Email: <%= invitation.last_emailed %>)
         </p>
     </div>
-    
 <% end %>
 
 <div class="digg_pagination">
@@ -31,7 +32,7 @@
 
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
   <%= devise_error_messages! %>
-
+  
   <p><%= f.label :email %><br />
   <%= f.text_field :email %></p>
 

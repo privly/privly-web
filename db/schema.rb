@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316210150) do
+ActiveRecord::Schema.define(:version => 20120402010527) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20120316210150) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.boolean  "pending_invitation",                    :default => false, :null => false
+    t.datetime "last_emailed"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
