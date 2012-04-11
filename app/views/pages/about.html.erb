@@ -23,9 +23,10 @@
 <div id="tabs">
     
     <ul>
-        <li><a href="#tabs-1">Own Your Content</a></li>
-        <li><a href="#tabs-2">Communicate Securely</a></li>
-        <li><a href="#tabs-3">How it Works</a></li>
+        <li><a href="#tabs-1">Ownership</a></li>
+        <li><a href="#tabs-2">Security</a></li>
+        <li><a href="#tabs-3">In the News</a></li>
+        <li><a href="#tabs-4">How it Will Work</a></li>
     </ul>
     
 
@@ -84,12 +85,108 @@
         <br />
         <br />
         
+        
+        <h2>Our Encryption In Depth</h2>
+        <div id="video_4">
+            <iframe id="player_4" src="https://player.vimeo.com/video/39095681?title=0&amp;byline=0&amp;portrait=0&amp;api=1&amp;player_id=player_4" width="600" height="450" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        </div>
+        
+        <br />
+        <br />
         <p>For more information, check out our <%= link_to "roadmap (technical)", pages_roadmap_path %> or <%= link_to "FAQ (organization information)", pages_faq_path %>.</p>
     </div>
     
     <div id="tabs-3">
         
+        <p>Even though we are pre-alpha, we are generating some buzz! Help us build on top of the Privly foundation, <%= link_to "join us!", pages_join_path %></p>
+        
+        <br/>
+        <br/>
+        
+        <p>
+        <%= link_to image_tag("http://www.theatlantic.com/static/front/images/atlantic-logo.gif", :width=>230), "http://www.theatlantic.com/technology/archive/12/04/a-privacy-manifesto-in-code-what-if-your-emails-never-went-to-gmail-and-twitter-couldnt-see-your-tweets/255414/" %>
+        
+        <br/>
+        <br/>
+        
+        <%= link_to image_tag("NewsSites/Spiegel_Online_logo.png", :width=>230), "http://www.spiegel.de/netzwelt/web/0,1518,825950,00.html" %>
+        
+        <br/>
+        <br/>
+        
+        <%= link_to image_tag("NewsSites/technabob_240_90_logo_black.gif", :width=>230), "http://technabob.com/blog/2012/03/25/privly-content-proetection/" %>
+        
+        <br/>
+        <br/>
+        
+        <%= link_to image_tag("NewsSites/omnitechnews.jpg", :width=>230), "http://www.omnitechnews.net/2012/03/29/privly/" %>
+        
+        <br/>
+        <br/>
+        
+        <%= link_to image_tag("NewsSites/TweakTown.png", :width=>230), "http://www.tweaktown.com/news/23408/priv_ly_wants_to_give_privacy_back_to_users_acts_as_invisible_web_link/index.html" %>
+        
+        <br/>
+        <br/>
+        
+        <%= link_to image_tag("NewsSites/GMMNewHeader.png", :width=>230), "http://www.givememind.com/priv-ly-protect-your-content-anywhere-on-the-web/" %>
+        
+        <br/>
+        <br/>
+        
+        <%= link_to image_tag("NewsSites/DigitalTrends.png", :width=>230), "http://www.digitaltrends.com/web/for-your-eyes-only-privly-acts-like-invisible-ink-for-the-web/" %>
+        
+        
+        <br/>
+        <br/>
+        
+        <%= link_to image_tag("NewsSites/FutureZone.png", :width=>230), "http://futurezone.at/produkte/8392-priv-ly-verschluesselung-fuer-soziale-netzwerke.php" %>
+        
+        <br/>
+        <br/>
+        
+        <%= link_to image_tag("NewsSites/ExtendedLimits.png", :width=>230), "http://www.extendlimits.nl/nieuws/artikel/priv.ly_kan_onze_privacy_terugbrengen/" %>
+        
+        <br/>
+        <br/>
+        
+        <%= link_to image_tag("NewsSites/osu-tag.gif"), "http://eecs.oregonstate.edu/people/meet-our-students/privly" %>
+        
+        <br/>
+        <br/>
+        
+        <%= link_to image_tag("NewsSites/Mashable_Logo_230px.png", :width=>230), "http://mashable.com/2012/04/04/privly/" %>
+        
+        <br/>
+        <br/>
+        
+        <%= link_to image_tag("NewsSites/yc500.gif", :width=>230), "http://news.ycombinator.com/item?id=3799542" %>
+        
+        <br/>
+        <br/>
+        
+        <%= link_to "Barrapunto (Spanish)", "http://barrapunto.com/articles/12/04/06/0852236.shtml" %>
+        
+        <br/>
+        <br/>
+        
+        <%= link_to "Hacker10", "http://www.hacker10.com/computer-security/share-encrypted-messages-on-social-networks-with-privly/" %>
+        
+        <br/>
+        <br/>
+        
+        </p>
+        
+    </div>
+    
+    <div id="tabs-4">
+        
         <h2>Posting Privly Content</h2>
+        
+        <br/>
+        <br/>
+                
+        <%= image_tag "HowItWorksPosting.gif", :title => "How Privly Works: Posting Content Priv(ate)ly" %>
         
         <ol>
             <li>Type your text into any site on the web</li>
@@ -101,9 +198,15 @@
             <li>You submit the form with the Privly link</li>
         </ol>
         
-        <br />
-        
+        <br/>
+        <br/>
+        <br/>
         <h2>Viewing Privly Content</h2>
+        
+        <br/>
+        <br/>
+        
+        <%= image_tag "HowItWorksViewing.gif", :title => "How Privly Works: Viewing Private Content" %>
         
         <ol>
             <li>The browser sees a Privly link on a website</li>
