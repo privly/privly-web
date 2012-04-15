@@ -200,43 +200,104 @@
     </div>
     
     <div id="tabs-4">
+        <div style="text-align: center;font-size: 150%;">
+            
+            <h2 style="font-size: 150%;">Posting Privly Content</h2>
+            
+            <div id="posting_1">
+                <%= link_to_function "Next Step", "$('#posting_1').slideToggle();$('#posting_2').slideToggle();" %>
+                <br/>
+                <%= image_tag "HowItWorks/Posting/1.jpg", :title => "How Privly Works: Posting Content Priv(ate)ly" %>
+
+            </div>
         
-        <h2>Posting Privly Content</h2>
+            <div id="posting_2" style="display:none;background:none;">
+                <%= link_to_function "Previous Step", "$('#posting_2').slideToggle();$('#posting_1').slideToggle();" %>
+                &middot;
+                <%= link_to_function "Next Step", "$('#posting_2').slideToggle();$('#posting_3').slideToggle();" %>
+                <br/>
+                <%= image_tag "HowItWorks/Posting/2.jpg", :title => "How Privly Works: Posting Content Priv(ate)ly" %>
+            </div>
+            
+            <div id="posting_3" style="display:none;background:none;">
+                <%= link_to_function "Previous Step", "$('#posting_3').slideToggle();$('#posting_2').slideToggle();" %>
+                &middot;
+                <%= link_to_function "Next Step", "$('#posting_3').slideToggle();$('#posting_4').slideToggle();" %>
+                <br/>
+                <%= image_tag "HowItWorks/Posting/3.jpg", :title => "How Privly Works: Posting Content Priv(ate)ly" %>
+            </div>
         
-        <br/>
-        <br/>
-                
-        <%= image_tag "HowItWorksPosting.gif", :title => "How Privly Works: Posting Content Priv(ate)ly" %>
+            <div id="posting_4" style="display:none;background:none;">
+                <%= link_to_function "Previous Step", "$('#posting_4').slideToggle();$('#posting_3').slideToggle();" %>
+                &middot;
+                <%= link_to_function "Next Step", "$('#posting_4').slideToggle();$('#posting_5').slideToggle();" %>
+                <br/>
+                <%= image_tag "HowItWorks/Posting/4.jpg", :title => "How Privly Works: Posting Content Priv(ate)ly" %>
+            </div>
+            
+            <div id="posting_5" style="display:none;background:none;">
+                <%= link_to_function "Previous Step", "$('#posting_5').slideToggle();$('#posting_4').slideToggle();" %>
+                &middot;
+                <%= link_to_function "Next Step", "$('#posting_5').slideToggle();$('#posting_6').slideToggle();" %>
+                <br/>
+                <%= image_tag "HowItWorks/Posting/5.jpg", :title => "How Privly Works: Posting Content Priv(ate)ly" %>
+            </div>
         
-        <ol>
-            <li>Type your text into any site on the web</li>
-            <li>Right click on the form you typed the text into, and select "Post to Privly"</li>
-            <li>(in development) Your browser encrypts the content and the decryption key</li>
-            <li>(in development) Your browser sends the encrypted decryption key to a storage server</li>
-            <li>The browser sends your content to a storage server</li>
-            <li>The storage server sends you a link</li>
-            <li>You submit the form with the Privly link</li>
-        </ol>
+            <div id="posting_6" style="display:none;background:none;">
+                <%= link_to_function "Previous Step", "$('#posting_6').slideToggle();$('#posting_5').slideToggle();" %>
+                &middot;
+                <%= link_to_function "Next Step", "$('#posting_6').slideToggle();$('#posting_7').slideToggle();" %>
+                <br/>
+                <%= image_tag "HowItWorks/Posting/6.jpg", :title => "How Privly Works: Posting Content Priv(ate)ly" %>
+            </div>
         
-        <br/>
-        <br/>
-        <br/>
-        <h2>Viewing Privly Content</h2>
+            <div id="posting_7" style="display:none;background:none;">
+                <%= link_to_function "Previous Step", "$('#posting_7').slideToggle();$('#posting_6').slideToggle();" %>
+                <br/>
+                <%= image_tag "HowItWorks/Posting/7.jpg", :title => "How Privly Works: Posting Content Priv(ate)ly" %>
+            </div>
         
-        <br/>
-        <br/>
+            <br/>
+            <br/>
+            <hr/>
+            <br/>
+            <h2 style="font-size: 150%;">Viewing Privly Content</h2>
+            <div id="viewing_1">
+                <%= link_to_function "Next Step", "$('#viewing_1').slideToggle();$('#viewing_2').slideToggle();" %>
+                <br/>
+                <%= image_tag "HowItWorks/Viewing/1.jpg", :title => "How Privly Works: Viewing Content Priv(ate)ly" %>
+            </div>
         
-        <%= image_tag "HowItWorksViewing.gif", :title => "How Privly Works: Viewing Private Content" %>
+            <div id="viewing_2" style="display:none;background:none;">
+                <%= link_to_function "Previous Step", "$('#viewing_2').slideToggle();$('#viewing_1').slideToggle();" %>
+                &middot;
+                <%= link_to_function "Next Step", "$('#viewing_2').slideToggle();$('#viewing_3').slideToggle();" %>
+                <br/>
+                <%= image_tag "HowItWorks/Viewing/2.jpg", :title => "How Privly Works: Viewing Content Priv(ate)ly" %>
+            </div>
         
-        <ol>
-            <li>The browser sees a Privly link on a website</li>
-            <li>The browser asks the content server for the content behind the link</li>
-            <li>(in development) The browser asks for the encrypted decryption key from the storage server</li>
-            <li>(in development) The browser decrypts the decryption key</li>
-            <li>(in development) The browser decrypts the content</li>
-            <li>The browser displays the link content wherever it found the link, without giving the host page access</li>
-        </ol>
-        
+            <div id="viewing_3" style="display:none;background:none;">
+                <%= link_to_function "Previous Step", "$('#viewing_3').slideToggle();$('#viewing_2').slideToggle();" %>
+                &middot;
+                <%= link_to_function "Next Step", "$('#viewing_3').slideToggle();$('#viewing_4').slideToggle();" %>
+                <br/>
+                <%= image_tag "HowItWorks/Viewing/3.jpg", :title => "How Privly Works: Viewing Content Priv(ate)ly" %>
+            </div>
+            
+            <div id="viewing_4" style="display:none;background:none;">
+                <%= link_to_function "Previous Step", "$('#viewing_4').slideToggle();$('#viewing_3').slideToggle();" %>
+                &middot;
+                <%= link_to_function "Next Step", "$('#viewing_4').slideToggle();$('#viewing_5').slideToggle();" %>
+                <br/>
+                <%= image_tag "HowItWorks/Viewing/4.jpg", :title => "How Privly Works: Viewing Content Priv(ate)ly" %>
+            </div>
+            
+            <div id="viewing_5" style="display:none;background:none;">
+                <%= link_to_function "Previous Step", "$('#viewing_5').slideToggle();$('#viewing_4').slideToggle();" %>
+                <br/>
+                <%= image_tag "HowItWorks/Viewing/5.jpg", :title => "How Privly Works: Viewing Content Priv(ate)ly" %>
+            </div>
+        </div>
         <br />
         <br />
         
