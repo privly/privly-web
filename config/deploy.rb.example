@@ -1,25 +1,31 @@
-# Example of a deployment file for
-# Capistrano. You should change the 
-# relevant lines to match your system, 
-# then copy this file to database.yml
+require "bundler/capistrano"
 
-set :user, "your_server_username"
-set :scm_username, "your_scm_username"
+set :stages, %w(production staging)
+set :default_stage, "staging"
+require 'capistrano/ext/multistage'
+
+set :deploy_via, :remote_cache
+set :deploy_env, 'production'
+
+set :user, "your_user_name"
+set :scm_username, "your_user_name"
 set :application, "privly"
-set :repository,  "git@github.com:smcgregor/privly-web.git"
+set :repository,  "git@github.com:your_user_name/privly-web.git"
+set :branch, "your_branch_here"
 
-set :deploy_to, "/var/www"
-set :privly_shared_path, "#{deploy_to}../shared/"
+set :deploy_to, "/path/to/application/on/server"
+set :privly_shared_path, "#{deploy_to}/shared/"
 default_run_options[:pty] = true
+
+#hack because for some reason it checks for this to be defined 
+#before reading the variables from the stage files
+set :domain, ""
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
+#set this to whichever port your server answers on
 set :port, 22
-set :domain, "priv.ly"
-role :web, "priv.ly"                          # Your HTTP server, Apache/etc
-role :app, "priv.ly"                          # This may be the same as your `Web` server
-role :db,  "priv.ly", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
 # if you're still using the script/reaper helper you will need
@@ -32,4 +38,9 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
+end
+
+#check where the command is running
+task :uname do
+  run "uname -a"
 end
