@@ -24,6 +24,20 @@
                         <% if can? :view, @post %>
                         <li><a style="font-size:75%"><%= post_url(@post) %></a></li>
                         <% end %>
+                        
+                        <% if can? :destroy, @post %>
+                            <% if @post.burn_after_date %>
+                                <% if @post.burn_after_date > Time.now %>
+                                    <li><a>Destroyed in <%= time_ago_in_words @post.burn_after_date %></a></li>
+                                <% else %>
+                                    <li><a>This post is about to be destroyed</a></li>
+                                <% end %>
+                                
+                            <% else %>
+                                <li><a>No Destroy Date Set</a></li>
+                            <% end %>
+                        <% end %>
+                        
                         <% if user_signed_in? %>
                             <% if current_user == @post.user %>
                                 <li><a>You Own This</a></li>

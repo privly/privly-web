@@ -81,7 +81,7 @@ class PostsController < ApplicationController
       }
       format.markdown { render }
       format.iframe { render }
-      format.json { render :json => @post.to_json(:except => [:user_id, :updated_at, :public, :created_at]), :callback => params[:callback] }
+      format.json { render :json => @post.to_json(:except => [:user_id, :updated_at, :public, :created_at, :burn_after_date]), :callback => params[:callback] }
     end
   end
 
@@ -128,6 +128,10 @@ class PostsController < ApplicationController
     
     unless can? :share, @post
       params[:post].delete :public
+    end
+    
+    unless can? :destroy, @post
+      params[:post].delete burn_after_date
     end
     
     respond_to do |format|

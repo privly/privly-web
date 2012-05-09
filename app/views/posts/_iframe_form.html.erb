@@ -13,6 +13,17 @@
   <div class="field">
     <%= f.text_area :content, :style => "width: 100%;" %><br /><br />
     
+    <% if can? :destroy, @post %>
+        <h2>Timed Destruction</h2>
+        <p>
+            Destroy After (optional) 
+            <%= date_select :post, :burn_after_date, 
+                :default => nil, 
+                :start_year => Time.now.year, :end_year => Time.now.year,  
+                :prompt => {:day => 'Choose day', :month => 'Choose month', :year => 'Choose year'} %>
+        </p>
+    <% end %>
+    
     <% if can? :share, @post %>
         <%= f.check_box :public %>
         <%= f.label :public %>
