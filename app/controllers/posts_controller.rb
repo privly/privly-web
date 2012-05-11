@@ -67,14 +67,22 @@ class PostsController < ApplicationController
     @email_share = EmailShare.new
     respond_to do |format|
       format.html {
+        
+        @sidebar = {:post => true, :news => false}
+        if user_signed_in?
+          @sidebar[:posts] = true
+        else
+          @sidebar[:posts] = false
+        end
         if extension_available? and not has_extension?
           if chrome_browser?
-            @sidebar = {:post => true, :news => false, :posts => true, :download_extension => true, :download_chrome_extension => true}
+            @sidebar[:download_extension] = true
+            @sidebar[:download_chrome_extension] = true
           else
-            @sidebar = {:post => true, :news => false, :posts => true, :download_extension => true}
+            @sidebar[:download_extension] = true
           end
         else
-          @sidebar = {:post => true, :news => false, :posts => true, :download_extension => false}
+          @sidebar[:download_extension] = false
         end
         
         render

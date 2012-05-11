@@ -1,125 +1,185 @@
 <script type="text/javascript">
   $(function() {
-      $( "#sidebar_accordion" ).accordion({autoHeight: false});
+      $( "#sidebar_accordion" ).accordion({autoHeight: false, collapsible: true, active: false});
       if($("#rightboxes") != null)
       {
           $("#downloadmessage").delay(1).fadeIn(2000);
           $("#rightboxes").delay(3000).slideDown("slow");
+          updateURL();
       }
   });
+  
+  //Collects the parameters from the 
+  function updateURL()
+  {
+      var query_string = '?';
+      var elem = document.getElementById('linkFormatterForm').elements;
+      for(var i = 0; i < elem.length; i++)
+      {
+          if(elem[i].getAttribute("use_in_url") == "true")
+          {
+              var val = elem[i].value;
+              
+              if(! val)
+                continue;
+              
+              if(elem[i].type == "checkbox" && elem[i].checked != true)
+                continue;
+              if(elem[i].type == "text")
+                val = val.replace(/[\s]/g,"+"); 
+              
+              query_string += elem[i].name + "=" + val + "&amp;";
+          }
+      } 
+      document.getElementById('newFormattedLink').innerHTML = query_string;
+      
+      console.log(query_string);
+  }
+  
 </script>
 
 
 <!--MAIN CONTENT SIDEBAR-->
 <div id="sidebar">           
-    <div>
+    <% if @sidebar %>
         <div id="sidebar_accordion">
-            
-            <% if @sidebar %>
-                
-                <% if @sidebar[:post] %>
-                <h2><a href="#">Post Info</a></h2>
-                <div>
-                    <ul class="posts">
-                        <% if can? :view, @post %>
-                        <li><a style="font-size:75%"><%= post_url(@post) %></a></li>
-                        <% end %>
-                        
-                        <% if can? :destroy, @post %>
-                            <% if @post.burn_after_date %>
-                                <% if @post.burn_after_date > Time.now %>
-                                    <li><a>Destroyed in <%= time_ago_in_words @post.burn_after_date %></a></li>
-                                <% else %>
-                                    <li><a>This post is about to be destroyed</a></li>
-                                <% end %>
-                                
+            <% if @sidebar[:post] and can? :show, @post %>
+            <h2><a href="#">Post Info</a></h2>
+            <div>
+                <ul class="posts">
+                    
+                    <% if can? :destroy, @post %>
+                        <% if @post.burn_after_date %>
+                            <% if @post.burn_after_date > Time.now %>
+                                <li><a>Destroyed in <%= time_ago_in_words @post.burn_after_date %></a></li>
                             <% else %>
-                                <li><a>No Destroy Date Set</a></li>
+                                <li><a>This post is about to be destroyed</a></li>
                             <% end %>
-                        <% end %>
-                        
-                        <% if user_signed_in? %>
-                            <% if current_user == @post.user %>
-                                <li><a>You Own This</a></li>
-                                <li><a class="date">Posted <%= time_ago_in_words(@post.created_at) %> ago.</a></li>
-                            <% else %>
-                                <li><a>An Anonymous User Owns This</a></li>
-                            <% end %>
+                            
                         <% else %>
-                            <li><%= link_to "log in for ownership information", new_user_session_url %></li>
+                            <li><a>No Destroy Date Set</a></li>
                         <% end %>
-                    </ul>
-                </div>
-                <% end %>
+                    <% end %>
+                    
+                    <% if user_signed_in? %>
+                        <% if current_user == @post.user %>
+                            <li><a>You Own This</a></li>
+                            <li><a class="date">Posted <%= time_ago_in_words(@post.created_at) %> ago.</a></li>
+                        <% else %>
+                            <li><a>An Anonymous User Owns This</a></li>
+                        <% end %>
+                    <% else %>
+                        <li><%= link_to "log in for ownership information", new_user_session_url %></li>
+                    <% end %>
+                </ul>
+            </div>
             
-                <% if @sidebar[:posts] %>
-                <h2><a href="#">Write Posts</a></h2>
-                <div>
-                    <ul class="posts">
-                        <li><%= link_to 'New Private Post', new_post_path %></li>
-                        <li><%= link_to 'New Public Post', new_post_path("post[public]"=>true) %></li>
-                    </ul>
-                </div>
-                <% end %>
-            
-                <% if @sidebar[:markdown] %>
-                <h2><a id="sidebar_markdown" href="#sidebar_markdown">Markdown Tips</a></h2>
-                <div>
-                    <ul class="posts">
-                        <li><em>*Emphasis*</em></li>
-                        <li><strong>**Strong**</strong></li>
-                        <li>[link text here](link.address.here "link title here")</li>
-                        <li>Line Break: a line ending in two spaces.</li>
-                        <li>1. An ordered list</li>
-                        <li>* An unordered list</li>
-                        <li>`<code>code</code>`</li>
-                        <li><h1># heading</h1></li>
-                        <li><h2>## subheading</h2></li>
-                        <li><h3>### sub-subheading</h3></li>
-                        <li><h3>### sub-subheading</h3></li>
-                        <li><%= link_to "More on Markdown", "http://en.wikipedia.org/wiki/Markdown", {:target => "_blank"} %></li>
-                    </ul>
-                </div>
-                <% end %>
-                
-                <% if @sidebar[:contribute] %>
-                <h2><a id="sidebar_contribute" href="#sidebar_contribute">Contribute</a></h2>
-                <div>
-                    <ul class="posts">
-                        <li><%= link_to "Donate", pages_donate_path %></li>
-                        <li><%= link_to "Submit Bug Report", pages_bug_path %></li>
-                        <li><%= link_to "Join Up/Submit Code", pages_join_path %></li>
-                        <li><%= link_to "License", pages_license_path %></li>
-                    </ul>
-                </div>
-                <% end %>
-                
-                <% if @sidebar[:about] %>
-                <h2><a id="sidebar_about" href="#sidebar_about">About Us</a></h2>
-                <div>
-                    <ul class="posts">
-                        <li><%= link_to "About", pages_about_path %></li>
-                        <li><%= link_to "Road Map", pages_roadmap_path %></li>
-                        <li><%= link_to "People", pages_people_path %></li>
-                        <li><%= link_to "Download Extension", pages_download_path %></li>
-                    </ul>
-                </div>
-                <% end %>
-                
-                <% if @sidebar[:help] %>
-                <h2><a id="sidebar_help" href="#sidebar_help">Help</a></h2>
-                <div>
-                    <ul class="posts">
-                        <li><%= link_to "FAQ", pages_faq_path %></li>
-                        <li><%= link_to "Submit a Bug", pages_bug_path %></li>
-                        <li><%= link_to "Email", pages_email_path %></li>
-                        <li><%= link_to "Privacy/Terms of Service", pages_privacy_path %></li>
-                    </ul>
-                </div>
-                <% end %>
+            <h2><a href="#">Link Options</a></h2>
+            <div>
+                <ul class="posts">
+                    <%= form_tag nil, :id => "linkFormatterForm" do %>
+                      <li>
+                          Burn Message
+                          <%= text_field_tag(:burnMessage, nil, {:onkeyup=>"updateURL();", :use_in_url=>"true"}) %>
+                      </li>
+                      <li>
+                          Passive Message
+                          <%= text_field_tag(:passiveMessage, nil, {:onkeyup=>"updateURL();", :use_in_url=>"true"}) %>
+                      </li>
+                      <li>
+                          Force Passive?
+                          <%= check_box_tag(:forcePassive, "true", false, {:onclick=>"updateURL();", :use_in_url=>"true"}) %>
+                      </li>
+                      <li>
+                          Exclude from Replacement?
+                          <%= check_box_tag(:exclude, "true", false, {:onclick=>"updateURL();", :use_in_url=>"true"}) %>
+                      </li>
+                      <% if @post.burn_after_date %>
+                      <%= hidden_field_tag(:burntAfter, @post.burn_after_date.to_i, :use_in_url=>"true") %>
+                      <% end %>
+                    <% end %>
+                    
+                    <br/>
+                    
+                    <div>
+                        <p>Copy This:</p>
+                        <p>
+                            <div style="font-size:120%;font-weight:bold;">
+                            <%= post_url(@post) %><span id="newFormattedLink"></span>
+                            </div></p>
+                    </div>
+                </ul>
+            </div>
+            <% end %>
+        
+            <% if @sidebar[:posts] %>
+            <h2><a href="#">Write Posts</a></h2>
+            <div>
+                <ul class="posts">
+                    <li><%= link_to 'New Private Post', new_post_path %></li>
+                    <li><%= link_to 'New Public Post', new_post_path("post[public]"=>true) %></li>
+                </ul>
+            </div>
+            <% end %>
+        
+            <% if @sidebar[:markdown] %>
+            <h2><a id="sidebar_markdown" href="#sidebar_markdown">Markdown Tips</a></h2>
+            <div>
+                <ul class="posts">
+                    <li><em>*Emphasis*</em></li>
+                    <li><strong>**Strong**</strong></li>
+                    <li>[link text here](link.address.here "link title here")</li>
+                    <li>Line Break: a line ending in two spaces.</li>
+                    <li>1. An ordered list</li>
+                    <li>* An unordered list</li>
+                    <li>`<code>code</code>`</li>
+                    <li><h1># heading</h1></li>
+                    <li><h2>## subheading</h2></li>
+                    <li><h3>### sub-subheading</h3></li>
+                    <li><h3>### sub-subheading</h3></li>
+                    <li><%= link_to "More on Markdown", "http://en.wikipedia.org/wiki/Markdown", {:target => "_blank"} %></li>
+                </ul>
+            </div>
             <% end %>
             
-            <% if not @sidebar or @sidebar[:news] != false %>
+            <% if @sidebar[:contribute] %>
+            <h2><a id="sidebar_contribute" href="#sidebar_contribute">Contribute</a></h2>
+            <div>
+                <ul class="posts">
+                    <li><%= link_to "Donate", pages_donate_path %></li>
+                    <li><%= link_to "Submit Bug Report", pages_bug_path %></li>
+                    <li><%= link_to "Join Up/Submit Code", pages_join_path %></li>
+                    <li><%= link_to "License", pages_license_path %></li>
+                </ul>
+            </div>
+            <% end %>
+            
+            <% if @sidebar[:about] %>
+            <h2><a id="sidebar_about" href="#sidebar_about">About Us</a></h2>
+            <div>
+                <ul class="posts">
+                    <li><%= link_to "About", pages_about_path %></li>
+                    <li><%= link_to "Road Map", pages_roadmap_path %></li>
+                    <li><%= link_to "People", pages_people_path %></li>
+                    <li><%= link_to "Download Extension", pages_download_path %></li>
+                </ul>
+            </div>
+            <% end %>
+            
+            <% if @sidebar[:help] %>
+            <h2><a id="sidebar_help" href="#sidebar_help">Help</a></h2>
+            <div>
+                <ul class="posts">
+                    <li><%= link_to "FAQ", pages_faq_path %></li>
+                    <li><%= link_to "Submit a Bug", pages_bug_path %></li>
+                    <li><%= link_to "Email", pages_email_path %></li>
+                    <li><%= link_to "Privacy/Terms of Service", pages_privacy_path %></li>
+                </ul>
+            </div>
+            <% end %>
+            
+            
+            <% if @sidebar[:news] != false %>
             <h2><a id="sidebar_news" href="#sidebar_news">Site News</a></h2>
             <div>
                 <ul class="menu">
@@ -127,9 +187,19 @@
                 </ul>
             </div>
             <% end %>
-        
         </div>
-    </div><!-- End demo -->
+    <% else %>
+    
+    <div id="sidebar_accordion">
+        <h2><a id="sidebar_news" href="#sidebar_news">Site News</a></h2>
+        <div>
+            <ul class="menu">
+                <li><%= link_to "Privly Twitter", "http://twitter.com/#!/Privly" %></li>
+            </ul>
+        </div>
+    </div>
+    
+    <% end %>
     
     <% if @sidebar and @sidebar[:download_extension] %>
         <div id="downloadmessage" class="rotate_sidebar" style="display:none;">
