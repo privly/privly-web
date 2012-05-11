@@ -1,1 +1,13 @@
-Content server Ruby on Rails application for https://priv.ly
+***System Status: Pre-Alpha***
+
+This is the reference implementation of the Privly server standard. For more information on what Privly is, see https://priv.ly. The development home of Privly is at http://www.privly.org/. 
+
+To join the Privly community:
+1. Join the Google Group: http://groups.google.com/group/privly
+2. Follow the directions of this post: http://groups.google.com/group/privly/browse_thread/thread/7c670d92fa19ba0e 
+
+Information for Server Developers
+The "master" branch of this application is deployed to http://dev.privly.org. The "kickstarter" branch is deployed to https://priv.ly. The issue queue has the current areas needing development.
+
+Information for Extension Developers
+If you want a development account on dev.privly.org (useful if you don't want to setup this server locally), post to this thread on privly.org: http://www.privly.org/content/official-code-development-team-thread
