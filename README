@@ -1,10 +1,8 @@
 ***System Status: Pre-Alpha***
 
-This is the reference implementation of the Privly server standard. For more information on what Privly is, see https://priv.ly. The development home of Privly is at http://www.privly.org/. 
+This is the reference implementation of the Privly server standard. For more information on what Privly is, see https://priv.ly.
 
-To join the Privly community:
-1. Join the Google Group: http://groups.google.com/group/privly
-2. Follow the directions of this post: http://groups.google.com/group/privly/browse_thread/thread/7c670d92fa19ba0e 
+The development home of Privly is at http://www.privly.org/. For information on how to join the Privly community, read this: http://www.privly.org/content/welcome-privly-development
 
 Information for Server Developers
 The "master" branch of this application is deployed to http://dev.privly.org. The "kickstarter" branch is deployed to https://priv.ly. The issue queue has the current areas needing development.
