@@ -1,11 +1,17 @@
-***System Status: Pre-Alpha***
+# Privly Development Server
 
-This is the reference implementation of the Privly server standard. For more information on what Privly is, see https://priv.ly.
+This application hosts the content injected into websites by Privly extensions. Since any server technology could potentially support the (under development) Privly standard, this server is the [reference implementation](http://en.wikipedia.org/wiki/Reference_implementation) for fully private hosting of Privly content.
+
+**System Status: Pre-Alpha**
+
+For more information on what Privly is, see https://priv.ly.
 
 The development home of Privly is at http://www.privly.org/. For information on how to join the Privly community, read this: http://www.privly.org/content/welcome-privly-development
 
-Information for Server Developers
+## Information for Server Developers
+
 The "master" branch of this application is deployed to http://dev.privly.org. The "kickstarter" branch is deployed to https://priv.ly. The issue queue has the current areas needing development.
 
-Information for Extension Developers
+## Information for Extension Developers
+
 If you want a development account on dev.privly.org (useful if you don't want to setup this server locally), post to this thread on privly.org: http://www.privly.org/content/official-code-development-team-thread
