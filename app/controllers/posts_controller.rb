@@ -97,6 +97,9 @@ class PostsController < ApplicationController
   # GET /posts/new.json
   def new
     @sidebar = {:markdown => true, :posts => true, :news => false}
+    
+    @post.burn_after_date = Time.now + 2.weeks
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @post }
@@ -113,6 +116,10 @@ class PostsController < ApplicationController
   def create
     
     @post = Post.new(params[:post])
+    
+    if not @post.burn_after_date
+      @post.burn_after_date = Time.now + 2.weeks
+    end
     
     if current_user
       @post.user = current_user
