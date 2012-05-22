@@ -2,11 +2,19 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 
+def get_password
+  if Rails.env == "development"
+    return "password"
+  else
+    abort("You should only run this on development.\naborting")
+  end
+end
+
 # You should the emails if you don't want Sean to
 # have an account on this server
 development_user = User.find_by_email("development@priv.ly")
 unless development_user
-  password = ActiveSupport::SecureRandom.hex(10)
+  password = get_password
   development_user = User.create(
     :email                  => 'development@priv.ly',
     :password               => password,
@@ -18,7 +26,7 @@ end
 
 demonstration_user = User.find_by_email("demonstration@priv.ly")
 unless demonstration_user
-  password = ActiveSupport::SecureRandom.hex(10)
+  password = get_password
   demonstration_user = User.create(
     :email                  => 'demonstration@priv.ly',
     :password               => password,
@@ -30,7 +38,7 @@ end
 
 sean = User.find_by_email("privly@seanbmcgregor.com")
 unless sean
-  password = ActiveSupport::SecureRandom.hex(10)
+  password = get_password
   sean = User.create(
     :email                  => 'privly@seanbmcgregor.com',
     :password               => password,
@@ -40,7 +48,8 @@ unless sean
   sean.confirm!
 end
 
-Post.create({:user => demonstration_user, :public => true, :content => '
+
+Post.create({:public => true, :content => '
 Privly is a method for taking control of everything you share electronically. Facebook, Google, Twitter, and the rest do not own your data. You do.
 
 By putting your content behind a link, and injecting it into the page on the browser side, your content is not subject to their terms. They can not even see it. Further, when we are done with our client side encryption library, even the place you store your content will not be able to read your content. Privly does not want your trust, we want to make Privly a protocol for connecting your life on the web.
@@ -61,9 +70,9 @@ Privly has proven itself as a concept. You can use it on Facebook, Gmail, Google
 
 '})
 
-Post.create({:user => demonstration_user, :public => true, :content => 'SUCCESS'})
+Post.create({:public => true, :content => 'SUCCESS'})
 
-Post.create({:user => demonstration_user, :public => true, :content => '
+Post.create({:public => true, :content => '
 # The Apology
 ## By Plato
 
@@ -80,7 +89,7 @@ But the main body of these slanderers who from envy and malice have wrought upon
 [Read More](http://evans-experientialism.freewebspace.com/plato_apology.htm "Read More").
 '})
 
-Post.create({:user => demonstration_user, :public => true, :content => '
+Post.create({:public => true, :content => '
 # Give Me Liberty Or Give Me Death
 ## By Patrick Henry
 
@@ -95,7 +104,7 @@ They tell us, sir, that we are weak -- unable to cope with so formidable an adve
 It is in vain, sir, to extenuate the matter. Gentlemen may cry, peace, peace -- but there is no peace. The war is actually begun! The next gale that sweeps from the north will bring to our ears the clash of resounding arms! Our brethren are already in the field! Why stand we here idle? What is it that gentlemen wish? What would they have? Is life so dear, or peace so sweet, as to be purchased at the price of chains and slavery? Forbid it, Almighty God! -- I know not what course others may take; but as for me, give me liberty or give me death!  
 '})
 
-Post.create({:user => demonstration_user, :public => true, :content => '
+Post.create({:public => true, :content => '
 # The Hypocrisy of American Slavery
 ## By Frederick Douglass
 
@@ -106,7 +115,7 @@ Would to God, both for your sakes and ours, that an affirmative answer could be 
 [Read More](http://www.historyplace.com/speeches/douglass.htm "Read More").
 '})
 
-Post.create({:user => demonstration_user, :public => true, :content => '
+Post.create({:public => true, :content => '
 # The Gettysburg Address
 ## By Abraham Lincoln
 
@@ -117,7 +126,7 @@ Now we are engaged in a great civil war, testing whether that nation or any nati
 But, in a larger sense, we cannot dedicate, we cannot consecrate, we cannot hallow this ground. The brave men, living and dead who struggled here have consecrated it far above our poor power to add or detract. The world will little note nor long remember what we say here, but it can never forget what they did here. It is for us the living rather to be dedicated here to the unfinished work which they who fought here have thus far so nobly advanced. It is rather for us to be here dedicated to the great task remaining before us -- that from these honored dead we take increased devotion to that cause for which they gave the last full measure of devotion -- that we here highly resolve that these dead shall not have died in vain, that this nation under God shall have a new birth of freedom, and that government of the people, by the people, for the people shall not perish from the earth.
 '})
 
-Post.create({:user => demonstration_user, :public => true, :content => '
+Post.create({:public => true, :content => '
 # Blood, Toil, Tears and Sweat
 
 ## May 13, 1940
@@ -138,7 +147,7 @@ To form an Administration of this scale and complexity is a serious undertaking 
 We have before us an ordeal of the most grievous kind. We have before us many, many long months of struggle and of suffering. You ask, what is our policy? I can say: It is to wage war, by sea, land and air, with all our might and with all the strength that God can give us; to wage war against a monstrous tyranny, never surpassed in the dark, lamentable catalogue of human crime. That is our policy. You ask, what is our aim? I can answer in one word: It is victory, victory at all costs, victory in spite of all terror, victory, however long and hard the road may be; for without victory, there is no survival. Let that be realised; no survival for the British Empire, no survival for all that the British Empire has stood for, no survival for the urge and impulse of the ages, that mankind will move forward towards its goal. But I take up my task with buoyancy and hope. I feel sure that our cause will not be suffered to fail among men. At this time I feel entitled to claim the aid of all, and I say, "come then, let us go forward together with our united strength."
 '})
 
-Post.create({:user => demonstration_user, :public => true, :content => "
+Post.create({:public => true, :content => "
 **HAMLET:** To be, or not to be--that is the question:  
 Whether 'tis nobler in the mind to suffer  
 The slings and arrows of outrageous fortune  
@@ -176,18 +185,23 @@ The fair Ophelia! -- Nymph, in thy orisons
 Be all my sins remembered.
 "})
   
-Post.create({:user => demonstration_user, :public => true, :content => '
+Post.create({:public => true, :content => '
 [The Age of Privacy is Over](http://www.readwriteweb.com/archives/facebooks_zuckerberg_says_the_age_of_privacy_is_ov.php "The Age of Privacy is Over").    
 '})
 
-Post.create({:user => demonstration_user, :public => false, :content => '
+Post.create({:public => false, :content => '
 This is the first private post on the system. When it is first created, only the people the demonstration user designate will have access to the content.
 '})
 
-Post.create({:user => demonstration_user, :public => false, :content => '
+Post.create({:public => false, :content => '
 This is the second private post on the system. When it is first created, only the people the demonstration user designate will have access to the content.
 '})
 
-Post.create({:user => demonstration_user, :public => false, :content => '
+Post.create({:public => false, :content => '
 This is the third private post on the system.
 '})
+
+Post.all.each do |post|
+  post.user = demonstration_user
+  post.save
+end
