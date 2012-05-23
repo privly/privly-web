@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   
-  before_filter :authenticate_user!, :except => [:show]
+  before_filter :authenticate_user!, :except => [:show, :new, :create]
   
   load_and_authorize_resource :except => [:destroy_all]
   
@@ -63,7 +63,7 @@ class PostsController < ApplicationController
   def show
     
     response.headers["privlyurl"] = post_url @post, 
-      {:random_token => @post.random_token, :buntAfter => @post.burn_after_date}
+      {:random_token => @post.random_token, :buntAfter => @post.burn_after_date.to_i}
     
     @email_share = EmailShare.new
     respond_to do |format|
@@ -99,7 +99,12 @@ class PostsController < ApplicationController
   def new
     @sidebar = {:markdown => true, :posts => true, :news => false}
     
-    @post.burn_after_date = Time.now + 2.weeks
+    if user_signed_in?
+      @post.burn_after_date = Time.now + 2.weeks
+    else
+      @post.burn_after_date = Time.now + 1.day
+      @post.public = true
+    end
     
     respond_to do |format|
       format.html # new.html.erb
@@ -118,19 +123,16 @@ class PostsController < ApplicationController
     
     @post = Post.new(params[:post])
     
-    if not @post.burn_after_date
-      @post.burn_after_date = Time.now + 2.weeks
-    end
-    
-    if current_user
+    if user_signed_in?
       @post.user = current_user
     end
     
     respond_to do |format|
       if @post.save
-        response.headers["privlyurl"] = post_url @post, 
-          {:random_token => @post.random_token, :buntAfter => @post.burn_after_date}
-        format.html { redirect_to @post, :notice => 'Post was successfully created.' }
+        url = post_url @post, 
+          {:random_token => @post.random_token, :buntAfter => @post.burn_after_date.to_i}
+        response.headers["privlyurl"] = url
+        format.html { redirect_to url, :notice => 'Post was successfully created.' }
         format.json { render :json => @post, :status => :created, :location => @post }
       else
         format.html { render :action => "new" }

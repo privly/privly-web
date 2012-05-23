@@ -4,7 +4,6 @@ class Ability
   def initialize(user, random_token=nil)
     user ||= User.new # guest user (not logged in)
     
-    #owner can do anything to their post
     can :manage, Post, :user_id => user.id
     can :manage, EmailShare, :post => {:user_id => user.id}
     

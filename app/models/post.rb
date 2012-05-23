@@ -6,13 +6,26 @@ class Post < ActiveRecord::Base
   
   before_create :generate_random_token
   
-  validate :burnt_after_in_future
+  validate :burnt_after_in_future, :unauthenticated_user_settings
   
   self.per_page = 5
   
   def burnt_after_in_future
     if burn_after_date and burn_after_date < Time.now
       errors.add(:burn_after_date, "#{burn_after_date}cannot be in the past, but you can destroy it now.")
+    end
+  end
+  
+  def unauthenticated_user_settings
+    if user_id.nil?
+      if not burn_after_date
+        errors.add(:burn_after_date, "#{burn_after_date}must be specified for anonymous posts.")
+      elsif burn_after_date > Time.now + 1.day
+        errors.add(:burn_after_date, "#{burn_after_date}cannot be more than one day into the future.")
+      end
+      if not self.public
+        errors.add(:public, "anonymous posts must be public.")
+      end
     end
   end
   
