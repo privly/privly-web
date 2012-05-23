@@ -62,7 +62,8 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     
-    response.headers["privlyurl"] = request.url
+    response.headers["privlyurl"] = post_url @post, 
+      {:random_token => @post.random_token, :buntAfter => @post.burn_after_date}
     
     @email_share = EmailShare.new
     respond_to do |format|
@@ -127,7 +128,8 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       if @post.save
-        response.headers["privlyurl"] = post_url @post
+        response.headers["privlyurl"] = post_url @post, 
+          {:random_token => @post.random_token, :buntAfter => @post.burn_after_date}
         format.html { redirect_to @post, :notice => 'Post was successfully created.' }
         format.json { render :json => @post, :status => :created, :location => @post }
       else

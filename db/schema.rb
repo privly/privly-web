@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120508022748) do
+ActiveRecord::Schema.define(:version => 20120523004701) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20120508022748) do
     t.integer  "user_id"
     t.boolean  "public",          :default => false, :null => false
     t.datetime "burn_after_date"
+    t.string   "random_token"
   end
 
   create_table "users", :force => true do |t|

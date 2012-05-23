@@ -89,4 +89,12 @@ class ApplicationController < ActionController::Base
         redirect_to root_url, :notice => "You have been flagged as a bot, if you are in fact human, please let us know so we will give you access."
       end
     end
+    
+  private
+
+    #Give CanCan access to the random token
+    #See: https://github.com/ryanb/cancan/wiki/Accessing-Request-Data
+    def current_ability
+      @current_ability ||= Ability.new(current_user, params[:random_token])
+    end
 end

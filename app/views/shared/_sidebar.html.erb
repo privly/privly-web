@@ -120,16 +120,11 @@ included.
                         <%= hidden_field_tag(:burntAfter, 
                             @post.burn_after_date.to_i, :use_in_url=>"true") %>
                     <% end %>
+                    <% if @post.random_token %>
+                        <%= hidden_field_tag(:random_token, 
+                            @post.random_token, :use_in_url=>"true") %>
+                    <% end %>
                 <% end %>
-                <br/>
-                <div>
-                    <p>Copy This:</p>
-                    <p>
-                        <div style="font-size:120%;font-weight:bold;">
-                            <%= post_url(@post) %><span id="newFormattedLink"></span>
-                        </div>
-                    </p>
-                </div>
             </ul>
         </div>
         <% end %><%# @sidebar[:post] %>

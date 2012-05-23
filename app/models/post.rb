@@ -2,7 +2,9 @@ class Post < ActiveRecord::Base
   belongs_to :user
   has_many :email_shares, :dependent => :destroy
   
-  attr_accessible :content, :public, :burn_after_date
+  attr_accessible :content, :public, :burn_after_date, :random_token
+  
+  before_create :generate_random_token
   
   validate :burnt_after_in_future
   
@@ -12,6 +14,11 @@ class Post < ActiveRecord::Base
     if burn_after_date and burn_after_date < Time.now
       errors.add(:burn_after_date, "#{burn_after_date}cannot be in the past, but you can destroy it now.")
     end
+  end
+  
+  def generate_random_token
+     #generates a random hex string of length 10
+     self.random_token = SecureRandom.hex(5)
   end
   
   #used by cron jobs to delete all the burnt posts
