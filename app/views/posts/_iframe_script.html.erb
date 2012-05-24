@@ -12,7 +12,9 @@ var iframeBehavior = {
         }
         else{
           url = window.document.location.toString();
-          url = url.substring(0,url.indexOf(".iframe"));
+          var iframeStringIndex = url.indexOf(".iframe");
+          url = url.substring(0,iframeStringIndex) + 
+            url.substring(iframeStringIndex + 7);
           window.open(url, '_blank');
         }  
     },

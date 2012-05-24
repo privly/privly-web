@@ -31,7 +31,9 @@ class Post < ActiveRecord::Base
   
   def generate_random_token
      #generates a random hex string of length 10
-     self.random_token = SecureRandom.hex(5)
+     unless self.random_token
+       self.random_token = SecureRandom.hex(5)
+     end
   end
   
   #used by cron jobs to delete all the burnt posts
