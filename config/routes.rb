@@ -42,6 +42,7 @@ Privly::Application.routes.draw do
   
   
   resources :posts
+  match '/posts/posts_anonymous' => "posts#create_anonymous", :as => :create_anonymous_post, :via => [:post]
   resources :email_shares, :only => [:create, :destroy, :update]
 
   match '/' => 'welcome#index', :as => :welcome

@@ -134,7 +134,9 @@ included.
         <h2><a href="#">Write Posts</a></h2>
         <div>
             <ul class="posts">
-                <li><%= link_to 'New Private Post', new_post_path %></li>
+                <% if user_signed_in? %>
+                    <li><%= link_to 'New Private Post', new_post_path %></li>
+                <% end %>
                 <li><%= link_to 'New Public Post', 
                     new_post_path("post[public]"=>true) %></li>
             </ul>

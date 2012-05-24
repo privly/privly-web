@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   
+  skip_before_filter :verify_authenticity_token, :only => [:create_anonymous]
+  
   before_filter :authenticate_user!, :except => [:show, :new, :create]
   
   load_and_authorize_resource :except => [:destroy_all]
@@ -62,8 +64,13 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     
-    response.headers["privlyurl"] = post_url @post, 
-      {:random_token => @post.random_token, :buntAfter => @post.burn_after_date.to_i}
+    if @post.burn_after_date
+      sharing_url_parameters = {:random_token => @post.random_token, :buntAfter => @post.burn_after_date.to_i}
+    else
+      sharing_url_parameters = {:random_token => @post.random_token}
+    end
+    
+    response.headers["privlyurl"] = post_url @post, sharing_url_parameters
     
     @email_share = EmailShare.new
     respond_to do |format|
@@ -129,8 +136,12 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       if @post.save
-        url = post_url @post, 
-          {:random_token => @post.random_token, :buntAfter => @post.burn_after_date.to_i}
+        if @post.burn_after_date
+          sharing_url_parameters = {:random_token => @post.random_token, :buntAfter => @post.burn_after_date.to_i}
+        else
+          sharing_url_parameters = {:random_token => @post.random_token}
+        end
+        url = post_url @post, sharing_url_parameters
         response.headers["privlyurl"] = url
         format.html { redirect_to url, :notice => 'Post was successfully created.' }
         format.json { render :json => @post, :status => :created, :location => @post }
@@ -171,6 +182,33 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to posts_url }
       format.json { head :ok }
+    end
+  end
+  
+  # POST /posts/anonymous
+  # POST /posts/anonymous.json
+  def create_anonymous
+    
+    @post = Post.new()
+    @post.content = params[:post][:content]
+    @post.burn_after_date = Time.now + 1.day
+    @post.public = true
+    
+    respond_to do |format|
+      if @post.save
+        if @post.burn_after_date
+          sharing_url_parameters = {:random_token => @post.random_token, :buntAfter => @post.burn_after_date.to_i}
+        else
+          sharing_url_parameters = {:random_token => @post.random_token}
+        end
+        url = post_url @post, sharing_url_parameters
+        response.headers["privlyurl"] = url
+        format.html { redirect_to url, :notice => 'Post was successfully created.' }
+        format.json { render :json => @post, :status => :created, :location => @post }
+      else
+        format.html { render :action => "new" }
+        format.json { render :json => @post.errors, :status => :unprocessable_entity }
+      end
     end
   end
   
