@@ -2,9 +2,9 @@ class PostsController < ApplicationController
   
   skip_before_filter :verify_authenticity_token, :only => [:create_anonymous]
   
-  before_filter :authenticate_user!, :except => [:show, :new, :create]
+  before_filter :authenticate_user!, :except => [:show, :new, :create_anonymous]
   
-  load_and_authorize_resource :except => [:destroy_all]
+  load_and_authorize_resource :except => [:destroy_all, :create_anonymous]
   
   before_filter :authenticate_user_show!, :only => [:show]
   before_filter :redirect_bot, :only => :show
@@ -26,7 +26,7 @@ class PostsController < ApplicationController
         format.html {
           redirect_to new_user_session_path, :message => "You might have access to that post if you log in."
         }
-        format.markdown { render "login"  }
+        format.markdown { render "login" }
         format.iframe { render "login" }
         format.json { render "login" }
       end
@@ -189,10 +189,15 @@ class PostsController < ApplicationController
   # POST /posts/anonymous.json
   def create_anonymous
     
-    @post = Post.new()
-    @post.content = params[:post][:content]
-    @post.burn_after_date = Time.now + 1.day
-    @post.public = true
+    @post = Post.new(params[:post])
+    
+    unless @post.burn_after_date
+      @post.burn_after_date = Time.now + 1.day
+    end
+    
+    unless params[:post][:public]
+      @post.public = true
+    end
     
     respond_to do |format|
       if @post.save
@@ -258,7 +263,7 @@ class PostsController < ApplicationController
       
       unless @post
         respond_to do |format|
-          format.html { 
+          format.html {
             if not session[:person] and params[:recaptcha_challenge_field]
               flash[:notice] = "You did not solve a captcha properly, are you sure you are human?"
             end

@@ -1,0 +1,39 @@
+<%= form_for(@post, :url => { :action => "create_anonymous" }) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %><br />
+    <%= f.text_area :content, :cols => 75, :rows => 18 %><br /><br />
+    
+    <h2>Timed Destruction</h2>
+    <p>
+        Destroy After (optional) 
+        <%= date_select :post, :burn_after_date, 
+            :default => nil, 
+            :start_year => Time.now.year, :end_year => Time.now.year,  
+            :prompt => {:day => 'Choose day', :month => 'Choose month', :year => 'Choose year'} %>
+    </p>
+
+    <h2>Access Control</h2>
+    <%= f.check_box :public %>
+    <%= f.label :public %>
+    
+  </div>
+  
+  <br/>
+  
+  <div class="actions">
+    <h2>Submit</h2>
+    <p><%= f.submit %> You can use the <%= link_to "Markdown", "#", {:onclick => "$('#sidebar_markdown').click()"} %> language for your posts.</p>
+  </div>
+<% end %>

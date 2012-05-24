@@ -2,13 +2,18 @@ class Ability
   include CanCan::Ability
 
   def initialize(user, random_token=nil)
-    user ||= User.new # guest user (not logged in)
     
-    can :manage, Post, :user_id => user.id
-    can :manage, EmailShare, :post => {:user_id => user.id}
+    if not user.nil?
+      can :manage, Post, :user_id => user.id 
+      can :manage, EmailShare, :post => {:user_id => user.id}
+    end
+    
+    user ||= User.new # guest user (not logged in)
     
     #if it is marked public and they have the random_token, they can read it
     can :show, Post, {:public => true, :random_token => random_token}
+    can :create_anonymous, Post
+    can :new, Post
     
     #email shares
     can :manage, EmailShare, :post => {:email_shares => {:email => user.email, :can_share => true}}
