@@ -65,7 +65,11 @@ class PostsController < ApplicationController
   def show
     
     if @post.burn_after_date
-      sharing_url_parameters = {:random_token => @post.random_token, :buntAfter => @post.burn_after_date.to_i}
+      if @post.burn_after_date < Time.now
+        raise ActiveRecord::RecordNotFound
+      end
+      sharing_url_parameters = {:random_token => @post.random_token, 
+        :burntAfter => @post.burn_after_date.to_i}
     else
       sharing_url_parameters = {:random_token => @post.random_token}
     end
@@ -97,7 +101,12 @@ class PostsController < ApplicationController
       }
       format.markdown { render }
       format.iframe { render }
-      format.json { render :json => @post.to_json(:except => [:user_id, :updated_at, :public, :created_at, :burn_after_date]), :callback => params[:callback] }
+      format.json { 
+        post_json = @post.as_json(:except => [:user_id, :updated_at, :public, 
+          :created_at, :burn_after_date, :random_token], 
+          :callback => params[:callback])
+        render :json => post_json.merge!(:privlyurl => 
+          response.headers["privlyurl"]) }
     end
   end
 
@@ -134,10 +143,17 @@ class PostsController < ApplicationController
       @post.user = current_user
     end
     
+    unless params[:burn_after_date]
+      if params[:post][:seconds_until_burn]
+        seconds_until_burn = params[:post][:seconds_until_burn].to_i
+        @post.burn_after_date = Time.now + seconds_until_burn.seconds
+      end
+    end
+    
     respond_to do |format|
       if @post.save
         if @post.burn_after_date
-          sharing_url_parameters = {:random_token => @post.random_token, :buntAfter => @post.burn_after_date.to_i}
+          sharing_url_parameters = {:random_token => @post.random_token, :burntAfter => @post.burn_after_date.to_i}
         else
           sharing_url_parameters = {:random_token => @post.random_token}
         end
@@ -160,7 +176,12 @@ class PostsController < ApplicationController
       params[:post].delete :public
     end
     
-    unless can? :destroy, @post
+    if can? :destroy, @post
+        if params[:post][:seconds_until_burn]
+          seconds_until_burn = params[:post][:seconds_until_burn].to_i
+          @post.burn_after_date = Time.now + seconds_until_burn.seconds
+        end
+    else
       params[:post].delete burn_after_date
     end
     
@@ -192,7 +213,12 @@ class PostsController < ApplicationController
     @post = Post.new(params[:post])
     
     unless @post.burn_after_date
-      @post.burn_after_date = Time.now + 1.day
+      if params[:post][:seconds_until_burn]
+        seconds_until_burn = params[:post][:seconds_until_burn].to_i
+        @post.burn_after_date = Time.now + seconds_until_burn.seconds
+      else
+        @post.burn_after_date = Time.now + 1.day
+      end
     end
     
     unless params[:post][:public]
@@ -202,17 +228,23 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         if @post.burn_after_date
-          sharing_url_parameters = {:random_token => @post.random_token, :buntAfter => @post.burn_after_date.to_i}
+          sharing_url_parameters = {:random_token => @post.random_token, 
+            :burntAfter => @post.burn_after_date.to_i}
         else
           sharing_url_parameters = {:random_token => @post.random_token}
         end
         url = post_url @post, sharing_url_parameters
         response.headers["privlyurl"] = url
         format.html { redirect_to url, :notice => 'Post was successfully created.' }
-        format.json { render :json => @post, :status => :created, :location => @post }
+        format.json { 
+          post_json = @post.as_json(:callback => params[:callback])
+          post_json.merge!(:privlyurl => response.headers["privlyurl"])
+          render :json => post_json, :status => :created, :location => @post, 
+            :callback => params[:callback] }
       else
         format.html { render :action => "new" }
-        format.json { render :json => @post.errors, :status => :unprocessable_entity }
+        format.json { render :json => @post.errors, 
+          :status => :unprocessable_entity }
       end
     end
   end
