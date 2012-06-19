@@ -57,22 +57,20 @@
     <div id="btmcontent">
         <div class="col1">
             <h2>Contribute</h2>
-            <p>We are an <a href="/pages/license">open source</a> project so there are many ways to contribute.</p>
+            <p>We are an <%= link_to "open source", pages_about_path %> project so there are many ways to contribute.</p>
             <ul>
                 <li><%= link_to "Donate", pages_donate_path %></li>
-                <li><%= link_to "Submit Bug Report", pages_bug_path %></li>
-                <li><%= link_to "Join Up/Submit Code", pages_join_path %></li>
-                <li><%= link_to "License", pages_license_path %></li>
+                <li><%= link_to "Contribute Skills", pages_join_path %></li>
+                <li><%= link_to "Privacy/License/Terms of Service", pages_privacy_path %></li>
             </ul>
         </div>
         <div class="col2">
             <h2>Help</h2>
-            <p>We are still in the early stages of development, so expect a few bugs. </p>
+            <p>We are still in the early stages of development, so we love getting bug reports. </p>
             <ul>
-                <li><%= link_to "FAQ", pages_faq_path %></li>
                 <li><%= link_to "Submit a Bug", pages_bug_path %></li>
-                <li><%= link_to "Email", pages_email_path %></li>
-                <li><%= link_to "Privacy/Terms of Service", pages_privacy_path %></li>
+                <li><%= link_to "Email List", pages_email_path %></li>
+                <li><%= link_to "IRC", pages_irc_path %></li>
             </ul>
         </div>
         <div class="col3">
@@ -80,8 +78,7 @@
             <p>The Privly concept is open source community project for taking control of your personal information.</p>
             <ul>
                 <li><%= link_to "About", pages_about_path %></li>
-                <li><%= link_to "Road Map", pages_roadmap_path %></li>
-                <li><%= link_to "People", pages_people_path %></li>
+                <li><%= link_to "FAQ", pages_faq_path %></li>
                 <li><%= link_to "Download Extension", pages_download_path %></li>
             </ul>
         </div>

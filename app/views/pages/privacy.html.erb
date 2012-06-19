@@ -5,7 +5,7 @@
 <% content_for(:extrajs) do %>
     <script type="text/javascript">
       $(function() {
-          $( "#rules_accordion" ).accordion({autoHeight: false, collapsible: false, active: 0});
+          $( "#rules_accordion" ).accordion({autoHeight: false, collapsible: true, active: false});
       });
     </script>
 <% end %>
@@ -69,11 +69,19 @@
                 </div>
             </div>
         </div>
-    
-        <h2><a id="accordion_security" href="#accordion_security">Terms of Service</a></h2>
+        
+        <h2><a id="accordion_license" href="#accordion_license">License</a></h2>
+        <div>
+            <p>The Privly extensions and content server are licensed under the <%= link_to "MIT License", "/license.txt" %>. The development home of Privly is at <%= link_to "www.privly.org", "http://www.privly.org" %></p>
+            
+            <%= link_to image_tag("OSI-Approved-License-100x137.png", :style=>"display: block;   margin-left: auto;   margin-right: auto;"), "/license.txt" %>
+        </div>
+        
+        <h2><a id="accordion_terms" href="#accordion_terms">Terms of Service</a></h2>
         <div>
             <%= render "terms" %>
         </div>
+        
     </div>
     
     <br />

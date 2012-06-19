@@ -182,9 +182,8 @@ included.
         <div>
             <ul class="posts">
                 <li><%= link_to "Donate", pages_donate_path %></li>
-                <li><%= link_to "Submit Bug Report", pages_bug_path %></li>
-                <li><%= link_to "Join Up/Submit Code", pages_join_path %></li>
-                <li><%= link_to "License", pages_license_path %></li>
+                <li><%= link_to "Contribute Skills", pages_join_path %></li>
+                <li><%= link_to "Privacy, License, Terms", pages_license_path %></li>
             </ul>
         </div>
         <% end %><%# @sidebar[:contribute] %>
@@ -195,8 +194,7 @@ included.
         <div>
             <ul class="posts">
                 <li><%= link_to "About", pages_about_path %></li>
-                <li><%= link_to "Road Map", pages_roadmap_path %></li>
-                <li><%= link_to "People", pages_people_path %></li>
+                <li><%= link_to "FAQ", pages_faq_path %></li>
                 <li>
                     <%= link_to "Download Extension", pages_download_path %>
                 </li>
@@ -209,13 +207,9 @@ included.
         <h2><a id="sidebar_help" href="#sidebar_help">Help</a></h2>
         <div>
             <ul class="posts">
-                <li><%= link_to "FAQ", pages_faq_path %></li>
                 <li><%= link_to "Submit a Bug", pages_bug_path %></li>
-                <li><%= link_to "Email", pages_email_path %></li>
-                <li>
-                    <%= link_to "Privacy/Terms of Service", 
-                        pages_privacy_path %>
-                </li>
+                <li><%= link_to "Email List", pages_email_path %></li>
+                <li><%= link_to "IRC", pages_irc_path %></li>
             </ul>
         </div>
         <% end %><%# @sidebar[:help] %>
@@ -230,8 +224,71 @@ included.
             </ul>
         </div>
         <% end %><%# @sidebar[:news] %>
+        
+        <%# List of Privly Articles %>
+        <% if @sidebar[:in_the_news] %>
+        <h2><a href="#">In The News</a></h2>
+        <div>
+          <p>
+            <%= link_to image_tag("http://www.theatlantic.com/static/front/images/atlantic-logo.gif", :width=>230), "http://www.theatlantic.com/technology/archive/12/04/a-privacy-manifesto-in-code-what-if-your-emails-never-went-to-gmail-and-twitter-couldnt-see-your-tweets/255414/" %>
+            <br/>
+            <br/>
+            <%= link_to image_tag("NewsSites/Spiegel_Online_logo.png", :width=>230), "http://www.spiegel.de/netzwelt/web/0,1518,825950,00.html" %>
+            <br/>
+            <br/>
+            <%= link_to image_tag("NewsSites/technabob_240_90_logo_black.gif", :width=>230), "http://technabob.com/blog/2012/03/25/privly-content-proetection/" %>
+            <br/>
+            <br/>
+            <%= link_to image_tag("NewsSites/omnitechnews.jpg", :width=>230), "http://www.omnitechnews.net/2012/03/29/privly/" %>
+            <br/>
+            <br/>
+            <%= link_to image_tag("NewsSites/TweakTown.png", :width=>230), "http://www.tweaktown.com/news/23408/priv_ly_wants_to_give_privacy_back_to_users_acts_as_invisible_web_link/index.html" %>
+            <br/>
+            <br/>
+            <%= link_to image_tag("NewsSites/GMMNewHeader.png", :width=>230), "http://www.givememind.com/priv-ly-protect-your-content-anywhere-on-the-web/" %>
+            <br/>
+            <br/>
+            <%= link_to image_tag("NewsSites/DigitalTrends.png", :width=>230), "http://www.digitaltrends.com/web/for-your-eyes-only-privly-acts-like-invisible-ink-for-the-web/" %>
+            <br/>
+            <br/>
+            <%= link_to image_tag("NewsSites/FutureZone.png", :width=>230), "http://futurezone.at/produkte/8392-priv-ly-verschluesselung-fuer-soziale-netzwerke.php" %>
+            <br/>
+            <br/>
+            <%= link_to image_tag("NewsSites/ExtendedLimits.png", :width=>230), "http://www.extendlimits.nl/nieuws/artikel/priv.ly_kan_onze_privacy_terugbrengen/" %>
+            <br/>
+            <br/>
+            <%= link_to image_tag("NewsSites/osu-tag.gif"), "http://eecs.oregonstate.edu/people/meet-our-students/privly" %>
+            <br/>
+            <br/>
+            <%= link_to image_tag("NewsSites/Mashable_Logo_230px.png", :width=>230), "http://mashable.com/2012/04/04/privly/" %>
+            <br/>
+            <br/>
+            <%= link_to image_tag("NewsSites/yc500.gif", :width=>230), "http://news.ycombinator.com/item?id=3799542" %>
+            <br/>
+            <br/>
+            <%= link_to image_tag("NewsSites/techli.jpg", :width=>230), "http://tech.li/2012/04/encryption-extension-privly/" %>
+            <br/>
+            <br/>
+            <%= link_to "Barrapunto (Spanish)", "http://barrapunto.com/articles/12/04/06/0852236.shtml" %>
+            <br/>
+            <br/>
+            <%= link_to "Hacker10", "http://www.hacker10.com/computer-security/share-encrypted-messages-on-social-networks-with-privly/" %>
+            <br/>
+            <br/>
+            <%= link_to "TheBlaze", "http://www.theblaze.com/stories/dont-want-facebook-to-read-your-messages-meet-the-start-up-making-communications-100-percent-private/" %>
+            <br/>
+            <br/>
+            <%= link_to "Tech the Future", "http://www.techthefuture.com/technology/game-changing-browser-extension-anonymizes-your-web-activity/" %>
+            <br/>
+            <br/>
+            <%= link_to "Social Media Club (German)", " http://www.socialmediaclub.at/2012/04/alternative-fur-datenschutz.html" %>
+            <br/>
+            <br/>
+          </p>
+        </div>
+        <% end %><%# @sidebar[:in_the_news] %>
     </div><!-- End of Accordion -->
-
+    
     <%# Popup a message to download the extension %>
     <% if @sidebar[:download_extension] %>
         <div id="downloadmessage" class="rotate_sidebar" style="display:none;">

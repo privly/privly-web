@@ -23,20 +23,19 @@ Privly::Application.routes.draw do
   get "pages/account"
   
   #nearly static pages
-  get "pages/faq"
-  get "pages/join"
+  get "pages/faq" => redirect("http://www.privly.org/faq")
+  get "pages/join" => redirect("http://www.privly.org/")
   get "pages/roadmap"
-  get "pages/people"
-  get "pages/license"
+  get "pages/people" => redirect("http://www.privly.org/people")
+  get "pages/license" => redirect("/pages/about")
   get "pages/privacy"
   get "pages/terms" => redirect("/pages/privacy")
-  get "pages/help"
-  get "pages/irc"
-  get "pages/bug"
+  get "pages/irc" => redirect("http://www.privly.org/content/irc")
+  get "pages/bug" => redirect("http://www.privly.org/content/bug-report")
   get "pages/donate"
   get "pages/download"
   get "pages/about"
-  get "pages/email"
+  get "pages/email" => redirect("https://groups.google.com/forum/?fromgroups#!forum/privly")
   get "pages/kickstarter" => redirect("http://www.kickstarter.com/projects/229630898/protect-your-content-anywhere-on-the-web-privly")
   
   
