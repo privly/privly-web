@@ -36,8 +36,7 @@ Privly::Application.routes.draw do
   get "pages/download"
   get "pages/about"
   get "pages/email" => redirect("https://groups.google.com/forum/?fromgroups#!forum/privly")
-  get "pages/kickstarter" => redirect("http://www.kickstarter.com/projects/229630898/protect-your-content-anywhere-on-the-web-privly")
-  
+  get "pages/kickstarter"
   
   
   resources :posts

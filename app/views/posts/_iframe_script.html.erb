@@ -12,9 +12,7 @@ var iframeBehavior = {
         }
         else{
           url = window.document.location.toString();
-          var iframeStringIndex = url.indexOf(".iframe");
-          url = url.substring(0,iframeStringIndex) + 
-            url.substring(iframeStringIndex + 7);
+          var url = url.replace(".iframe", ".html").replace("format=iframe", "format=html");
           window.open(url, '_blank');
         }  
     },
@@ -62,7 +60,7 @@ var iframeBehavior = {
         jQuery("body").attr("height","100%");
         
         var newHeight = document.getElementById("wrapper").offsetHeight;
-        // add 15px just to accommodate the tooltip
+        // add 18px just to accommodate the tooltip
         newHeight = newHeight + 18;
         iframeBehavior.dispatchResize(newHeight);
     }

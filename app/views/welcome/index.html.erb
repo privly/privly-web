@@ -14,101 +14,9 @@
 
 <% content_for(:extrajs) do %>
     <script>
-    
-    function flashKickstarter()
-    {
-        $(".box1").animate({backgroundColor: "#FF0000"},1000);
-        setTimeout(
-          function(){
-            $(".box1").css("background-color", "");
-          },
-          1400);
-    }
-    
-    var current_video_id;
-    
-    function removeMessages(){
-        var messageToRemove = ["#donate_text_2", "#roadmap_text_2", "#about_text_2"];
-        var messageToAdd = ["#donate_text", "#roadmap_text", "#about_text"];
-        
-        for(var i = 0; i < messageToRemove.length; i++){
-            $(messageToRemove[i]).slideUp("slow");
-        }
-        for(var i = 0; i < messageToAdd.length; i++){
-            $(messageToAdd[i]).slideDown("slow");
-        }
-        
-    }
-    
-    function stopVideo(){
-        $("#video_back").slideUp();
-        var number = current_video_id.match(/\d/g);
-        var froogaloop = $f($("#player_" + number)[0]);
-        froogaloop.addEvent("stop");
-        $(current_video_id).toggle();
-        removeMessages();
-    }
-    
-    function viewVideo(video_id){
-        $("#video_back").slideDown();
-        current_video_id = video_id;
-        $(video_id).toggle();
-    }
-    
     $(document).ready(function() {
-        
         $("#page").css("border-right","0px"); 
         $("#mainimg").hover(function(){jQuery("#kickstarter_image").fadeOut(200)}, function(){jQuery("#kickstarter_image").fadeIn(200)});
-    
-        // when a vimeo video becomes ready, it calls ready.
-        // Ready registers the event listeners for play and
-        // finish. When a video finishes, the video area 
-        // returns to the video selection page
-        // events on it
-        function ready(player_id) {
-            //console.log('ready!');
-            var froogaloop = $f(player_id);
-
-            function onPlay() {
-                    froogaloop.addEvent('play', function(data) {
-                        //console.log(data);
-                    });
-            }
-
-            function onFinish() {
-                    froogaloop.addEvent('finish', function(data) {
-                        if(data.indexOf(1) >= 0)
-                            flashKickstarter();
-                        stopVideo();
-                        $("#video_back").slideUp();
-                    });
-            }
-
-            onPlay();
-            onFinish();
-        }
-    
-        // Listen to the ready event
-        var player = $('#player_1')[0];
-        $f(player).addEvent('ready', ready);
-        
-        var player = $('#player_2')[0];
-        $f(player).addEvent('ready', ready);
-        
-        var player = $('#player_3')[0];
-        $f(player).addEvent('ready', ready);
-        
-        var player = $('#player_4')[0];
-        $f(player).addEvent('ready', ready);
-        
-        function addEvent(element, eventName, callback) {
-            if (element.addEventListener) {
-                element.addEventListener(eventName, callback, false);
-            }
-            else {
-                element.attachEvent(eventName, callback, false);
-            }
-        }
     });
     </script>
 <% end %>
@@ -119,20 +27,7 @@
         <div style="position:relative;">
             <div id="video_controls" style="position:absolute;top:50px;left:160px;width:370px;">
                 <p style="font-size: 23px;">
-                    <span class="video_link"><%= link_to_function "1. Watch Kickstarter Pitch",
-                        "viewVideo('#video_1');$('#donate_text').slideUp('slow');$('#donate_text_2').slideDown('slow');" %>
-                    </span>
-                    <br /><br />
-                    <span class="video_link"><%= link_to_function "2. Watch 'How to Use Privly'",
-                        "viewVideo('#video_2');$('#about_text').slideToggle('slow');$('#about_text_2').slideToggle('slow');" %>
-                    </span>
-                    <br /><br />
-                    <span class="video_link"><%= link_to_function "3. Watch Roadmap Tour", 
-                        "viewVideo('#video_3');$('#roadmap_text').slideToggle('slow');$('#roadmap_text_2').slideToggle('slow');" %>
-                    </span><br /><br />
-                    <span class="video_link"><%= link_to_function "4. Watch Encryption Tour", 
-                        "viewVideo('#video_4');" %>
-                    </span><br /><br />
+                    This is the development version of the <%= link_to "content server", "https://github.com/smcgregor/privly-web" %>. Use at your own risk! <%= link_to "Priv.ly", "https://priv.ly" %> will change less frequently and should be more stable, but it is still pre-release.
                 </p>
             </div>
             
@@ -144,35 +39,13 @@
                 <p>You do not have scripts enabled, which means you are either running old technology, or are our kind of person. If you are the latter, we hope you will consider <%= link_to "helping out", pages_join_path %>.</p>
             </noscript>
             
-            <div id="video_1" style="display:none;background:none;position:absolute;">
-                <iframe id="player_1" src="https://player.vimeo.com/video/38477050?title=0&amp;byline=0&amp;portrait=0&amp;api=1&amp;player_id=player_1" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-            </div>
-            
-            <div id="video_2" style="display:none;background:none;position:absolute;">
-                <iframe id="player_2" src="https://player.vimeo.com/video/38477052?title=0&amp;byline=0&amp;portrait=0&amp;api=1&amp;player_id=player_2" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-            </div>
-            
-            <div id="video_3" style="display:none;background:none;position:absolute;">
-                <iframe id="player_3" src="https://player.vimeo.com/video/38477051?title=0&amp;byline=0&amp;portrait=0&amp;api=1&amp;player_id=player_3" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-            </div>
-            
-            <div id="video_4" style="display:none;background:none;position:absolute;">
-                <iframe id="player_4" src="https://player.vimeo.com/video/39095681?title=0&amp;byline=0&amp;portrait=0&amp;api=1&amp;player_id=player_4" width="700" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-            </div>
-            
-            <div id="video_back" style="display:none;background:none;position:absolute;top:10px;right:0px;width:370px;text-align: right;">
-                <p>
-                    <span class="video_link"><%= link_to_function "Back to Video List", "stopVideo();" %></span>
-                </p>
-            </div>
-            
         </div>
     </div>
     <div id="rightboxes">
         <div class="box1">
             <p class="rotate">
-                <%= link_to(pages_kickstarter_path) do %>
-                  <span id="go_to_kickstarter">Donate to our Kickstarter</span>
+                <%= link_to("https://priv.ly") do %>
+                  <span>Go to Priv.ly</span>
                 <% end %>
             </p>
         </div>
@@ -183,7 +56,7 @@
                       <span>Download Extension</span>
                     <% end %>
                 <% else %>
-                    <%= link_to pages_about_path do %>
+                    <%= link_to "https://priv.ly/pages/about" do %>
                       <span>Learn More About Privly</span>
                     <% end %>
                 <% end %>
@@ -191,20 +64,10 @@
         </div>
         <div class="box3" id="invite_visual">
             <p class="rotate">
-                <a href="#" onclick="$('#invite_visual').slideUp('slow');$('#invite_form').slideDown('slow');">
-                  <span>Sign-up for Invitation</span>
-                </a>
+                <%= link_to "https://priv.ly/users/invitation/new" do %>
+                    <span>Get Invited</span>
+                <% end %>
             </p>
-        </div>
-        <div class="box3" id="invite_form" style="display:none;background:none">
-            
-            <%= form_for "user", :as => "user", :url => invitation_path("user"), :html => {:method => :post} do |f| %>
-              <h2>Invitation
-                  <%= f.label :email %><br />
-                  <%= f.text_field :email %><br />
-                  <%= f.submit "Sign up for an invitation" %>
-              </h2>
-            <% end %>
         </div>
     </div>
     <div class="clear"></div>
@@ -215,39 +78,22 @@
     <div id="threecol">
         <div class="col1">
             <div id="about_text">
-                <h2><%= link_to "About", pages_about_path %></h2>
-                <p>Privly is a proof-of-concept for a new standard of private sharing. It is the only way to maintain control of your data on the social web. <%= link_to "Learn More.", pages_about_path %></p>
-            </div>
-            
-            <div id="about_text_2" style="display:none;background:none;">
-                <h2><%= link_to "Try it Out!", pages_download_path %></h2>
-                <p>
-                    We have demonstration extensions for Firefox and Chrome. <%= link_to "Install the extension", pages_download_path %> to see how easy privacy can be.
-                </p>
+                <h2><%= link_to "Development Home", "http://www.privly.org" %></h2>
+                <p>Go to the site where we are building the documentation and organization.</p>
             </div>
         </div>
         
         <div class="col2">
             <div id="roadmap_text">
-                <h2><%= link_to "Roadmap", pages_roadmap_path %></h2>
-                <p>Privly is the core of a novel sharing and privacy feature set. For more information, read our <%= link_to "Roadmap", pages_roadmap_path %> or <%= link_to "About Page.", pages_about_path %></p>
-            </div>
-            <div id="roadmap_text_2" style="display:none;background:none;">
-                <h2><%= link_to "Read the Roadmap!", pages_roadmap_path %></h2>
-                <p>After you are done with the <%= link_to "Roadmap", pages_roadmap_path %> video, we have a special treat for you! The <span style="font-style:italic;">actual</span> <%= link_to "Roadmap", pages_roadmap_path %>.</p>
+                <h2><%= link_to "Priv.ly", "https://priv.ly" %></h2>
+                <p>If you don't know what Privly is, you are in the wrong place. Go to <%= link_to "Priv.ly", "https://priv.ly" %></p>
             </div>
         </div>
 
         <div class="col3">
             <div id="donate_text">
                 <h2><%= link_to "Donate", pages_donate_path %></h2>
-                <p>The best place to donate is at our <%= link_to "Kickstarter campaign.", pages_kickstarter_path %> We also accept <%= link_to "donations", pages_donate_path %> by Bitcoin, PayPal, and anything else you want us to set up.</p>
-            </div>
-            <div id="donate_text_2" style="display:none;background:none;">
-                <h2><%= link_to "Kickstart Us!", pages_kickstarter_path %></h2>
-                <p>
-                    <%= link_to "Kickstarter", pages_kickstarter_path %> is an all-or-nothing crowd funding platform. If we meet our goal, we will continue development. You can also <%= link_to "donate", pages_donate_path %> to us directly.
-                </p>
+                <p>We accept <%= link_to "donations", pages_donate_path %> by Bitcoin, PayPal, and anything else you want us to set up.</p>
             </div>
         </div>
         
