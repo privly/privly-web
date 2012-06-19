@@ -80,4 +80,6 @@ Privly::Application.configure do
   RECAPTCHA_KEY =    'af09af09af09af09af09af09af09af09af09af09'
   RECAPTCHA_SECRET = 'af09af09af09af09af09af09af09af09af09af09'
   
+  NAME = "Site Name"
+  
 end
