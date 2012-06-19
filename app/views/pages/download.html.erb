@@ -10,6 +10,9 @@
       
       $("#firefox_link").mouseenter(function(){$("#firefox_message").slideDown("slow")});
       $("#firefox_link").mouseleave(function(){$("#firefox_message").slideUp("slow")});
+      
+      $("#opera_link").mouseenter(function(){$("#opera_message").slideDown("slow")});
+      $("#opera_link").mouseleave(function(){$("#opera_message").slideUp("slow")});
     });
 </script>
 <% end %>
@@ -35,8 +38,8 @@
 
 <br />
 
-<div style="margin-bottom: 225px;">
-    <div id="firefox_link" style="float: left; width: 50%;">
+<div style="margin-bottom: 285px;">
+    <div id="firefox_link" style="float: left; width: 33%;">
         <%= link_to("https://addons.mozilla.org/en-US/firefox/addon/privly/") do %>
             <div style="height: 150px">
                 <%= image_tag "firefox_logo_150.png", :alt => "Firefox Logo", :style=>"display: block;margin-left: auto;margin-right: auto;" %>
@@ -50,10 +53,25 @@
         <% end %>
     </div>
 
-    <div id="chrome_link" style="float: left; width: 50%;">
+    <div id="opera_link" style="float: left; width: 34%;">
+        <%= link_to("https://addons.opera.com/en/extensions/details/privly") do %>
+            <div style="height: 150px">
+                <%= image_tag "opera_logo_150.png", :alt => "Opera Logo", :style=>"display: block;margin-left: auto;margin-right: auto;" %>
+            </div>
+            <div name="extension" style="text-align: center">
+                <h1 id="opera">Opera Extension</h1>
+                <div id="opera_message" style="display:none;background:none">
+                    <p>The Opera extension supports viewing Privly links, and uploading new content directly to the Privly servers.</p>
+                </div>
+            </div>
+        <% end %>
+    </div>
+
+
+    <div id="chrome_link" style="float: left; width: 33%;">
     <%= link_to("https://chrome.google.com/webstore/detail/pkokikcdapfpkkkjpdaamjanniaempol") do %>
         <div style="height: 150px">
-            <%= image_tag "chrome-logo_150X.png", :alt => "Chrome Logo", :style=>"display: block;margin-left: auto;margin-right: auto;" %>
+            <%= image_tag "chrome-logo_150X.png", :alt => "Google Chrome Logo", :style=>"display: block;margin-left: auto;margin-right: auto;" %>
         </div>
         <div name="extension" style="text-align: center">
             <h1 id="chrome">Chrome Extension</h1>
@@ -79,7 +97,7 @@
 <br />
 
 <h1>Test Your Extension on These Pages</h1>
-<p>The following pages are pre-seeded with Privly content so you can test the extension out: <%= link_to "Facebook", "https://www.facebook.com/profile.php?id=100002254562518&sk=wall" %> and <%= link_to "Twitter", "https://twitter.com/#!/PrivlyTest" %>. You can also post the public links below to any website to see how it handles. Let us know if you have any <%= link_to "problems", pages_bug_path %>. It should work in any basic HTML form. <%= link_to "Kickstarter", "http://www.kickstarter.com/projects/229630898/protect-your-content-anywhere-on-the-web-privly" %> backers can also create new content.</p>
+<p>The following pages are pre-seeded with Privly content so you can test the extension out: <%= link_to "Facebook", "https://www.facebook.com/profile.php?id=100002254562518&sk=wall" %> and <%= link_to "Twitter", "https://twitter.com/#!/PrivlyTest" %>. You can also post the public links below to any website to see how it handles. Let us know if you have any <%= link_to "problems", pages_bug_path %>. It should work in any basic HTML form.</p>
 
 <br />
 <br />
