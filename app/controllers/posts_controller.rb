@@ -80,6 +80,13 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html {
         
+        if request.url.include? "iframe"
+          sharing_url_parameters = {:random_token => @post.random_token, :format => "iframe"}
+          url = post_url @post, sharing_url_parameters
+          redirect_to url
+          return
+        end
+        
         @sidebar = {:post => true, :news => false}
         if user_signed_in?
           @sidebar[:posts] = true
