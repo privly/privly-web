@@ -1,6 +1,14 @@
 <p>Welcome <%= @resource.email %>!</p>
 
-<p>Privly is still an experimental application, so only use it...experimentally. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_path %>. We are going to destroy user content periodically (we won't take data we can't protect properly), and if we get too many registrations we are going to roll all non-developer, donor, and tester accounts into our invitation list.</p>
+<p>To work with this server you will need the most recent version of the Firefox Extension, which is awaiting approval in the Mozilla store. We have the current version of the Firefox Extension available <%= link_to "here,", "http://dev.privly.org/PrivlyFirefoxExtension.xpi" %> but it won't update automatically.</p>
+
+<p>We are in a stage of development we are calling "Proof of Concept." The extension works on most sites, but there are <%= link_to "bugs", pages_bug_url %>, and we need to build in more security before you should post anything private. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_url %> so we can fix the problem for you. There are bound to be some rough edges when you are interfacing with the entire internet, but in most cases, Privly will work wherever you bring it.</p>
+
+<p>For the time being, we are going to destroy user content periodically (we won't take data we can't protect properly).</p>
+
+<p>The potential server demands for Privly are substantial, so until our financial picture improves, we are going to prioritize Developer and Tester (People who regularly submit bug reports) accounts above all others.</p>
+
+<p>Here is a somewhat outdated video on how it works <%= link_to 'Learn how to Privly.', "http://vimeo.com/38477052" %>.</p>
 
 <p>You can confirm your account through the link below:</p>
 
@@ -11,3 +19,5 @@
     <br />
     -Privly
 </p>
+
+<p><%= link_to 'Follow our Twitter', "https://twitter.com/#!/Privly" %> for updates.</p>
