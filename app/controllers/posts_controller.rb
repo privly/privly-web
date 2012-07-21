@@ -110,10 +110,10 @@ class PostsController < ApplicationController
       format.iframe { render }
       format.json { 
         post_json = @post.as_json(:except => [:user_id, :updated_at, :public, 
-          :created_at, :burn_after_date, :random_token], 
-          :callback => params[:callback])
+          :created_at, :burn_after_date, :random_token])
         render :json => post_json.merge!(:privlyurl => 
-          response.headers["privlyurl"]) }
+          response.headers["privlyurl"]), :callback => params[:callback]
+      }
     end
   end
 
