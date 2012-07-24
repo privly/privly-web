@@ -3,8 +3,16 @@ class Ability
 
   def initialize(user, random_token=nil)
     
+    # Anyone can create ZeroBin content, but to view it you need the random_token
+    can :create, ZeroBin
+    can :show, ZeroBin, {:random_token => random_token}
+    
     if not user.nil?
+      
+      #users can manage their own posts
       can :manage, Post, :user_id => user.id 
+      
+      #Users can manage the EmailShares on their posts
       can :manage, EmailShare, :post => {:user_id => user.id}
     end
     

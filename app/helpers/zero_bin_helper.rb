@@ -1,0 +1,2 @@
+module ZeroBinHelper
+end

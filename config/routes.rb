@@ -1,5 +1,9 @@
 Privly::Application.routes.draw do
   
+  match "/zero_bin/:id" => "zero_bins#show", :as => :show_zero_bins, :via => [:get]
+  match "/zero_bin" => "zero_bins#create", :via => [:post]
+  match "/zero_bin/index.html" => "zero_bins#create", :via => [:post]
+  
   match '/auth/:provider/callback' => 'authentications#create'
   match '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   match '/posts/destroy_all' => 'posts#destroy_all', :method => :delete

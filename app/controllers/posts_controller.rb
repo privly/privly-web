@@ -69,12 +69,15 @@ class PostsController < ApplicationController
         raise ActiveRecord::RecordNotFound
       end
       sharing_url_parameters = {:random_token => @post.random_token, 
-        :burntAfter => @post.burn_after_date.to_i}
+        :burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true}
     else
-      sharing_url_parameters = {:random_token => @post.random_token}
+      sharing_url_parameters = {:random_token => @post.random_token, :privlyInject1 => true}
     end
     
+    #deprecated
     response.headers["privlyurl"] = post_url @post, sharing_url_parameters
+    
+    response.headers["X-Privly-url"] = post_url @post, sharing_url_parameters
     
     @email_share = EmailShare.new
     respond_to do |format|
@@ -112,7 +115,7 @@ class PostsController < ApplicationController
         post_json = @post.as_json(:except => [:user_id, :updated_at, :public, 
           :created_at, :burn_after_date, :random_token])
         render :json => post_json.merge!(:privlyurl => 
-          response.headers["privlyurl"]), :callback => params[:callback]
+          response.headers["privlyurl"], "X-Privly-url" => response.headers["X-Privly-url"]), :callback => params[:callback]
       }
     end
   end
@@ -160,12 +163,18 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         if @post.burn_after_date
-          sharing_url_parameters = {:random_token => @post.random_token, :burntAfter => @post.burn_after_date.to_i}
+          sharing_url_parameters = {:random_token => @post.random_token, 
+            :burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true}
         else
-          sharing_url_parameters = {:random_token => @post.random_token}
+          sharing_url_parameters = {:random_token => @post.random_token, :privlyInject1 => true}
         end
         url = post_url @post, sharing_url_parameters
+        
+        #Deprecated
         response.headers["privlyurl"] = url
+        
+        response.headers["X-Privly-url"] = url
+        
         format.html { redirect_to url, :notice => 'Post was successfully created.' }
         format.json { render :json => @post, :status => :created, :location => @post }
       else
@@ -236,16 +245,21 @@ class PostsController < ApplicationController
       if @post.save
         if @post.burn_after_date
           sharing_url_parameters = {:random_token => @post.random_token, 
-            :burntAfter => @post.burn_after_date.to_i}
+            :burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true}
         else
-          sharing_url_parameters = {:random_token => @post.random_token}
+          sharing_url_parameters = {:random_token => @post.random_token, :privlyInject1 => true}
         end
         url = post_url @post, sharing_url_parameters
+        
+        #deprecated
         response.headers["privlyurl"] = url
+        
+        response.headers["X-Privly-url"] = url
+        
         format.html { redirect_to url, :notice => 'Post was successfully created.' }
         format.json { 
           post_json = @post.as_json(:callback => params[:callback])
-          post_json.merge!(:privlyurl => response.headers["privlyurl"])
+          post_json.merge!(:privlyurl => response.headers["privlyurl"], :privlyInject1 => true)
           render :json => post_json, :status => :created, :location => @post, 
             :callback => params[:callback] }
       else
