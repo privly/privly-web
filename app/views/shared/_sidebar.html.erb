@@ -16,15 +16,99 @@ included.
         {
             $("#downloadmessage").delay(1).fadeIn(2000);
             $("#rightboxes").delay(3000).slideDown("slow");
+            fillFormStartingValues();
             updateURL();
         }
     });
 
+
+    /**
+     * Converts an associative array to an encoded string
+     * for appending to the anchor.
+     *
+     * @param object associative_array Object to be serialized
+     * @return string
+     */
+    function hashToParameterString(associativeArray)
+    {
+      var parameterString = ""
+      for (key in associativeArray)
+      {
+          if( parameterString === "" )
+          {
+            parameterString = encodeURIComponent(key);
+            parameterString += "=" + encodeURIComponent(associativeArray[key]);
+          } else {
+            parameterString += "&" + encodeURIComponent(key);
+            parameterString += "=" + encodeURIComponent(associativeArray[key]);
+          }
+      }
+      
+      //padding for URL shorteners
+      if (parameterString !== "") {
+        parameterString += "&p=p";
+      }
+      
+      return parameterString;
+    }
+
+    /**
+     * Converts a string to an associative array.
+     *
+     * @param string parameter_string String containing parameters
+     * @return object
+     */
+    function parameterStringToHash(parameterString)
+    {
+      var parameterHash = {};
+      var parameterArray = parameterString.split("&");
+      for (var i = 0; i < parameterArray.length; i++) {
+        //var currentParamterString = decodeURIComponent(parameterArray[i]);
+        var pair = parameterArray[i].split("=");
+        var key = decodeURIComponent(pair[0]);
+        var value = decodeURIComponent(pair[1]);
+        parameterHash[key] = value;
+      }
+
+      return parameterHash;
+    }
+
+    /**
+     * Get an associative arroy of the parameters found in the anchor
+     *
+     * @return object
+     **/
+    function getParameterHash()
+    {
+      var hashIndex = window.location.href.indexOf("#");
+      if (hashIndex >= 0) {
+        return parameterStringToHash(window.location.href.substring(hashIndex + 1));
+      } else {
+        return {};
+      }
+    }
+    
+    function fillFormStartingValues()
+    {
+      var currentParameters = getParameterHash();
+      var elem = document.getElementById('linkFormatterForm').elements;
+      for(var i = 0; i < elem.length; i++)
+      {
+          if(elem[i].getAttribute("use_in_url") == "true")
+          {
+            if (currentParameters[elem[i].name] !== undefined) {
+              elem[i].value = currentParameters[elem[i].name];
+              elem[i].disabled = true;
+            }
+          }
+      }
+    }
+    
     //Collects the parameters from the "Link Options" sidebar and
     //assigns the newFormattedLink element to the generated URL
     function updateURL()
     {
-        var query_string = '?';
+        var parameterObject = {};
         var elem = document.getElementById('linkFormatterForm').elements;
         for(var i = 0; i < elem.length; i++)
         {
@@ -35,12 +119,20 @@ included.
                     continue;
                 if(elem[i].type == "checkbox" && elem[i].checked != true)
                     continue;
-                if(elem[i].type == "text")
-                    val = val.replace(/[\s]/g,"+"); 
-                query_string += elem[i].name + "=" + val + "&amp;";
+                parameterObject[elem[i].name] = val;
             }
-        } 
-        document.getElementById('newFormattedLink').innerHTML = query_string;
+        }
+        
+        var anchorIndex = window.location.href.indexOf("#");
+        if (anchorIndex < 0) {
+          anchorIndex = window.location.href.length + 1;
+        }
+        
+        var newUrl = 
+          window.location.href.substring(0, anchorIndex) + 
+          "#" +
+          hashToParameterString(parameterObject);
+        document.getElementById('newFormattedLink').innerHTML = newUrl;
     }
 </script>
 
@@ -98,32 +190,26 @@ included.
                 <%= form_tag nil, :id => "linkFormatterForm" do %>
                     <li>
                         Burn Message
-                        <%= text_field_tag(:burnMessage, nil,
+                        <%= text_field_tag(:privlyBurnMessage, nil,
                             {:onkeyup=>"updateURL();", :use_in_url=>"true"}) %>
                     </li>
                     <li>
                         Passive Message
-                        <%= text_field_tag(:passiveMessage, nil,
+                        <%= text_field_tag(:privlyPassiveMessage, nil,
                             {:onkeyup=>"updateURL();", :use_in_url=>"true"}) %>
                     </li>
                     <li>
                         Force Passive?
-                        <%= check_box_tag(:forcePassive, "true", false,
+                        <%= check_box_tag(:privlyForcePassive, "true", false,
                             {:onclick=>"updateURL();", :use_in_url=>"true"}) %>
                     </li>
                     <li>
                         Exclude from Replacement?
-                        <%= check_box_tag(:exclude, "true", false,
+                        <%= check_box_tag(:privlyExclude, "true", false,
                             {:onclick=>"updateURL();", :use_in_url=>"true"}) %>
                     </li>
-                    <% if @post.burn_after_date %>
-                        <%= hidden_field_tag(:burntAfter, 
-                            @post.burn_after_date.to_i, :use_in_url=>"true") %>
-                    <% end %>
-                    <% if @post.random_token %>
-                        <%= hidden_field_tag(:random_token, 
-                            @post.random_token, :use_in_url=>"true") %>
-                    <% end %>
+                    <%= hidden_field_tag(:privlyInject1, "true", 
+                      {:use_in_url=>"true"}) %>
                 <% end %>
             </ul>
         </div>

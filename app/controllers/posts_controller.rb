@@ -306,7 +306,8 @@ class PostsController < ApplicationController
         session[:person] = true
         session[:robot_count] = 1
         flash[:notice] = "You are human!"
-        redirect_to @post
+        redirect_to post_url @post, {:random_token => @post.random_token, 
+          :burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true}
       end
       
       if @post 
