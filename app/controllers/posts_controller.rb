@@ -77,7 +77,7 @@ class PostsController < ApplicationController
     #deprecated
     response.headers["privlyurl"] = post_url @post, sharing_url_parameters
     
-    response.headers["X-Privly-url"] = post_url @post, sharing_url_parameters
+    response.headers["X-Privly-Url"] = post_url @post, sharing_url_parameters
     
     @email_share = EmailShare.new
     respond_to do |format|
@@ -115,7 +115,7 @@ class PostsController < ApplicationController
         post_json = @post.as_json(:except => [:user_id, :updated_at, :public, 
           :created_at, :burn_after_date, :random_token])
         render :json => post_json.merge!(:privlyurl => 
-          response.headers["privlyurl"], "X-Privly-url" => response.headers["X-Privly-url"]), :callback => params[:callback]
+          response.headers["privlyurl"], "X-Privly-Url" => response.headers["X-Privly-Url"]), :callback => params[:callback]
       }
     end
   end
@@ -173,7 +173,7 @@ class PostsController < ApplicationController
         #Deprecated
         response.headers["privlyurl"] = url
         
-        response.headers["X-Privly-url"] = url
+        response.headers["X-Privly-Url"] = url
         
         format.html { redirect_to url, :notice => 'Post was successfully created.' }
         format.json { render :json => @post, :status => :created, :location => @post }
@@ -254,7 +254,7 @@ class PostsController < ApplicationController
         #deprecated
         response.headers["privlyurl"] = url
         
-        response.headers["X-Privly-url"] = url
+        response.headers["X-Privly-Url"] = url
         
         format.html { redirect_to url, :notice => 'Post was successfully created.' }
         format.json { 
@@ -306,6 +306,7 @@ class PostsController < ApplicationController
         session[:person] = true
         session[:robot_count] = 1
         flash[:notice] = "You are human!"
+        redirect_to @post
       end
       
       if @post 
