@@ -8,7 +8,13 @@
         <div class="posthead">
             <p class="postmeta"><%= link_to "View", post_path(post) %> &middot; <%= link_to "Edit", edit_post_path(post) %> &middot; <%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %> &middot; Posted <span class="date"><%= time_ago_in_words(post.created_at) %></span> ago</p>
         </div>
-        <%= post.content.safe_markdown %>
+        <%= 
+        if post.content
+          post.content.safe_markdown
+        else
+          ""
+        end
+         %>
     </div>
 <% end %>
 

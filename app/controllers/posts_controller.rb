@@ -42,8 +42,8 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html {
         @sidebar = {:news => false, :posts => true}
-        render
-      } # index.html.erb
+        render  # index.html.erb
+      }
       format.json { render :json => @posts.to_json() }
       format.csv do |csv|
         @filename = "posts_" + Time.now.strftime("%m-%d-%Y") + ".csv"

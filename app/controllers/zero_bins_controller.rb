@@ -31,7 +31,7 @@ class ZeroBinsController < ApplicationController
     if @zero_bin.save
       
       # Set the URL for the extensions to inject into pages
-      response.headers["X-Privly-url"] = show_zero_bins_url @zero_bin, 
+      response.headers["X-Privly-Url"] = show_zero_bins_url @zero_bin, 
         {:random_token => @zero_bin.random_token, :burntAfter => @zero_bin.burn_after_date.to_i}
         
       render :json => @zero_bin, :status => :created, :location => @zero_bin
