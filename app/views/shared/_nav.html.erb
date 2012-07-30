@@ -4,7 +4,7 @@
         <div id="mainnav">
             <ul>
                 
-                <% if controller.controller_name == "sessions" %>
+                <% if controller.controller_name == "sessions" or controller.controller_name == "invitations" %>
                     <% if user_signed_in? %>
                         <% if request.headers["auth_token"] %>
                             <li><%= link_to destroy_user_session_path, :method => :delete, :confirm => "The extension is still signed in, are you sure you want to logout of the website?" do %>
@@ -57,7 +57,7 @@
                         <% end %>
                     </li>
                 <% else %>
-                    <li <% if controller.controller_name == "pages" %>class="active"<% end %>>
+                    <li <% if controller.controller_name == "pages" and controller.action_name != "download" %>class="active"<% end %>>
                         <%= link_to pages_about_path do %>
                             About <span>more info</span>
                         <% end %>
@@ -73,7 +73,7 @@
                 <% end %>
                 
                 <% if extension_available? and not has_extension? %>
-                    <li <% if controller.action_name == "pages" %>class="active"<% end %>>
+                    <li <% if controller.action_name == "download" %>class="active"<% end %>>
                         <%= link_to pages_download_path do %>
                             Download Extension <span>for Browsers</span>
                         <% end %>

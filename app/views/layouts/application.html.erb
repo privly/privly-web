@@ -55,34 +55,19 @@
 <div id="bottom">
     <!--Bottom Row -->
     <div id="btmcontent">
-        <div class="col1">
-            <h2>Contribute</h2>
-            <p>We are an <%= link_to "open source", pages_about_path %> project so there are many ways to contribute.</p>
-            <ul>
-                <li><%= link_to "Donate", pages_donate_path %></li>
-                <li><%= link_to "Contribute Skills", pages_join_path %></li>
-                <li><%= link_to "Privacy/License/Terms of Service", pages_privacy_path %></li>
-            </ul>
-        </div>
-        <div class="col2">
-            <h2>Help</h2>
-            <p>We are still in the early stages of development, so we love getting bug reports. </p>
-            <ul>
-                <li><%= link_to "Submit a Bug", pages_bug_path %></li>
-                <li><%= link_to "Email List", pages_email_path %></li>
-                <li><%= link_to "IRC", pages_irc_path %></li>
-            </ul>
-        </div>
-        <div class="col3">
-            <h2>About Us</h2>
-            <p>The Privly concept is open source community project for taking control of your personal information.</p>
-            <ul>
-                <li><%= link_to "About", pages_about_path %></li>
-                <li><%= link_to "FAQ", pages_faq_path %></li>
-                <li><%= link_to "Download Extension", pages_download_path %></li>
-            </ul>
-        </div>
-        <div class="clear"></div>
+      <h2>System Status: Pre-Alpha <%= link_to "(Terms/Privacy/License)", pages_privacy_path %></h2>
+      <div id="downloadmessage" class="rotate_sidebar" style="display:none;">
+          <h2>View Privly Content Automatically</h2>
+          <p>Privly works by injecting status updates, emails, tweets... anything really... directly into pages you view everyday. We never want you to come back to this website again. <%= link_to "Download", pages_download_path %> the extension and you won't have to.</p>
+      </div>
+      <div id="rightboxes" style="display:none;">
+          <div class="box1">
+              <p class="rotate">
+                  <%= link_to("https://addons.mozilla.org/en-US/firefox/addon/privly/", :style => "color:#ffffff;") do %>
+                    <span>Download the Extension</span>
+                  <% end %>
+          </div>
+      </div>
     </div>
     
     <!--FOOTER 
