@@ -55,7 +55,9 @@
 <div id="bottom">
     <!--Bottom Row -->
     <div id="btmcontent">
-      <h2>System Status: Pre-Alpha <%= link_to "(Terms/Privacy/License)", pages_privacy_path %></h2>
+      <h2>System Status: Pre-Alpha <%= link_to "(Terms/Privacy/License)", pages_privacy_path %>. All new content (encrypted or otherwise) is destroyed every 24 hours.</h2>
+      
+      <% if not has_extension? %>
       <div id="downloadmessage" class="rotate_sidebar" style="display:none;">
           <h2>View Privly Content Automatically</h2>
           <p>Privly works by injecting status updates, emails, tweets... anything really... directly into pages you view everyday. We never want you to come back to this website again. <%= link_to "Download", pages_download_path %> the extension and you won't have to.</p>
@@ -68,6 +70,9 @@
                   <% end %>
           </div>
       </div>
+      
+      <% end %>
+      
     </div>
     
     <!--FOOTER 

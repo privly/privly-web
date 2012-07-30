@@ -17,7 +17,7 @@ body {background:#242424; font: 14px Georgia, "Times New Roman", Times, serif; c
 #wrap {width:1010px; margin:auto;}
 .clear {clear:both;}
 #homeheader {height:350px;}
-#mainimg {width:700px; height:330px; padding:10px; float:left; border:solid 1px #ac9f87; background-color: #f3ebd9; text-align: center;}
+#mainimg {width:1010px; height:330px; padding:10px; float:left; border:solid 1px #ac9f87; background-color: #f3ebd9; text-align: center;}
 #rightboxes {float:right; width:272px; float:right;}
 #rightboxes .box1 {background:url(rightimg1.jpg) 10px 10px no-repeat; width:250px; height:90px; padding:10px; margin-bottom:8px; border:solid 1px #ac9f87;}
 #rightboxes .box2 {background:url(rightimg2.jpg) 10px 10px no-repeat; width:250px; height:90px; padding:10px; margin-bottom:8px; border:solid 1px #ac9f87;}

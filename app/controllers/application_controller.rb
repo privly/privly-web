@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
     end
     
     def has_extension?
-      if request.headers['Privly-Version']
+      if request.headers['X-Privly-Version']
         true
       else
         false

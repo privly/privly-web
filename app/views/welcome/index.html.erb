@@ -2,74 +2,14 @@
     Welcome
 <% end %>
 
-<% content_for(:extracss) do %>
-<style type="text/css">
-.video_link {background-color: #242424;padding: 3px;}
-.video_link a:link {color:#FFFFFF;}      /* unvisited link */
-.video_link a:visited {color:#FFFFFF;}  /* visited link */
-.video_link a:hover {color:#FFFFCC;}  /* mouse over link */
-.video_link a:active {color:#0000FF;}  /* selected link */
-</style>
-<% end %>
-
-<% content_for(:extrajs) do %>
-    <script>
-    $(document).ready(function() {
-        $("#page").css("border-right","0px"); 
-        $("#mainimg").hover(function(){jQuery("#kickstarter_image").fadeOut(200)}, function(){jQuery("#kickstarter_image").fadeIn(200)});
-    });
-    </script>
-<% end %>
-
 <% content_for :top_column do %>
 <div id="homeheader">
     <div id="mainimg">
         <div style="position:relative;">
-            <div id="video_controls" style="position:absolute;top:50px;left:160px;width:370px;">
-                <p style="font-size: 23px;">
-                    This is the development version of the <%= link_to "content server", "https://github.com/smcgregor/privly-web" %>. Use at your own risk! <%= link_to "Priv.ly", "https://priv.ly" %> will change less frequently and should be more stable, but it is still pre-release.
-                </p>
-            </div>
-            
-            <div id="kickstarter_image" style="position:absolute;left:125px">
-                <%= image_tag "kickstarter_new.jpg", :height => "330px" %>
-            </div>
-            
-            <noscript>
-                <p>You do not have scripts enabled, which means you are either running old technology, or are our kind of person. If you are the latter, we hope you will consider <%= link_to "helping out", pages_join_path %>.</p>
-            </noscript>
-            
+            <iframe width="100%" scrolling="no" height="330px" frameborder="0" vspace="0" hspace="0" marginwidth="0" marginheight="0" style="width: 100%; height: 330px; overflow: hidden;" overflow="hidden" src="/zero_bin"></iframe>
         </div>
     </div>
-    <div id="rightboxes">
-        <div class="box1">
-            <p class="rotate">
-                <%= link_to("https://priv.ly") do %>
-                  <span>Go to Priv.ly</span>
-                <% end %>
-            </p>
-        </div>
-        <div class="box2">
-            <p class="rotate">
-                <% if extension_available? and not has_extension? %>
-                    <%= link_to(pages_download_path(:anchor => "extension")) do %>
-                      <span>Download Extension</span>
-                    <% end %>
-                <% else %>
-                    <%= link_to "https://priv.ly/pages/about" do %>
-                      <span>Learn More About Privly</span>
-                    <% end %>
-                <% end %>
-            </p>
-        </div>
-        <div class="box3" id="invite_visual">
-            <p class="rotate">
-                <%= link_to "https://priv.ly/users/invitation/new" do %>
-                    <span>Get Invited</span>
-                <% end %>
-            </p>
-        </div>
-    </div>
+
     <div class="clear"></div>
 </div>
 <% end %>
@@ -79,21 +19,21 @@
         <div class="col1">
             <div id="about_text">
                 <h2><%= link_to "Development Home", "http://www.privly.org" %></h2>
-                <p>Go to the site where we are building the documentation and organization.</p>
+                <p>Go to the site where we are building the documentation and organization behind Privly.</p>
             </div>
         </div>
         
         <div class="col2">
             <div id="roadmap_text">
-                <h2><%= link_to "Priv.ly", "https://priv.ly" %></h2>
-                <p>If you don't know what Privly is, you are in the wrong place. Go to <%= link_to "Priv.ly", "https://priv.ly" %></p>
+                <h2><%= link_to "Join Testing", "http://groups.google.com/group/privly-test" %></h2>
+                <p>Privly should work with any site on the web, but we need your help to tell us where there are problems. Sign up for the testing <%= link_to "mailing list", "groups.google.com/group/privly-test" %>.</p>
             </div>
         </div>
 
         <div class="col3">
             <div id="donate_text">
-                <h2><%= link_to "Donate", pages_donate_path %></h2>
-                <p>We accept <%= link_to "donations", pages_donate_path %> by Bitcoin, PayPal, and anything else you want us to set up.</p>
+                <h2><%= link_to "About", pages_about_path %></h2>
+                <p>Privly is a developing technology for posting content to websites without giving those sites your content. <%= link_to "Learn more", pages_about_path %></p>
             </div>
         </div>
         
