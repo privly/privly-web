@@ -1,10 +1,12 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+gem 'rails', '3.1.7'
 
 gem 'mysql2'
 
 gem 'json'
+
+gem 'jquery-rails', '>= 1.0.12'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -14,8 +16,6 @@ group :assets do
   gem 'uglifier'
 end
 
-gem 'jquery-rails'
-
 # Deploy with Capistrano
 gem 'capistrano'
 
@@ -24,7 +24,7 @@ gem 'capistrano'
 
 #Javascript runtime
 gem 'execjs'
-gem 'johnson'
+gem 'therubyracer'
 
 #required for omniauth until they put the dependency in
 gem 'bcrypt-ruby', '~> 3.0.0'
