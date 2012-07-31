@@ -169,3 +169,14 @@ h3#respond {color: #fff; font:bold 18px "Trebuchet MS", Arial, Helvetica, sans-s
 #rightboxes div a {color:#fff; text-decoration:none;}
 #rightboxes div p a span {background:#000; padding:3px; font-size:14px;}
 #rightboxes div p a:hover {color:#ffc;}
+
+.forcewrap {
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  // Non standard for webkit
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
