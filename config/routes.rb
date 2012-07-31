@@ -4,16 +4,13 @@ Privly::Application.routes.draw do
   match "/zero_bin" => "zero_bins#create", :via => [:post]
   match "/zero_bin/index.html" => "zero_bins#create", :via => [:post]
   
-  match '/auth/:provider/callback' => 'authentications#create'
-  match '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   match '/posts/destroy_all' => 'posts#destroy_all', :method => :delete
-  #resources :authentications
 
   resources :token_authentications, :only => [:create, :new]
   match "token_authentications" => "token_authentications#show", :as => :show_token_authentications, :via => [:get, :post]
   match 'token_authentications' => 'token_authentications#destroy', :as => :destroy_token_authentications, :via => [:delete]
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :invitations => 'users/invitations' }
+  devise_for :users, :controllers => { :invitations => 'users/invitations' }
 
   devise_scope :user do 
     get "users/invitations" => "users/invitations#index", :as => :user_invitations

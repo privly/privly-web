@@ -31,8 +31,6 @@ Privly::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   
   #replace these API keys with the keys for your application
-  FACEBOOK_KEY = '###############'
-  FACEBOOK_SECRET = 'af09af09af09af09af09af09af09af09'
   RECAPTCHA_KEY =    'af09af09af09af09af09af09af09af09af09af09'
   RECAPTCHA_SECRET = 'af09af09af09af09af09af09af09af09af09af09'
   

@@ -27,7 +27,7 @@ gem 'execjs'
 gem 'therubyracer'
 
 #required for omniauth until they put the dependency in
-gem 'bcrypt-ruby', '~> 3.0.0'
+# gem 'bcrypt-ruby', '~> 3.0.0'
 
 #authorization
 gem 'cancan'
@@ -42,7 +42,7 @@ gem 'devise_invitable', '~> 1.0.0'
 # https://github.com/intridea/omniauth/wiki/List-of-Strategies
 # each needs configuration
 # gem 'omniauth' #https://github.com/intridea/omniauth
-gem 'omniauth-facebook' #https://github.com/mkdynamic/omniauth-facebook
+# gem 'omniauth-facebook' #https://github.com/mkdynamic/omniauth-facebook
 # gem 'omniauth-twitter' #https://github.com/arunagw/omniauth-twitter
 # gem 'omniauth-openid' #https://github.com/intridea/omniauth-openid
 # gem 'omniauth-identity' #https://github.com/intridea/omniauth-identity
