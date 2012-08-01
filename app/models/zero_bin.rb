@@ -42,7 +42,7 @@ class ZeroBin < ActiveRecord::Base
   
   # Used by cron jobs to delete all the burnt Zero_bins
   class << self
-     def destroy_burnt_posts
+     def destroy_burnt_zero_bins
        zero_bins_to_destroy = ZeroBin.find :all, 
          :conditions => ['burn_after_date < ?', Time.now]
        for zero_bin in zero_bins_to_destroy
