@@ -46,7 +46,7 @@ var iframeBehavior = {
         evt.initEvent("IframeResizeEvent", true, false);
         var element = document.createElement("privElement");
         element.setAttribute("height", height);  
-        var frameId = "<%= (params[:frame_id] ? (params[:frame_id]).gsub(/[^0-9a-z ]/i, '') : (params[:id]).gsub(/[^0-9a-z ]/i, '')) %>";
+        var frameId = window.name;
         element.setAttribute("frame_id", frameId);  
         document.documentElement.appendChild(element);    
         element.dispatchEvent(evt);
