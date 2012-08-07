@@ -40,5 +40,9 @@ Privly::Application.configure do
   # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
   config.assets.allow_debugging = true
   
+  RECAPTCHA_KEY = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+  RECAPTCHA_SECRET = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+  
   NAME = "Test"
+  
 end

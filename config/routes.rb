@@ -24,21 +24,22 @@ Privly::Application.routes.draw do
   get "pages/account"
   
   #nearly static pages
-  get "pages/faq" => redirect("http://www.privly.org/faq")
-  get "pages/join" => redirect("http://www.privly.org/")
   get "pages/roadmap"
-  get "pages/people" => redirect("http://www.privly.org/people")
-  get "pages/license" => redirect("/pages/about")
   get "pages/privacy"
-  get "pages/terms" => redirect("/pages/privacy")
-  get "pages/irc" => redirect("http://www.privly.org/content/irc")
-  get "pages/bug" => redirect("http://www.privly.org/content/bug-report")
   get "pages/donate"
   get "pages/download"
   get "pages/about"
-  get "pages/email" => redirect("https://groups.google.com/forum/?fromgroups#!forum/privly")
   get "pages/kickstarter"
   
+  #legacy pages
+  get "pages/faq" => redirect("http://www.privly.org/faq")
+  get "pages/join" => redirect("http://www.privly.org/")
+  get "pages/people" => redirect("http://www.privly.org/people")
+  get "pages/license" => redirect("/pages/about")
+  get "pages/terms" => redirect("/pages/privacy")
+  get "pages/irc" => redirect("http://www.privly.org/content/irc")
+  get "pages/bug" => redirect("http://www.privly.org/content/bug-report")
+  get "pages/email" => redirect("https://groups.google.com/forum/?fromgroups#!forum/privly")
   
   resources :posts
   match '/posts/posts_anonymous' => "posts#create_anonymous", :as => :create_anonymous_post, :via => [:post]

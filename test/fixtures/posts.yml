@@ -1,7 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  string: 
+  user_id: 1
+  id: 1
+  content: Test Post 1
+  public: true
+  burn_after_date: <%= Time.now + 1.day %>
+  random_token: random_token_NOT
 
 two:
-  string: 
+  id: 2
+  content: Test Post 2
+  public: true
+  burn_after_date: <%= Time.now + 1.day %>
+  random_token: random_token_NOT
+  

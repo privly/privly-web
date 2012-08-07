@@ -1,11 +1,13 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+one:
+  iv: initialization_vector
+  salt: salt
+  ct: encrypted_content
+  random_token: random_access_token 
+  burn_after_date: <%=Time.now + 1.day%>
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+two:
+  iv: initialization_vector
+  salt: salt
+  ct: encrypted_content
+  random_token: random_access_token 
+  burn_after_date: <%=Time.now + 1.day%>

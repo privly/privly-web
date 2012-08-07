@@ -1,7 +1,14 @@
 require 'test_helper'
 
 class PostsControllerTest < ActionController::TestCase
+  
+  include Devise::TestHelpers
+  
   setup do
+    
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in  users(:one)
+    
     @post = posts(:one)
   end
 
@@ -18,10 +25,12 @@ class PostsControllerTest < ActionController::TestCase
 
   test "should create post" do
     assert_difference('Post.count') do
-      post :create, :post => @post.attributes
+      post :create, :content => "Test Post 1", :public => true, 
+      :burn_after_date => Time.now + 1.day
     end
 
-    assert_redirected_to post_path(assigns(:post))
+    assert_redirected_to post_path(assigns(:post), 
+      {:random_token => assigns(:post).random_token, :privlyInject1 => true})
   end
 
   test "should show post" do
@@ -41,7 +50,7 @@ class PostsControllerTest < ActionController::TestCase
 
   test "should destroy post" do
     assert_difference('Post.count', -1) do
-      delete :destroy, :id => @post.to_param
+      delete :destroy, :id => @post.id
     end
 
     assert_redirected_to posts_path

@@ -1,14 +1,12 @@
 require 'test_helper'
 
 class PagesControllerTest < ActionController::TestCase
-  test "should get faq" do
-    get :faq
-    assert_response :success
-  end
-
-  test "should get join" do
-    get :join
-    assert_response :success
+  
+  include Devise::TestHelpers
+  
+  setup do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in  users(:one)
   end
 
   test "should get roadmap" do
@@ -16,43 +14,8 @@ class PagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get people" do
-    get :people
-    assert_response :success
-  end
-
-  test "should get license" do
-    get :license
-    assert_response :success
-  end
-
   test "should get privacy" do
     get :privacy
-    assert_response :success
-  end
-
-  test "should get terms" do
-    get :terms
-    assert_response :success
-  end
-
-  test "should get help" do
-    get :help
-    assert_response :success
-  end
-
-  test "should get status" do
-    get :status
-    assert_response :success
-  end
-
-  test "should get irc" do
-    get :irc
-    assert_response :success
-  end
-
-  test "should get bug" do
-    get :bug
     assert_response :success
   end
 
@@ -70,9 +33,14 @@ class PagesControllerTest < ActionController::TestCase
     get :about
     assert_response :success
   end
-
-  test "should get email" do
-    get :email
+  
+  test "should get kickstarter" do
+    get :kickstarter
+    assert_response :success
+  end
+  
+  test "should get account" do
+    get :account
     assert_response :success
   end
 

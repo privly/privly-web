@@ -1,9 +1,18 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  post_id: 
-  email: MyString
-
+  post_id: 1
+  email: email1@email.com
+  can_show: true
+  can_destroy: true
+  can_update: true
+  can_share: true
+  
 two:
-  post_id: 
-  email: MyString
+  post_id: 1
+  email: email1@email.com
+  can_show: true
+  can_destroy: true
+  can_update: true
+  can_share: true
+  
