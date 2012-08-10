@@ -1,9 +1,13 @@
 class ApplicationController < ActionController::Base
+  
+  # Put the CSRF token into all forms, except where 
+  # skip_before_filter :verify_authenticity_token
+  # is specified
   protect_from_forgery
   
   helper_method :has_extension?, :extension_available?
   
-  #Access denied routing
+  # Route the request to the proper "Access Denied" screen
   rescue_from CanCan::AccessDenied do |exception|
     
     @post = nil
@@ -53,11 +57,13 @@ class ApplicationController < ActionController::Base
         redirect_to root_url, :notice => "Only administrators have access to that."
       end
     end
-  
+    
+    # Structure for user agent inspection
     Browser = Struct.new(:browser, :version)
     ExtensionBrowsers = [
-      Browser.new("Firefox", "3.6.0.0"),
-      Browser.new("Chrome", "1.0")
+      Browser.new("Firefox", "4.0.0.0"),
+      Browser.new("Chrome", "1.0"),
+      Browser.new("Opera","11.0")
     ]
     ChromeBrowser = [
       Browser.new("Chrome", "1.0")

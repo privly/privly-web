@@ -1,11 +1,16 @@
 class PostsController < ApplicationController
   
+  # Allow posting to the create_anonymous endpoint without the CSRF token
   skip_before_filter :verify_authenticity_token, :only => [:create_anonymous]
   
+  # Force the user to authenticate using Devise
   before_filter :authenticate_user!, :except => [:show, :new, :create_anonymous]
   
+  # Checks request's permissions defined in ability.rb and loads 
+  # resource if they have access
   load_and_authorize_resource :except => [:destroy_all, :create_anonymous]
   
+  # Use special logic for verifying that the user is human
   before_filter :authenticate_user_show!, :only => [:show]
   before_filter :redirect_bot, :only => :show
   
@@ -216,6 +221,7 @@ class PostsController < ApplicationController
     end
   end
   
+  # A Create endpoint which will not associate the post with any user account
   # POST /posts/anonymous
   # POST /posts/anonymous.json
   def create_anonymous
@@ -264,6 +270,7 @@ class PostsController < ApplicationController
     end
   end
   
+  # Destroys all the current user's posts
   # DELETE /posts/destroy_all
   def destroy_all
     posts = current_user.posts
