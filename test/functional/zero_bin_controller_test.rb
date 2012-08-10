@@ -30,5 +30,16 @@ class ZeroBinControllerTest < ActionController::TestCase
       :burn_after_date => Time.now + 1.day
     assert_response :success
   end
+  
+  test "should be burnt Zero Bin" do
+    
+    @zero_bin = zero_bins(:burnt)
+    
+    get :show, {:id => @zero_bin.id, :random_token => @zero_bin.random_token, 
+      :format => "json"}
+    error = JSON.parse(@response.body)
+    assert error["error"] == "record not found"
+    
+  end
 
 end

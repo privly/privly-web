@@ -5,14 +5,16 @@ class ApplicationController < ActionController::Base
   
   #Access denied routing
   rescue_from CanCan::AccessDenied do |exception|
+    
+    @post = nil
+    
     if exception.subject.class.name == "Post"
       if user_signed_in?
         respond_to do |format|
           format.html {
-            @sidebar = {:news => false, :posts => true}
+            @sidebar = {:posts => true}
             render "posts/noaccess"
           }
-          format.markdown { render "posts/noaccess"  }
           format.iframe { render "posts/noaccess" }
           format.json { render :json => {:error => "no access"} }
         end
@@ -21,9 +23,11 @@ class ApplicationController < ActionController::Base
           format.html {
             redirect_to new_user_session_path, :notice => 'You might have access to this if you login.'
           }
-          format.markdown { render "login"  }
           format.iframe { render "login" }
-          format.json { render "login" }
+          format.json {
+            render :json => {:error => "you need to login"}, 
+            :status => :unprocessable_entity 
+          }
         end
       end
     else

@@ -5,13 +5,18 @@ one:
   id: 1
   content: Test Post 1
   public: true
-  burn_after_date: <%= Time.now + 1.day %>
+  burn_after_date: <%= (Time.now + 1.day).strftime("%Y-%m-%d") %>
   random_token: random_token_NOT
 
 two:
   id: 2
   content: Test Post 2
   public: true
-  burn_after_date: <%= Time.now + 1.day %>
-  random_token: random_token_NOT
+  burn_after_date: <%= (Time.now + 1.day).strftime("%Y-%m-%d") %>
+  
+burnt:
+  id: 3
+  user_id: 1
+  content: Test Post 3
+  burn_after_date: <%= (Time.now - 1.second).strftime("%Y-%m-%d") %>
   

@@ -3,30 +3,35 @@ one:
  email: test@test.com
  admin: false
  encrypted_password: $2a$10$XVXlpksdF4NqtNN6tJLNc.Al3Aah7qh3IqK.yFFY7VeVtbjjQotLu
- reset_password_token: nil
- reset_password_sent_at: nil
- remember_created_at: nil
  sign_in_count: 1
  current_sign_in_at: 2012-08-07 19:07:33
  last_sign_in_at: 2012-08-07 19:07:33
  current_sign_in_ip: 127.0.0.1
  last_sign_in_ip: 127.0.0.1
- confirmation_token: nil
  confirmed_at: 2012-08-07 19:03:57
- confirmation_sent_at: nil
  failed_attempts: 0
- unlock_token: nil
- locked_at: nil
- authentication_token: nil
  created_at: 2012-08-07 19:03:57
  updated_at: 2012-08-07 19:07:33
  admin: false
- invitation_token: nil
  invitation_sent_at: 2012-08-07 19:06:50
  invitation_accepted_at: 2012-08-07 19:07:33
- invitation_limit: nil
- invited_by_id: nil
- invited_by_type: nil
  pending_invitation: false
- last_emailed: nil
- 
+
+two:
+  id: 2
+  email: test2@test.com
+  admin: false
+  encrypted_password: $2a$10$XVXlpksdF4NqtNN6tJLNc.Al3Aah7qh3IqK.yFFY7VeVtbjjQotLu
+  sign_in_count: 1
+  current_sign_in_at: 2012-08-07 19:07:33
+  last_sign_in_at: 2012-08-07 19:07:33
+  current_sign_in_ip: 127.0.0.1
+  last_sign_in_ip: 127.0.0.1
+  confirmed_at: 2012-08-07 19:03:57
+  failed_attempts: 0
+  created_at: 2012-08-07 19:03:57
+  updated_at: 2012-08-07 19:07:33
+  admin: false
+  invitation_sent_at: 2012-08-07 19:06:50
+  invitation_accepted_at: 2012-08-07 19:07:33
+  pending_invitation: false

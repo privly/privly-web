@@ -11,24 +11,27 @@ class PostsController < ApplicationController
   
   # Obscure whether the record exists when not found
   rescue_from ActiveRecord::RecordNotFound do |exception|
+    
+    @post = nil
+    
     if user_signed_in?
       respond_to do |format|
         format.html {
           @sidebar = {:news => false, :posts => true}
           render "noaccess"
         }
-        format.markdown { render "noaccess"  }
         format.iframe { render "noaccess" }
-        format.json { render "noaccess" }
+        format.json { render :json => {:error => "record not found"},
+          :status => :unprocessable_entity}
       end
     else
       respond_to do |format|
         format.html {
           redirect_to new_user_session_path, :message => "You might have access to that post if you log in."
         }
-        format.markdown { render "login" }
         format.iframe { render "login" }
-        format.json { render "login" }
+        format.json { render :json => {:error => "you need to login"},
+          :status => :unprocessable_entity}
       end
     end
   end
@@ -52,9 +55,9 @@ class PostsController < ApplicationController
           @posts.each do |post|
             csv << [post.content, post.created_at, post.updated_at, post.public]
           end
-        end       
+        end
         send_data csv_data, :type => 'text/csv; charset=iso-8859-1; header=present',
-          :disposition => "attachment; filename=#{@filename}"  
+          :disposition => "attachment; filename=#{@filename}"
         flash[:notice] = "Posts successfully exported" 
       end
     end
@@ -64,14 +67,15 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     
-    if @post.burn_after_date
-      if @post.burn_after_date < Time.now
-        raise ActiveRecord::RecordNotFound
-      end
-      sharing_url_parameters = {:random_token => @post.random_token, 
-        :burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true}
-    else
-      sharing_url_parameters = {:random_token => @post.random_token, :privlyInject1 => true}
+    if not @post.burn_after_date.nil? and @post.burn_after_date < Time.now
+      raise ActiveRecord::RecordNotFound
+    end
+    
+    sharing_url_parameters = {:random_token => @post.random_token, 
+      :privlyInject1 => true}
+    
+    if not @post.burn_after_date.nil?
+      sharing_url_parameters[:random_token] = @post.random_token
     end
     
     #deprecated
@@ -80,42 +84,32 @@ class PostsController < ApplicationController
     response.headers["X-Privly-Url"] = post_url @post, sharing_url_parameters
     
     @email_share = EmailShare.new
+    
     respond_to do |format|
       format.html {
         
         if request.url.include? "iframe"
-          sharing_url_parameters = {:random_token => @post.random_token, :format => "iframe"}
+          sharing_url_parameters[:format] = "iframe"
           url = post_url @post, sharing_url_parameters
           redirect_to url
           return
         end
         
-        @sidebar = {:post => true, :news => false}
+        @sidebar = {:post => true}
         if user_signed_in?
           @sidebar[:posts] = true
-        else
-          @sidebar[:posts] = false
-        end
-        if extension_available? and not has_extension?
-          if chrome_browser?
-            @sidebar[:download_extension] = true
-            @sidebar[:download_chrome_extension] = true
-          else
-            @sidebar[:download_extension] = true
-          end
-        else
-          @sidebar[:download_extension] = false
         end
         
         render
       }
-      format.markdown { render }
       format.iframe { render }
       format.json { 
         post_json = @post.as_json(:except => [:user_id, :updated_at, :public, 
           :created_at, :burn_after_date, :random_token])
-        render :json => post_json.merge!(:privlyurl => 
-          response.headers["privlyurl"], "X-Privly-Url" => response.headers["X-Privly-Url"]), :callback => params[:callback]
+        post_json.merge!(
+          :privlyurl => response.headers["privlyurl"], 
+          "X-Privly-Url" => response.headers["X-Privly-Url"])
+        render :json => post_json, :callback => params[:callback]
       }
     end
   end
@@ -123,7 +117,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   # GET /posts/new.json
   def new
-    @sidebar = {:markdown => true, :posts => true, :news => false}
+    @sidebar = {:markdown => true, :posts => true}
     
     if user_signed_in?
       @post.burn_after_date = Time.now + 2.weeks
@@ -140,7 +134,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    @sidebar = {:markdown => true, :post => true, :news => false}
+    @sidebar = {:markdown => true, :post => true}
   end
 
   # POST /posts
@@ -324,14 +318,14 @@ class PostsController < ApplicationController
             end
             render "login.html" 
           }
-          format.markdown { render "login.markdown" }
           format.iframe { 
             if not session[:person] and params[:recaptcha_challenge_field]
               flash[:notice] = "You did not solve a captcha properly, are you sure you are human?"
             end
-            render "login.iframe" 
+            render "login.iframe"
           }
-          format.json { render :json => {:error => "you need to login"}, :status => :unprocessable_entity }
+          format.json {
+            render :json => {:error => "you need to login"}, :status => :unprocessable_entity }
         end
       end
     end

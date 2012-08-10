@@ -36,6 +36,70 @@ class PostsControllerTest < ActionController::TestCase
   test "should show post" do
     get :show, :id => @post.to_param
     assert_response :success
+    
+    get :show, :id => @post.to_param, :format => "json"
+    assert_response :success
+    
+    get :show, :id => @post.to_param, :format => "iframe"
+    assert_response :success
+    
+  end
+  
+  test "should deny show post" do
+    
+    sign_out users(:one)
+    
+    get :show, :id => @post.id
+    assert_redirected_to new_user_session_path
+    
+    get :show, {:id => @post.id, :format => "json"}
+    error = JSON.parse(@response.body)
+    assert error["error"] == "you need to login"
+    
+    get :show, :id => @post.id, :format => "iframe"
+    assert assigns(:post).nil?
+    
+  end
+  
+  test "should be burnt post" do
+    
+    @post = posts(:burnt)
+    
+    get :show, :id => @post.id
+    assert assigns(:post).nil?
+    
+    get :show, {:id => @post.id, :format => "json"}
+    error = JSON.parse(@response.body)
+    assert error["error"] == "record not found"
+    
+    get :show, :id => @post.id, :format => "iframe"
+    assert assigns(:post).nil?
+    
+  end
+
+  test "should show post without random token" do
+    
+    sign_out users(:one)
+    
+    @post = posts(:two)
+    
+    get :show, :id => @post.to_param
+    assert_redirected_to post_path(assigns(:post), 
+      {:burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true})
+  end
+  
+  test "should deny post without random token" do
+    
+    sign_out users(:one)
+        
+    get :show, :id => @post.id
+    assert_redirected_to new_user_session_path
+    
+    sign_in users(:two)
+    
+    get :show, :id => @post.id
+    assert_redirected_to new_user_session_path
+    
   end
 
   test "should get edit" do

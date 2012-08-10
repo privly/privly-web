@@ -6,10 +6,18 @@ class ZeroBinsController < ApplicationController
   # Load the resource only if the requestor has the random access token
   load_and_authorize_resource
   
-  # JSON only endpoint for 
+  # Obscure whether the record exists when not found
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    @zero_bin = nil
+    
+    respond_to do |format|
+      format.json { render :json => {:error => "record not found"},
+        :status => :unprocessable_entity}
+    end
+  end
+  
+  # JSON only endpoint for viewing zero_bin content
   def show
-    @zero_bin.burn_after_date = Time.now + 1.day
-    @zero_bin.save
     if @zero_bin.burn_after_date < Time.now
       raise ActiveRecord::RecordNotFound
     end

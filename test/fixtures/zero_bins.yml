@@ -3,11 +3,18 @@ one:
   salt: salt
   ct: encrypted_content
   random_token: random_access_token 
-  burn_after_date: <%=Time.now + 1.day%>
+  burn_after_date: <%= (Time.now + 1.day).strftime("%Y-%m-%d") %>
 
 two:
   iv: initialization_vector
   salt: salt
   ct: encrypted_content
   random_token: random_access_token 
-  burn_after_date: <%=Time.now + 1.day%>
+  burn_after_date: <%= (Time.now + 1.day).strftime("%Y-%m-%d") %>
+  
+burnt:
+  iv: initialization_vector
+  salt: salt
+  ct: encrypted_content
+  random_token: random_access_token
+  burn_after_date: <%= (Time.now - 1.second).strftime("%Y-%m-%d") %>
