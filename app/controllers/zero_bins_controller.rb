@@ -18,7 +18,9 @@ class ZeroBinsController < ApplicationController
   
   # JSON only endpoint for viewing zero_bin content
   def show
-    if @zero_bin.burn_after_date < Time.now
+    
+    if not @zero_bin.burn_after_date.nil? and 
+      @zero_bin.burn_after_date < Time.now
       raise ActiveRecord::RecordNotFound
     end
     

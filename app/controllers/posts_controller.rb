@@ -108,7 +108,7 @@ class PostsController < ApplicationController
         render
       }
       format.iframe { render }
-      format.json { 
+      format.json {
         post_json = @post.as_json(:except => [:user_id, :updated_at, :public, 
           :created_at, :burn_after_date, :random_token])
         post_json.merge!(

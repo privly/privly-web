@@ -36,4 +36,6 @@ Privly::Application.configure do
   
   config.name = "Site Name"
   
+  config.action_mailer.default_url_options = { :host => 'localhost' }
+  
 end

@@ -13,7 +13,13 @@ class ZeroBinControllerTest < ActionController::TestCase
   end
   
   test "should get show" do
-    get :show, :id => @zero_bin.id, :random_token => @zero_bin.random_token
+    
+    # The burn_after date should be in the future
+    assert_not_nil @zero_bin.burn_after_date
+    assert @zero_bin.burn_after_date > Time.now
+    
+    get :show, :id => @zero_bin.id, :random_token => @zero_bin.random_token, 
+      :format => :json
     assert_response :success
   end
   

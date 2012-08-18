@@ -19,28 +19,41 @@ class TokenAuthenticationsController < ApplicationController
   
   def create
     @user = User.find_by_email(params[:email])
-    if @user and @user.valid_password?(params[:password])
-      sign_in(:user, @user)
-    else
+    
+    if @user and not @user.valid_password?(params[:password])
+      @user.failed_attempts += 1
+      if @user.failed_attempts >= Devise.maximum_attempts
+        @user.lock_access!
+      end
+      @user.save
       @user = nil
     end
-    respond_to do |format|
-      format.html {
-        if @user
+    
+    if @user and @user.access_locked?
+      @user = nil
+    end
+    
+    if @user
+      sign_in(:user, @user)
+      respond_to do |format|
+        format.html {
           current_user.reset_authentication_token!
           redirect_to show_token_authentications_path
-        else
-          redirect_to new_token_authentication_path, :alert => "incorrect email or password"
-        end
-      }
-      format.json { 
-        if @user
+        }
+        format.json { 
           current_user.reset_authentication_token!
           redirect_to show_token_authentications_path({:format => :json})
-        else
+        }
+      end
+    else
+      respond_to do |format|
+        format.html {
+          redirect_to new_token_authentication_path, :alert => "incorrect email or password"
+        }
+        format.json { 
           render :json => {:error => "incorrect email or password"}, :callback => params[:callback] 
-        end
-      }
+        }
+      end
     end
   end
 
@@ -64,4 +77,5 @@ class TokenAuthenticationsController < ApplicationController
       }
     end
   end
+  
 end
