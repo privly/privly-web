@@ -1,12 +1,16 @@
 class Post < ActiveRecord::Base
-  belongs_to :user
-  has_many :email_shares, :dependent => :destroy
   
-  attr_accessible :content, :public, :burn_after_date, :random_token
+  belongs_to :user
+  
+  has_many :email_shares, :dependent => :destroy
   
   before_create :generate_random_token
   
+  validates :content, :presence => true
+  
   validate :burnt_after_in_future, :unauthenticated_user_settings
+  
+  attr_accessible :content, :public, :burn_after_date, :random_token
   
   self.per_page = 5
   
