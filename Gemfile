@@ -37,6 +37,7 @@ gem 'cancan'
 gem 'devise' #https://github.com/plataformatec/devise
 gem 'devise_invitable', '~> 1.0.0'
 
+gem 'activeadmin'
 
 #Gems for authorizing with other services, potentially many: 
 # https://github.com/intridea/omniauth/wiki/List-of-Strategies
@@ -51,7 +52,8 @@ gem 'devise_invitable', '~> 1.0.0'
 
 gem 'rdiscount'
 
-gem 'will_paginate'
+gem 'kaminari'
+# gem 'will_paginate'
 
 gem 'useragent'
 

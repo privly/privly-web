@@ -45,7 +45,7 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     unless params[:format] == "csv"
-      @posts = @posts.page(params[:page]).order('created_at DESC')
+      @posts = @posts.order('created_at DESC').page params[:page]
     end
     respond_to do |format|
       format.html {

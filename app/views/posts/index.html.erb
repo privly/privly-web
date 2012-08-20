@@ -18,9 +18,7 @@
     </div>
 <% end %>
 
-<div class="digg_pagination">
-    <div clas="page_info">
-      <%= page_entries_info @posts %>
-    </div>
-    <%= will_paginate @posts, :container => false %>
-</div>
+<p>
+  <%= page_entries_info(@posts).html_safe %>
+  <%= paginate @posts %>
+</p>

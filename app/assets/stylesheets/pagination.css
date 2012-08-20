@@ -1,103 +1,110 @@
-.digg_pagination {
-  cursor: default;
-  /* self-clearing method: */ }
-  .digg_pagination a, .digg_pagination span, .digg_pagination em {
-    padding: 0.2em 0.5em;
-    display: block;
-    float: left;
-    margin-right: 1px; }
-  .digg_pagination .disabled {
-    color: #999999;
-    border: 1px solid #dddddd; }
-  .digg_pagination .current {
-    font-style: normal;
-    font-weight: bold;
-    background: #2e6ab1;
-    color: white;
-    border: 1px solid #2e6ab1; }
-  .digg_pagination a {
-    text-decoration: none;
-    color: #105cb6;
-    border: 1px solid #9aafe5; }
-    .digg_pagination a:hover, .digg_pagination a:focus {
-      color: #000033;
-      border-color: #000033; }
-  .digg_pagination .page_info {
-    background: #2e6ab1;
-    color: white;
-    padding: 0.4em 0.6em;
-    width: 22em;
-    margin-bottom: 0.3em;
-    text-align: center; }
-    .digg_pagination .page_info b {
-      color: #000033;
-      background: #6aa6ed;
-      padding: 0.1em 0.25em; }
-  .digg_pagination:after {
-    content: ".";
-    display: block;
-    height: 0;
+.paginated_collection_contents {
     clear: both;
-    visibility: hidden; }
-  * html .digg_pagination {
-    height: 1%; }
-  *:first-child + html .digg_pagination {
-    overflow: hidden; }
-
-.apple_pagination {
-  background: #f1f1f1;
-  border: 1px solid #e5e5e5;
-  text-align: center;
-  padding: 1em;
-  cursor: default; }
-  .apple_pagination a, .apple_pagination span {
-    padding: 0.2em 0.3em; }
-  .apple_pagination .disabled {
-    color: #aaaaaa; }
-  .apple_pagination .current {
-    font-style: normal;
-    font-weight: bold;
-    background-color: #bebebe;
+}
+.pagination {
+    font-size: 0.9em;
+    margin-left: 10px;
+}
+.pagination a {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: -moz-linear-gradient(-90deg, #FDFDFD, #E8E8E8) repeat scroll 0 0 transparent;
+    border-color: #D3D3D3 #C7C7C7 #C2C2C2;
+    border-radius: 200px 200px 200px 200px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+    color: #777777;
     display: inline-block;
-    width: 1.4em;
-    height: 1.4em;
-    line-height: 1.5;
-    -moz-border-radius: 1em;
-    -webkit-border-radius: 1em;
-    border-radius: 1em;
-    text-shadow: rgba(255, 255, 255, 0.8) 1px 1px 1px; }
-  .apple_pagination a {
-    text-decoration: none;
-    color: black; }
-    .apple_pagination a:hover, .apple_pagination a:focus {
-      text-decoration: underline; }
-
-.flickr_pagination {
-  text-align: center;
-  padding: 0.3em;
-  cursor: default; }
-  .flickr_pagination a, .flickr_pagination span, .flickr_pagination em {
-    padding: 0.2em 0.5em; }
-  .flickr_pagination .disabled {
-    color: #aaaaaa; }
-  .flickr_pagination .current {
-    font-style: normal;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 1em;
     font-weight: bold;
-    color: #ff0084; }
-  .flickr_pagination a {
-    border: 1px solid #dddddd;
-    color: #0063dc;
-    text-decoration: none; }
-    .flickr_pagination a:hover, .flickr_pagination a:focus {
-      border-color: #003366;
-      background: #0063dc;
-      color: white; }
-  .flickr_pagination .page_info {
-    color: #aaaaaa;
-    padding-top: 0.8em; }
-  .flickr_pagination .previous_page, .flickr_pagination .next_page {
-    border-width: 2px; }
-  .flickr_pagination .previous_page {
-    margin-right: 1em; }
-  .flickr_pagination .next_page {
-    margin-left: 1em; }
+    line-height: 12px;
+    margin-right: 3px;
+    padding: 7px 16px 6px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 white;
+}
+.pagination a:hover {
+    background: -moz-linear-gradient(-90deg, #8B9297, #484D51) repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+}
+.pagination a:hover span.icon svg path, .pagination a:hover span.icon svg polygon, .pagination a:hover span.icon svg rect, .pagination a:hover span.icon svg circle {
+    fill: white !important;
+}
+.pagination a:active {
+    background: -moz-linear-gradient(-90deg, #7E858B, #3C4043) repeat scroll 0 0 transparent;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0 white;
+}
+.pagination a:hover {
+    background: -moz-linear-gradient(-90deg, #FDFDFD, #EAEAEA) repeat scroll 0 0 transparent;
+    color: #444444;
+}
+.pagination a:hover span.icon svg path, .pagination a:hover span.icon svg polygon, .pagination a:hover span.icon svg rect, .pagination a:hover span.icon svg circle {
+    fill: #444444 !important;
+}
+.pagination a:active {
+    background: -moz-linear-gradient(-90deg, #FCFCFC, #E5E4E5) repeat scroll 0 0 transparent;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18) inset, 0 1px 0 0 #EEEEEE;
+}
+.pagination a.disabled {
+    color: #777777;
+    cursor: default;
+    opacity: 0.6;
+}
+.pagination a.disabled:hover {
+    color: #777777;
+}
+.pagination a.disabled:active {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), 0 0 0 1px white inset;
+}
+.pagination span.page.current {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: -moz-linear-gradient(-90deg, #838A90, #414549) repeat scroll 0 0 transparent;
+    border-color: #616A71 #484E53 #363B3F;
+    border-radius: 200px 200px 200px 200px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+    color: #EFEFEF;
+    display: inline-block;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 12px;
+    margin-right: 3px;
+    padding: 7px 16px 6px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 black;
+}
+.pagination span.page.current:hover {
+    background: -moz-linear-gradient(-90deg, #8B9297, #484D51) repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+}
+.pagination span.page.current:hover span.icon svg path, .pagination span.page.current:hover span.icon svg polygon, .pagination span.page.current:hover span.icon svg rect, .pagination span.page.current:hover span.icon svg circle {
+    fill: white !important;
+}
+.pagination span.page.current:active {
+    background: -moz-linear-gradient(-90deg, #7E858B, #3C4043) repeat scroll 0 0 transparent;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0 white;
+}
+.pagination a, .pagination span.page.current {
+    border-radius: 0 0 0 0;
+    margin-right: 4px;
+    padding: 2px 5px;
+}
+.pagination_information {
+    color: #B3BCC1;
+    float: right;
+    margin-bottom: 5px;
+}
+.pagination_information b {
+    color: #5C6469;
+}

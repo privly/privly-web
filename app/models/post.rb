@@ -12,7 +12,7 @@ class Post < ActiveRecord::Base
   
   attr_accessible :content, :public, :burn_after_date, :random_token
   
-  self.per_page = 5
+  paginates_per 10
   
   def burnt_after_in_future
     if burn_after_date and burn_after_date < Time.now

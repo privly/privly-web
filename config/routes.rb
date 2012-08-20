@@ -1,5 +1,9 @@
 Privly::Application.routes.draw do
   
+  ActiveAdmin.routes(self)
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
   match "/zero_bin/:id" => "zero_bins#show", :as => :show_zero_bins, :via => [:get]
   match "/zero_bin" => "zero_bins#create", :via => [:post]
   match "/zero_bin/index.html" => "zero_bins#create", :via => [:post]

@@ -1,0 +1,6 @@
+one:
+ id: 1
+ email: admin@example.com
+ encrypted_password: $2a$10$ZZ/ozZUVPAOrV.qWcoMle.ym59KRqIfvg1HY14vFoMRpzPBmEoJ1a
+ sign_in_count: 1
+ 

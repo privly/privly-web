@@ -18,12 +18,10 @@
     </div>
 <% end %>
 
-<div class="digg_pagination">
-    <div clas="page_info">
-      <%= page_entries_info @requested_invites %>
-    </div>
-    <%= will_paginate @requested_invites, :container => false %>
-</div>
+<p>
+  <%= page_entries_info(@posts).html_safe %>
+  <%= paginate @posts %>
+</p>
 
 <br/>
 <br/>
