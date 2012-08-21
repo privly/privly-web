@@ -37,7 +37,7 @@ gem 'cancan'
 gem 'devise' #https://github.com/plataformatec/devise
 gem 'devise_invitable', '~> 1.0.0'
 
-gem 'activeadmin'
+gem "activeadmin", :git => 'git://github.com/gregbell/active_admin.git'
 
 #Gems for authorizing with other services, potentially many: 
 # https://github.com/intridea/omniauth/wiki/List-of-Strategies

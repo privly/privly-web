@@ -86,6 +86,13 @@ ActiveAdmin.setup do |config|
   # Default:
   config.logout_link_method = :get
 
+  # == Root
+  #
+  # Set the action to call for the root path. You can set different
+  # roots for each namespace.
+  #
+  # Default:
+  config.root_to = 'dashboard#index'
 
   # == Admin Comments
   #
@@ -104,6 +111,13 @@ ActiveAdmin.setup do |config|
   #   end
 
 
+  # == Batch Actions
+  #
+  # Enable and disable Batch Actions
+  #
+  config.batch_actions = true
+  
+
   # == Controller Filters
   #
   # You can add before, after and around filters to all of your
@@ -120,7 +134,7 @@ ActiveAdmin.setup do |config|
   #
   # To load a stylesheet:
   #   config.register_stylesheet 'my_stylesheet.css'
-  #
+  
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', :media => :print
   #
