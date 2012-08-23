@@ -7,13 +7,13 @@ class Ability
     can :create, ZeroBin
     can :show, ZeroBin, {:random_token => random_token}
     
+    # Users can manage their own content
     if not user.nil?
-      
-      #users can manage their own posts
-      can :manage, Post, :user_id => user.id 
-      
-      #Users can manage the EmailShares on their posts
+      can [:show, :index, :edit, :new, :update, :destroy], Post, :user_id => user.id
       can :manage, EmailShare, :post => {:user_id => user.id}
+      
+      # The user account must have the posting permission
+      can :create, Post, :user_id => user.id if user.can_post
     end
     
     user ||= User.new # guest user (not logged in)

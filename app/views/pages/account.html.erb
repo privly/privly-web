@@ -4,10 +4,40 @@
 
 <h2 class="subhead"><span>Account</span></h2>
 
-<p class="postmeta"><%= link_to 'Destroy All Posts', posts_destroy_all_path, :confirm => 'Are you sure? This will destroy everything you know and love in this site.', :method => :delete %></p>
+<% #Account Information %>
+<h2>Testing Account Information</h2>
+<% if current_user.can_post %>
+  <p>Your test user account is active. Please remember that Privly is pre-release, so don't host private and protected information with us yet.</p>
+<% else %>
+  <% #If the user indicated they want to be a tester %>
+  <% if current_user.wants_to_test %>
+    <p>You have indicated that you want to test Privly, but we are not for a wider group of testers. If you let us know you REALLY want to test the system, we will set you up with an account now, but it is not ready.</p>
+  <% else %>
+    <p>We are hard at work building Privly capabilities. We will email you when there is a major release of functionality for your user account. Right now, you cannot create any content tied to this user account</p>
+  <% end%>
+<% end %>
 
-<p class="postmeta"><%= link_to 'Export All Posts', {:controller => "posts", :action => "index", :format => :csv}, :confirm => 'Are you sure? This will export all of your posts in .csv format.'%></p>
+<% #Account Actions %>
+<br /><h2>Account Information</h2>
+<p>To change the password for the account associated with <%= current_user.email %>, <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %> and check login options to manage your password.</p>
 
-<p class="postmeta">To change your password, <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %> and check login options to manage your password.</p>
+<% #Account Value %>
+<% if current_user.forever_account_value > 0 or current_user.beta_invites > 0 %>
+  <br /><h2>Perks</h2>
+<% end %>
+<% if current_user.forever_account_value > 0 %>
+  <p>Your user account currently has a forever account value of $<%= current_user.forever_account_value %>/month. Forever account benefits are not currently active, and will not necessarily be on this server, but if transferred, the account value will carry over.</p>
+<% end %>
+<% if current_user.beta_invites > 0 %>
+  <p>Your user account currently has <%= current_user.beta_invites %> beta invites and <%= current_user.alpha_invites %> alpha invites, but they are not currently active. We will email you when it is time to invite your friends.</p>
+<% else %>
+  <p>You do not currently have any invitations.</p>
+<% end %>
 
-<p class="postmeta">The email associated with this account is: <%= current_user.email %></p>
+<% #Post Actions %>
+<% if current_user.posts.count > 0 %>
+  <br /><h2>User Account Data Management</h2>
+  <p><%= button_to 'Export All My Posts', {:controller => "posts", :action => "index", :format => :csv}, :confirm => 'Are you sure? This will export all of your posts in .csv format.'%></p>
+  <br />
+  <p><%= button_to 'Destroy All My Posts', posts_destroy_all_path, :confirm => 'Are you sure? This will destroy everything you know and love in this site.', :method => :delete %></p>
+<% end %>

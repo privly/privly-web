@@ -10,11 +10,18 @@ class User < ActiveRecord::Base
          :validatable, :token_authenticatable, 
          :confirmable, :lockable, :timeoutable
   
+  before_create :downcase_email
+  
   validates :email,
            :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :alpha_invites, :beta_invites, :forever_account_value, :permissioned_requests_served, :nonpermissioned_requests_served, :as => :admin
+  
+  def downcase_email
+    self.email.downcase!
+  end
   
   #prevents users from getting account access via
   #invitation system
