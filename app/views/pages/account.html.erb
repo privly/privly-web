@@ -17,8 +17,14 @@
   <% end%>
 <% end %>
 
-<% #Account Actions %>
-<br /><h2>Account Information</h2>
+<% #Identity Information %>
+<br /><h2>Identity Information</h2>
+<p>Your Privly verified email is <%= current_user.email %>.</p>
+<br />
+<p>Your current IP address is <%= request.remote_ip %>.</p>
+<br />
+<p>Additional forms of identification are under development.</p>
+<br />
 <p>To change the password for the account associated with <%= current_user.email %>, <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %> and check login options to manage your password.</p>
 
 <% #Account Value %>
@@ -37,7 +43,7 @@
 <% #Post Actions %>
 <% if current_user.posts.count > 0 %>
   <br /><h2>User Account Data Management</h2>
-  <p><%= button_to 'Export All My Posts', {:controller => "posts", :action => "index", :format => :csv}, :confirm => 'Are you sure? This will export all of your posts in .csv format.'%></p>
+  <p><%= button_to 'Export All My Posts', {:controller => "posts", :action => "index", :format => :csv}, :confirm => 'Are you sure? This will export all of your posts in .csv format.', :method => :get %></p>
   <br />
   <p><%= button_to 'Destroy All My Posts', posts_destroy_all_path, :confirm => 'Are you sure? This will destroy everything you know and love in this site.', :method => :delete %></p>
 <% end %>

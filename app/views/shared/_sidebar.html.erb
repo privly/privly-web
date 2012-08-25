@@ -56,7 +56,7 @@ included.
                             </a>
                         </li>
                     <% else %>
-                        <li><a>An Anonymous User Owns This</a></li>
+                        <li><a>You Don't Own This</a></li>
                     <% end %>
                 <% else %>
                     <li>
@@ -104,11 +104,13 @@ included.
         <h2><a href="#">Write Posts</a></h2>
         <div>
             <ul class="posts">
-                <% if user_signed_in? %>
+                <% if user_signed_in? and current_user.can_post %>
                     <li><%= link_to 'New Private Post', new_post_path %></li>
+                    <li><%= link_to 'New Public Post', 
+                        new_post_path("post[public]"=>true) %></li>
+                <% else %>
+                    <li><%= link_to 'New Anonymous Post', new_post_path %></li>
                 <% end %>
-                <li><%= link_to 'New Public Post', 
-                    new_post_path("post[public]"=>true) %></li>
             </ul>
         </div>
         <% end %><%# @sidebar[:posts] %>

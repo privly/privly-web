@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821234736) do
+ActiveRecord::Schema.define(:version => 20120825032057) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -53,18 +53,12 @@ ActiveRecord::Schema.define(:version => 20120821234736) do
     t.datetime "updated_at"
   end
 
-  create_table "email_shares", :force => true do |t|
-    t.integer  "post_id",                        :null => false
-    t.string   "email",                          :null => false
-    t.boolean  "can_show",    :default => true,  :null => false
-    t.boolean  "can_destroy", :default => false, :null => false
-    t.boolean  "can_update",  :default => false, :null => false
-    t.boolean  "can_share",   :default => false, :null => false
+  create_table "identity_providers", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "email_shares", ["email"], :name => "index_email_shares_on_email"
 
   create_table "posts", :force => true do |t|
     t.text     "content"
@@ -75,6 +69,21 @@ ActiveRecord::Schema.define(:version => 20120821234736) do
     t.datetime "burn_after_date"
     t.string   "random_token"
   end
+
+  create_table "shares", :force => true do |t|
+    t.integer  "post_id"
+    t.integer  "identity_provider_id"
+    t.string   "identity"
+    t.string   "identity_pair"
+    t.boolean  "can_show"
+    t.boolean  "can_destroy"
+    t.boolean  "can_update"
+    t.boolean  "can_share"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "shares", ["identity_pair"], :name => "index_shares_on_identity_pair"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                          :default => "",    :null => false
@@ -114,10 +123,12 @@ ActiveRecord::Schema.define(:version => 20120821234736) do
     t.boolean  "wants_to_test",                                  :default => false, :null => false
     t.boolean  "accepted_test_statement",                        :default => false, :null => false
     t.boolean  "notifications",                                  :default => true,  :null => false
+    t.string   "domain",                                                            :null => false
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
+  add_index "users", ["domain"], :name => "index_users_on_domain"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["invitation_token"], :name => "index_users_on_invitation_token"
   add_index "users", ["invited_by_id"], :name => "index_users_on_invited_by_id"

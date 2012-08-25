@@ -61,7 +61,7 @@
           </div>
         <% end %>
     <% else %>
-        You can make it private if you grant yourself the update permission on your email share.
+        You can make it private if you grant yourself the update permission on your share.
     <% end %>
     </p>
 <% else %>
@@ -74,27 +74,33 @@
               </div>
             <% end %>
         <% else %>
-            You can make it public if you grant yourself the update permission on your email share.
+            You can make it public if you grant yourself the update permission on your share.
         <% end %>
     </p>
 <% end %>
 
-<%= form_for(@email_share) do |f| %>
-  <% if @email_share.errors.any? %>
+<%= form_for(@share) do |f| %>
+  <% if @share.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@email_share.errors.count, "error") %> prohibited this email share from being saved:</h2>
+      <h2><%= pluralize(@share.errors.count, "error") %> prohibited this share from being saved:</h2>
       <ul>
-      <% @email_share.errors.full_messages.each do |msg| %>
+      <% @share.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
-
+  
+  <br />
+  
+  <h3>
+    New Sharing Rule: <br /><span id="type_mesasge">Type an Email, domain, IP Address, or password</span>
+  </h3>
   <div class="field">
     <p>
-        <%= f.label :email %><br />
-        <%= f.email_field :email %>
+        <%= f.label :identity %><br />
+        <%= f.text_field :identity,  {:onkeyup=>"identityIdAndMessage($('#share_identity').val(), $('#type_mesasge'), $('#identity_provider_name'))"} %>
+        <%= hidden_field_tag 'share[identity_provider_name]', 'Password', {:id => "identity_provider_name"} %>
         <%= f.submit %>
         <br />
         <%= f.check_box :can_show %>
@@ -108,13 +114,12 @@
         <%= f.hidden_field :post_id, :value => @post.id %>
     </p>
   </div>
-
 <% end %>
 
-<% @post.email_shares.each do |share| %>
+<% @post.shares.each do |share| %>
     <div class="post">
         <div class="posthead">
-            <h3><%= share.email %></h3>
+            <h3><%= "#{share.identity_provider.name}: #{share.identity}" %></h3>
             
             <%= form_for(share) do |f| %>
                 <div class="field">
@@ -136,7 +141,4 @@
     </div>
 <% end %>
 <% end %>
-
-
-
 

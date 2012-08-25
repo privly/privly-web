@@ -8,7 +8,7 @@ Privly::Application.routes.draw do
   match "/zero_bin" => "zero_bins#create", :via => [:post]
   match "/zero_bin/index.html" => "zero_bins#create", :via => [:post]
   
-  match '/posts/destroy_all' => 'posts#destroy_all', :method => :delete
+  match '/posts/destroy_all' => 'posts#destroy_all', :via => :delete
 
   resources :token_authentications, :only => [:create, :new]
   match "token_authentications" => "token_authentications#show", :as => :show_token_authentications, :via => [:get, :post]
@@ -47,7 +47,7 @@ Privly::Application.routes.draw do
   
   resources :posts
   match '/posts/posts_anonymous' => "posts#create_anonymous", :as => :create_anonymous_post, :via => [:post]
-  resources :email_shares, :only => [:create, :destroy, :update]
+  resources :shares, :only => [:create, :destroy, :update]
 
   match '/' => 'welcome#index', :as => :welcome
 

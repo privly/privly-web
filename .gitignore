@@ -9,3 +9,4 @@ database.yml
 config/environments/development.rb
 config/environments/production.rb
 config/deploy.rb
+public/zero_bin

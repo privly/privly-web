@@ -39,6 +39,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "should show post" do
+    
     get :show, :id => @post.to_param
     assert_response :success
     
@@ -115,6 +116,20 @@ class PostsControllerTest < ActionController::TestCase
   test "should update post" do
     put :update, :id => @post.to_param, :post => @post.attributes
     assert_redirected_to post_path(assigns(:post))
+  end
+  
+  test "should get CSV" do
+    get :index, :format => :csv
+    assert_response :success
+  end
+  
+  test "should destroy all user posts" do
+    post_count = users(:one).posts.count
+    assert post_count > 0
+    delete :destroy_all
+    assert_redirected_to posts_path
+    assert users(:one).posts.count == 0
+    assert Post.all.count > 0
   end
 
   test "should destroy post" do

@@ -2,7 +2,9 @@
 
 one:
   post_id: 1
-  email: email1@email.com
+  identity_provider_id: 1
+  identity: email1@email.com
+  identity_pair: 1:email1@email.com
   can_show: true
   can_destroy: true
   can_update: true
@@ -10,7 +12,9 @@ one:
   
 two:
   post_id: 1
-  email: email1@email.com
+  identity_provider_id: 1
+  identity: email2@email.com
+  identity_pair: 1:email2@email.com
   can_show: true
   can_destroy: true
   can_update: true

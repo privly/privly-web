@@ -22,7 +22,7 @@ class PostsController < ApplicationController
     if user_signed_in?
       respond_to do |format|
         format.html {
-          @sidebar = {:news => false, :posts => true}
+          @sidebar = {:posts => true}
           render "noaccess"
         }
         format.iframe { render "noaccess" }
@@ -49,7 +49,7 @@ class PostsController < ApplicationController
     end
     respond_to do |format|
       format.html {
-        @sidebar = {:news => false, :posts => true}
+        @sidebar = {:posts => true}
         render  # index.html.erb
       }
       format.json { render :json => @posts.to_json() }
@@ -88,7 +88,7 @@ class PostsController < ApplicationController
     
     response.headers["X-Privly-Url"] = post_url @post, sharing_url_parameters
     
-    @email_share = EmailShare.new
+    @share = Share.new
     
     respond_to do |format|
       format.html {
@@ -100,17 +100,14 @@ class PostsController < ApplicationController
           return
         end
         
-        @sidebar = {:post => true}
-        if user_signed_in?
-          @sidebar[:posts] = true
-        end
+        @sidebar = {:post => true, :posts => true}
         
         render
       }
       format.iframe { render }
       format.json {
-        post_json = @post.as_json(:except => [:user_id, :updated_at, :public, 
-          :created_at, :burn_after_date, :random_token])
+        post_json = @post.as_json(:except => [:user_id, :updated_at, 
+          :created_at])
         post_json.merge!(
           :privlyurl => response.headers["privlyurl"], 
           "X-Privly-Url" => response.headers["X-Privly-Url"])
@@ -124,12 +121,7 @@ class PostsController < ApplicationController
   def new
     @sidebar = {:markdown => true, :posts => true}
     
-    if user_signed_in?
-      @post.burn_after_date = Time.now + 2.weeks
-    else
-      @post.burn_after_date = Time.now + 1.day
-      @post.public = true
-    end
+    @post.burn_after_date = Time.now + 2.weeks
     
     respond_to do |format|
       format.html # new.html.erb
@@ -139,14 +131,12 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    @sidebar = {:markdown => true, :post => true}
+    @sidebar = {:markdown => true, :post => true, :posts => true}
   end
 
   # POST /posts
   # POST /posts.json
   def create
-    
-    @post = Post.new(params[:post])
     
     if user_signed_in?
       @post.user = current_user
@@ -228,18 +218,18 @@ class PostsController < ApplicationController
     
     @post = Post.new(params[:post])
     
-    unless @post.burn_after_date
-      if params[:post][:seconds_until_burn]
-        seconds_until_burn = params[:post][:seconds_until_burn].to_i
-        @post.burn_after_date = Time.now + seconds_until_burn.seconds
-      else
-        @post.burn_after_date = Time.now + 1.day
-      end
+    if params[:post][:seconds_until_burn]
+      seconds_until_burn = params[:post][:seconds_until_burn].to_i
+      @post.burn_after_date = Time.now + seconds_until_burn.seconds
+    else
+      @post.burn_after_date = Time.now + 1.day
     end
     
-    unless params[:post][:public]
-      @post.public = true
+    if @post.burn_after_date.nil? or @post.burn_after_date > Time.now + 1.day
+      @post.burn_after_date = Time.now + 1.day
     end
+    
+    @post.public = true
     
     respond_to do |format|
       if @post.save
@@ -280,7 +270,6 @@ class PostsController < ApplicationController
     end
 
     redirect_to posts_url, :notice => "Destroyed all Posts."
-
   end
   
   # If the user is logged in, CanCan handles authorization before it gets to 

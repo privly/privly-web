@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  name: Privly Verified Email
+  description: The Privly Verified email is the email for the Privly user's account. Users must verify their email ownership with Privly
+
+two:
+  id: 2
+  name: Privly Verified Domain
+  description: Description
+
+three:
+  id: 3
+  name: Password
+  description: The password is a secret that when sent with the request will add permissions on the content
+
+four:
+  id: 4
+  name: IP Address
+  description: The IP address is where Privly requests originate

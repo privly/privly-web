@@ -2,7 +2,7 @@ class Post < ActiveRecord::Base
   
   belongs_to :user
   
-  has_many :email_shares, :dependent => :destroy
+  has_many :shares, :dependent => :destroy
   
   before_create :generate_random_token
   

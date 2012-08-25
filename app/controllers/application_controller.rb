@@ -105,6 +105,6 @@ class ApplicationController < ActionController::Base
     #Give CanCan access to the random token
     #See: https://github.com/ryanb/cancan/wiki/Accessing-Request-Data
     def current_ability
-      @current_ability ||= Ability.new(current_user, params[:random_token])
+      @current_ability ||= Ability.new(current_user, request.remote_ip, params[:random_token], params[:content_password])
     end
 end
