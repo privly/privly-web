@@ -18,5 +18,5 @@ burnt:
   id: 3
   user_id: 1
   content: Test Post 3
-  burn_after_date: <%= (Time.now - 1.second).strftime("%Y-%m-%d") %>
+  burn_after_date: <%= (Time.now - 2.day).strftime("%Y-%m-%d") %>
   

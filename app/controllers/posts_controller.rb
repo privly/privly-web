@@ -16,29 +16,18 @@ class PostsController < ApplicationController
   
   # Obscure whether the record exists when not found
   rescue_from ActiveRecord::RecordNotFound do |exception|
+    obscure_existence
+  end
+  
+  # Obscure whether the record exists when denied access
+  rescue_from CanCan::AccessDenied do |exception|
     
-    @post = nil
-    
-    if user_signed_in?
-      respond_to do |format|
-        format.html {
-          @sidebar = {:posts => true}
-          render "noaccess"
-        }
-        format.iframe { render "noaccess" }
-        format.json { render :json => {:error => "record not found"},
-          :status => :unprocessable_entity}
-      end
-    else
-      respond_to do |format|
-        format.html {
-          redirect_to new_user_session_path, :message => "You might have access to that post if you log in."
-        }
-        format.iframe { render "login" }
-        format.json { render :json => {:error => "you need to login"},
-          :status => :unprocessable_entity}
-      end
+    if not @post.nil? and not @post.user.nil?
+      # count the number of requests the post has without being able to view it
+      User.increment_counter(:nonpermissioned_requests_served, @post.user.id)
     end
+    
+    obscure_existence
   end
   
   # GET /posts
@@ -75,6 +64,11 @@ class PostsController < ApplicationController
     if not @post.burn_after_date.nil? and @post.burn_after_date < Time.now
       raise ActiveRecord::RecordNotFound
     end
+    
+    # Count the number of permissioned requests the post has.
+    # Note that users could use this to indicate the number of times content
+    # has been read. Do not expose this lightly.
+    User.increment_counter(:permissioned_requests_served, @post.user.id)
     
     sharing_url_parameters = {:random_token => @post.random_token, 
       :privlyInject1 => true}

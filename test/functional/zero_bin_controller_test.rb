@@ -44,7 +44,7 @@ class ZeroBinControllerTest < ActionController::TestCase
     get :show, {:id => @zero_bin.id, :random_token => @zero_bin.random_token, 
       :format => "json"}
     error = JSON.parse(@response.body)
-    assert error["error"] == "record not found"
+    assert error["error"] == "You do not have access or it doesn't exist."
     
   end
 

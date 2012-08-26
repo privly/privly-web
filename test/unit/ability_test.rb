@@ -317,5 +317,4 @@ class AbilityTest < ActiveSupport::TestCase
     
   end
   
-  
 end

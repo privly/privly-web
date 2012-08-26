@@ -7,40 +7,38 @@ class ApplicationController < ActionController::Base
   
   helper_method :has_extension?, :extension_available?
   
-  # Route the request to the proper "Access Denied" screen
-  rescue_from CanCan::AccessDenied do |exception|
+  protected
     
-    @post = nil
-    
-    if exception.subject.class.name == "Post"
-      if user_signed_in?
-        respond_to do |format|
+    # If the user is not signed in, all "access denied" and
+    # "Not Found" requests will be 403 and prompt the user to
+    # sign in. If the user is signed in, all "access denied" and
+    # "Not Found" requests will be 403 and indicate that the
+    # resource may or may not exist.
+    def obscure_existence
+      
+      # Forbidden and not found should both be forbidden
+      response.status = 403
+      
+      respond_to do |format|
+        if user_signed_in?
           format.html {
             @sidebar = {:posts => true}
             render "posts/noaccess"
           }
           format.iframe { render "posts/noaccess" }
-          format.json { render :json => {:error => "no access"} }
-        end
-      else
-        respond_to do |format|
+          format.json { render :json => {:error => "You do not have access or it doesn't exist."}}
+        else
           format.html {
-            redirect_to new_user_session_path, :notice => 'You might have access to this if you login.'
+            redirect_to new_user_session_path, :notice => 'You might have access to this when you login, if it exists.'
           }
           format.iframe { render "login" }
           format.json {
-            render :json => {:error => "you need to login"}, 
-            :status => :unprocessable_entity 
-          }
+            render :json => {:error => "No access or it does not exist. You might have access to this if you login."}, 
+            :status => :unprocessable_entity}
         end
       end
-    else
-      render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false
     end
-  end
-  
-  protected
-  
+    
     #filter for devise_invitable
     #https://github.com/scambra/devise_invitable
     #I have no logic here because I have overloaded

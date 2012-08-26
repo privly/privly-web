@@ -8,12 +8,12 @@ class ZeroBinsController < ApplicationController
   
   # Obscure whether the record exists when not found
   rescue_from ActiveRecord::RecordNotFound do |exception|
-    @zero_bin = nil
-    
-    respond_to do |format|
-      format.json { render :json => {:error => "record not found"},
-        :status => :unprocessable_entity}
-    end
+    obscure_existence
+  end
+  
+  # Obscure whether the record exists when denied access
+  rescue_from CanCan::AccessDenied do |exception|
+    obscure_existence
   end
   
   # JSON only endpoint for viewing zero_bin content

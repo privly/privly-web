@@ -60,10 +60,10 @@ class PostsControllerTest < ActionController::TestCase
     
     get :show, {:id => @post.id, :format => "json"}
     error = JSON.parse(@response.body)
-    assert error["error"] == "you need to login"
+    assert error["error"] == "No access or it does not exist. You might have access to this if you login."
     
     get :show, :id => @post.id, :format => "iframe"
-    assert assigns(:post).nil?
+    assert_template "login"
     
   end
   
@@ -72,14 +72,14 @@ class PostsControllerTest < ActionController::TestCase
     @post = posts(:burnt)
     
     get :show, :id => @post.id
-    assert assigns(:post).nil?
+    assert_template "posts/noaccess"
     
     get :show, {:id => @post.id, :format => "json"}
     error = JSON.parse(@response.body)
-    assert error["error"] == "record not found"
+    assert error["error"] == "You do not have access or it doesn't exist."
     
     get :show, :id => @post.id, :format => "iframe"
-    assert assigns(:post).nil?
+    assert_template "posts/noaccess"
     
   end
 
