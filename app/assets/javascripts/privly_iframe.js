@@ -1,4 +1,6 @@
-<script type="text/javascript" >
+// Tracks single and double clicks on a resource.
+// A single click will open the resource on the content server.
+// A double click will open the resource in place for permissioned operations.
 var iframeBehavior = {
     
     clickCount: 0,
@@ -69,4 +71,3 @@ var iframeBehavior = {
 jQuery(document).ready(function(){
     iframeBehavior.resize();
 });
-</script>
