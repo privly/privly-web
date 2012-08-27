@@ -56,20 +56,24 @@ class Ability
     #
     # Post Actions permitted by Shares
     #
-    can :show, Post, ["EXISTS (SELECT * FROM shares WHERE post_id = posts.id AND shares.identity_pair IN (?) AND shares.can_show = true)", identities] do |post|
-      not post.shares.find_by_can_show_and_identity_pair(true, identities).nil?
+    can :show, Post, ["EXISTS (SELECT * FROM shares WHERE post_id = posts.id AND shares.identity_pair IN (?) AND shares.can_show = true) AND posts.random_token = ?", identities, random_token] do |post|
+      post.random_token == random_token and
+        not post.shares.find_by_can_destroy_and_identity_pair(true, identities).nil?
     end
     
-    can :destroy, Post, ["EXISTS (SELECT * FROM shares WHERE post_id = posts.id AND identity_pair IN (?) AND can_destroy = true)", identities] do |post|
-      not post.shares.find_by_can_destroy_and_identity_pair(true, identities).nil?
+    can :destroy, Post, ["EXISTS (SELECT * FROM shares WHERE post_id = posts.id AND identity_pair IN (?) AND can_destroy = true) AND posts.random_token = ?", identities, random_token] do |post|
+      post.random_token == random_token and
+        not post.shares.find_by_can_destroy_and_identity_pair(true, identities).nil?
     end
     
-    can :update, Post, ["EXISTS (SELECT * FROM shares WHERE post_id = posts.id AND identity_pair IN (?) AND can_update = true)", identities] do |post|
-      not post.shares.find_by_can_update_and_identity_pair(true, identities).nil?
+    can [:update, :edit], Post, ["EXISTS (SELECT * FROM shares WHERE post_id = posts.id AND identity_pair IN (?) AND can_update = true) AND posts.random_token = ?", identities, random_token] do |post|
+      post.random_token == random_token and
+        not post.shares.find_by_can_destroy_and_identity_pair(true, identities).nil?
     end
     
-    can :share, Post, ["EXISTS (SELECT * FROM shares WHERE post_id = posts.id AND identity_pair IN (?) AND can_share = true)", identities] do |post|
-      not post.shares.find_by_can_share_and_identity_pair(true, identities).nil?
+    can :share, Post, ["EXISTS (SELECT * FROM shares WHERE post_id = posts.id AND identity_pair IN (?) AND can_share = true) AND posts.random_token = ?", identities, random_token] do |post|
+      post.random_token == random_token and
+        not post.shares.find_by_can_destroy_and_identity_pair(true, identities).nil?
     end
     
   end

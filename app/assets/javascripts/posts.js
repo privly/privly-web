@@ -1,5 +1,6 @@
-//This file was recently moved from the post's show action and needs
-//refactoring to become library functions
+// This file was recently moved from the post's show action and needs
+// refactoring to become library functions. These functions handle
+// the generation of Privly-Type URLs with extra options.
 
 /**
  * Converts an associative array to an encoded string

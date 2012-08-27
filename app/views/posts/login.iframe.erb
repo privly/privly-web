@@ -1,29 +1,16 @@
 <html>
-    <head>
-      <%= javascript_include_tag :iframe %>
-    </head>
-    <body privly-exclude="true">
-        <div id="wrapper">
-            
-            <% if notice or alert %>
-                <p><%= notice %></p>
-                <p><%= alert %></p>
-            <% end %>
-            
-            <% if session[:person] %>
-                <p>This is not a public post, or it does not exist. You might have access to this if you <%= link_to "log in", new_user_session_url, {:target => "_blank"} %> to <%= link_to "Priv.ly", new_user_session_url, {:target => "_blank"} %></p>
-            <% else %>
-                <p><%= link_to_function "Prove you are human", "jQuery('#captcha').toggle();iframeBehavior.resize();"  %> or <%= link_to "log in", new_user_session_url, {:target => "_blank"} %> to <%= link_to "Priv.ly", new_user_session_url, {:target => "_blank"} %></p>
-                <div id="captcha" style="display:none;background:none">
-                    <%= form_tag(params[:id], :method => "get", :target => "_blank") do -%>
-                      <%= hidden_field_tag 'frame_id', (params[:frame_id] ? (params[:frame_id]).gsub(/[^0-9a-z ]/i, '') : (params[:id]).gsub(/[^0-9a-z ]/i, '')) %>
-                      <% params.each do |key, value| %>
-                          <input type="hidden" name="<%="#{key}"%>" value="<%="#{value}"%>" />
-                      <% end %>
-                      <%= recaptcha_tags :ssl => true %>
-                    <% end -%>
-                </div>
-            <% end %>
-        </div>
-    </body>
+  <head>
+    <%= javascript_include_tag :iframe %>
+  </head>
+  <body privly-exclude="true">
+      <div id="wrapper">
+      
+        <% if notice or alert %>
+            <p><%= notice %></p>
+            <p><%= alert %></p>
+        <% end %>
+      
+        <p>This is not a public post, or it does not exist. You might have access to this if you <%= link_to "log in", new_user_session_url, {:target => "_blank"} %> to <%= link_to "Priv.ly", new_user_session_url, {:target => "_blank"} %></p>
+      </div>
+  </body>
 </html>

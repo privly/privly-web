@@ -90,8 +90,7 @@ class PostsControllerTest < ActionController::TestCase
     @post = posts(:two)
     
     get :show, :id => @post.to_param
-    assert_redirected_to post_path(assigns(:post), 
-      {:burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true})
+    assert_response :success
   end
   
   test "should deny post without random token" do

@@ -166,7 +166,7 @@ class AbilityTest < ActiveSupport::TestCase
     assert share.identity_pair == "#{share.identity_provider_id}:#{user_shared_with.email}"
     assert (not post.shares.find_by_can_show_and_identity_pair(true, ["#{share.identity_provider_id}:#{user_shared_with.email}"]).nil?)
     
-    ability = Ability.new(user_shared_with)
+    ability = Ability.new(user_shared_with, "127.0.0.1", post.random_token)
     assert ability.can?(:update, post)
     assert ability.can?(:show, post)
     assert ability.can?(:edit, post)
@@ -217,7 +217,7 @@ class AbilityTest < ActiveSupport::TestCase
     assert share.identity_pair == "#{share.identity_provider_id}:#{user_shared_with.domain}"
     assert (not post.shares.find_by_can_show_and_identity_pair(true, ["#{share.identity_provider_id}:#{user_shared_with.domain}"]).nil?)
     
-    ability = Ability.new(user_shared_with)
+    ability = Ability.new(user_shared_with, "127.0.0.1", post.random_token)
     assert ability.can?(:update, post)
     assert ability.can?(:show, post)
     assert ability.can?(:edit, post)
@@ -261,13 +261,57 @@ class AbilityTest < ActiveSupport::TestCase
     assert share.identity_pair == "#{share.identity_provider_id}:127.0.0.1"
     assert (not post.shares.find_by_can_show_and_identity_pair(true, ["#{share.identity_provider_id}:127.0.0.1"]).nil?)
     
-    ability = Ability.new(user_shared_with, "127.0.0.1")
+    ability = Ability.new(user_shared_with, "127.0.0.1", post.random_token)
     assert ability.can?(:update, post)
     assert ability.can?(:show, post)
     assert ability.can?(:edit, post)
     assert ability.can?(:update, post)
     assert ability.can?(:destroy, post)
     assert ability.can?(:share, post)
+    assert ability.can?(:new, post)
+    assert ability.cannot?(:index, post)
+    assert ability.cannot?(:create, post)
+    
+  end
+  
+  test "cannot perform actions based on IP Address share without random_token" do
+    
+    #Create the users
+    user = User.create!(:email => "ability_test@email.com",
+      :password => "password", :password_confirmation => "password")
+    user_shared_with = User.create!(:email => "ability_test2@email.com",
+      :password => "password", :password_confirmation => "password")
+    
+    #Create the post
+    post = Post.new
+    post.content = "content"
+    post.user = user
+    post.burn_after_date = Time.now + 1.hour
+    post.public = true
+    assert post.valid?
+    post.save
+    
+    # Create the share on the post
+    share = Share.new({:post_id => 1,
+      :identity => "127.0.0.1",
+      :can_show => true, :can_destroy => true, 
+      :can_update => true, :can_share => true})
+    share.post_id = post.id
+    share.identity_provider = IdentityProvider.find_by_name("IP Address")
+    assert share.save
+      
+    assert_not_nil Share.find_by_post_id(post.id)
+    share = Share.find_by_post_id(post.id)
+    assert share.identity_pair == "#{share.identity_provider_id}:127.0.0.1"
+    assert (not post.shares.find_by_can_show_and_identity_pair(true, ["#{share.identity_provider_id}:127.0.0.1"]).nil?)
+    
+    ability = Ability.new(user_shared_with, "127.0.0.1")
+    assert ability.cannot?(:update, post)
+    assert ability.cannot?(:show, post)
+    assert ability.cannot?(:edit, post)
+    assert ability.cannot?(:update, post)
+    assert ability.cannot?(:destroy, post)
+    assert ability.cannot?(:share, post)
     assert ability.can?(:new, post)
     assert ability.cannot?(:index, post)
     assert ability.cannot?(:create, post)

@@ -57,6 +57,4 @@ gem 'kaminari'
 
 gem 'useragent'
 
-gem "recaptcha", :require => "recaptcha/rails"
-
 gem 'fastercsv'

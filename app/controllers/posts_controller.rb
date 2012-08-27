@@ -4,15 +4,11 @@ class PostsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:create_anonymous]
   
   # Force the user to authenticate using Devise
-  before_filter :authenticate_user!, :except => [:show, :new, :create_anonymous]
+  before_filter :authenticate_user!, :only => [:destroy_all]
   
   # Checks request's permissions defined in ability.rb and loads 
   # resource if they have access
   load_and_authorize_resource :except => [:destroy_all, :create_anonymous]
-  
-  # Use special logic for verifying that the user is human
-  before_filter :authenticate_user_show!, :only => [:show]
-  before_filter :redirect_bot, :only => :show
   
   # Obscure whether the record exists when not found
   rescue_from ActiveRecord::RecordNotFound do |exception|
@@ -68,7 +64,9 @@ class PostsController < ApplicationController
     # Count the number of permissioned requests the post has.
     # Note that users could use this to indicate the number of times content
     # has been read. Do not expose this lightly.
-    User.increment_counter(:permissioned_requests_served, @post.user.id)
+    if not @post.user.nil?
+      User.increment_counter(:permissioned_requests_served, @post.user.id)
+    end
     
     sharing_url_parameters = {:random_token => @post.random_token, 
       :privlyInject1 => true}
@@ -103,6 +101,7 @@ class PostsController < ApplicationController
         post_json = @post.as_json(:except => [:user_id, :updated_at, 
           :created_at])
         post_json.merge!(
+          :rendered_markdown => @post.content.safe_markdown,
           :privlyurl => response.headers["privlyurl"], 
           "X-Privly-Url" => response.headers["X-Privly-Url"])
         render :json => post_json, :callback => params[:callback]
@@ -242,8 +241,8 @@ class PostsController < ApplicationController
         
         format.html { redirect_to url, :notice => 'Post was successfully created.' }
         format.json { 
-          post_json = @post.as_json(:callback => params[:callback])
-          post_json.merge!(:privlyurl => response.headers["privlyurl"], :privlyInject1 => true)
+          post_json = @post.as_json
+          post_json.merge!(:privlyurl => response.headers["X-Privly-Url"], :privlyInject1 => true)
           render :json => post_json, :status => :created, :location => @post, 
             :callback => params[:callback] }
       else
@@ -264,61 +263,6 @@ class PostsController < ApplicationController
     end
 
     redirect_to posts_url, :notice => "Destroyed all Posts."
-  end
-  
-  # If the user is logged in, CanCan handles authorization before it gets to 
-  # this method. Otherwise, if the user is not logged in:
-  #
-  # a) User has not solved a captcha in the last 20
-  # show requests, the login and captcha page is displayed for all posts.
-  #
-  # b) User solved the captcha but the post is not public, the login page
-  # is displayed
-  #
-  # c) If the post is public and the user has fewer than 20 show requests,
-  # display the post
-  def authenticate_user_show!
-    
-    unless user_signed_in?  
-      
-      if session[:person] and session[:robot_count] >= 20
-        session[:person] = false
-        session[:robot_count] = 0
-      elsif session[:person]
-        session[:robot_count] += 1
-      elsif verify_recaptcha
-        session[:person] = true
-        session[:robot_count] = 1
-        flash[:notice] = "You are human!"
-        redirect_to post_url @post, {:random_token => @post.random_token, 
-          :burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true}
-      end
-      
-      if @post 
-        if not session[:person] or not @post.public
-          @post = nil
-        end
-      end
-      
-      unless @post
-        respond_to do |format|
-          format.html {
-            if not session[:person] and params[:recaptcha_challenge_field]
-              flash[:notice] = "You did not solve a captcha properly, are you sure you are human?"
-            end
-            render "login.html" 
-          }
-          format.iframe { 
-            if not session[:person] and params[:recaptcha_challenge_field]
-              flash[:notice] = "You did not solve a captcha properly, are you sure you are human?"
-            end
-            render "login.iframe"
-          }
-          format.json {
-            render :json => {:error => "you need to login"}, :status => :unprocessable_entity }
-        end
-      end
-    end
   end
   
 end
