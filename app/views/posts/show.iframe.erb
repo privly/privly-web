@@ -54,6 +54,9 @@
     <body privly-exclude="true">
         <div id="wrapper">
             <div id="post_content">
+                <% # If the user is signed in or the post is not public, 
+                   # we can render the post without a subsequent JSON
+                   # request  %>
                 <% if not @post.public or user_signed_in? %>
                   <%= @post.content.safe_markdown %>
                 <% end %>
