@@ -11,11 +11,16 @@ included.
             $( "#sidebar_accordion" ).accordion({autoHeight: false,
                 collapsible: true});
         }
-        //pop up the download box if it is defined
+        //fill the starting values if it is defined
         if($("#urlOptionsForm").length !== 0)
         {
             fillFormStartingValues();
             updateURL();
+        }
+        //Expand the news accorion on page load
+        if( $("#in_the_news").length !== 0 )
+        {
+          $("#in_the_news").trigger('click');
         }
     });
 </script>
@@ -185,13 +190,16 @@ included.
         
         <%# List of Privly Articles %>
         <% if @sidebar[:in_the_news] %>
-        <h2><a href="#">Privly Gets Press Attention</a></h2>
+        <h2><a id="in_the_news" href="#">Privly Gets Press Attention</a></h2>
         <div>
           <p>
             <%= link_to image_tag("http://www.theatlantic.com/static/front/images/atlantic-logo.gif", :width=>230), "http://www.theatlantic.com/technology/archive/12/04/a-privacy-manifesto-in-code-what-if-your-emails-never-went-to-gmail-and-twitter-couldnt-see-your-tweets/255414/" %>
             <br/>
             <br/>
             <%= link_to image_tag("NewsSites/Spiegel_Online_logo.png", :width=>230), "http://www.spiegel.de/netzwelt/web/0,1518,825950,00.html" %>
+            <br/>
+            <br/>
+            <%= link_to image_tag("NewsSites/wired_logo.gif", :width=>230), "http://www.wired.co.uk/magazine/archive/2012/09/ideas-bank/how-not-to-be-a-product-on-facebook" %>
             <br/>
             <br/>
             <%= link_to image_tag("NewsSites/technabob_240_90_logo_black.gif", :width=>230), "http://technabob.com/blog/2012/03/25/privly-content-proetection/" %>
