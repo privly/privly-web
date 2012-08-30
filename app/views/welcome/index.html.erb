@@ -2,6 +2,14 @@
     Welcome
 <% end %>
 
+<% content_for(:extrajs) do %>
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+        $("#page").css("border-right","none") ;
+    });
+  </script>
+<% end %>
+
 <% content_for :top_column do %>
 <div id="homeheader">
     <div id="mainimg">

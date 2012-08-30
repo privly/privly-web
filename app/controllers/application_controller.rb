@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
   # is specified
   protect_from_forgery
   
-  helper_method :has_extension?, :extension_available?
+  helper_method :has_extension?, :extension_available?, :firefox_browser?, 
+                :opera_browser?, :chrome_browser?
   
   protected
     
@@ -56,7 +57,7 @@ class ApplicationController < ActionController::Base
       end
     end
     
-    # Structure for user agent inspection
+    # Structures for user agent inspection
     Browser = Struct.new(:browser, :version)
     ExtensionBrowsers = [
       Browser.new("Firefox", "4.0.0.0"),
@@ -66,6 +67,15 @@ class ApplicationController < ActionController::Base
     ChromeBrowser = [
       Browser.new("Chrome", "1.0")
     ]
+    OperaBrowser = [
+      Browser.new("Opera","11.0")
+    ]
+    FirefoxBrowser = [
+      Browser.new("Firefox", "4.0.0.0")
+    ]
+    
+    # Helper indicates whether the requestor has a browser
+    # where an extension is available.
     def extension_available?
       user_agent = UserAgent.parse(request.user_agent)
       if ExtensionBrowsers.detect { |browser| user_agent >= browser }
@@ -75,6 +85,7 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    # Helper indicates whether the user is on a recent version of Google Chrome
     def chrome_browser?
       user_agent = UserAgent.parse(request.user_agent)
       if ChromeBrowser.detect { |browser| user_agent >= browser }
@@ -84,6 +95,28 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    # Helper indicates whether the user is on a recent version of Opera
+    def opera_browser?
+      user_agent = UserAgent.parse(request.user_agent)
+      if OperaBrowser.detect { |browser| user_agent >= browser }
+        true
+      else
+        false
+      end
+    end
+    
+    # Helper indicates whether the user is on a recent version of 
+    # Mozilla Firefox
+    def firefox_browser?
+      user_agent = UserAgent.parse(request.user_agent)
+      if FirefoxBrowser.detect { |browser| user_agent >= browser }
+        true
+      else
+        false
+      end
+    end
+    
+    # Helper indicates whether the end user has the Privly extension installed
     def has_extension?
       if request.headers['X-Privly-Version']
         true

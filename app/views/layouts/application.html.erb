@@ -53,33 +53,61 @@
 
 
 <div id="bottom">
-    <!--Bottom Row -->
-    <div id="btmcontent">
-      <h2>System Status: Pre-Alpha <%= link_to "(Terms/Privacy/License)", pages_privacy_path %>. All new content (encrypted or otherwise) is destroyed every 24 hours.</h2>
+  <!--Bottom Row -->
+  <div id="btmcontent">
+    <% if not has_extension? and extension_available? %>
       
-      <% if not has_extension? %>
-      <div id="downloadmessage" class="rotate_sidebar" style="display:none;">
-          <h2>View Privly Content Automatically</h2>
-          <p>Privly works by injecting status updates, emails, tweets... anything really... directly into pages you view everyday. We never want you to come back to this website again. <%= link_to "Download", pages_download_path %> the extension and you won't have to.</p>
-      </div>
-      <div id="rightboxes" style="display:none;">
-          <div class="box1">
-              <p class="rotate">
-                  <%= link_to("https://addons.mozilla.org/en-US/firefox/addon/privly/", :style => "color:#ffffff;") do %>
-                    <span>Download the Extension</span>
-                  <% end %>
+      <div id="downloadmessage" style="display:none;">
+        
+        <% if firefox_browser? %>
+          <div id="firefox_link" style="float: left; width: 33%;">
+              <%= link_to("https://addons.mozilla.org/en-US/firefox/addon/privly/") do %>
+                <div style="position:relative;width:10em;padding:1em;height:150px">
+                  <%= image_tag "firefox_logo_150.png", :alt => "Firefox Logo", :style=>"position:absolute;right:0;top:0;opacity:0.9;filter:alpha(opacity=90);" %>
+                  <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :style=>"position:absolute;right:27px;top:20px;" %>
+                </div>         
+              <% end %>
           </div>
-      </div>
-      
-      <% end %>
-      
-    </div>
+        <% end %>
+        
+        <% if opera_browser? %>
+          <div id="opera_link" style="float: left; width: 34%;">
+            <%= link_to("https://addons.opera.com/en/extensions/details/privly-2/?display=en") do %>
+
+              <div style="position:relative;width:10em;padding:1em;height:150px">
+                <%= image_tag "opera_logo_150.png", :alt => "Google Chrome Logo", :style=>"position:absolute;right:0;top:0;opacity:0.9;filter:alpha(opacity=90);background-color:rgba(255, 255, 255, 0.08);" %>
+                <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :style=>"position:absolute;right:27px;top:20px;" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+        <% if chrome_browser? %>
+          <div id="chrome_link" style="float: left; width: 33%;">
+            <%= link_to("https://chrome.google.com/webstore/detail/pkokikcdapfpkkkjpdaamjanniaempol") do %>
+              <div style="position:relative;width:10em;padding:1em;height:150px">
+                <%= image_tag "chrome-logo_150X.png", :alt => "Google Chrome Logo", :style=>"position:absolute;right:0;top:0;opacity:0.9;filter:alpha(opacity=90);" %>
+                <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :style=>"position:absolute;right:33px;top:15px;" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+          
+        <h2>View Privly Content Automatically</h2>
+        <p>Privly works by injecting status updates, emails, tweets... anything really... directly into pages you view everyday. We never want you to come back to this website again. <%= link_to "Download", pages_download_path %> the extension and you won't have to.</p>
+      </div><!-- downloadmessage -->
+    <% end %>
+      <h2>System Status: Pre-Alpha. All new content (encrypted or otherwise) is destroyed every 24 hours. Privly is under active development.</h2>
+      <p><%= link_to "(Terms/Privacy/License)", pages_privacy_path %></p>
+  </div><!-- btmcontent -->
     
-    <!--FOOTER 
-    <div id="footer">
-        <p>Priv.ly</p>
-        <span class="credit"><a href="http://cssheaven.org" title="free and open source css template">CSS Template</a> by CSS Heaven Released under GPL License</span>
-    </div>-->
-</div>
+  <!--FOOTER 
+  <div id="footer">
+      <p>Priv.ly</p>
+      <span class="credit"><a href="http://cssheaven.org" title="free and open source css template">CSS Template</a> by CSS Heaven Released under GPL License</span>
+  </div>-->
+    
+</div><!-- bottom -->
+
 </body>
 </html>
