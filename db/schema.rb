@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120827205628) do
+ActiveRecord::Schema.define(:version => 20120827224815) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -57,9 +57,10 @@ ActiveRecord::Schema.define(:version => 20120827205628) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.boolean  "public",          :default => false, :null => false
+    t.boolean  "public",             :default => false, :null => false
     t.datetime "burn_after_date"
     t.string   "random_token"
+    t.text     "structured_content"
   end
 
   create_table "shares", :force => true do |t|

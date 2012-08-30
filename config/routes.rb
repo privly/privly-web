@@ -45,6 +45,7 @@ Privly::Application.routes.draw do
   get "pages/bug" => redirect("http://www.privly.org/content/bug-report")
   get "pages/email" => redirect("https://groups.google.com/forum/?fromgroups#!forum/privly")
   
+  match '/posts/get_csrf' => "posts#get_csrf", :as => :get_csrf_post, :via => [:get]
   resources :posts
   match '/posts/posts_anonymous' => "posts#create_anonymous", :as => :create_anonymous_post, :via => [:post]
   resources :shares, :only => [:create, :destroy, :update]

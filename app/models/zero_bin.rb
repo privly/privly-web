@@ -1,3 +1,7 @@
+#
+# The ZeroBin Model is deprecated in favor of using the serialized storage on
+# the Post model.
+#
 class ZeroBin < ActiveRecord::Base
   
   # Don't allow any mass assignment

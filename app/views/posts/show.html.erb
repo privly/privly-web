@@ -12,41 +12,67 @@
     </p>
 </div>
 
-<h2 class="subhead">
-    <span>
-        Post Start
-        <% if can? :update, @post %>
-            &middot;
-            <%= link_to 'Edit', edit_post_path(@post), :style => 'color:#b3a893;' %>
-        <% end %>
-        <% if can? :destroy, @post %>
-            &middot;
-            <%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
-        <% end %>
-    </span>
-</h2>
-<div class="post">
-  <%= 
-    if @post.content
-      @post.content.safe_markdown
-    else
-      ""
-    end
-   %>
-</div>
-
-<h2 class="subhead">
-    <span style="color:#b3a893;">Post End
-        <% if can? :update, @post %>
-            &middot;
-            <%= link_to 'Edit', edit_post_path(@post), :style => 'color:#b3a893;' %>
-        <% end %>
-        <% if can? :destroy, @post %>
-            &middot;
-            <%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
-        <% end %>
-    </span>
-</h2>
+<% if @post.content %>
+  <h2 class="subhead">
+      <span>
+          Post Start
+          <% if can? :update, @post %>
+              &middot;
+              <%= link_to 'Edit', edit_post_path(@post), :style => 'color:#b3a893;' %>
+          <% end %>
+          <% if can? :destroy, @post %>
+              &middot;
+              <%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+          <% end %>
+      </span>
+  </h2>
+  <div class="post">
+    <%= @post.content.safe_markdown %>
+  </div>
+  <h2 class="subhead">
+      <span style="color:#b3a893;">Post End
+          <% if can? :update, @post %>
+              &middot;
+              <%= link_to 'Edit', edit_post_path(@post), :style => 'color:#b3a893;' %>
+          <% end %>
+          <% if can? :destroy, @post %>
+              &middot;
+              <%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+          <% end %>
+      </span>
+  </h2>
+<% elsif @post.structured_content %>
+  <h2 class="subhead">
+      <span style="color:#b3a893;">Post Actions
+          <% if can? :update, @post %>
+              &middot;
+              <%= link_to 'Edit', edit_post_path(@post), :style => 'color:#b3a893;' %>
+          <% end %>
+          <% if can? :destroy, @post %>
+              &middot;
+              <%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+          <% end %>
+      </span>
+  </h2>
+  <br />
+  <p>This post cannot be viewed here, you need the original link to view this content</p>
+  <br />
+  <br />
+<% else %>
+  <h2 class="subhead">
+      <span style="color:#b3a893;">Post Actions
+          <% if can? :update, @post %>
+              &middot;
+              <%= link_to 'Edit', edit_post_path(@post), :style => 'color:#b3a893;' %>
+          <% end %>
+          <% if can? :destroy, @post %>
+              &middot;
+              <%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+          <% end %>
+      </span>
+  </h2>
+  <p>This post is blank</p>
+<% end %>
 
 <% if can? :share, @post %>
 

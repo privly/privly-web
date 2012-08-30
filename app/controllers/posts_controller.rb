@@ -7,8 +7,9 @@ class PostsController < ApplicationController
   before_filter :authenticate_user!, :only => [:destroy_all]
   
   # Checks request's permissions defined in ability.rb and loads 
-  # resource if they have access
-  load_and_authorize_resource :except => [:destroy_all, :create_anonymous]
+  # resource if they have access. This will assign @post or @posts depending
+  # on the action.
+  load_and_authorize_resource :except => [:destroy_all, :create_anonymous, :get_csrf]
   
   # Obscure whether the record exists when not found
   rescue_from ActiveRecord::RecordNotFound do |exception|
@@ -18,14 +19,15 @@ class PostsController < ApplicationController
   # Obscure whether the record exists when denied access
   rescue_from CanCan::AccessDenied do |exception|
     
+    # Count the number of requests the post has without being able to view it
     if not @post.nil? and not @post.user.nil?
-      # count the number of requests the post has without being able to view it
       User.increment_counter(:nonpermissioned_requests_served, @post.user.id)
     end
     
     obscure_existence
   end
   
+  # Gives logged in users a listing of their content.
   # GET /posts
   # GET /posts.json
   def index
@@ -48,15 +50,19 @@ class PostsController < ApplicationController
         end
         send_data csv_data, :type => 'text/csv; charset=iso-8859-1; header=present',
           :disposition => "attachment; filename=#{@filename}"
-        flash[:notice] = "Posts successfully exported" 
       end
     end
   end
-
+  
+  # Shows an individual post. The iframe format is intended for injectable
+  # applications.
   # GET /posts/1
   # GET /posts/1.json
+  # GET /posts/1.iframe
   def show
     
+    # If the post will be destroyed in the next cron job, tell the user
+    # it is already gone.
     if not @post.burn_after_date.nil? and @post.burn_after_date < Time.now
       raise ActiveRecord::RecordNotFound
     end
@@ -68,47 +74,26 @@ class PostsController < ApplicationController
       User.increment_counter(:permissioned_requests_served, @post.user.id)
     end
     
-    sharing_url_parameters = {:random_token => @post.random_token, 
-      :privlyInject1 => true}
-    
-    if not @post.burn_after_date.nil?
-      sharing_url_parameters[:random_token] = @post.random_token
-    end
-    
+    injectable_url = get_injectable_url
+    response.headers["X-Privly-Url"] = injectable_url
     #deprecated
-    response.headers["privlyurl"] = post_url @post, sharing_url_parameters
-    
-    response.headers["X-Privly-Url"] = post_url @post, sharing_url_parameters
+    response.headers["privlyurl"] = injectable_url
     
     @share = Share.new
     
     respond_to do |format|
       format.html {
-        
-        if request.url.include? "iframe"
-          sharing_url_parameters[:format] = "iframe"
-          url = post_url @post, sharing_url_parameters
-          redirect_to url
-          return
-        end
-        
         @sidebar = {:post => true, :posts => true}
-        
         render
       }
       format.iframe { render }
       format.json {
-        post_json = @post.as_json(:except => [:user_id, :updated_at, 
-          :created_at])
-        post_json.merge!(
-          :rendered_markdown => @post.content.safe_markdown,
-          :privlyurl => response.headers["privlyurl"], 
-          "X-Privly-Url" => response.headers["X-Privly-Url"])
-        render :json => post_json, :callback => params[:callback]
+        render :json => get_json, :callback => params[:callback]
       }
     end
   end
-
+  
+  # New post form.
   # GET /posts/new
   # GET /posts/new.json
   def new
@@ -118,16 +103,21 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @post }
+      format.json {
+        render :json => get_json, :callback => params[:callback] 
+      }
     end
   end
-
+  
+  # Present an editing form for an existing post.
   # GET /posts/1/edit
   def edit
     @sidebar = {:markdown => true, :post => true, :posts => true}
   end
-
+  
+  # Create a post
   # POST /posts
+  #     Redirects to show
   # POST /posts.json
   def create
     
@@ -135,65 +125,82 @@ class PostsController < ApplicationController
       @post.user = current_user
     end
     
-    unless params[:burn_after_date]
-      if params[:post][:seconds_until_burn]
-        seconds_until_burn = params[:post][:seconds_until_burn].to_i
-        @post.burn_after_date = Time.now + seconds_until_burn.seconds
-      end
+    # Posts default to Private
+    if params[:post][:public]
+      @post.public = params[:post][:public]
+    else
+      @post.public = false
+    end
+    
+    # The random token will be required for users other than the owner
+    # to access the content. The model will generate a token before saving
+    # if it is not assigned here.
+    @post.random_token = params[:post][:random_token]
+    
+    # Set the length of time until the post is destroyed
+    # by the server.
+    if params[:post][:seconds_until_burn]
+      seconds_until_burn = params[:post][:seconds_until_burn].to_i
+      @post.burn_after_date = Time.now + seconds_until_burn.seconds
+    elsif params[:post][:burn_after_date]
+      @post.burn_after_date = params[:post][:burn_after_date]
+    else
+      @post.burn_after_date = Time.now + 14.days
     end
     
     respond_to do |format|
       if @post.save
-        if @post.burn_after_date
-          sharing_url_parameters = {:random_token => @post.random_token, 
-            :burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true}
-        else
-          sharing_url_parameters = {:random_token => @post.random_token, :privlyInject1 => true}
-        end
-        url = post_url @post, sharing_url_parameters
         
-        #Deprecated
-        response.headers["privlyurl"] = url
+        injectable_url = get_injectable_url
+        response.headers["X-Privly-Url"] = injectable_url
+        response.headers["privlyurl"] = injectable_url #deprecated
         
-        response.headers["X-Privly-Url"] = url
-        
-        format.html { redirect_to url, :notice => 'Post was successfully created.' }
-        format.json { render :json => @post, :status => :created, :location => @post }
+        format.html { redirect_to injectable_url, :notice => 'Post was successfully created.' }
+        format.json { render :json => get_json, :status => :created, :location => @post }
+        format.any { render :json => get_json, :status => :created, :location => @post }
       else
         format.html { render :action => "new" }
         format.json { render :json => @post.errors, :status => :unprocessable_entity }
+        format.any { render :json => @post.errors, :status => :unprocessable_entity }
       end
     end
   end
-
+  
+  # Updates post
   # PUT /posts/1
   # PUT /posts/1.json
   def update
     
+    # Permissions can only be updated by people with sharing permission
     unless can? :share, @post
-      params[:post].delete :public
+      @post.public = params[:post][:public]
+      @post.random_token = params[:post][:random_token]
     end
     
+    # Attributes which may lead to the destruction of the content can only
+    # be updated by people with destruction permissions
     if can? :destroy, @post
         if params[:post][:seconds_until_burn]
           seconds_until_burn = params[:post][:seconds_until_burn].to_i
           @post.burn_after_date = Time.now + seconds_until_burn.seconds
+        elsif params[:post][:burn_after_date]
+          @post.burn_after_date = params[:post][:burn_after_date]
         end
-    else
-      params[:post].delete burn_after_date
     end
     
     respond_to do |format|
       if @post.update_attributes(params[:post])
         format.html { redirect_to @post, :notice => 'Post was successfully updated.' }
-        format.json { render :json => {:content => @post.content.safe_markdown}, :callback => params[:callback] }
+        format.json { render :json => get_json, :callback => params[:callback] }
       else
         format.html { render :action => "edit" }
-        format.json { render :json => @post.errors, :status => :unprocessable_entity }
+        format.json { render :json => @post.errors,
+          :status => :unprocessable_entity }
       end
     end
   end
-
+  
+  # Destroy the post
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
@@ -222,28 +229,20 @@ class PostsController < ApplicationController
       @post.burn_after_date = Time.now + 1.day
     end
     
+    # Anonymous posts must be public
     @post.public = true
     
     respond_to do |format|
       if @post.save
-        if @post.burn_after_date
-          sharing_url_parameters = {:random_token => @post.random_token, 
-            :burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true}
-        else
-          sharing_url_parameters = {:random_token => @post.random_token, :privlyInject1 => true}
-        end
-        url = post_url @post, sharing_url_parameters
         
-        #deprecated
-        response.headers["privlyurl"] = url
-        
-        response.headers["X-Privly-Url"] = url
+        injectable_url = get_injectable_url
+        response.headers["X-Privly-Url"] = injectable_url
+        response.headers["privlyurl"] = injectable_url #deprecated
         
         format.html { redirect_to url, :notice => 'Post was successfully created.' }
-        format.json { 
-          post_json = @post.as_json
-          post_json.merge!(:privlyurl => response.headers["X-Privly-Url"], :privlyInject1 => true)
-          render :json => post_json, :status => :created, :location => @post, 
+        format.json {
+          render :json => get_json, :status => :created, 
+            :location => injectable_url, 
             :callback => params[:callback] }
       else
         format.html { render :action => "new" }
@@ -264,5 +263,52 @@ class PostsController < ApplicationController
 
     redirect_to posts_url, :notice => "Destroyed all Posts."
   end
+  
+  # Returns javascript with CSRF token
+  # This should only be called by posting applications
+  # before submitting forms.
+  # GET /posts/get_csrf
+  def get_csrf
+    render :json => {:csrf => form_authenticity_token},
+      :callback => params[:callback]
+  end
+  
+  private
+    
+    # This helper gives the URL intendent for injection into the page
+    def get_injectable_url
+      if @post.burn_after_date
+        sharing_url_parameters = {:random_token => @post.random_token, 
+          :burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true}
+      else
+        sharing_url_parameters = {:random_token => @post.random_token, :privlyInject1 => true}
+      end
+      url = post_url @post, sharing_url_parameters
+      url
+    end
+    
+    # This helper gives a JSON document containing only the 
+    # attributes the requestor has access to
+    def get_json
+      
+      if not @post.user.nil? and @post.user == current_user
+        post_json = @post.as_json
+      else
+        post_json = @post.as_json(:except => [:user_id, :updated_at, 
+           :created_at])
+      end
+      
+      if not @post.content.nil?
+        post_json.merge!(
+        :rendered_markdown => @post.content.safe_markdown)
+      end
+      
+      injectable_url = get_injectable_url
+      post_json.merge!(
+         :privlyurl => injectable_url, #Deprecated
+         "X-Privly-Url" => injectable_url, :privlyInject1 => true)
+      
+      post_json
+    end
   
 end

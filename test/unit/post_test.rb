@@ -19,6 +19,8 @@ class PostTest < ActiveSupport::TestCase
     post = Post.new
     post.content = "content"
     post.user = User.first
+    post.burn_after_date = Time.now + 14.days
+    post.public = false
     assert post.save
     
     post = Post.new

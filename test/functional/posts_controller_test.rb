@@ -27,14 +27,15 @@ class PostsControllerTest < ActionController::TestCase
     
     sign_in  users(:one)
     
+    burn_after_date = Time.now + 1.hour
+    
     assert_difference('Post.count') do
       post :create, :post => {:content => "Test Post 1", :public => true, 
-        :burn_after_date => Time.now + 1.hour}
+        :burn_after_date => burn_after_date}
     end
 
     assert_redirected_to post_path(assigns(:post), 
-      {:burntAfter => assigns(:post).burn_after_date.to_i,
-        :privlyInject1 => true,
+      {:burntAfter => burn_after_date.to_i, :privlyInject1 => true,
         :random_token => assigns(:post).random_token})
   end
 

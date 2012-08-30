@@ -1,3 +1,7 @@
+#
+# The ZeroBin endpoint is deprecated in favor of using the serialized storage of
+# the Post endpoint's structured_content.
+#
 class ZeroBinsController < ApplicationController
   
   # Don't worry about CSRF
@@ -17,6 +21,7 @@ class ZeroBinsController < ApplicationController
   end
   
   # JSON only endpoint for viewing zero_bin content
+  # DEPRECATED: Use Post endpoint
   def show
     
     if not @zero_bin.burn_after_date.nil? and 
@@ -30,6 +35,7 @@ class ZeroBinsController < ApplicationController
   
   # Store the ciphertext, initialization vector, and salt, then return
   # the URL in order to access the content
+  # DEPRECATED: Use Post endpoint
   def create
     
     @zero_bin.ct = params[:ct]
