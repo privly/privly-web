@@ -2,7 +2,7 @@
 <html>
 <head>
 
-  <title><%= Rails.application.class.parent %> &middot; <%= yield :title %></title>
+  <title><%= Privly::Application.config.name %> &middot; <%= yield :title %></title>
   
   <%= stylesheet_link_tag    :application %>
   <%= javascript_include_tag :application %>

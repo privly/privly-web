@@ -30,11 +30,28 @@ Privly::Application.configure do
   
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   
-  #replace these API keys with the keys for your application
-  RECAPTCHA_KEY =    'af09af09af09af09af09af09af09af09af09af09'
-  RECAPTCHA_SECRET = 'af09af09af09af09af09af09af09af09af09af09'
+  # Set this variable to change the displayed name of the site.
+  config.name = "Site Name
   
-  config.name = "Site Name"
+  # Turns on domain redirection to the primary domain set below
+  config.redirect_html_requests_to_root_domain = true"
+  
+  # Set the primary host domain.
+  # HTML format requests are checked in
+  # the application controller for this domain. If this domain
+  # is not present, the request is redirected to the same resource
+  # on this domain.
+  config.primary_domain_host = "localhost"
+  
+  # This is the domain to redirect users to if they are viewing the 
+  # HTML version of the site and the request came from a different domain.
+  # Ports are optionally included.
+  config.primary_domain_redirect = "localhost:3000"
+  
+  # The host new injectible links should be created on.
+  # If you don't know what you are doing here, you should set
+  # it to the same domain as the primary_domain_host
+  config.link_domain_host = "localhost"
   
   config.action_mailer.default_url_options = { :host => 'localhost' }
   

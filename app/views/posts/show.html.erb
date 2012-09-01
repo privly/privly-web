@@ -7,7 +7,7 @@
     <h1>Re-Share Link:</h1>
     <p>
         <div style="font-size:120%;font-weight:bold;">
-            <span id="newFormattedLink" class="forcewrap"></span>
+            <%= @injectable_url %><span id="newFormattedLink" class="forcewrap"></span>
         </div>
     </p>
 </div>
@@ -129,7 +129,7 @@
         <%= hidden_field_tag 'share[identity_provider_name]', 'Password', {:id => "identity_provider_name"} %>
         <%= f.submit %>
         <br />
-        <%= f.check_box :can_show %>
+        <%= f.check_box :can_show, {:checked => true} %>
         <%= f.label :can_show, "Can View" %>
         <%= f.check_box :can_destroy %>
         <%= f.label :can_destroy %>

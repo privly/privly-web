@@ -115,7 +115,7 @@ function updateURL()
     }
     
     var newUrl = 
-      window.location.href.substring(0, anchorIndex) + 
+      //window.location.href.substring(0, anchorIndex) + 
       "#" +
       hashToParameterString(parameterObject);
     document.getElementById('newFormattedLink').innerHTML = newUrl;

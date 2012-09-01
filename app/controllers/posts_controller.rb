@@ -74,10 +74,10 @@ class PostsController < ApplicationController
       User.increment_counter(:permissioned_requests_served, @post.user.id)
     end
     
-    injectable_url = get_injectable_url
-    response.headers["X-Privly-Url"] = injectable_url
+    @injectable_url = get_injectable_url
+    response.headers["X-Privly-Url"] = @injectable_url
     #deprecated
-    response.headers["privlyurl"] = injectable_url
+    response.headers["privlyurl"] = @injectable_url
     
     @share = Share.new
     
@@ -279,9 +279,14 @@ class PostsController < ApplicationController
     def get_injectable_url
       if @post.burn_after_date
         sharing_url_parameters = {:random_token => @post.random_token, 
-          :burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true}
+          :burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true, 
+          :host => Privly::Application.config.link_domain_host,
+          :port => nil}
       else
-        sharing_url_parameters = {:random_token => @post.random_token, :privlyInject1 => true}
+        sharing_url_parameters = {:random_token => @post.random_token,
+          :privlyInject1 => true, 
+          :host => Privly::Application.config.link_domain_host,
+          :port => nil}
       end
       url = post_url @post, sharing_url_parameters
       url

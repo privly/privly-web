@@ -40,10 +40,28 @@ Privly::Application.configure do
   # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
   config.assets.allow_debugging = true
   
-  RECAPTCHA_KEY = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
-  RECAPTCHA_SECRET = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+  # Set this variable to change the displayed name of the site.
+  config.name = "test"
   
-  config.name = "Test"
+  # Turns on domain redirection to the primary domain set below
+  config.redirect_html_requests_to_root_domain = true
+  
+  # Set the primary host domain.
+  # HTML format requests are checked in
+  # the application controller for this domain. If this domain
+  # is not present, the request is redirected to the same resource
+  # on this domain.
+  config.primary_domain_host = "test.host"
+  
+  # This is the domain to redirect users to if they are viewing the 
+  # HTML version of the site and the request came from a different domain.
+  # Ports are optionally included.
+  config.primary_domain_redirect = "test.host"
+  
+  # The host new injectible links should be created on.
+  # If you don't know what you are doing here, you should set
+  # it to the same domain as the primary_domain_host
+  config.link_domain_host = "test.host"
   
   config.action_mailer.default_url_options = { :host => 'localhost' }
   
