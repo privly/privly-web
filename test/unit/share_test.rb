@@ -60,4 +60,18 @@ class ShareTest < ActiveSupport::TestCase
     assert(!share.valid?)
   end
   
+  test "should not save duplicate email share" do
+    share = Share.new
+    share.identity = "validEmail@email.com"
+    share.identity_provider = IdentityProvider.first
+    share.post = Post.first
+    assert share.save
+    
+    share2 = Share.new
+    share2.identity = "validEmail@email.com"
+    share2.identity_provider = IdentityProvider.first
+    share2.post = Post.first
+    assert !share2.save
+  end
+  
 end

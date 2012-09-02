@@ -69,6 +69,31 @@ included.
                             new_user_session_url %>
                     </li>
                 <% end %>
+                
+                <% if @post.public %>
+                    <li><a>Public Post</a></li>
+                    <li><a>
+                    <% if can? :update, @post and can? :share, @post %>
+                        <%= form_for(@post) do |f| %>
+                          <%= f.hidden_field(:public, {:value=>0}) %>
+                          <%= f.submit "Make Private" %>
+                        <% end %>
+                    <% else %>
+                      
+                    <% end %>
+                    </a></li>
+                <% else %>
+                    <li><a>Private Post</a></li>
+                    <li><a>
+                        <% if can? :update, @post %>
+                            <%= form_for(@post) do |f| %>
+                              <%= f.hidden_field(:public, {:value=>1}) %>
+                              <%= f.submit "Make Public" %>
+                            <% end %>
+                        <% end %>
+                    </a></li>
+                <% end %>
+                
             </ul>
         </div>
         
@@ -138,7 +163,6 @@ included.
                 <li>`<code>code</code>`</li>
                 <li><h1># heading</h1></li>
                 <li><h2>## subheading</h2></li>
-                <li><h3>### sub-subheading</h3></li>
                 <li><h3>### sub-subheading</h3></li>
                 <li>
                     <%= link_to "More on Markdown", 

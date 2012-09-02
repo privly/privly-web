@@ -8,7 +8,7 @@ one:
 two:
   id: 2
   name: Privly Verified Domain
-  description: Description
+  description: The Privly Verified domain is the domain for the Privly user's email account. Users must verify their email ownership with Privly
 
 three:
   id: 3

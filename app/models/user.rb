@@ -11,8 +11,13 @@ class User < ActiveRecord::Base
   
   before_create :process_email
   
+  before_validation :process_email
+   
   validates :email,
            :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
+  
+  validates :domain,
+            :format => { :with => /^@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -24,7 +29,10 @@ class User < ActiveRecord::Base
   # column.
   def process_email
     self.email.downcase!
-    self.domain = self.email.split("@")[1]
+    domain = self.email.split("@")[1]
+    if domain
+      self.domain = "@" + domain
+    end
   end
   
   #prevents users from getting account access via

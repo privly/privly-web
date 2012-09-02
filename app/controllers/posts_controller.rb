@@ -101,6 +101,10 @@ class PostsController < ApplicationController
     
     @post.burn_after_date = Time.now + 2.weeks
     
+    if params[:post] and not params[:post][:public].nil?
+      @post.public = params[:post][:public]
+    end
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json {
@@ -172,9 +176,11 @@ class PostsController < ApplicationController
   def update
     
     # Permissions can only be updated by people with sharing permission
-    unless can? :share, @post
+    if can? :share, @post
       @post.public = params[:post][:public]
-      @post.random_token = params[:post][:random_token]
+      if not params[:post][:random_token].nil?
+        @post.random_token = params[:post][:random_token]
+      end
     end
     
     # Attributes which may lead to the destruction of the content can only

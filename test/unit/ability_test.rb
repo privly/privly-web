@@ -189,10 +189,12 @@ class AbilityTest < ActiveSupport::TestCase
   test "can perform actions based on domain share" do
     
     #Create the users
-    user = User.create!(:email => "ability_test@email.com",
+    user = User.new(:email => "ability_test@email.com",
       :password => "password", :password_confirmation => "password")
-    user_shared_with = User.create!(:email => "ability_test2@email.com",
+    assert user.save
+    user_shared_with = User.new(:email => "ability_test2@email.com",
       :password => "password", :password_confirmation => "password")
+    assert user_shared_with.save
     
     #Create the post
     post = Post.new
@@ -204,12 +206,12 @@ class AbilityTest < ActiveSupport::TestCase
     post.save
     
     # Create the share on the post
-    share = Share.new({:post_id => 1,
-      :identity => user_shared_with.domain,
+    share = Share.new({:identity => user_shared_with.domain,
       :can_show => true, :can_destroy => true, 
       :can_update => true, :can_share => true})
     share.post_id = post.id
     share.identity_provider = IdentityProvider.find_by_name("Privly Verified Domain")
+    assert user_shared_with.domain == "@email.com"
     assert share.save
       
     assert_not_nil Share.find_by_post_id(post.id)

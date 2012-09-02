@@ -61,4 +61,20 @@ class UserTest < ActiveSupport::TestCase
     assert user.save
   end
   
+  test "user domain should be set" do
+    user = User.new
+    user.email = "user@email.com"
+    user.password = "password"
+    user.password_confirmation = "password"
+    assert user.save
+    assert user.domain == "@email.com"
+    
+    user = User.new
+    user.email = "user@email.com.ly"
+    user.password = "password"
+    user.password_confirmation = "password"
+    assert user.save
+    assert user.domain == "@email.com.ly"
+  end
+  
 end

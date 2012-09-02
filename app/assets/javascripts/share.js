@@ -25,7 +25,7 @@ function identityIdAndMessage(identity, messageNode, hiddenElement)
     hiddenElement.val("IP Address");
   }
   else {
-    messageNode.text("Password (Don't resuse this password)");
+    messageNode.text("Password (this functionality is active in the next version)");
     hiddenElement.val("Password");
   }
 }
