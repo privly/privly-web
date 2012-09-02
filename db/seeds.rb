@@ -1,7 +1,30 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+# This file contains all the record creation needed to seed the database with its default values.
+# The data can be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 
+#
+# These share types are assumed to be present
+#
+
+identity_provider = IdentityProvider.new
+identity_provider.name = "Privly Verified Email"
+identity_provider.description = "The Privly Verified email is the email for the Privly user's account. Users must verify their email ownership with Privly"
+
+identity_provider = IdentityProvider.new
+identity_provider.name = "Privly Verified Domain"
+identity_provider.description = "The Privly Verified domain is the domain for the Privly user's email account. Users must verify their email ownership with Privly"
+
+identity_provider = IdentityProvider.new
+identity_provider.name = "Password"
+identity_provider.description = "The password is a secret that when sent with the request will add permissions on the content"
+
+identity_provider = IdentityProvider.new
+identity_provider.name = "IP Address"
+identity_provider.description = "The IP address is where Privly requests originate"
+
+#
+# Production environments will want to customize records below this point
+#
 def get_password
   if Rails.env == "development"
     return "password"
