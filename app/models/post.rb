@@ -71,6 +71,38 @@ class Post < ActiveRecord::Base
      end
   end
   
+  # Add shares to the current post from a comma and space separated list of
+  # values. The share defualts to viewing permission, but any level of
+  # permission can be generated.
+  #
+  # Returns an array of successfully created shares, or an empty array.
+  def add_shares_from_csv(csv, can_show = true, can_update = false, 
+    can_destroy = false, can_share = false)
+    
+    created_shares = []
+    
+    values = csv.split(/,| /)
+    values.each do |value|
+      if value and value.length > 0
+        share = Share.new
+        share.can_show = can_show
+        share.can_update = can_update
+        share.can_destroy = can_destroy
+        share.can_share = can_share
+        share.identity = value
+        share.identity_provider = 
+          IdentityProvider.identity_provider_from_identity(value)
+        share.post = self
+        if share.save
+          created_shares << share
+        end
+      end
+    end
+    
+    return created_shares
+    
+  end
+  
   class << self
     
     # Used by cron jobs to delete all the burnt posts. Call it on the Post model,

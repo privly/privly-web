@@ -155,6 +155,17 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         
+        # Create a series of shares based on a CSV line. 
+        # All shares will have the same permissions, 
+        # defaulting to viewing permission only.
+        if params[:post][:share] and params[:post][:share][:share_csv]
+          @shares = @post.add_shares_from_csv params[:post][:share][:share_csv],
+                                                    params[:post][:share][:can_show],
+                                                    params[:post][:share][:can_update],
+                                                    params[:post][:share][:can_destroy],
+                                                    params[:post][:share][:can_share]
+        end
+        
         injectable_url = get_injectable_url
         response.headers["X-Privly-Url"] = injectable_url
         response.headers["privlyurl"] = injectable_url #deprecated

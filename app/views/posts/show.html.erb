@@ -77,6 +77,7 @@
 <% if can? :share, @post %>
 
 <h2>Sharing</h2>
+<% # See form logic in share.js %>
 <%= form_for(@share) do |f| %>
   <% if @share.errors.any? %>
     <div id="error_explanation">
@@ -97,12 +98,14 @@
   <div class="field">
     <p>
         <%= f.label :identity %><br />
+        <%= text_field_tag 'share[share_csv]', "", {:autocomplete => "off",
+                                                     :style => "display:none;"}  %>
         <%= f.text_field :identity,  {:autocomplete => "off",
                                       :onsubmit => "identityIdAndMessage($('#share_identity').val(), $('#type_mesasge'), $('#identity_provider_name'))",
                                       :onchange => "identityIdAndMessage($('#share_identity').val(), $('#type_mesasge'), $('#identity_provider_name'))",
                                       :onkeyup => "identityIdAndMessage($('#share_identity').val(), $('#type_mesasge'), $('#identity_provider_name'))"} %>
         <%= hidden_field_tag 'share[identity_provider_name]', 'Password', {:id => "identity_provider_name"} %>
-        <%= f.submit %>
+        <%= f.submit  "Create Share", :onclick => "sharesFormSubmit($('#share_identity'), $('#share_share_csv'), $('#identity_provider_name'));" %>
         <br />
         <%= f.check_box :can_show, {:checked => true} %>
         <%= f.label :can_show, "Can View" %>

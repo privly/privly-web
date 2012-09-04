@@ -50,48 +50,64 @@ class IdentityProvider < ActiveRecord::Base
   # error.
   def validate_identity(identity)
     if self.name == "Privly Verified Email"
-      return privly_email_validations(identity)
+      return IdentityProvider.privly_email_validations(identity)
     elsif self.name == "Privly Verified Domain"
-      return privly_domain_validations(identity)
+      return IdentityProvider.privly_domain_validations(identity)
     elsif self.name == "Password"
       return "Password based sharing is deactivated until the next version. Available sharing options are email, domain, and IP address"
     elsif self.name == "IP Address"
-      return ip_address_validations(identity)
+      return IdentityProvider.ip_address_validations(identity)
     end
   end
   
-  #
-  # Identity specific validations
-  #
-  
-  # Make sure the email is recognized by the email regular expression.
-  # Return an error message if the email does not match.
-  def privly_email_validations(identity)
-    if EMAIL_REGEXP.match(identity)
-      return ""
-    else
-      return "the identity is not a proper email"
+  class << self
+    
+    #
+    # Identity specific validations
+    #
+
+    # Make sure the email is recognized by the email regular expression.
+    # Return an error message if the email does not match.
+    def privly_email_validations(identity)
+      if EMAIL_REGEXP.match(identity)
+        return ""
+      else
+        return "the identity is not a proper email"
+      end
     end
-  end
-  
-  # Make sure the email is recognized by the email regular expression.
-  # Return an error message if the email does not match.
-  def privly_domain_validations(identity)
-    if DOMAIN_REGEXP.match(identity)
-      return ""
-    else
-      return "the identity is not a proper domain"
+
+    # Make sure the email is recognized by the email regular expression.
+    # Return an error message if the email does not match.
+    def privly_domain_validations(identity)
+      if DOMAIN_REGEXP.match(identity)
+        return ""
+      else
+        return "the identity is not a proper domain"
+      end
     end
-  end
-  
-  # Make sure the IP Address is recognized by the regular expression.
-  # Return an error message if the IP Address does not match.
-  def ip_address_validations(identity)
-    if IP_ADDRESS_REGEXP.match(identity)
-      return ""
-    else
-      return "the identity is not a proper IP Address"
+
+    # Make sure the IP Address is recognized by the regular expression.
+    # Return an error message if the IP Address does not match.
+    def ip_address_validations(identity)
+      if IP_ADDRESS_REGEXP.match(identity)
+        return ""
+      else
+        return "the identity is not a proper IP Address"
+      end
     end
+    
+    # Returns the identifier for the given identity by calling each validation
+    # in turn until one passes.
+    def identity_provider_from_identity(identity)
+      if privly_email_validations(identity).empty?
+        return IdentityProvider.find_by_name("Privly Verified Email")
+      elsif privly_domain_validations(identity).empty?
+        return IdentityProvider.find_by_name("Privly Verified Domain")
+      elsif ip_address_validations(identity).empty?
+        return IdentityProvider.find_by_name("IP Address")
+      end
+    end
+    
   end
   
 end
