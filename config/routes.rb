@@ -47,6 +47,8 @@ Privly::Application.routes.draw do
   
   match '/posts/get_csrf' => "posts#get_csrf", :as => :get_csrf_post, :via => [:get]
   resources :posts
+  
+  # posts#create_anonymous is deprecated
   match '/posts/posts_anonymous' => "posts#create_anonymous", :as => :create_anonymous_post, :via => [:post]
   resources :shares, :only => [:create, :destroy, :update]
 

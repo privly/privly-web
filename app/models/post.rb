@@ -26,22 +26,19 @@ class Post < ActiveRecord::Base
   # to be immediatly slotted for deletion.
   def burnt_after_in_future
     if burn_after_date and burn_after_date < Time.now
-      errors.add(:burn_after_date, "#{burn_after_date}cannot be in the past, but you can destroy it now.")
+      errors.add(:burn_after_date, "#{burn_after_date} cannot be in the past, but you can destroy it now.")
     end
   end
   
   # Set the length of time content that is not associated with a user account
   # will be stored before it is destroyed.
-  # All anonymous posts will be destroyed within one day.
+  # All anonymous posts will be destroyed within two days.
   def unauthenticated_user_settings
-    if user_id.nil?
+    if user_id.nil? or not self.user.can_post
       if not burn_after_date
-        errors.add(:burn_after_date, "#{burn_after_date}must be specified for anonymous posts.")
-      elsif burn_after_date > Time.now + 1.day
-        errors.add(:burn_after_date, "#{burn_after_date}cannot be more than one day into the future.")
-      end
-      if not self.public
-        errors.add(:public, "anonymous posts must be public.")
+        errors.add(:burn_after_date, "#{burn_after_date} must be specified for anonymous posts.")
+      elsif burn_after_date > Time.now + 2.day
+        errors.add(:burn_after_date, "#{burn_after_date} cannot be more than two days into the future.")
       end
     end
   end
@@ -50,11 +47,11 @@ class Post < ActiveRecord::Base
   # will be stored on the server before it is destroyed.
   # All posts will be destroyed within two weeks.
   def authenticated_user_settings
-    if not user_id.nil?
+    if not user_id.nil? and self.user.can_post
       if not burn_after_date
-        errors.add(:burn_after_date, "#{burn_after_date}must be specified.")
-      elsif burn_after_date > Time.now + 14.days
-        errors.add(:burn_after_date, "#{burn_after_date}cannot be more than two weeks into the future.")
+        errors.add(:burn_after_date, "#{burn_after_date} must be specified.")
+      elsif burn_after_date > Time.now + 15.days
+        errors.add(:burn_after_date, "#{burn_after_date} cannot be more than two weeks into the future.")
       end
     end
   end

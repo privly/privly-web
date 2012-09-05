@@ -24,15 +24,15 @@ class ZeroBin < ActiveRecord::Base
   def burnt_after_within_next_day
     if burn_after_date and burn_after_date < Time.now
       errors.add(:burn_after_date, 
-        "#{burn_after_date}must be in the next day.")
+        "#{burn_after_date} must be in the next day.")
     end
   end
   
   # Require burn_after_date to be in the next 24 hours
   def unauthenticated_user_settings
     if burn_after_date > Time.now + 1.day or burn_after_date < Time.now
-      errors.add(:burn_after_date, 
-        "#{burn_after_date}must be in the next 24 hours.")
+      errors.add(:burn_after_date,
+        "#{burn_after_date} must be in the next 24 hours.")
     end
   end
   

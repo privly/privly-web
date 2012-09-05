@@ -14,14 +14,12 @@ class PostsControllerTest < ActionController::TestCase
   
   def assert_csv_creation(csv_row)
     
-    burn_after_date = Time.now + 1.hour
-    
     assert_difference('Post.count') do
       post :create, :post => {:content => "Test Post 1", :public => true, 
-        :burn_after_date => burn_after_date, :share => {:share_csv => csv_row}}
+        :share => {:share_csv => csv_row}}
         
       assert_redirected_to post_path(assigns(:post), 
-        {:burntAfter => burn_after_date.to_i, :privlyInject1 => true,
+        {:burntAfter => assigns(:post).burn_after_date.to_i, :privlyInject1 => true,
           :random_token => assigns(:post).random_token})
       shares = assigns(:post).shares
       assert_not_nil shares.find_by_identity("@domainshare.com")

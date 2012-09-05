@@ -4,8 +4,4 @@
 
 <h2 class="subhead"><span>New Post</span></h2>
 
-<% if user_signed_in? and current_user.can_post %>
-    <%= render 'form' %>
-<% else %>
-    <%= render 'anonymous_form' %>
-<% end %>
+<%= render 'form' %>

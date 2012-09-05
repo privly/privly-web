@@ -29,7 +29,7 @@ class SharesController < ApplicationController
       
       respond_to do |format|
         if @share.save
-          format.html { redirect_to @share.post, :notice => 'Share was successfully created.' }
+          format.html { redirect_to post_path(@share.post, :random_token => @share.post.random_token), :notice => 'Share was successfully created.' }
           format.json { render :json => @share, :status => :created }
         else
           format.html { redirect_to @share.post, :alert => @share.errors.full_messages }
@@ -45,7 +45,7 @@ class SharesController < ApplicationController
   def destroy
     @post = @share.post
     @share.destroy
-    redirect_to @post, :notice => 'Share was destroyed.'
+    redirect_to post_path(@post, :random_token => @post.random_token), :notice => 'Share was destroyed.'
   end
   
   # Update the post
@@ -54,10 +54,10 @@ class SharesController < ApplicationController
   def update
     respond_to do |format|
       if @share.update_attributes(params[:share])
-        format.html { redirect_to @share.post, :notice => 'Share was successfully updated.' }
+        format.html { redirect_to post_path(@share.post, :random_token => @share.post.random_token), :notice => 'Share was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { redirect_to @share.post, :notice => 'We could not update that email share.' }
+        format.html { redirect_to post_path(@share.post, :random_token => @share.post.random_token), :notice => 'We could not update that email share.' }
         format.json { render :json => @share.errors, :status => :unprocessable_entity }
       end
     end

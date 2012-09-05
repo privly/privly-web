@@ -27,15 +27,12 @@ class PostsControllerTest < ActionController::TestCase
     
     sign_in  users(:one)
     
-    burn_after_date = Time.now + 1.hour
-    
     assert_difference('Post.count') do
-      post :create, :post => {:content => "Test Post 1", :public => true, 
-        :burn_after_date => burn_after_date}
+      post :create, :post => {:content => "Test Post 1", :public => true}
     end
 
     assert_redirected_to post_path(assigns(:post), 
-      {:burntAfter => burn_after_date.to_i, :privlyInject1 => true,
+      {:burntAfter => assigns(:post).burn_after_date.to_i, :privlyInject1 => true,
         :random_token => assigns(:post).random_token})
   end
   
@@ -43,18 +40,15 @@ class PostsControllerTest < ActionController::TestCase
     
     sign_in  users(:one)
     
-    burn_after_date = Time.now + 1.hour
-    
     assert_difference('Post.count') do
       post :create, :post => {
                       :structured_content => {
                         :this_will_be_serialized => "Test Post 1"
-                        }, :public => true, 
-        :burn_after_date => burn_after_date}
+                        }, :public => true}
     end
     assert assigns(:post).structured_content[:this_will_be_serialized] == "Test Post 1"
     assert_redirected_to post_path(assigns(:post), 
-      {:burntAfter => burn_after_date.to_i, :privlyInject1 => true,
+      {:burntAfter => assigns(:post).burn_after_date.to_i, :privlyInject1 => true,
         :random_token => assigns(:post).random_token})
   end
 
@@ -134,7 +128,7 @@ class PostsControllerTest < ActionController::TestCase
 
   test "should update post" do
     put :update, :id => @post.to_param, :post => @post.attributes
-    assert_redirected_to post_path(assigns(:post))
+    assert_redirected_to post_path(assigns(:post), :burntAfter => assigns(:post).burn_after_date.to_i, :privlyInject1 => true, :random_token => assigns(:post).random_token)
   end
   
   test "should get CSV" do

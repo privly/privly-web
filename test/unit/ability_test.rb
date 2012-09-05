@@ -14,7 +14,47 @@ class AbilityTest < ActiveSupport::TestCase
     post.public = true
     assert post.valid?
     assert ability.can?(:destroy, post)
-    assert ability.cannot?(:destroy, Post.new)
+  end
+  
+  test "cannot perform any post action if not shared or owned" do
+    ability = Ability.new(nil)
+    post = Post.new
+    post.content = "content"
+    post.user = User.first
+    post.public = true
+    post.burn_after_date = Time.now + 1.hour
+    post.random_token = "random_token_NOT"
+    assert post.save
+    assert ability.cannot?(:destroy, post)
+    assert ability.cannot?(:update, post)
+    assert ability.cannot?(:share, post)
+    assert ability.cannot?(:show, post)
+    
+    post.user = nil
+    assert post.save
+    assert ability.cannot?(:destroy, post)
+    assert ability.cannot?(:update, post)
+    assert ability.cannot?(:share, post)
+    assert ability.cannot?(:show, post)
+  end
+  
+  test "cannot perform any post action without random token" do
+    ability = Ability.new(nil)
+    post = Post.new
+    post.content = "content"
+    post.public = true
+    post.burn_after_date = Time.now + 1.hour
+    post.random_token = "random_token_NOT"
+    assert post.save
+    assert ability.cannot?(:destroy, post)
+    assert ability.cannot?(:update, post)
+    assert ability.cannot?(:share, post)
+    assert ability.cannot?(:show, post)
+    post.user = nil
+    assert ability.cannot(:destroy, post)
+    assert ability.cannot(:update, post)
+    assert ability.cannot(:share, post)
+    assert ability.cannot(:show, post)
   end
   
   test "can only post to identity with posting permission" do

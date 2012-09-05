@@ -1,3 +1,11 @@
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    if ( !$("#post_public").is(':checked') ) {
+      $('#csv_form').slideDown('slow');
+    }
+  });
+</script>
+
 <%= form_for(@post) do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
@@ -15,27 +23,53 @@
     <%= f.label :content %><br />
     <%= f.text_area :content, :cols => 75, :rows => 18 %><br /><br />
     
-    <% if can? :destroy, @post %>
-        <h2>Timed Destruction</h2>
-        <p>
-            Destroy After (optional) 
-            <%= date_select :post, :burn_after_date, 
-                :default => nil, 
-                :start_year => Time.now.year, :end_year => Time.now.year,  
-                :prompt => {:day => 'Choose day', :month => 'Choose month', :year => 'Choose year'} %>
-        </p>
-    <% end %>
+    <%= hidden_field_tag :random_token, @post.random_token %>
     
-    <% if can? :share, @post %>
-        <h2>Access Control</h2>
-        <%= f.check_box :public %>
-        <%= f.label :public %>
-    <% end %>
+    <% if can? :destroy, @post or @post.id.nil? %>   
+      <h2>Timed Destruction</h2>
+      <p>
+          Destroy After (optional) 
+          <%= date_select "post","burn_after_date", 
+              {:default => @post.burn_after_date, 
+              :start_year => Time.now.year, :end_year => Time.now.year,  
+              :prompt => {:day => 'Choose day', :month => 'Choose month', :year => 'Choose year'}} %>
+      </p>
+    <% end %>   
     
+    <% if can? :share, @post or @post.id.nil? %>   
+      <h2>Access Control</h2>
+      <%= f.check_box :public, {:checked => true, :onclick => "$('#csv_form').slideDown('slow')"} %>
+      <%= f.label :public %>
+      <div id="csv_form" style="display:none;">
+        <br />
+        <p>Private posts should have sharing rules. Make sure you grant yourself access to private posts if you want to see it.</p>
+        <br />
+        <h3>
+          Sharing Rules: <br /><span id="type_mesasge">Type an Email, domain, or IP Address</span>
+        </h3>
+        <div class="field">
+          <p>
+              Identity
+              <%= text_field_tag 'post[share][share_csv]', "", {:autocomplete => "off",
+                                            :onsubmit => "identityIdAndMessage($('#post_share_share_csv').val(), $('#type_mesasge'), $('#identity_provider_name'))",
+                                            :onchange => "identityIdAndMessage($('#post_share_share_csv').val(), $('#type_mesasge'), $('#identity_provider_name'))",
+                                            :onkeyup => "identityIdAndMessage($('#post_share_share_csv').val(), $('#type_mesasge'), $('#identity_provider_name'))"} %>
+              <%= hidden_field_tag 'post[share][identity_provider_name]', 'Password', {:id => "identity_provider_name"} %>
+              <br />
+              <%= check_box_tag "post[share][can_show]", "1", {:checked => true} %>
+              Can View
+              <%= check_box_tag "post[share][can_destroy]" %>
+              Can Destroy
+              <%= check_box_tag "post[share][can_update]" %>
+              Can Update
+              <%= check_box_tag "post[share][can_share]" %>
+              Can Share
+          </p>
+        </div>
+      </div>
+    <% end %>
   </div>
-  
   <br/>
-  
   <div class="actions">
     <h2>Submit</h2>
     <p><%= f.submit %> You can use the <%= link_to "Markdown", "#", {:onclick => "$('#sidebar_markdown').click()"} %> language for your posts.</p>

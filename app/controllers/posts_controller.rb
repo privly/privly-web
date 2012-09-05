@@ -83,7 +83,7 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       format.html {
-        @sidebar = {:post => true, :posts => true}
+        @sidebar = {:post => true, :posts => true, :link_options => true}
         render
       }
       format.iframe { render }
@@ -99,7 +99,12 @@ class PostsController < ApplicationController
   def new
     @sidebar = {:markdown => true, :posts => true}
     
-    @post.burn_after_date = Time.now + 2.weeks
+    if user_signed_in? and current_user.can_post
+      @post.burn_after_date = Time.now + 14.days
+    else
+      @post.burn_after_date = Time.now + 1.day
+    end
+    
     
     if params[:post] and not params[:post][:public].nil?
       @post.public = params[:post][:public]
@@ -125,8 +130,12 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     
-    if user_signed_in?
+    if user_signed_in? and current_user.can_post
       @post.user = current_user
+      @post.burn_after_date = Time.now + 2.weeks
+    else
+      @post.user = nil
+      @post.burn_after_date = Time.now + 1.day
     end
     
     # Posts default to Private
@@ -146,10 +155,8 @@ class PostsController < ApplicationController
     if params[:post][:seconds_until_burn]
       seconds_until_burn = params[:post][:seconds_until_burn].to_i
       @post.burn_after_date = Time.now + seconds_until_burn.seconds
-    elsif params[:post][:burn_after_date]
-      @post.burn_after_date = params[:post][:burn_after_date]
-    else
-      @post.burn_after_date = Time.now + 14.days
+    elsif params[:post]["burn_after_date(1i)"]
+      @post.burn_after_date = convert_date params[:post], "burn_after_date"
     end
     
     respond_to do |format|
@@ -188,6 +195,18 @@ class PostsController < ApplicationController
     
     # Permissions can only be updated by people with sharing permission
     if can? :share, @post
+      
+      # Create a series of shares based on a CSV line. 
+      # All shares will have the same permissions, 
+      # defaulting to viewing permission only.
+      if params[:post][:share] and params[:post][:share][:share_csv]
+        @shares = @post.add_shares_from_csv params[:post][:share][:share_csv],
+                                                  params[:post][:share][:can_show],
+                                                  params[:post][:share][:can_update],
+                                                  params[:post][:share][:can_destroy],
+                                                  params[:post][:share][:can_share]
+      end
+      
       @post.public = params[:post][:public]
       if not params[:post][:random_token].nil?
         @post.random_token = params[:post][:random_token]
@@ -207,7 +226,7 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       if @post.update_attributes(params[:post])
-        format.html { redirect_to @post, :notice => 'Post was successfully updated.' }
+        format.html { redirect_to get_injectable_url, :notice => 'Post was successfully updated.' }
         format.json { render :json => get_json, :callback => params[:callback] }
       else
         format.html { render :action => "edit" }
@@ -223,11 +242,18 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url }
+      format.html { 
+        if user_signed_in? and current_user.can_post
+          redirect_to posts_url
+        else
+          redirect_to root_url
+        end
+        }
       format.json { head :ok }
     end
   end
   
+  # ***deprecated***
   # A Create endpoint which will not associate the post with any user account
   # POST /posts/anonymous
   # POST /posts/anonymous.json
@@ -259,7 +285,7 @@ class PostsController < ApplicationController
         format.html { redirect_to url, :notice => 'Post was successfully created.' }
         format.json {
           render :json => get_json, :status => :created, 
-            :location => injectable_url, 
+            :location => injectable_url,
             :callback => params[:callback] }
       else
         format.html { render :action => "new" }
@@ -292,7 +318,7 @@ class PostsController < ApplicationController
   
   private
     
-    # This helper gives the URL intendent for injection into the page
+    # This helper gives the URL intended for injection into the page
     def get_injectable_url
       if @post.burn_after_date
         sharing_url_parameters = {:random_token => @post.random_token, 
@@ -331,6 +357,12 @@ class PostsController < ApplicationController
          "X-Privly-Url" => injectable_url, :privlyInject1 => true)
       
       post_json
+    end
+    
+    # Converts rails 3 part date form object to a single Date object
+    def convert_date(hash, date_symbol_or_string)
+      attribute = date_symbol_or_string.to_s
+      return Date.new(hash[attribute + '(1i)'].to_i, hash[attribute + '(2i)'].to_i, hash[attribute + '(3i)'].to_i)   
     end
   
 end

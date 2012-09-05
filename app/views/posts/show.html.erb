@@ -18,11 +18,11 @@
           Post Start
           <% if can? :update, @post %>
               &middot;
-              <%= link_to 'Edit', edit_post_path(@post), :style => 'color:#b3a893;' %>
+              <%= link_to 'Edit', edit_post_path(@post, {:random_token => @post.random_token}), :style => 'color:#b3a893;' %>
           <% end %>
           <% if can? :destroy, @post %>
               &middot;
-              <%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+              <%= link_to 'Destroy', post_path(@post, {:random_token => @post.random_token}), :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
           <% end %>
       </span>
   </h2>
@@ -33,11 +33,11 @@
       <span style="color:#b3a893;">Post End
           <% if can? :update, @post %>
               &middot;
-              <%= link_to 'Edit', edit_post_path(@post), :style => 'color:#b3a893;' %>
+              <%= link_to 'Edit', edit_post_path(@post, {:random_token => @post.random_token}), :style => 'color:#b3a893;' %>
           <% end %>
           <% if can? :destroy, @post %>
               &middot;
-              <%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+              <%= link_to 'Destroy', post_path(@post, {:random_token => @post.random_token}), :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
           <% end %>
       </span>
   </h2>
@@ -46,11 +46,11 @@
       <span style="color:#b3a893;">Post Actions
           <% if can? :update, @post %>
               &middot;
-              <%= link_to 'Edit', edit_post_path(@post), :style => 'color:#b3a893;' %>
+              <%= link_to 'Edit', edit_post_path(@post, {:random_token => @post.random_token}), :style => 'color:#b3a893;' %>
           <% end %>
           <% if can? :destroy, @post %>
               &middot;
-              <%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+              <%= link_to 'Destroy', post_path(@post, {:random_token => @post.random_token}), :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
           <% end %>
       </span>
   </h2>
@@ -63,11 +63,11 @@
       <span style="color:#b3a893;">Post Actions
           <% if can? :update, @post %>
               &middot;
-              <%= link_to 'Edit', edit_post_path(@post), :style => 'color:#b3a893;' %>
+              <%= link_to 'Edit', edit_post_path(@post, {:random_token => @post.random_token}), :style => 'color:#b3a893;' %>
           <% end %>
           <% if can? :destroy, @post %>
               &middot;
-              <%= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+              <%= link_to 'Destroy', post_path(@post, {:random_token => @post.random_token}), :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
           <% end %>
       </span>
   </h2>
@@ -116,6 +116,7 @@
         <%= f.check_box :can_share %>
         <%= f.label :can_share %>
         <%= f.hidden_field :post_id, :value => @post.id %>
+        <%= hidden_field_tag :random_token, @post.random_token %>
     </p>
   </div>
 <% end %>
@@ -136,6 +137,7 @@
                         <%= f.label :can_update %>
                         <%= f.check_box :can_share %>
                         <%= f.label :can_share %>
+                        <%= hidden_field_tag :random_token, @post.random_token %>
                         <%= f.submit %>
                         <%= link_to 'Destroy Share', share, :confirm => 'Are you sure?', :method => :delete %>
                     </p>
