@@ -20,14 +20,16 @@ class AddUserAccountDetails < ActiveRecord::Migration
         user.wants_to_test = true
         user.accepted_test_statement = false
         if not user.save
-          raise "user #{user.email} would not save into the test group"
+          user.destroy
+          #raise "user #{user.email} would not save into the test group"
         end
       else
         user.can_post = false
         user.wants_to_test = false
         user.accepted_test_statement = false
         if not user.save
-          raise "user #{user.email} would not save into the beta group"
+          user.destroy
+          #raise "user #{user.email} would not save into the beta group"
         end
       end
     end

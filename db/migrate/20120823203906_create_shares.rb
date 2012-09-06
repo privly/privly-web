@@ -53,21 +53,6 @@ class CreateShares < ActiveRecord::Migration
       "The IP address is where Privly requests originate"
     identity_provider.save
     
-    # Move the old email shares into the new generic share table
-    EmailShare.all.each do |email_share|
-      share = Share.new
-      share.post = email_share.post
-      share.identity_provider = IdentityProvider.find_by_name("Privly Verified Email")
-      email_share.email.downcase!
-      share.identity = email_share.email
-      share.can_show = email_share.can_show
-      share.can_destroy = email_share.can_destroy
-      share.can_update = email_share.can_update
-      share.can_share = email_share.can_share
-      share.identity_pair =  "#{IdentityProvider.find_by_name("Privly Verified Email").id}:#{share.identity}"
-      share.save
-    end
-    
     drop_table :email_shares
     
     # this should be the only attribute we regularly search for
