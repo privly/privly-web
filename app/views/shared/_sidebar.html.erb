@@ -132,15 +132,20 @@ included.
         <% if @sidebar[:posts] %>
         <h2><a href="#">Write Posts</a></h2>
         <div>
+          <% if user_signed_in? and current_user.can_post %>
+            <p>Since you are logged into an account with posting permission, your posts will be tied to your user account and accessible without needing the original link.</p>
             <ul class="posts">
-                <% if user_signed_in? and current_user.can_post %>
-                    <li><%= link_to 'New Private Post', new_post_path %></li>
-                    <li><%= link_to 'New Public Post', 
-                        new_post_path("post[public]"=>true) %></li>
-                <% else %>
-                    <li><%= link_to 'New Anonymous Post', new_post_path %></li>
-                <% end %>
+                <li><%= link_to 'New Private Post', new_post_path %></li>
+                <li><%= link_to 'New Public Post', 
+                    new_post_path("post[public]"=>true) %></li>
             </ul>
+          <% else %>
+            <p>An anonymous post is content that is not tied to any user account. All anonymous posts are destroyed within two days. Testing, developer, and backers can get access to user posts, which are posts tied to user accounts.</p>
+            <ul class="posts">
+                <li><%= link_to 'New Anonymous Post', new_post_path %></li>
+            </ul>
+          <% end %>
+            
         </div>
         <% end %><%# @sidebar[:posts] %>
         
@@ -152,6 +157,7 @@ included.
             </a>
         </h2>
         <div>
+            <p>If you add the symbols shown below to the text you write, it will change how your text is displayed.</p>
             <ul class="posts">
                 <li><em>*Emphasis*</em></li>
                 <li><strong>**Strong**</strong></li>

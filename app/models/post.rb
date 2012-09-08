@@ -11,7 +11,7 @@ class Post < ActiveRecord::Base
   
   before_create :generate_random_token
   
-  validate :burnt_after_in_future, :unauthenticated_user_settings,
+  validate :burn_after_in_future, :unauthenticated_user_settings,
     :authenticated_user_settings
   
   validates_inclusion_of :public, :in => [false, true]
@@ -24,7 +24,7 @@ class Post < ActiveRecord::Base
   # Posts cannot be saved with a burn after date set in the past.
   # Setting the burn after date to the past would cause the content
   # to be immediatly slotted for deletion.
-  def burnt_after_in_future
+  def burn_after_in_future
     if burn_after_date and burn_after_date < Time.now
       errors.add(:burn_after_date, "#{burn_after_date} cannot be in the past, but you can destroy it now.")
     end
