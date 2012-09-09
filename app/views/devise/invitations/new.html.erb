@@ -2,6 +2,8 @@
     Request an Invitation
 <% end %>
 
+<% @sidebar = {:about => true} %>
+
 <h2 class="subhead"><span>Request an Invitation</span></h2>
 
 <p>Privly is under active development. To get invited when we have a major release, enter your email below. Existing users can <%= link_to "Sign in", new_user_session_path %>.</p>
@@ -18,5 +20,3 @@
 <% end %>
 
 <br />
-
-<h2>To get a developer account, go to the #privly irc room on irc.freenode.net</h2>

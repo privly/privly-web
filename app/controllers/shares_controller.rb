@@ -86,7 +86,8 @@ class SharesController < ApplicationController
                                                 params[:share][:can_destroy], 
                                                 params[:share][:can_share]
       respond_to do |format|
-        format.html { redirect_to @share.post, :notice => "#{@shares.length} shares were successfully created." }
+        format.html { redirect_to post_path(@share.post, @share.post.injectable_parameters),
+          :notice => "#{@shares.length} shares were successfully created." }
         format.json { render :json => {}, :status => :created }
       end
     else
@@ -95,10 +96,10 @@ class SharesController < ApplicationController
       
       respond_to do |format|
         if @share.save
-          format.html { redirect_to post_path(@share.post, :random_token => @share.post.random_token), :notice => 'Share was successfully created.' }
+          format.html { redirect_to post_path(@share.post, @share.post.injectable_parameters), :notice => 'Share was successfully created.' }
           format.json { render :json => @share, :status => :created }
         else
-          format.html { redirect_to @share.post, :alert => @share.errors.full_messages }
+          format.html { redirect_to post_path(@share.post, @share.post.injectable_parameters), :alert => @share.errors.full_messages }
           format.json { render :json => @share.errors, :status => :unprocessable_entity }
         end
       end

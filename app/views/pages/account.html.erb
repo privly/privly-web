@@ -19,9 +19,11 @@
 
 <% #Identity Information %>
 <br /><h2>Identity Information</h2>
-<p>Your Privly verified email is <%= current_user.email %>.</p>
+<p>Your Privly verified email is "<%= current_user.email %>".</p>
 <br />
-<p>Your current IP address is <%= request.remote_ip %>.</p>
+<p>Your Privly verified domain is "<%= current_user.domain %>".</p>
+<br />
+<p>Your current IP address is "<%= request.remote_ip %>".</p>
 <br />
 <p>Additional forms of identification are under development.</p>
 <br />

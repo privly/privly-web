@@ -100,6 +100,24 @@ class Post < ActiveRecord::Base
     
   end
   
+  # Get a hash of the injectable URL parameters.
+  # Use this method to get the parameters for the post's URL helpers.
+  def injectable_parameters
+    if self.burn_after_date
+      sharing_url_parameters = {:random_token => self.random_token, 
+        :burntAfter => self.burn_after_date.to_i, :privlyInject1 => true, 
+        :host => Privly::Application.config.link_domain_host,
+        :port => nil}
+      return sharing_url_parameters
+    else
+      sharing_url_parameters = {:random_token => self.random_token,
+        :privlyInject1 => true, 
+        :host => Privly::Application.config.link_domain_host,
+        :port => nil}
+      return sharing_url_parameters
+    end
+  end
+  
   class << self
     
     # Used by cron jobs to delete all the burnt posts. Call it on the Post model,

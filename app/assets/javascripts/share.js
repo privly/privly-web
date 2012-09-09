@@ -18,7 +18,11 @@ function identityIdAndMessage(identity, messageNode, hiddenElement)
     messageNode.text("List of Shares (comma or space separated)");
     hiddenElement.val("");
   } 
-  else if ( identity.indexOf("@") == 0 ) {
+  else if ( identity === "" ) {
+    messageNode.text("Type an Email, domain, IP Address, or password ");
+    hiddenElement.val("");
+  }
+  else if ( identity.indexOf("@") === 0 ) {
     messageNode.text("Domain Share");
     hiddenElement.val("Privly Verified Domain");
   }

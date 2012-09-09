@@ -49,14 +49,21 @@ class Share < ActiveRecord::Base
   
   # Perform any identity-type actions on the identifier
   def process_identity
-    self.identity = self.identity_provider.format_identity(self.identity)
+    unless self.identity_provider.nil?
+      self.identity = self.identity_provider.format_identity(self.identity)
+    end
   end
   
   # Perform any identity-type validations on the identifier
   def identity_validations
-    message = self.identity_provider.validate_identity(self.identity)
-    if message
-      errors.add(:identity, message)
+    
+    if self.identity_provider.nil?
+      errors.add(:identity, "unkown type")
+    else
+      message = self.identity_provider.validate_identity(self.identity)
+      if message
+        errors.add(:identity, message)
+      end
     end
   end
   

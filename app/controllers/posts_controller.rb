@@ -239,7 +239,14 @@ class PostsController < ApplicationController
   def edit
     @sidebar = {:markdown => true, :post => true, :posts => true}
     respond_to do |format|
-      format.html # edit.html.erb
+      format.html {
+        if @post.structured_content.nil?
+          render # edit.html.erb
+        else
+          render "edit", :locals => 
+            {:notice => "This post was generated with a web application. Changing this content might not change how the link is displayed."}
+        end
+      }
     end
   end
   
@@ -378,7 +385,7 @@ class PostsController < ApplicationController
                                                     params[:post][:share][:can_show],
                                                     params[:post][:share][:can_update],
                                                     params[:post][:share][:can_destroy],
-                                                    params[:post][:share][:can_share]
+                                                    params[:post][:share][:can_share] 
         end
         
         injectable_url = get_injectable_url
@@ -688,18 +695,7 @@ class PostsController < ApplicationController
     
     # This helper gives the URL intended for injection into the page
     def get_injectable_url
-      if @post.burn_after_date
-        sharing_url_parameters = {:random_token => @post.random_token, 
-          :burntAfter => @post.burn_after_date.to_i, :privlyInject1 => true, 
-          :host => Privly::Application.config.link_domain_host,
-          :port => nil}
-      else
-        sharing_url_parameters = {:random_token => @post.random_token,
-          :privlyInject1 => true, 
-          :host => Privly::Application.config.link_domain_host,
-          :port => nil}
-      end
-      url = post_url @post, sharing_url_parameters
+      url = post_url @post, @post.injectable_parameters
       url
     end
     
