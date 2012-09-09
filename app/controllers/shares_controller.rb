@@ -1,11 +1,77 @@
+# == Share Controller
+#
+# The share controller manages Shares, which grant permissions to posts.
+# All permissioned share requests are redirected to their associated
+# posts.
+#
 class SharesController < ApplicationController
   
+  # Assigns the instance variables if the request has permission to them.
   load_and_authorize_resource
   
-  # Create a single share, or a list of shares.
-  # POST /posts
-  #     Redirects to post show
-  # POST /posts.json
+  # == Create a share.
+  #
+  # Requires share permission or ownership on the associated post.
+  #
+  # === Routing  
+  #
+  # Create a share
+  # POST /shares
+  # POST /shares.json
+  #
+  # === Formats  
+  #  
+  # * +html+
+  # * +json+
+  # * +jsonp+
+  #
+  # === Parameters
+  #
+  # <b>share [post_id]</b> - _integer_ - Required
+  # * Values: 1 to 9999999
+  # * Default: nil
+  # Gives the post the share is permissioning. The user must own
+  # the post or have share permission on an existing share.
+  #
+  # <b>share [identity_provider_name]</b> - _string_ - Optional
+  # * Values: a string signifying a known identity type.
+  # * Default: nil
+  # Give a valid email, domain (preceded by the @ sign), or IPv4 address.
+  # If the CSV is specified, then this parameter is ignored.
+  #
+  # <b>share [identity]</b> - _string_ - Optional
+  # * Values: a string representing an identity with the identity_provider_name
+  # * Default: nil
+  # Give a valid email, domain (preceded by the @ sign), or IPv4 address.
+  # If the CSV is specified, then share [identity] is ignored.
+  #
+  # <b>share [share_csv]</b> - _csv_ - Optional
+  # * Values: a single row of comma separated values
+  # * Default: nil
+  # Send in comma separated values representing identities
+  # like domains, emails, and IP Addresses. If the CSV is specified,
+  # then share [identity] is ignored.
+  # 
+  # <b>share [can_show]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: true
+  # Assign a show sharing permission to the identity or share_csv row's values
+  #
+  # <b>share [can_update]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: false
+  # Assign a update sharing permission to the identity or share_csv row's values
+  #
+  # <b>share [can_destroy]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: false
+  # Assign a destroy sharing permission to the identity or share_csv row's values
+  #
+  # <b>share [can_share]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: false
+  # Assign a share sharing permission to the identity or share_csv row's values
+  #
   def create
     
     # If the CSV parameter is defined, then create a list of shares with
@@ -39,18 +105,85 @@ class SharesController < ApplicationController
     end
   end
   
-  # Destroy the share
-  # DELETE /shares/1
-  # DELETE /shares/1.json
+  # == Destroy a share.
+  #
+  # Requires share permission or ownership on the associated post.
+  #
+  # === Routing  
+  #
+  # DELETE /shares/:id
+  #
+  # === Formats  
+  #  
+  # * +html+
+  #
+  # === Parameters
+  #
+  # <b>share [id]</b> - _integer_ - Required
+  # * Values: 1 to 9999999
+  # * Default: nil
+  # The ID of the share we are destroying.
   def destroy
     @post = @share.post
     @share.destroy
     redirect_to post_path(@post, :random_token => @post.random_token), :notice => 'Share was destroyed.'
   end
   
-  # Update the post
-  # PUT /shares/1
-  # PUT /shares/1.json
+  # == Update a share.
+  #
+  # Requires share permission or ownership on the associated post.
+  #
+  # === Routing  
+  #
+  # Create a share
+  # PUT /shares/:id
+  # PUT /shares/:id.json
+  #
+  # === Formats  
+  #  
+  # * +html+
+  # * +json+
+  # * +jsonp+
+  #
+  # === Parameters
+  #
+  # <b>share [id]</b> - _integer_ - Required
+  # * Values: 1 to 9999999
+  # * Default: nil
+  # The ID of the share we are updating.
+  #
+  # <b>share [post_id]</b> - _integer_ - Optional
+  # * Values: 1 to 9999999
+  # * Default: nil
+  # Change which post the share is associated with. Most likely you do
+  # not want to change this value. The user must own this post.
+  #
+  # <b>share [identity]</b> - string - Optional
+  # * Values: a string representing an identity with the identity_provider_name
+  # * Default: nil
+  # Give a valid email, domain (preceded by the @ sign), or IPv4 address.
+  # You cannot change identity types.
+  # 
+  # <b>share [can_show]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: nil
+  # Assign a show sharing permission to the identity or share_csv row's values
+  #
+  # <b>share [can_update]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: nil
+  # Assign a update sharing permission to the identity or share_csv row's values
+  #
+  # <b>share [can_destroy]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: nil
+  # Assign a destroy sharing permission to the identity or share_csv row's values
+  #
+  # <b>share [can_share]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: nil
+  # Assign a share sharing permission to the identity or share_csv row's values
+  #
   def update
     respond_to do |format|
       if @share.update_attributes(params[:share])

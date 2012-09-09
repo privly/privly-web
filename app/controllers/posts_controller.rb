@@ -27,9 +27,39 @@ class PostsController < ApplicationController
     obscure_existence
   end
   
-  # Gives logged in users a listing of their content.
-  # GET /posts
-  # GET /posts.json
+  # == Get the Index
+  # 
+  # Get a list of all the user's posts. The user must be authenticated.
+  #  
+  # ==== Routing  
+  #
+  # +GET+: /posts
+  # +GET+: /posts.:format
+  #
+  # ==== Cookies
+  #
+  # User must be authenticated via a session cookie
+  #
+  # ==== Formats  
+  #  
+  # * +html+
+  # * +json+ Example:
+  #          [{"created_at":"2012-09-05T04:08:31Z",
+  #            "burn_after_date":"2012-09-19T04:08:31Z",
+  #            "public":false,"updated_at":"2012-09-05T04:08:31Z",
+  #            "structured_content":{"salt":"ytyzBr2OkEc",
+  #            "iv":"RSBeCnAklAbi0qvq/P8twA","ct":"23hqJJ7QKNkxpLVtfp9uEg"},
+  #            "id":149,"user_id":2,"content":null,"random_token":"a53642b006"}]
+  # * +jsonp+
+  # * +csv+ Returns a comma separated value file. Headers:
+  #      content,created_at,updated_at,public
+  #
+  # ==== Parameters  
+  # 
+  # * *format* - _string_ - Optional
+  # ** Values: html, json, iframe
+  # ** Default: html
+  #
   def index
     unless params[:format] == "csv"
       @posts = @posts.order('created_at DESC').page params[:page]
@@ -54,11 +84,43 @@ class PostsController < ApplicationController
     end
   end
   
-  # Shows an individual post. The iframe format is intended for injectable
-  # applications.
-  # GET /posts/1
-  # GET /posts/1.json
-  # GET /posts/1.iframe
+  # == Shows an individual post.
+  #  
+  # === Routing  
+  #
+  # +GET+: /posts
+  # +GET+: /posts/:id.:format
+  #
+  # === Formats  
+  #  
+  # * +html+
+  # * +json+ Example:
+  #          {"created_at":"2012-09-05T04:08:31Z",
+  #            "burn_after_date":"2012-09-19T04:08:31Z",
+  #            "public":false,"updated_at":"2012-09-05T04:08:31Z",
+  #            "structured_content":{"salt":"ytyzBr2OkEc",
+  #            "iv":"RSBeCnAklAbi0qvq/P8twA","ct":"23hqJJ7QKNkxpLVtfp9uEg"},
+  #            "id":149,"user_id":2,"content":null,"random_token":"a53642b006"}
+  # * +jsonp+
+  # * +iframe+  Intended for injectable applications.
+  #
+  # === Parameters  
+  #
+  # <b>random_token</b> - _string_ - Required
+  # * Values: Any string of non-whitespace characters
+  # * Default: None 
+  # Either the user owns the post, or they must supply this parameter.
+  # Without this parameter, even with complete share access to the content,
+  # the user will not be able to access this endpoint.
+  #
+  # *format* - _string_ - Optional
+  # * Values: html, json, iframe
+  # * Default: html
+  #
+  # === Response Headers
+  # * +X-Privly-Url+ The URL for this content which should be posted to other
+  # websites.
+  # * (deprecated) +privlyurl+
   def show
     
     # If the post will be destroyed in the next cron job, tell the user
@@ -93,9 +155,35 @@ class PostsController < ApplicationController
     end
   end
   
-  # New post form.
+  # == Present an HTML form for creating a new post.
+  #
+  # Requires update permission.
+  #
+  # === Routing  
+  #
   # GET /posts/new
-  # GET /posts/new.json
+  #
+  # === Formats  
+  #  
+  # * +html+
+  #
+  # === Parameters  
+  #
+  # <b>post [content]</b> - _string_ - Optional
+  # * Values: Any Markdown formatted string. No images supported.
+  # * Default: nil
+  # The content is rendered on the website, or for injection into web pages.
+  #
+  # <b>post [structured_content]</b> - _JSON_ - Optional
+  # * Values: Any JSON document
+  # * Default: nil
+  # Structured content is for the storage of serialized JSON in the database.
+  #
+  # <b>post [public]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: true
+  # Indicates whether anyone can view the content.
+  #
   def new
     @sidebar = {:markdown => true, :posts => true}
     
@@ -112,22 +200,142 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       format.html # new.html.erb
-      format.json {
-        render :json => get_json, :callback => params[:callback] 
-      }
     end
   end
   
-  # Present an editing form for an existing post.
-  # GET /posts/1/edit
-  def edit
-    @sidebar = {:markdown => true, :post => true, :posts => true}
-  end
-  
+  # == Edit a post.
+  #
+  # Requires update permission.
+  #
+  # === Routing  
+  #
   # Create a post
   # POST /posts
-  #     Redirects to show
-  # POST /posts.json
+  # POST /posts.html
+  #
+  # === Formats  
+  #  
+  # * +html+
+  #
+  # === Parameters  
+  #
+  # <b>random_token</b> - _string_ - Required
+  # * Values: Any string of non-whitespace characters
+  # * Default: None 
+  # Either the user owns the post, or they must supply this parameter.
+  # Without this parameter, even with complete share access to the content,
+  # the user will not be able to access this endpoint.
+  #
+  # <b>post [content]</b> - _string_ - Optional
+  # * Values: Any Markdown formatted string. No images supported.
+  # * Default: nil
+  # The content is rendered on the website, or for injection into web pages.
+  #
+  # <b>post [structured_content]</b> - _JSON_ - Optional
+  # * Values: Any JSON document
+  # * Default: nil
+  # Structured content is for the storage of serialized JSON in the database.
+  #
+  def edit
+    @sidebar = {:markdown => true, :post => true, :posts => true}
+    respond_to do |format|
+      format.html # edit.html.erb
+    end
+  end
+  
+  # == Create a post.
+  #  
+  # === Routing  
+  #
+  # Create a post
+  # POST /posts
+  # POST /posts.:format
+  #
+  # === Formats  
+  #  
+  # * +html+
+  # * +json+
+  # * +jsonp+
+  #
+  # === Parameters  
+  #
+  # <b>post [content]</b> - _string_ - Optional
+  # * Values: Any Markdown formatted string. No images supported.
+  # * Default: nil
+  # The content is rendered on the website, or for injection into web pages.
+  #
+  # <b>post [structured_content]</b> - _JSON_ - Optional
+  # * Values: Any JSON document
+  # * Default: nil
+  # Structured content is for the storage of serialized JSON in the database.
+  #
+  # <b>post [public]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: nil
+  # A public post is viewable by any user.
+  #
+  # <b>post [random_token]</b> - _string_ - Optional
+  # * Values: Any string
+  # * Default: A random sequence of Base64 characters
+  # The random token is used to permission requests to content
+  # not owned by the requesting user. It ensures the user has access to the link,
+  # and not didn't crawl the resource identifiers.
+  #
+  # <b>post [seconds_until_burn]</b> - _integer_ - Optional
+  # * Values: 1 to 99999999
+  # * Default: nil
+  # The number of seconds until the post is destroyed.
+  # If this parameter is specified, then the burn_after_date
+  # is ignored.
+  #
+  # <b>post [burn_after_date(1i)]</b> - _integer_ - Required
+  # * Values: 2012
+  # * Default: 2012
+  # The year in which the content will be destroyed
+  #
+  # <b>post [burn_after_date(2i)]</b> - _integer_ - Required
+  # * Values: 1 to 12
+  # * Default: current month
+  # The month in which the content will be destroyed
+  #
+  # <b>post [burn_after_date(3i)]</b> - _integer_ - Required
+  # * Values: 1 to 31
+  # Default: Defaults to two days from now if the user
+  # is not logged in, otherwise it defaults to 14 days from now
+  # The day after which the content will be destroyed. The combined day, 
+  # month, and year must be within the next 14 days for users with
+  # posting permission, or 2 days for users without posting permission.
+  #
+  # <b>post [share [share_csv]]</b> - _csv_ - Optional
+  # * Values: a single row of comma separated values
+  # * Default: nil
+  # Send in comma separated values representing identities
+  # like domains, emails, and IP Addresses.
+  #
+  # <b>post [share [can_show]]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: true
+  # Assign a show sharing permission to the share_csv row's values
+  #
+  # <b>post [share [can_update]]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: false
+  # Assign a update sharing permission to the share_csv row's values
+  #
+  # <b>post [share [can_destroy]]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: false
+  # Assign a destroy sharing permission to the share_csv row's values
+  #
+  # <b>post [share [can_share]]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: false
+  # Assign a share sharing permission to the share_csv row's values
+  #
+  # === Response Headers
+  # * +X-Privly-Url+ The URL for this content which should be posted to other
+  # websites.
+  # * (deprecated) +privlyurl+
   def create
     
     if user_signed_in? and current_user.can_post
@@ -188,9 +396,115 @@ class PostsController < ApplicationController
     end
   end
   
-  # Updates post
-  # PUT /posts/1
-  # PUT /posts/1.json
+  # == Update a post.
+  #
+  # Requires update permission. 
+  #
+  # === Routing  
+  #
+  # Create a post
+  # PUT /posts/:id
+  # PUT /posts/:id.:format
+  #
+  # === Formats  
+  #  
+  # * +html+
+  # * +json+
+  # * +jsonp+
+  #
+  # === Parameters  
+  #
+  # <b>id</b> - _integer_ - Required
+  # * Values: 0 to 9999999
+  # * Default: None 
+  # The identifier of the post.
+  #
+  # <b>random_token</b> - _string_ - Required
+  # * Values: Any string of non-whitespace characters
+  # * Default: None 
+  # Either the user owns the post, or they must supply this parameter.
+  # Without this parameter, even with complete share access to the content,
+  # the user will not be able to access this endpoint.
+  #
+  # <b>post [content]</b> - _string_ - Optional
+  # * Values: Any Markdown formatted string. No images supported.
+  # * Default: nil 
+  # The content is rendered on the website, or for injection into web pages.
+  #
+  # <b>post [structured_content]</b> - _JSON_ - Optional
+  # * Values: Any JSON document
+  # * Default: nil
+  # Structured content is for the storage of serialized JSON in the database.
+  #
+  # <b>post [public]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: nil
+  # A public post is viewable by any user.
+  #
+  # <b>post [random_token]</b> - _string_ - Optional
+  # * Values: Any string
+  # * Default: A random sequence of Base64 characters
+  # The random token is used to permission requests to content
+  # not owned by the requesting user. It ensures the user has access to the link,
+  # and not didn't crawl the resource identifiers.
+  #
+  # <b>post [seconds_until_burn]</b> - _integer_ - Optional
+  # * Values: 1 to 99999999
+  # * Default: nil
+  # The number of seconds until the post is destroyed.
+  # If this parameter is specified, then the burn_after_date
+  # is ignored. Requires destroy permission.
+  #
+  # <b>post [burn_after_date(1i)]</b> - _integer_ - optional
+  # * Values: 2012
+  # * Default: 2012
+  # The year in which the content will be destroyed
+  # Requires destroy permission.
+  #
+  # <b>post [burn_after_date(2i)]</b> - _integer_ - optional
+  # * Values: 1 to 12
+  # * Default: current month
+  # The month in which the content will be destroyed
+  # Requires destroy permission.
+  #
+  # <b>post [burn_after_date(3i)]</b> - _integer_ - optional
+  # * Values: 1 to 31
+  # Default: Defaults to two days from now if the user
+  # is not logged in, otherwise it defaults to 14 days from now
+  # The day after which the content will be destroyed. The combined day, 
+  # month, and year must be within the next 14 days for users with
+  # posting permission, or 2 days for users without posting permission.
+  #
+  # <b>post [share [share_csv]]</b> - _csv_ - Optional
+  # * Values: a single row of comma separated values
+  # * Default: nil
+  # Send in comma separated values representing identities
+  # like domains, emails, and IP Addresses.
+  #
+  # <b>post [share [can_show]]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: true
+  # Assign a show sharing permission to the share_csv row's values
+  #
+  # <b>post [share [can_update]]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: false
+  # Assign a update sharing permission to the share_csv row's values
+  #
+  # <b>post [share [can_destroy]]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: false
+  # Assign a destroy sharing permission to the share_csv row's values
+  #
+  # <b>post [share [can_share]]</b> - _boolean_ - Optional
+  # * Values: true, false
+  # * Default: false
+  # Assign a share sharing permission to the share_csv row's values
+  #
+  # === Response Headers
+  # * +X-Privly-Url+ The URL for this content which should be posted to other
+  # websites.
+  # * (deprecated) +privlyurl+
   def update
     
     # Permissions can only be updated by people with sharing permission
@@ -236,9 +550,35 @@ class PostsController < ApplicationController
     end
   end
   
-  # Destroy the post
-  # DELETE /posts/1
-  # DELETE /posts/1.json
+  # == Destroy a post.
+  #
+  # Requires destroy permission, or content ownership.
+  #
+  # === Routing  
+  #
+  # Destroy a post
+  # DELETE /posts/:id
+  # DELETE /posts/:id.:format
+  #
+  # === Formats  
+  #  
+  # * +html+
+  # * +json+
+  # * +jsonp+
+  #
+  # === Parameters  
+  #
+  # <b>id</b> - _integer_ - Required
+  # * Values: 0 to 9999999
+  # * Default: None 
+  # The identifier of the post.
+  #
+  # <b>random_token</b> - _string_ - Required
+  # * Values: Any string of non-whitespace characters
+  # * Default: None 
+  # Either the user owns the post, or they must supply this parameter.
+  # Without this parameter, even with complete share access to the content,
+  # the user will not be able to access this endpoint.
   def destroy
     @post.destroy
     respond_to do |format|
@@ -253,7 +593,7 @@ class PostsController < ApplicationController
     end
   end
   
-  # ***deprecated***
+  # == deprecated
   # A Create endpoint which will not associate the post with any user account
   # POST /posts/anonymous
   # POST /posts/anonymous.json
@@ -295,8 +635,22 @@ class PostsController < ApplicationController
     end
   end
   
-  # Destroys all the current user's posts
+  # == Destroy all of the User's owned posts.
+  #
+  # Requires content ownership.
+  #
+  # === Routing  
+  #
+  # Destroy a post
   # DELETE /posts/destroy_all
+  #
+  # === Formats  
+  #  
+  # * +html+
+  #
+  # === Parameters  
+  #
+  # <b>No Parameters</b>
   def destroy_all
     posts = current_user.posts
 
@@ -307,10 +661,24 @@ class PostsController < ApplicationController
     redirect_to posts_url, :notice => "Destroyed all Posts."
   end
   
+  # == Get CSRF Token.
+  #
   # Returns javascript with CSRF token
   # This should only be called by posting applications
   # before submitting forms.
+  #
+  # === Routing  
+  #
   # GET /posts/get_csrf
+  #
+  # === Formats  
+  #  
+  # * +json+
+  # * +jsonp+
+  #
+  # === Parameters  
+  #
+  # <b>No Parameters</b>
   def get_csrf
     render :json => {:csrf => form_authenticity_token},
       :callback => params[:callback]

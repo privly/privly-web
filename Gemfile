@@ -1,11 +1,9 @@
 source 'http://rubygems.org'
 
+# Core System
 gem 'rails', '3.1.7'
-
 gem 'mysql2'
-
 gem 'json'
-
 gem 'jquery-rails', '>= 1.0.12'
 
 # Gems used only for assets and not required
@@ -26,35 +24,25 @@ gem 'capistrano'
 gem 'execjs'
 gem 'therubyracer'
 
-#required for omniauth until they put the dependency in
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-#authorization
+# Authorization
 gem 'cancan'
 
-#Sessions
-#https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
+# Authentication
 gem 'devise' #https://github.com/plataformatec/devise
 gem 'devise_invitable', '~> 1.0.0'
 
+# Administration interface
 gem "activeadmin", :git => 'git://github.com/gregbell/active_admin.git'
 
-#Gems for authorizing with other services, potentially many: 
-# https://github.com/intridea/omniauth/wiki/List-of-Strategies
-# each needs configuration
-# gem 'omniauth' #https://github.com/intridea/omniauth
-# gem 'omniauth-facebook' #https://github.com/mkdynamic/omniauth-facebook
-# gem 'omniauth-twitter' #https://github.com/arunagw/omniauth-twitter
-# gem 'omniauth-openid' #https://github.com/intridea/omniauth-openid
-# gem 'omniauth-identity' #https://github.com/intridea/omniauth-identity
-# gem 'omniauth-github' #https://github.com/intridea/omniauth-github
-# gem 'omniauth-linkedin' #https://github.com/skorks/omniauth-linkedin
-
+# Markdown lightwirght markup language gem
 gem 'rdiscount'
 
+# Pagination Gem
 gem 'kaminari'
-# gem 'will_paginate'
 
+# Useragent inspection
 gem 'useragent'
 
+# CSV generator
 gem 'fastercsv'
+
