@@ -7,8 +7,8 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     
     self.resource = resource_class.invite!(params[resource_name], current_inviter) do |u|
-      u.skip_invitation = true
-      u.pending_invitation = true
+      u.skip_invitation = false
+      u.pending_invitation = false
     end
 
     if resource.errors.empty?

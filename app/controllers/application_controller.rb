@@ -61,10 +61,8 @@ class ApplicationController < ActionController::Base
     
     #filter for devise_invitable
     #https://github.com/scambra/devise_invitable
-    #I have no logic here because I have overloaded
-    #the invitation logic to never send an invite on
-    #first create. An admin must send the invite at
-    #a later date.
+    #I have no logic here because this invite only serves
+    #to verify the identity of the user.
     def authenticate_inviter!
     end
   
