@@ -196,6 +196,8 @@ class PostsController < ApplicationController
     
     if params[:post] and not params[:post][:public].nil?
       @post.public = params[:post][:public]
+    else
+      @post.public = true
     end
     
     respond_to do |format|

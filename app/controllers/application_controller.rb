@@ -147,6 +147,11 @@ class ApplicationController < ActionController::Base
     
   private
 
+    # Devise: Where to redirect users once they have logged in
+    def after_sign_in_path_for(resource)
+      new_post_path
+    end
+
     #Give CanCan access to the random token
     #See: https://github.com/ryanb/cancan/wiki/Accessing-Request-Data
     def current_ability

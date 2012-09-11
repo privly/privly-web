@@ -43,7 +43,7 @@
     
     <% if can? :share, @post or @post.id.nil? %>   
       <h2>Access Control</h2>
-      <%= f.check_box :public, {:checked => true, :onclick => "$('#csv_form').slideDown('slow')"} %>
+      <%= f.check_box :public, {:onclick => "$('#csv_form').slideDown('slow')"} %>
       <%= f.label :public %>
       <div id="csv_form" style="display:none;">
         <br />
