@@ -1,7 +1,8 @@
 class PagesController < ApplicationController
   
   before_filter :authenticate_user!, :only => [:account]
-
+  skip_before_filter :redirect_to_alpha_domain
+  
   def join
     @sidebar = {:contribute => true}
   end

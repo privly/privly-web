@@ -7,6 +7,8 @@ class ZeroBinsController < ApplicationController
   # Don't worry about CSRF
   skip_before_filter :verify_authenticity_token, :only => [:create, :show]
   
+  skip_before_filter :redirect_to_alpha_domain
+  
   # Load the resource only if the requestor has the random access token
   load_and_authorize_resource
   
