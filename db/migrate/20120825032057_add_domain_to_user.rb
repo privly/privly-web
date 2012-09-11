@@ -1,6 +1,7 @@
 class AddDomainToUser < ActiveRecord::Migration
   def up
-    add_column    :users, :domain, :string, {:null => false}
+    
+    add_column(:users, :domain, :string, {:null => false}) unless User.column_names.include?('domain')
     
     User.all.each do |user|
       user.domain = "@#{user.email.split("@")[1]}"

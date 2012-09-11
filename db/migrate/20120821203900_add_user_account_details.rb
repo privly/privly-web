@@ -10,6 +10,8 @@ class AddUserAccountDetails < ActiveRecord::Migration
     add_column    :users, :accepted_test_statement, :boolean, {:default => false, :null => false}
     add_column    :users, :notifications, :boolean, {:default => true, :null => false}
     
+    add_column(:users, :domain, :string, {:null => false}) unless User.column_names.include?('domain')
+    
     User.all.each do |user|
       user.notifications = true
       
