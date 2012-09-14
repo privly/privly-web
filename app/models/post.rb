@@ -11,8 +11,7 @@ class Post < ActiveRecord::Base
   
   before_create :generate_random_token
   
-  validate :burn_after_in_future, :unauthenticated_user_settings,
-    :authenticated_user_settings
+  validate :burn_after_in_future, :user_settings
   
   validates_inclusion_of :public, :in => [false, true]
   
@@ -43,16 +42,25 @@ class Post < ActiveRecord::Base
     end
   end
   
-  # Set the length of time content that is associated with a user account
+  # Validate the length of time content that is associated with a user account
   # will be stored on the server before it is destroyed.
-  # All posts will be destroyed within two weeks.
-  def authenticated_user_settings
+  def user_settings
+    
+    if not self.burn_after_date
+      errors.add(:burn_after_date, "#{burn_after_date} must be specified.")
+      return
+    end
+    
     if not user_id.nil? and self.user.can_post
-      if not burn_after_date
-        errors.add(:burn_after_date, "#{burn_after_date} must be specified.")
-      elsif burn_after_date > Time.now + 15.days
-        errors.add(:burn_after_date, "#{burn_after_date} cannot be more than two weeks into the future.")
+      if self.burn_after_date > Time.now + Privly::Application.config.user_can_post_lifetime_max
+        errors.add(:burn_after_date, "#{burn_after_date} must be before #{Time.now + Privly::Application.config.user_can_post_lifetime_max}.")
       end
+    elsif not user_id.nil?
+      if self.burn_after_date > Time.now + Privly::Application.config.user_cant_post_lifetime_max
+        errors.add(:burn_after_date, "#{burn_after_date} must be before #{Time.now + Privly::Application.config.user_cant_post_lifetime_max}.")
+      end
+    elsif self.burn_after_date > Time.now + Privly::Application.config.not_logged_in_lifetime_max
+      errors.add(:burn_after_date, "#{burn_after_date} must be before #{Time.now + Privly::Application.config.not_logged_in_lifetime_max}.")
     end
   end
   

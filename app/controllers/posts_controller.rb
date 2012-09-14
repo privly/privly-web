@@ -188,11 +188,12 @@ class PostsController < ApplicationController
     @sidebar = {:markdown => true, :posts => true}
     
     if user_signed_in? and current_user.can_post
-      @post.burn_after_date = Time.now + 14.days
+      @post.burn_after_date = Time.now + Privly::Application.config.user_can_post_lifetime_max - 1.day
+    elsif user_signed_in?
+      @post.burn_after_date = Time.now + Privly::Application.config.user_cant_post_lifetime_max - 1.day
     else
-      @post.burn_after_date = Time.now + 1.day
+      @post.burn_after_date = Time.now + Privly::Application.config.not_logged_in_lifetime_max - 1.day
     end
-    
     
     if params[:post] and not params[:post][:public].nil?
       @post.public = params[:post][:public]
@@ -349,10 +350,12 @@ class PostsController < ApplicationController
     
     if user_signed_in? and current_user.can_post
       @post.user = current_user
-      @post.burn_after_date = Time.now + 2.weeks
+      @post.burn_after_date = Time.now + Privly::Application.config.user_can_post_lifetime_max - 1.day
+    elsif user_signed_in?
+      @post.burn_after_date = Time.now + Privly::Application.config.user_cant_post_lifetime_max - 1.day
     else
       @post.user = nil
-      @post.burn_after_date = Time.now + 1.day
+      @post.burn_after_date = Time.now + Privly::Application.config.not_logged_in_lifetime_max - 1.day
     end
     
     # Posts default to Private

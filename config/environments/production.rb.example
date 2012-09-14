@@ -77,6 +77,17 @@ Privly::Application.configure do
   # Set this variable to change the displayed name of the site.
   config.name = "Site Name"
   
+  # Users with the "can_post" permission will be able to create posts lasting
+  # this long
+  config.user_can_post_lifetime_max = 2.years
+  
+  # Users without the "can_post" permission will be able to create posts
+  # lasting this long. Also, their posts will not be tied to their user account
+  config.user_cant_post_lifetime_max = 14.days
+  
+  # Users who are not logged in will be able to create posts lasting this long
+  config.not_logged_in_lifetime_max = 3.days
+  
   # Turns on domain redirection to the primary domain set below
   config.redirect_html_requests_to_root_domain = true
   

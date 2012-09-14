@@ -29,14 +29,10 @@
       <h2>Timed Destruction</h2>
       <p>
           Destroy After 
-          <% if user_signed_in? and current_user.can_post %>
-            (must be in the next 14 days)
-          <% else %>
-            (must be in the next day)
-          <% end %>
+          (must be on or before the initial value)
           <%= date_select "post","burn_after_date", 
               {:default => @post.burn_after_date, 
-              :start_year => Time.now.year, :end_year => Time.now.year,  
+              :start_year => Time.now.year, :end_year => (Time.now + Privly::Application.config.user_can_post_lifetime_max).year,  
               :prompt => {:day => 'Choose day', :month => 'Choose month', :year => 'Choose year'}} %>
       </p>
     <% end %>   
@@ -77,6 +73,6 @@
   <br/>
   <div class="actions">
     <h2>Submit</h2>
-    <p><%= f.submit %> You can use the <%= link_to "Markdown", "#", {:onclick => "$('#sidebar_markdown').click()"} %> language for your posts.</p>
+    <p><%= f.submit %> You can use the <%= link_to "Markdown", "#", {:onclick => "$( '#sidebar_accordion' ).accordion( 'activate' , '#markdown_sidebar');"} %> language for your posts.</p>
   </div>
 <% end %>
