@@ -8,7 +8,7 @@
   font-family: 'Lobster';
   font-style: normal;
   font-weight: normal;
-  src: local('Lobster'), url('https://priv.ly/lobster.woff') format('woff');
+  src: local('Lobster'), url('/lobster.woff') format('woff');
 }
 * {padding:0; margin:0;}
 body {background:#242424; font: 14px Georgia, "Times New Roman", Times, serif; color:#242424; }
