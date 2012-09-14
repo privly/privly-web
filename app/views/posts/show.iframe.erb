@@ -10,11 +10,6 @@
                   updateTooltipMessage("Privly Writable (Double Click)");
               <% end %>
               
-              jQuery('#post_form').bind('ajax:complete',function(evt,xhr,status){
-                  jQuery("#post_content").html(jQuery.parseJSON(xhr.responseText).content);
-                  iframeBehavior.resize();
-              });
-
               jQuery("body").on("click",function(evt){
                   iframeBehavior.clickCount++;
                   if(iframeBehavior.clickCount < 2)
@@ -29,24 +24,6 @@
                       <% end %>
                   }
               });
-              
-              
-              <% if @post.public and not user_signed_in? %>
-                // Public posts are easily crawlable by bots. Most bots don't
-                // execute javascript, so we can protect public posts by 
-                // fetching the rendered markdown after page load
-              
-                // This selected the content type for legacy injected iframes.
-                // Future injected iframes should specify their content type with
-                // a header.
-                var url = document.URL;
-                var jsonURL = url.replace("iframe","json");
-              
-                jQuery.getJSON(jsonURL, function(data) {
-                  jQuery("#post_content").html(data.rendered_markdown);
-                  iframeBehavior.resize();
-                });
-              <% end %>
             });
         </script>
         <%= stylesheet_link_tag :iframe %>
@@ -54,12 +31,7 @@
     <body privly-exclude="true">
         <div id="wrapper">
             <div id="post_content">
-                <% # If the user is signed in or the post is not public, 
-                   # we can render the post without a subsequent JSON
-                   # request  %>
-                <% if not @post.public or user_signed_in? %>
-                  <%= @post.content.safe_markdown %>
-                <% end %>
+              <%= @post.content.safe_markdown %>
             </div>
             <div id="post_form" style="display:none;background:none">
                 <%= render 'iframe_form.html' %>

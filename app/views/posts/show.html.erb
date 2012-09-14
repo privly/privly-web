@@ -26,8 +26,22 @@
           <% end %>
       </span>
   </h2>
-  <div class="post">
-    <%= @post.content.safe_markdown %>
+  <div class="post" id="post_markdown">
+    <% if user_signed_in? %>
+      <%= @post.content.safe_markdown %>
+    <% else %>    
+      <% content_for(:extrajs) do %>
+        <script type="text/javascript">
+          // Public posts are easily crawlable by bots. Most bots don't
+          // execute javascript, so we can protect public posts by 
+          // fetching the rendered markdown after page load
+          $.getJSON(window.location.href, function(data) {
+            $("#post_markdown").html(data.rendered_markdown);
+          });
+        </script>
+        <noscript>You must login to view this content without Javascript</noscript>
+      <% end %>
+    <% end %>
   </div>
   <h2 class="subhead">
       <span style="color:#b3a893;">Post End
