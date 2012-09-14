@@ -31,7 +31,7 @@ included.
         
         <%# Show the context menus for a particular post %>
         <% if @sidebar[:post] %>
-          <h2><a href="#">Post Info</a></h2>
+          <h2 id="post_info_sidebar"><a>Post Info</a></h2>
           <div>
               <ul class="posts">
                   <% if @post.burn_after_date %>
@@ -96,7 +96,7 @@ included.
         <% if @sidebar[:link_options] %>
         
           <%# Build link options for embedding elsewhere %>
-          <h2><a href="#">Link Options</a></h2>
+          <h2 id="link_options_sidebar"><a>Link Options</a></h2>
           <div id="urlOptionsForm">
               <ul class="posts">
                 <p>Link options change the way links are displayed on pages you post links to. When you update these options, the link to the left will change to reflect your changes. Copy the updated link to pages you are sharing on. This information is not stored by Privly.</p>
@@ -130,7 +130,7 @@ included.
         
         <%# Create new content menus %>
         <% if @sidebar[:posts] %>
-        <h2><a href="#">Posting Apps</a></h2>
+        <h2 id="posting_apps_sidebar"><a>Posting Apps</a></h2>
         <div>
           <% if user_signed_in? and current_user.can_post %>
             <p>Since you are logged into an account with posting permission, your posts will be tied to your user account and accessible without needing the original link.</p>
@@ -151,8 +151,8 @@ included.
         
         <%# Markdown format cheat sheet %>
         <% if @sidebar[:markdown] %>
-        <h2>
-            <a id="sidebar_markdown" href="#sidebar_markdown">
+        <h2 id="markdown_sidebar">
+            <a>
                 Markdown Tips
             </a>
         </h2>
@@ -180,7 +180,7 @@ included.
         
         <%# About the Site Menu %>
         <% if @sidebar[:about] or @sidebar[:contribute] %>
-        <h2><a id="sidebar_about_1" href="#sidebar_about_1">Privly Resources</a></h2>
+        <h2 id="sidebar_about_1"><a>Privly Resources</a></h2>
         <div>
             <ul class="posts">
                 <li><%= link_to "About", pages_about_path %></li>
@@ -193,7 +193,7 @@ included.
             </ul>
         </div>
         
-        <h2><a id="sidebar_about_2" href="#sidebar_about_2">Privly Development</a></h2>
+        <h2 id="sidebar_about_2"><a>Privly Development</a></h2>
         <div>
             <ul class="posts">
                 <li><%= link_to "Development Site", pages_join_path %></li>
@@ -208,7 +208,7 @@ included.
         
         <%# Show site news %>
         <% if @sidebar[:news] %>
-        <h2><a id="sidebar_news" href="#sidebar_news">Site News</a></h2>
+        <h2 id="sidebar_news"><a>Site News</a></h2>
         <div>
             <ul class="menu">
                 <li><%= link_to "Privly Twitter", 
@@ -219,10 +219,10 @@ included.
         
         <%# List of Privly Articles %>
         <% if @sidebar[:in_the_news] %>
-        <h2><a id="in_the_news" href="#">Privly Gets Press Attention</a></h2>
+        <h2 id="in_the_news"><a>Privly Gets Press Attention</a></h2>
         <div>
           <p>
-            <%= link_to image_tag("http://www.theatlantic.com/static/front/images/atlantic-logo.gif", :width=>230), "http://www.theatlantic.com/technology/archive/12/04/a-privacy-manifesto-in-code-what-if-your-emails-never-went-to-gmail-and-twitter-couldnt-see-your-tweets/255414/" %>
+            <%= link_to image_tag("NewsSites/atlantic_logo.gif", :width=>230), "http://www.theatlantic.com/technology/archive/12/04/a-privacy-manifesto-in-code-what-if-your-emails-never-went-to-gmail-and-twitter-couldnt-see-your-tweets/255414/" %>
             <br/>
             <br/>
             <%= link_to image_tag("NewsSites/Spiegel_Online_logo.png", :width=>230), "http://www.spiegel.de/netzwelt/web/0,1518,825950,00.html" %>

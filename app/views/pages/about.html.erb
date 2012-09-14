@@ -3,17 +3,21 @@
 <% end %>
 
 <% content_for(:extrajs) do %>
-    <script>
-    
+  <script>
+  
     $(document).ready(function() {        
       $(".subhead").css("cssText","margin: 0 0 0px -10px !important");
-    });
     
-    $(function() {
-        $( "#tabs" ).tabs();
-        $( "#how_it_works_accordion" ).accordion({autoHeight: false, collapsible: true, active: false});
+      $( "#tabs" ).tabs();
+      $( "#how_it_works_accordion" ).accordion({autoHeight: false, collapsible: true, active: false});
+      
+      setTimeout( function() {
+        $( "#sidebar_accordion" ).accordion( "option", "collapsible", false );
+      }, 50);
+      
     });
-    </script>
+  
+  </script>
 <% end %>
 
 <h2 class="subhead"><span>About</span></h2>
@@ -22,9 +26,10 @@
   <div id="tabs">
     
     <ul>
-        <li><a href="#tabs-1">What is Privly?</a></li>
-        <li><a href="#tabs-2">How Does Privly Work?</a></li>
-        <li><a href="#tabs-3">Why Open Source?</a></li>
+        <li><a href="#tabs-1" onclick="$('#sidebar_accordion').accordion('activate', '#in_the_news');">What is Privly?</a></li>
+        <li><a href="#tabs-2" onclick="$('#sidebar_accordion').accordion('activate', '#sidebar_about_1');">How Does It Work?</a></li>
+        <li><a href="#tabs-3" onclick="$('#sidebar_accordion').accordion('activate', '#sidebar_about_2');">Organization</a></li>
+        <li><a href="#tabs-4" onclick="$('#sidebar_accordion').accordion('activate', '#sidebar_about_2');">Open Source</a></li>
     </ul>
     
     <div id="tabs-1">
@@ -165,14 +170,81 @@
         </div><!-- accordionhead -->
     </div>
     
-    <!-- Open Source -->
+    <!-- Organization -->
     <div id="tabs-3">
       <p>
-        Privly is about creating a square deal for users, and that can't be done with a closed-source, proprietary platform. Privacy on the internet is not something that can--or should--be owned. The lead developer of the Privly project, <%= link_to "Sean McGregor", "http://www.privly.org/content/sean-mcgregor" %>, is recruiting leaders for a <%= link_to "Kickstarter", "http://www.kickstarter.com/projects/229630898/protect-your-content-anywhere-on-the-web-privly" %> seeded foundation dedicated to protecting the Privly source code. Anyone can add their skills to the project and their contribution will be protected.
-        <br/>
-        <br/>
-        We are still in the early stages of development, so there will never be a better time to <%= link_to "join", pages_join_path %>.
+        Privacy on the internet is not something that can--or should--be owned. Privly's 2012 <%= link_to "Kickstarter", "http://www.kickstarter.com/projects/229630898/protect-your-content-anywhere-on-the-web-privly" %> funded the creation of the Privly Foundation. Incorporating the technology into a (pending) 501(c)3 tax-exempt foundation ensures the mission focus of Privly will be maintained. We thank our many donors on the <%= link_to "Privly donation page", pages_donate_path %>.
       </p>
+      
+      <br/>
+      <br/>
+        
+      <p>The inaugural Privly Foundation board meeting will take place in September 2012. At that time, we will transfer <a href="https://github.com/privly/privly-firefox/blob/master/MIT-LICENSE">Privly's license</a> to the Privly Foundation. The founding board members are listed below:</p>
+
+      <br />
+
+      <p><strong><a href="http://www.linkedin.com/in/seanbmcgregor">Sean McGregor</a></strong> - <em>Ph.D. Student in Computer Science at Oregon State University</em></p>
+      <p>Sean McGregor is the creator and lead developer for the Privly project. A native of the United States, McGregor is a PhD student in computer science at Oregon State University. In 2008, McGregor earned a Bachelor of Arts from Claremont McKenna College, with studies in computer science, environmental policy, government, and economics.</p>
+        
+      <br />
+        
+      <p><strong><a href="http://www.linkedin.com/pub/carlos-jensen/0/145/356">Carlos Jensen</a></strong> - <em>Associate Professor of Computer Science at Oregon State University</em></p>
+      <p>Carlos Jensen is an Associate Professor in the School of Electrical Engineering and Computer Science (EECS) at Oregon State University (OSU). He received his B.S. degree in Computer Science from the State University of New York (SUNY) Brockport, and a Ph.D. in Computer Science from the Georgia Institute of Technology in 2005, where he was a member of the Graphics, Visualization and Usability Center (GVU).</p>
+        
+      <br />
+        
+      <p>His areas of research are in Usable Privacy and Security (HCISec), with a particular focus on making online decisions about privacy and security understandable and meaningful to users. He also does research related to open source communities.</p>
+        
+      <br />
+        
+      <p><strong><a href="http://www.linkedin.com/pub/leslie-hawthorn/0/231/624">Leslie Hawthorn</a></strong> - <em>Community Action and Impact at Red Hat</em></p>
+      <p>An internationally known community manager, speaker and author, <a href="http://twitter.com/lhawthorn">Leslie Hawthorn</a> has over 10 years experience in high tech project management, marketing and public relations. In March 2012 she joined <a href="http://redhat.com/">Red Hat, Inc.</a>, where she is responsible for Community Action &amp; Impact on the company’s Open Source and Standards team. Prior to Red Hat, she served as Outreach Manager at <a href="http://osuosl.org/">Oregon State University’s Open Source Lab</a> and as a Program Manager for <a href="http://code.google.com/opensource">Google’s Open Source Team</a>, where she managed the <a href="http://code.google.com/soc/">Google Summer of Code Program</a>, created the contest now known as <a href="http://code.google.com/gci">Google Code In</a> and launched the company’s <a href="http://google-opensource.blogspot.com/">Open Source Developer Blog</a>.</p>
+    </div>
+    
+    <!-- Open Source -->
+    <div id="tabs-4">
+      <p>
+        Privly is about creating a square deal for users, and that can't be done with a closed-source, proprietary platform. Anyone can add their skills to the project and their contribution will be protected.
+      </p>
+      
+      <br/>
+      
+      <p>
+        <strong><em>Maintainers:</em></strong> <br />
+        <%= link_to "Sean McGregor", "https://github.com/smcgregor/" %>: <%= link_to "Firefox", "https://github.com/privly/privly-firefox" %>, <%= link_to "Chrome", "https://github.com/privly/privly-chrome" %>, <%= link_to "Content Server", "https://github.com/privly/privly-web" %>, <%= link_to "Test Cases", "https://github.com/privly/privly-test" %> <br />
+        <%= link_to "Jen Davidson", "https://github.com/jewifer" %>: <%= link_to "Privly.org", "http://www.privly.org" %> <br />
+        <%= link_to "Balaji Athreya", "https://github.com/balajiathreya" %>: <%= link_to "Firefox", "https://github.com/privly/privly-firefox" %> <br />
+        <%= link_to "Sanchit Karve", "https://github.com/born2c0de" %>: <%= link_to "Opera", "https://github.com/privly/privly-opera" %> <br />
+        <%= link_to "Jesse Markowitz", "https://github.com/JesseMarkowitz" %>: <%= link_to "Privly.org", "http://www.privly.org" %> <br />
+        <%= link_to "Jesse Hostetler", "https://github.com/jhostetler" %>: <%= link_to "Library", "https://github.com/privly/privly-library" %>
+      </p>
+      
+      <br />
+      
+      <p><strong><em>Contributors:</em></strong> <br />
+        <%= link_to "Hanno Wagner", "http://de.linkedin.com/pub/hanno-wagner/6/33/305" %> (System Administration) <br />
+        <%= link_to "Tyler Dugoni", "http://www.linkedin.com/profile/view?id=204119935&locale=en_US&trk=tyah" %>  (Graphics) <br />
+        Jared Howe (User Docs) <br />
+      </p>
+      
+      <br />
+      
+      <p><strong><em>Past Contributors:</em></strong> <br />
+        <%= link_to "Jesse Pollak", "https://github.com/jessepollak" %>: Commits to <%= link_to "Safari", "https://github.com/privly/privly-safari" %> and <%= link_to "Content Server", "https://github.com/privly/privly-web" %> <br />
+        Charles Martin: Commits to <%= link_to "Firefox", "https://github.com/privly/privly-firefox" %>
+      </p>
+      
+      <br />
+      
+      <p>
+        For a more thorough treatment of Privly as a whole, visit <%= link_to "the overview", "https://github.com/privly/privly-organization/wiki/Privly-System-and-Organization-Overview" %>. For development discussion, join the <%= link_to "Development Mailing List", "https://groups.google.com/group/privly" %>. Many <%= link_to "repositories", "https://github.com/privly/" %> have their own wikis, but content not specific to a single repository will be in the <%= link_to "central wiki", "https://github.com/privly/privly-organization/wiki/" %>. Official announcements are found on <%= link_to "www.privly.org", "http://www.privly.org" %>. Live versions of the content server can be found at <%= link_to "privlyalpha.org", "https://privlyalpha.org" %> (stable) and <%= link_to "dev.privly.org", "https://dev.privly.org" %> (development). Auto-generated documentation can be found at <%= link_to "doc.privly.org", "http://doc.privly.org" %>. Extension test cases can be found at <%= link_to "test.privly.org", "http://test.privly.org" %>. 
+        <br />
+        <br />
+        Privly developers gather on IRC in the #Privly room on irc.freenode.net
+      </p>
+      
+      <br />
+      
       <%= link_to image_tag("OSI-Approved-License-100x137.png", :style=>"display: block;   margin-left: auto;   margin-right: auto;"), "/license.txt" %>
     </div>
   </div>

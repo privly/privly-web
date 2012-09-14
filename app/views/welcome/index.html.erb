@@ -20,7 +20,7 @@
     <div id="mainimg">
       <div id="main_accordion">
         <h2><a href="#">What is Privly?</a></h2>
-        <div style="text-align: justify;"><p>Privly makes it possible for you to control your data after sending it across the internet. With Privly, you can post to Facebook without allowing Facebook access to your communications, you can even unsend emails. Privly works by extending browsers to look for specially formatted links, which are then "injected" into the pages you are viewing. If your friends don't have the extension installed, they will be able to click the link to read the content. For more information about what Privly is, read our <%= link_to "about page." %></p></div>
+        <div style="text-align: justify;"><p><%= image_tag "icons/icon_128.png", :title => "Privly Icon", :style => "float: left;vertical-align: top;" %><%= image_tag "icons/icon_128.png", :title => "Privly Icon", :style => "float: right;vertical-align: top;" %>Privly makes it possible for you to control your data <span style="font-style: italic;font-weight: bold;">after</span> posting it across the internet. You can post to Facebook without allowing Facebook access to your communications, you can even unsend emails. Privly works by extending browsers to look for specially formatted links, which are then "injected" into the pages you are viewing. Privly is a Foundation owned concept being made by and for all internet users. For more information about what Privly is, read our <%= link_to "about page." %></p></div>
         
         <h2><a href="#">Where are things now?</a></h2>
         <div style="text-align: justify;">
@@ -50,6 +50,9 @@
         
         <h2><a href="#">(Information for Developers) Privly Development</a></h2>
         <div style="text-align: justify;"><p>For a more thorough treatment of Privly as a whole, visit <%= link_to "the overview", "https://github.com/privly/privly-organization/wiki/Privly-System-and-Organization-Overview" %>. For development discussion, join the <%= link_to "Development Mailing List", "https://groups.google.com/group/privly" %>. Many <%= link_to "repositories", "https://github.com/privly/" %> have their own wikis, but content not specific to a single repository will be in the <%= link_to "central wiki", "https://github.com/privly/privly-organization/wiki/" %>. Official announcements are found on <%= link_to "www.privly.org", "http://www.privly.org" %>. Live versions of the content server can be found at <%= link_to "privlyalpha.org", "https://privlyalpha.org" %> (stable) and <%= link_to "dev.privly.org", "https://dev.privly.org" %> (development). Auto-generated documentation can be found at <%= link_to "doc.privly.org", "http://doc.privly.org" %>. Extension test cases can be found at <%= link_to "test.privly.org", "http://test.privly.org" %>. 
+            <br />
+            <br />
+            Privly developers gather on IRC in the #Privly room on irc.freenode.net
           </p>
         </div>
       </div>
@@ -70,7 +73,7 @@
         <div class="col2">
             <div id="roadmap_text">
                 <h2><%= link_to "Try it Out!", "https://privlyalpha.org/posts/new" %></h2>
-                <p>Privly should work with any site on the web, but we need your help to tell us where there are problems. Sign up for an account on the <%= link_to "Alpha Server", "https://privlyalpha.org" %>.</p>
+                <p>Privly should work with any site on the web, but we need your help to tell us where there are problems. Sign up for an account on the <%= link_to "Alpha Server", "https://privlyalpha.org/users/invitation/new" %>.</p>
             </div>
         </div>
 
