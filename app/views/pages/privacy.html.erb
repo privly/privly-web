@@ -16,73 +16,128 @@
 
 <div class="accordionhead">
     <div id="rules_accordion">
-        <h2><a id="accordion_privacy" href="#accordion_privacy">Privacy</a></h2>
-        <div>
-            <h1>Principles</h1>
 
-            <div class="post">
-                <div class="posthead">
-                    <h2>Make Privacy Automatic</h2>
-                    <p>We will eventually store everything as cipher-text (encrypted), and execute all encryption services on the browser. We don't want to be able to read anything. Your content will be as secure as your password.</p>
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="posthead">
-                    <h2>It is <strong>Your</strong> Data</h2>
-                    <p>We will not archive your content after you delete it, and we will never crawl your content.</p>
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="posthead">
-                    <h2>Everything is Opt-In</h2>
-                    <p>When we add capabilities, access to existing content will not change unless the content-owner explicitly changes the settings.</p>
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="posthead">
-                    <h2>Reading Content is Also Private</h2>
-                    <p>Content owners do not know which links you read. Privly will only collect user data (example: geography) that helps us deliver content more effectively.</p>
-                </div>
-            </div>
-            
-            <div class="post">
-                <div class="posthead">
-                    <h2>Other Concerns?</h2>
-                    <p>Above all we want to enable privacy across the internet. We will keep development and policies open and responsive to the users, so get involved!</p>
-                </div>
-            </div>
-            
-            <div class="post" style="color: #FF0000;">
-                <div class="posthead">
-                    <h2>Disclaimer</h2>
-                    <p>Please note that the extension does <span style="font-weight:bold;">not</span> currently offer:</p>
-                    <ul>
-                        <li>Encryption (content is stored in the clear)</li>
-                        <li>Protection from governments</li>
-                        <li>Protection from our hosting provider</li>
-                        <li>Protection from the domain name system</li>
-                        <li>Or security of any kind</li>
-                    </ul>
-                    <p>We made the extension available so you can test it out with your favorite site, but until we tell you otherwise, post with the expectation that it is public.</p>
-                </div>
-            </div>
-        </div>
+      <h2><a id="accordion_security_alerts" href="#accordion_security_alerts">Security Alerts</a></h2>
+      <div>
+        <p>
+          If you have a security issue you believe needs immediate attention, please do not publicly disclose it until we have a chance to fix it. You can email us directly at privly [at] privly.org for critical issues, or enter less critical issues into the <%= link_to "bug form", "http://www.privly.org/content/bug-report" %>. At the time of this writing, there were no known security issues.
+        </p>
+      </div>
+      
+      <h2><a id="accordion_disclosures" href="#accordion_disclosures">Trusted Parties</a></h2>
+      <div>
+        <p>This section is dedicated to describing the parties with any level of access to information transmitted to Privly, or inferable from those transmissions. We are actively working to reduce the necessary disclosures of this list to the final item.</p>
         
-        <h2><a id="accordion_license" href="#accordion_license">License</a></h2>
-        <div>
-            <p>The Privly extensions and content server are licensed under the <%= link_to "MIT License", "/license.txt" %>. The development home of Privly is at <%= link_to "www.privly.org", "http://www.privly.org" %></p>
-            
-            <%= link_to image_tag("OSI-Approved-License-100x137.png", :style=>"display: block;   margin-left: auto;   margin-right: auto;"), "/license.txt" %>
-        </div>
+        <br />
         
-        <h2><a id="accordion_terms" href="#accordion_terms">Terms of Service</a></h2>
-        <div>
-            <%= render "terms" %>
-        </div>
+        <h3>The Privly Foundation: Code Updates, System Administration</h3>
+        <p>
+          You are currently trusting Privly's system administration capabilities. Active system administrators include Sean McGregor (the content server), and Hanno Wagner (email server). We are working to reduce all trust and reliance on content hosts by developing the client-side encryption capabilities of Privly.
+        </p>
         
+        <br />
+        
+        <h3>Rackspace: Virtual Private Server Host</h3>
+        <p>
+          Our host could likely gain root access on our server. Doing so without legal action by the US government could jeopardize their massive hosting business.
+        </p>
+        
+        <br />
+        
+        <h3>GoDaddy: DNS, privlyalpha.org Registrar</h3>
+        <p>
+          The Alpha version of the server has DNS through GoDaddy, and the domain is registered through their servers. We need to do a critical evaluation of all the DNS and domain registrars available.
+        </p>
+        
+        <br />
+        
+        <h3>thoughtbot and Airbrake: Error Logging Service</h3>
+        <p>
+          Privly uses the Airbrake error logging service for recording and managing errors in the Privly content server. In some instances this could lead to Airbrake obtaining information available to Privly. We will consider switching to a self-hosted solution when we transition to the Beta version.
+        </p>
+        
+        <br />
+        
+        <h3>Mozilla, Opera, Google: Extension Distribution</h3>
+        <p>
+          The Privly extensions are distributed by their respective browsers. We trust them to distribute unmodified versions of Privly. If you don't trust Mozilla, Opera, or Google to distribute the original extension, you should download the extension's source code directly from the Privly repository.
+        </p>
+        
+        <br />
+        
+        <h3>Our Users: Understanding</h3>
+        <p>
+          Privly is a new concept under active development. We can build Privly, but unless our users understand Privly capabilities, they will not be able to protect their content with Privly.
+        </p>
+          
+      </div>
+      
+      <h2><a id="accordion_privacy" href="#accordion_privacy">Privacy</a></h2>
+      <div>
+          <h1>Principles</h1>
+
+          <div class="post">
+              <div class="posthead">
+                  <h2>Make Privacy Automatic</h2>
+                  <p>We will eventually store everything as cipher-text (encrypted), and execute all encryption services on the browser. We don't want to be able to read anything. Your content will be as secure as your password.</p>
+              </div>
+          </div>
+
+          <div class="post">
+              <div class="posthead">
+                  <h2>It is <strong>Your</strong> Data</h2>
+                  <p>We will not archive your content after you delete it, and we will never crawl your content.</p>
+              </div>
+          </div>
+
+          <div class="post">
+              <div class="posthead">
+                  <h2>Everything is Opt-In</h2>
+                  <p>When we add capabilities, access to existing content will not change unless the content-owner explicitly changes the settings.</p>
+              </div>
+          </div>
+
+          <div class="post">
+              <div class="posthead">
+                  <h2>Reading Content is Also Private</h2>
+                  <p>Content owners do not know which links you read. Privly will only collect user data (example: geography) that helps us deliver content more effectively.</p>
+              </div>
+          </div>
+          
+          <div class="post">
+              <div class="posthead">
+                  <h2>Other Concerns?</h2>
+                  <p>Above all we want to enable privacy across the internet. We will keep development and policies open and responsive to the users, so get involved!</p>
+              </div>
+          </div>
+          
+          <div class="post" style="color: #FF0000;">
+              <div class="posthead">
+                  <h2>Disclaimer</h2>
+                  <p>Please note that the extension does <span style="font-weight:bold;">not</span> currently offer:</p>
+                  <ul>
+                      <li>Encryption (content is stored in the clear)</li>
+                      <li>Protection from governments</li>
+                      <li>Protection from our hosting provider</li>
+                      <li>Protection from the domain name system</li>
+                      <li>Or security of any kind</li>
+                  </ul>
+                  <p>We made the extension available so you can test it out with your favorite site, but until we tell you otherwise, post with the expectation that it is public.</p>
+              </div>
+          </div>
+      </div>
+      
+      <h2><a id="accordion_license" href="#accordion_license">License</a></h2>
+      <div>
+          <p>The Privly extensions and content server are licensed under the <%= link_to "MIT License", "/license.txt" %>. The development home of Privly is at <%= link_to "www.privly.org", "http://www.privly.org" %></p>
+          
+          <%= link_to image_tag("OSI-Approved-License-100x137.png", :style=>"display: block;   margin-left: auto;   margin-right: auto;"), "/license.txt" %>
+      </div>
+      
+      <h2><a id="accordion_terms" href="#accordion_terms">Terms of Service</a></h2>
+      <div>
+          <%= render "terms" %>
+      </div>
     </div>
     
     <br />
@@ -91,4 +146,3 @@
         <%= link_to "Show All", "#", {:onclick => "$('#rules_accordion').accordion('destroy');$('#show_all_link').toggle();", :id => "show_all_link"} %>
     </p>
 </div>
-
