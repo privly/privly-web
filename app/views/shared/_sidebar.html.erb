@@ -139,7 +139,7 @@ included.
                 <li><%= link_to 'New Post', new_post_path %> Posts are cleartext (not encrypted) content. Anyone with access to the content on the server will be able to read your content. Posts support the Markdown format, and are readable by content owners without the original link.</li>
             </ul>
           <% else %>
-            <p>An anonymous post is content that is not tied to any user account. All anonymous posts are destroyed within two days. Testing, developer, and backers can get access to user posts, which are posts tied to user accounts.</p>
+            <p>An anonymous post is content that is not tied to any user account. All anonymous posts are destroyed within two days. Testers, developer, and backers can get access to user posts, which are posts tied to user accounts.</p>
             <ul class="posts">
                 <li><%= link_to 'New Anonymous ZeroBin', '/zero_bin' %> ZeroBin encrypts content in your browser before sending it to a server for storage. You can decide who has access to the encrypted content, but no one can read the content without the link you generate (including you). The decryption key is never sent to the storage server.</li>
                 <li><%= link_to 'New Anonymous Post', new_post_path %> Posts are cleartext (not encrypted) content. Anyone with access to the content on the server will be able to read your content. Posts support the Markdown format.</li>

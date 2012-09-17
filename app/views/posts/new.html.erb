@@ -2,6 +2,10 @@
     New Post
 <% end %>
 
-<h2 class="subhead"><span>New Post</span></h2>
+<% if user_signed_in? and current_user.can_post %>
+  <h2 class="subhead"><span>New Post</span></h2>
+<% else %>
+  <h2 class="subhead"><span>New Anonymous Post</span></h2>
+<% end %>
 
 <%= render 'form' %>
