@@ -46,3 +46,5 @@ gem 'useragent'
 # CSV generator
 gem 'fastercsv'
 
+# Error reporting service
+gem "airbrake"
