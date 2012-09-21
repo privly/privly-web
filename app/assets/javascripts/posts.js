@@ -121,3 +121,17 @@ function updateURL()
     document.getElementById('newFormattedLink').innerHTML = newUrl;
 }
 
+/**
+ * Fire an event containing the Privly URL for extensions to capture.
+ * This is used in posting dialogs where the application pops up for the
+ * user to create a post.
+ */
+function firePrivlyURLEvent(url) {
+  var element = document.createElement("privlyEventSender");  
+  element.setAttribute("privlyUrl", url);  
+  document.documentElement.appendChild(element);  
+
+  var evt = document.createEvent("Events");  
+  evt.initEvent("PrivlyUrlEvent", true, false);  
+  element.dispatchEvent(evt);
+}

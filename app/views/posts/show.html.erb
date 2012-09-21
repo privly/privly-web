@@ -2,6 +2,17 @@
     Post
 <% end %>
 
+<% content_for(:extrajs) do %>
+  <script type="text/javascript">
+     $(window).load(function() {
+       //We need to give the content script time to start watching for the event
+       setTimeout(function(){ 
+         firePrivlyURLEvent("<%= @injectable_url %>");
+         },500)
+     });
+  </script>
+<% end %>
+
 <div>
     <br/>
     <h1>Re-Share Link:</h1>
