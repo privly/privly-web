@@ -45,7 +45,7 @@ Privly::Application.configure do
   
   # Users with the "can_post" permission will be able to create posts lasting
   # this long
-  config.user_can_post_lifetime_max = 2.years
+  config.user_can_post_lifetime_max = 30.days
   
   # Users without the "can_post" permission will be able to create posts
   # lasting this long. Also, their posts will not be tied to their user account
