@@ -18,9 +18,9 @@ ActiveAdmin.register User do
   filter :failed_attempts
   filter :created_at
   filter :admin
-  filter :alpha_invites
-  filter :beta_invites
-  filter :forever_account_value
+  #filter :alpha_invites
+  #filter :beta_invites
+  #filter :forever_account_value
   filter :permissioned_requests_served
   filter :nonpermissioned_requests_served
   filter :can_post, :as => :select
@@ -38,11 +38,11 @@ ActiveAdmin.register User do
     column :failed_attempts
     column :created_at
     
-    column :alpha_invites
-    column :beta_invites
-    column :forever_account_value
-    column :permissioned_requests_served
-    column :nonpermissioned_requests_served
+    #column :alpha_invites
+    #column :beta_invites
+    #column :forever_account_value
+    #column :permissioned_requests_served
+    #column :nonpermissioned_requests_served
     
     column :can_post
     column :wants_to_test
@@ -56,10 +56,10 @@ ActiveAdmin.register User do
     # Show, edit, delete
     default_actions
     
-    ## custom single record action for the index page
-    #column "Single Resource Action" do |user|
-    #      link_to "new action", root_url
-    #end
+    column "Send Confirmation Link" do |user|
+      link_to "Send Invitation", { :action => "send_invitation", :controller=>"users/invitations", :user => {:id => user.id} },
+            :confirm => "Send Invitation: Are you sure?", :method => :post
+    end
     
   end
   

@@ -1,6 +1,15 @@
+# Abilities manage the permissioning of posts according to a list of identities.
+# The ability class inherits from the rails gem CanCan, which defines the helper
+# methods of can, and cannot. See: https://github.com/ryanb/cancan .
+# Abilities are initialized by the application controller.
 class Ability
+  
   include CanCan::Ability
   
+  #
+  # Initialize receives the current identity information of the request and determines whether
+  # the user should have access to the content.
+  #
   def initialize(user, ip_address = "0.0.0.0", random_token = nil, content_password = nil)
     
     # Anyone can create ZeroBin content, but to view it you need the random_token

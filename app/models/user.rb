@@ -1,3 +1,6 @@
+#
+# User is the Devise managed user model for the application.
+#
 class User < ActiveRecord::Base
   
   has_many :posts, :dependent => :destroy
@@ -23,7 +26,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
   # ActiveAdmin permissions
-  attr_accessible :alpha_invites, :beta_invites, :forever_account_value, :permissioned_requests_served, :nonpermissioned_requests_served, :as => :admin
+  attr_accessible :alpha_invites, :beta_invites, :forever_account_value, :permissioned_requests_served, :nonpermissioned_requests_served, :can_post, :as => :admin
   
   # Downcase the email and store the email's domain in a separate
   # column.

@@ -1,10 +1,59 @@
+# == TokenAuthenticationsController
+#
+# Manages token authentications for API access. Token authentications
+# are currently only used by the Firefox Extension for logging in 
+# directly from the extension. Token authentications are managed by
+# the devise gem.
+#
 class TokenAuthenticationsController < ApplicationController
   
   before_filter :authenticate_user!, :except => [:new, :create]
   
+  # == Get the Example TokenAuthentications Form
+  # 
+  # This page presents two forms for generating token authentications.
+  # This endpoint should only be used to debug token authentications when
+  # adding the functionality to a new endpoint.
+  #  
+  # ==== Routing  
+  #
+  # +GET+: /token_authentications/new
+  #
+  # ==== Formats  
+  #  
+  # * +html+
+  #
+  # ==== Parameters  
+  # 
+  # none
+  #
   def new
   end
   
+  # == Get the User's current Token.
+  # 
+  # The returned token when sent with future requests will associate the request
+  # with the current user.
+  #  
+  # ==== Routing  
+  #
+  # +GET+: /token_authentications
+  # +GET+: /token_authentications.:format
+  #
+  # ==== Cookies
+  #
+  # User must be authenticated via a session cookie
+  #
+  # ==== Formats  
+  #  
+  # * +html+
+  # * +JSON+
+  # * +JSONP+
+  #
+  # ==== Parameters  
+  # 
+  # none
+  #
   def show
     respond_to do |format|
       format.html {
@@ -17,6 +66,32 @@ class TokenAuthenticationsController < ApplicationController
     end
   end
   
+  # == Create a new Token Authentication.
+  # 
+  # The returned token when sent with future requests will associate the request
+  # with the current user.
+  #  
+  # ==== Routing  
+  #
+  # +POST+: /token_authentications
+  # +POST+: /token_authentications.:format
+  #
+  # ==== Formats  
+  #  
+  # * +html+
+  # * +JSON+
+  # * +JSONP+
+  #
+  # ==== Parameters  
+  # 
+  # * *email* - _string_ - Required
+  # ** Values: Any valid email currently found in the user database
+  # ** Default: nil
+  #
+  # * *password* - _string_ - Required
+  # ** Values: The password associated with the email address
+  # ** Default: nil
+  #
   def create
     @user = User.find_by_email(params[:email])
     
@@ -57,6 +132,30 @@ class TokenAuthenticationsController < ApplicationController
     end
   end
 
+  # == Destroy a Token.
+  #
+  # Destroy and invalidate all the user's token authentications
+  #
+  # === Routing  
+  #
+  # Destroy a post
+  # DELETE /token_authentications
+  # DELETE /token_authentications.:format
+  #
+  # ==== Cookies
+  #
+  # User must be authenticated via a session cookie
+  #
+  # === Formats  
+  #  
+  # * +html+
+  # * +json+
+  # * +jsonp+
+  #
+  # === Parameters  
+  #
+  # none
+  #
   def destroy
     respond_to do |format|
       format.html {

@@ -64,13 +64,13 @@
                     </li>
                 <% end %>
                 
-                <% if controller.controller_name == "posts" and controller.action_name == "new" %>
-                    <li class="active"><a href="/posts/new">Post <span>new</span></a></li>
-                <% else %>
-                    <li><a href="/posts/new">Post <span>new</span></a></li>
-                <% end %>
-                
                 <% if user_signed_in? and current_user.can_post %>
+                    <% if controller.controller_name == "posts" and controller.action_name == "new" %>
+                        <li class="active"><a href="/posts/new">Post <span>new</span></a></li>
+                    <% else %>
+                        <li><a href="/posts/new">Post <span>new</span></a></li>
+                    <% end %>
+                
                     <% if controller.controller_name == "posts" and not controller.action_name == "new" %>
                         <li class="active"><a href="/posts">Post <span>management</span></a></li>
                     <% else %>

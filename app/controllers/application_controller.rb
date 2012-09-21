@@ -1,3 +1,5 @@
+# The application controller defines a number of helpers and filters
+# for other elements of the application.
 class ApplicationController < ActionController::Base
   
   # Put the CSRF token into all forms, except where 
@@ -74,19 +76,29 @@ class ApplicationController < ActionController::Base
       end
     end
     
-    # Structures for user agent inspection
+    # This is a structure for user agent inspection.
+    # The UserAgent gem uses this to process the user
+    # agent into a known browser.
     Browser = Struct.new(:browser, :version)
+    
+    # All the browsers currently covered by extensions
     ExtensionBrowsers = [
       Browser.new("Firefox", "4.0.0.0"),
       Browser.new("Chrome", "1.0"),
       Browser.new("Opera","11.0")
     ]
+    
+    # The Chrome Browser
     ChromeBrowser = [
       Browser.new("Chrome", "1.0")
     ]
+    
+    # The Opera Browser
     OperaBrowser = [
       Browser.new("Opera","11.0")
     ]
+    
+    # The Firefox Browser
     FirefoxBrowser = [
       Browser.new("Firefox", "4.0.0.0")
     ]
@@ -146,10 +158,10 @@ class ApplicationController < ActionController::Base
 
     # Devise: Where to redirect users once they have logged in
     def after_sign_in_path_for(resource)
-      new_post_path
+      pages_about_path
     end
 
-    #Give CanCan access to the random token
+    #Give CanCan access to the IP address, random token, and content password
     #See: https://github.com/ryanb/cancan/wiki/Accessing-Request-Data
     def current_ability
       @current_ability ||= Ability.new(current_user, request.remote_ip, params[:random_token], params[:content_password])

@@ -1,10 +1,15 @@
+# Posts are the central storage endpoint for Privly content. They optionally
+# store cleartext markdown content and serialized JSON of any schema. Currently
+# two posting applications use the Post endpoint: ZeroBins push encrypted content
+# to the serialized JSON storage, and Privly "posts" use the rendered Markdown
+# storage. Shares can permission any type of post.
 class PostsController < ApplicationController
   
   # Allow posting to the create_anonymous endpoint without the CSRF token
   skip_before_filter :verify_authenticity_token, :only => [:create_anonymous]
   
   # Force the user to authenticate using Devise
-  before_filter :authenticate_user!, :only => [:destroy_all]
+  before_filter :authenticate_user!, :except => [:show, :edit, :update, :get_csrf, :create_anonymous, :destroy]
   
   # Checks request's permissions defined in ability.rb and loads 
   # resource if they have access. This will assign @post or @posts depending
@@ -677,7 +682,8 @@ class PostsController < ApplicationController
   #
   # Returns javascript with CSRF token
   # This should only be called by posting applications
-  # before submitting forms.
+  # before submitting forms. This endpoint is included to make it easier to
+  # generate applications without rendering a template.
   #
   # === Routing  
   #

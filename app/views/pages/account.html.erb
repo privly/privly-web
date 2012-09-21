@@ -7,14 +7,9 @@
 <% #Account Information %>
 <h2>Testing Account Information</h2>
 <% if current_user.can_post %>
-  <p>Your test user account is active. Please remember that Privly is pre-release, so don't host private and protected information with us yet.</p>
+  <p>Your test user account is active. Privly is in a closed Alpha version. Post at your own risk.</p>
 <% else %>
-  <% #If the user indicated they want to be a tester %>
-  <% if current_user.wants_to_test %>
-    <p>You have indicated that you want to test Privly, but we are not for a wider group of testers. If you let us know you REALLY want to test the system, we will set you up with an account now, but it is not ready.</p>
-  <% else %>
-    <p>We are hard at work building Privly capabilities. We will email you when there is a major release of functionality for your user account. Right now, you cannot create any content tied to this user account</p>
-  <% end%>
+  <p>Your user account's posting permission has been deactivated for lack of development and testing activity. If you are active in Privly development, please ask on email or IRC for it to be reactivated.</p>
 <% end %>
 
 <% #Identity Information %>

@@ -1,7 +1,9 @@
+# Send one-off emails
 class Notifier < ActionMailer::Base
-  default :from => "privly@seanbmcgregor.com",
-           :return_path => "privly@seanbmcgregor.com"
-           
+  default :from => "privly@privly.org",
+           :return_path => "privly@privly.org"
+  
+  # Send a system update to the recipient (user account)
   def update(recipient)
     @user = recipient
     @user.last_emailed = Time.now

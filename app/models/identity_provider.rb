@@ -19,8 +19,16 @@ class IdentityProvider < ActiveRecord::Base
   # Mass assignment is not available
   attr_accessible
   
+  # A regular expression to validate and determine share type as
+  # an email share
   EMAIL_REGEXP = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+  
+  # A regular expression to validate and determine share type as
+  # an domain share
   DOMAIN_REGEXP = /^@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+  
+  # A regular expression to validate and determine share type as
+  # an IP Address share
   IP_ADDRESS_REGEXP = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/
   
   # Format the identity according to the requirements of the Identity Provider.

@@ -1,3 +1,8 @@
+# Posts are the central storage endpoint for Privly content. They optionally
+# store cleartext markdown content and serialized JSON of any schema. Currently
+# two posting applications use the Post endpoint: ZeroBins push encrypted content
+# to the serialized JSON storage, and Privly "posts" use the rendered Markdown
+# storage. Shares can permission any type of post.
 class Post < ActiveRecord::Base
   
   belongs_to :user
