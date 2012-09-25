@@ -10,12 +10,12 @@ class User < ActiveRecord::Base
   devise :invitable, :database_authenticatable,
          :recoverable, :rememberable, :trackable, 
          :validatable, :token_authenticatable, 
-         :confirmable, :lockable, :timeoutable
+         :confirmable, :lockable, :timeoutable, :validate_on_invite => true
   
   before_create :process_email
   
   before_validation :process_email
-   
+  
   validates :email,
            :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
   
@@ -31,6 +31,9 @@ class User < ActiveRecord::Base
   # Downcase the email and store the email's domain in a separate
   # column.
   def process_email
+    if self.email.nil?
+      return
+    end
     self.email.downcase!
     domain = self.email.split("@")[1]
     if domain

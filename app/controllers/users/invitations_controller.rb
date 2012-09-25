@@ -27,11 +27,22 @@ class Users::InvitationsController < Devise::InvitationsController
   # The email of the new user account
   def create
     
+    #obscure whether the user account is already on the system
+    if params[:user] and params[:user][:email]
+      email = params[:user][:email]
+      email.downcase!
+      if User.where(:email => email).count > 0
+        set_flash_message :notice, :send_instructions, :email => email
+        redirect_to pages_about_path
+        return
+      end
+    end
+    
     self.resource = resource_class.invite!(params[resource_name], current_inviter) do |u|
       u.skip_invitation = true
       u.pending_invitation = true
     end
-
+    
     if resource.errors.empty?
       set_flash_message :notice, :send_instructions, :email => self.resource.email
       respond_with resource, :location => after_invite_path_for(resource)
