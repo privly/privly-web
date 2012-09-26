@@ -20,6 +20,10 @@ class WelcomeController < ApplicationController
   # None
   #
   def index
+    respond_to do |format|
+      format.html { render }
+      format.iframe { render }
+    end
   end
   
 end
