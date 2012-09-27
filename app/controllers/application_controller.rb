@@ -107,7 +107,7 @@ class ApplicationController < ActionController::Base
     # where an extension is available.
     def extension_available?
       user_agent = UserAgent.parse(request.user_agent)
-      if ExtensionBrowsers.detect { |browser| user_agent >= browser }
+      if user_agent and ExtensionBrowsers.detect { |browser| user_agent >= browser }
         true
       else
         false
