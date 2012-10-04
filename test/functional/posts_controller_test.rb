@@ -153,4 +153,9 @@ class PostsControllerTest < ActionController::TestCase
     assert_redirected_to posts_path
   end
   
+  test "should get user account details" do
+    get :user_account_data
+    assert_response :success
+  end
+  
 end

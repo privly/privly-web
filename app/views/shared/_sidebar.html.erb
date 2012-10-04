@@ -93,7 +93,7 @@ included.
           </div>
         <% end %><%# @sidebar[:post] %>
         
-        <% if @sidebar[:link_options] %>
+        <% if @sidebar[:link_options] and (@post.content or not @post.structured_content) %>
         
           <%# Build link options for embedding elsewhere %>
           <h2 id="link_options_sidebar"><a>Link Options</a></h2>

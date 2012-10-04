@@ -15,12 +15,19 @@
 
 <div>
     <br/>
-    <h1>Re-Share Link:</h1>
-    <p>
-        <div style="font-size:120%;font-weight:bold;">
-            <%= @injectable_url %><span id="newFormattedLink" class="forcewrap"></span>
-        </div>
-    </p>
+    <% if @post.structured_content and not @post.content %>
+      <h1>Application Content</h1>
+      <p>
+        You need the original link in order to view this content. Privly does not have access.
+      </p>
+    <% else %>
+      <h1>Re-Share Link:</h1>
+      <p>
+          <div style="font-size:120%;font-weight:bold;">
+              <%= @injectable_url %><span id="newFormattedLink" class="forcewrap"></span>
+          </div>
+      </p>
+    <% end %>
 </div>
 
 <% if @post.content %>
@@ -80,7 +87,7 @@
       </span>
   </h2>
   <br />
-  <p>This post cannot be viewed here, you need the original link to view this content</p>
+  <p>Privly does not have access to any of the content associated with this post. You need the original link to view the content. People with permissions to share, edit, or destroy the content have options on this page.</p>
   <br />
   <br />
 <% else %>

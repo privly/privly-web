@@ -44,7 +44,10 @@ Privly::Application.routes.draw do
   get "pages/bug" => redirect("http://www.privly.org/content/bug-report")
   get "pages/email" => redirect("https://groups.google.com/forum/?fromgroups#!forum/privly")
   
+  #Deprecated
   match '/posts/get_csrf' => "posts#get_csrf", :as => :get_csrf_post, :via => [:get]
+  
+  match '/posts/user_account_data' => "posts#user_account_data", :as => :get_user_account_data, :via => [:get]
   resources :posts
   
   # posts#create_anonymous is deprecated

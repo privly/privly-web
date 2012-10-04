@@ -5,16 +5,19 @@
 # storage. Shares can permission any type of post.
 class PostsController < ApplicationController
   
-  # Allow posting to the create_anonymous endpoint without the CSRF token
+  # Allow posting to the create_anonymous endpoint without the CSRF token (deprecated)
   skip_before_filter :verify_authenticity_token, :only => [:create_anonymous]
   
   # Force the user to authenticate using Devise
-  before_filter :authenticate_user!, :except => [:show, :edit, :update, :get_csrf, :create_anonymous, :destroy]
+  before_filter :authenticate_user!, :except => [:show, :edit, :update, 
+                                                 :get_csrf, :create_anonymous, 
+                                                 :destroy, :user_account_data]
   
   # Checks request's permissions defined in ability.rb and loads 
   # resource if they have access. This will assign @post or @posts depending
   # on the action.
-  load_and_authorize_resource :except => [:destroy_all, :create_anonymous, :get_csrf]
+  load_and_authorize_resource :except => [:destroy_all, :create_anonymous, 
+                                          :get_csrf, :user_account_data]
   
   # Obscure whether the record exists when not found
   rescue_from ActiveRecord::RecordNotFound do |exception|
@@ -678,16 +681,35 @@ class PostsController < ApplicationController
     redirect_to posts_url, :notice => "Destroyed all Posts."
   end
   
-  # == Get CSRF Token.
+  # Deprecated
+  def get_csrf
+    render :json => {:csrf => form_authenticity_token},
+      :callback => params[:callback]
+  end
+  
+  # == Get User Account Data
   #
-  # Returns javascript with CSRF token
+  # Returns JSON with CSRF token, and information about the
+  # user account's current permissions.
   # This should only be called by posting applications
   # before submitting forms. This endpoint is included to make it easier to
   # generate applications without rendering a template.
   #
+  # Elements of the JSON include:  
+  #
+  # csrf: The CSRF if a token which is expected in all posts to the
+  # content server. This is a counter measure for Cross Site Request
+  # forgery.
+  #
+  # burntAfter: The maximum lifetime of posts for the current user
+  #
+  # canPost: Whether or not the user can create content
+  #
+  # signedIn: Boolean indicating whether the user us signed into the server
+  #
   # === Routing  
   #
-  # GET /posts/get_csrf
+  # GET /posts/user_account_data
   #
   # === Formats  
   #  
@@ -697,9 +719,26 @@ class PostsController < ApplicationController
   # === Parameters  
   #
   # <b>No Parameters</b>
-  def get_csrf
-    render :json => {:csrf => form_authenticity_token},
-      :callback => params[:callback]
+  def user_account_data
+    
+    if user_signed_in? and current_user.can_post
+      burn_after = Time.now + Privly::Application.config.user_can_post_lifetime_max
+      can_post = true
+    elsif user_signed_in?
+      burn_after = Time.now + Privly::Application.config.user_cant_post_lifetime_max
+      can_post = false
+    else
+      burn_after = Time.now + Privly::Application.config.not_logged_in_lifetime_max
+      can_post = false
+    end 
+    
+    render :json => {
+                       :csrf => form_authenticity_token,
+                       :burntAfter => burn_after,
+                       :canPost => can_post,
+                       :signedIn => user_signed_in?
+                     }, 
+                     :callback => params[:callback]
   end
   
   private

@@ -158,7 +158,11 @@ class ApplicationController < ActionController::Base
 
     # Devise: Where to redirect users once they have logged in
     def after_sign_in_path_for(resource)
-      pages_about_path
+      if user_signed_in? and current_user.can_post
+        new_post_path
+      else
+        pages_about_path
+      end
     end
 
     #Give CanCan access to the IP address, random token, and content password
