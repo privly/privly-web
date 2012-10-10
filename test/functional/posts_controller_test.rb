@@ -31,9 +31,12 @@ class PostsControllerTest < ActionController::TestCase
       post :create, :post => {:content => "Test Post 1", :public => true}
     end
 
-    assert_redirected_to post_path(assigns(:post), 
-      {:burntAfter => assigns(:post).burn_after_date.to_i, :privlyInject1 => true,
-        :random_token => assigns(:post).random_token})
+    assert_redirected_to post_path(
+      assigns(:post), 
+      :privlyBurntAfter => assigns(:post).burn_after_date.to_i,
+      :burntAfter => assigns(:post).burn_after_date.to_i,
+      :privlyInject1 => true, 
+      :random_token => assigns(:post).random_token)
   end
   
   test "should create structured content post" do
@@ -47,9 +50,12 @@ class PostsControllerTest < ActionController::TestCase
                         }, :public => true}
     end
     assert assigns(:post).structured_content[:this_will_be_serialized] == "Test Post 1"
-    assert_redirected_to post_path(assigns(:post), 
-      {:burntAfter => assigns(:post).burn_after_date.to_i, :privlyInject1 => true,
-        :random_token => assigns(:post).random_token})
+    assert_redirected_to post_path(
+      assigns(:post), 
+      :privlyBurntAfter => assigns(:post).burn_after_date.to_i,
+      :burntAfter => assigns(:post).burn_after_date.to_i,
+      :privlyInject1 => true, 
+      :random_token => assigns(:post).random_token)
   end
 
   test "should show post" do
@@ -128,7 +134,12 @@ class PostsControllerTest < ActionController::TestCase
 
   test "should update post" do
     put :update, :id => @post.to_param, :post => @post.attributes
-    assert_redirected_to post_path(assigns(:post), :burntAfter => assigns(:post).burn_after_date.to_i, :privlyInject1 => true, :random_token => assigns(:post).random_token)
+    assert_redirected_to post_path(
+      assigns(:post), 
+      :privlyBurntAfter => assigns(:post).burn_after_date.to_i,
+      :burntAfter => assigns(:post).burn_after_date.to_i,
+      :privlyInject1 => true, 
+      :random_token => assigns(:post).random_token)
   end
   
   test "should get CSV" do

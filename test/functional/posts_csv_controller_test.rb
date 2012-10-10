@@ -18,9 +18,12 @@ class PostsControllerTest < ActionController::TestCase
       post :create, :post => {:content => "Test Post 1", :public => true, 
         :share => {:share_csv => csv_row}}
         
-      assert_redirected_to post_path(assigns(:post), 
-        {:burntAfter => assigns(:post).burn_after_date.to_i, :privlyInject1 => true,
-          :random_token => assigns(:post).random_token})
+      assert_redirected_to post_path(
+        assigns(:post), 
+        :privlyBurntAfter => assigns(:post).burn_after_date.to_i,
+        :burntAfter => assigns(:post).burn_after_date.to_i,
+        :privlyInject1 => true, 
+        :random_token => assigns(:post).random_token)
       shares = assigns(:post).shares
       assert_not_nil shares.find_by_identity("@domainshare.com")
       assert_not_nil shares.find_by_identity("email@emailshare.com")
