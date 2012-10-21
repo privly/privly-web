@@ -135,3 +135,44 @@ function firePrivlyURLEvent(url) {
   evt.initEvent("PrivlyUrlEvent", true, false);  
   element.dispatchEvent(evt);
 }
+
+/**
+ * Send a random sequence of characters to privly-type extensions.
+ * Messages containing the random sequence will be assumed to come
+ * from the extensions.
+ */
+function firePrivlyMessageSecretEvent() {
+    
+  var secret = Math.random().toString(36).substring(2) + 
+               Math.random().toString(36).substring(2) +  
+               Math.random().toString(36).substring(2);
+               
+  var messageSecretElement = document.getElementById("post_content");
+  if ( messageSecretElement !== undefined && 
+    messageSecretElement !== null ) {
+      messageSecretElement.setAttribute("privlyMessageSecret", secret);  
+      var evt = document.createEvent("Event");  
+      evt.initEvent("PrivlyMessageSecretEvent", true, false);  
+
+      window.addEventListener("message", 
+        function(message) {
+          if( message.data.indexOf(secret) === 0 ) {
+            $("#post_content").val(message.data.substring(secret.length))
+          }
+        },
+        false);
+
+      messageSecretElement.dispatchEvent(evt);
+    }
+}
+
+jQuery(document).ready(function(){
+  //We need to give the content script time to start watching for the event
+  setTimeout(function(){ 
+      firePrivlyMessageSecretEvent();
+      if ($("#javascriptEventLink").html() !== undefined && 
+        $("#javascriptEventLink").html() !== "") {
+        firePrivlyURLEvent($("#javascriptEventLink").html().replace(/&amp;/g, "&"));
+      }
+    },500);
+});
