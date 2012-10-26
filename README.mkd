@@ -10,7 +10,7 @@ The development home of Privly is at http://www.privly.org/. For information on 
 
 ## Information for Server Developers
 
-There is a [setup guide](https://github.com/smcgregor/privly-web/wiki/Setup-Guide-for-Developers) for this server on GitHub. The "master" branch of this application is deployed to http://dev.privly.org. The "kickstarter" branch is deployed to https://priv.ly. The issue queue has the current areas needing development.
+There is a [setup guide](https://github.com/privly/privly-web/wiki/Setup-Guide-for-Developers) for this server on GitHub. The "master" branch of this application is deployed to http://dev.privly.org. The "kickstarter" branch is deployed to https://priv.ly. The issue queue has the current areas needing development.
 
 ## Information for Extension Developers
 
