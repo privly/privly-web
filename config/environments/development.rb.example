@@ -45,7 +45,7 @@ Privly::Application.configure do
   config.not_logged_in_lifetime_max = 0.days
   
   # Turns on domain redirection to the primary domain set below
-  config.redirect_html_requests_to_root_domain = true"
+  config.redirect_html_requests_to_root_domain = true
   
   # Set the primary host domain.
   # HTML format requests are checked in
