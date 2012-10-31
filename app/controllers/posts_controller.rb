@@ -553,8 +553,8 @@ class PostsController < ApplicationController
         if params[:post][:seconds_until_burn]
           seconds_until_burn = params[:post][:seconds_until_burn].to_i
           @post.burn_after_date = Time.now + seconds_until_burn.seconds
-        elsif params[:post][:burn_after_date]
-          @post.burn_after_date = params[:post][:burn_after_date]
+        elsif params[:post]["burn_after_date(1i)"]
+          @post.burn_after_date = convert_date params[:post], "burn_after_date"
         end
     end
     
