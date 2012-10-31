@@ -10,7 +10,7 @@ For more information on what Privly is, [read about us](https://priv.ly/pages/ab
 
 We are currently fixing bugs and developing the [cryptography library](https://github.com/privly/privly-library/) to package into the extensions. For more information about our development path, please see the [central wiki](https://github.com/privly/privly-organization/wiki/Version-List).
 
-The Privly-Web content server is currently maintained by [Sean McGregor](https://github.com/smcgregor), on behalf of the [Privly Foundation](https://github.com/smcgregor).
+The Privly-Web content server is currently maintained by [Sean McGregor](https://github.com/smcgregor), on behalf of the [Privly Foundation](http://www.privly.org).
 
 ## About this Content Server ##
 
@@ -24,6 +24,10 @@ This server currently supports:
 ## Testing/Submitting Bugs ##
 
 If you have discovered a bug, only [open a public issue](https://github.com/privly/privly-web/issues/new) on GitHub if it could not possibly be a security related bug. If the bug affects the security of the system, please report it privately at [privly.org](http://www.privly.org/content/bug-report). We will then fix the bug and follow a process of responsible disclosure.
+
+There is a [setup guide](https://github.com/privly/privly-web/wiki/Setup-Guide-for-Developers) for this server on GitHub. The "master" branch of this repository is deployed to [dev.privly.org](https://dev.privly.org) and [privlyalpha.org](https://privlyalpha.org).
+
+If you want a development account on a whitelisted content server (useful if you don't want to setup this server locally), contact Sean McGregor via one of the means below.
 
 ## Developer Documentation ##
 
@@ -42,10 +46,6 @@ Discussion of system concepts and high level processes are found in the [central
 [Production Content Server](https://privlyalpha.org)  
 [Development Content Server](https://dev.privly.org)  
 [Download Extension](https://priv.ly/pages/download)  
-
-There is a [setup guide](https://github.com/privly/privly-web/wiki/Setup-Guide-for-Developers) for this server on GitHub. The "master" branch of this application is deployed to [dev.privly.org](https://dev.privly.org) and [privlyalpha.org](https://privlyalpha.org).
-
-If you want a development account on a whitelisted content server (useful if you don't want to setup this server locally), contact Sean McGregor via one of the means below.
 
 ## Contacts ##
 
