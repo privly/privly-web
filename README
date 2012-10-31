@@ -1,8 +1,11 @@
-The current setup guide can be found here: 
-https://github.com/smcgregor/privly-web/wiki/Setup-Guide-for-Developers
+For information on this content server, please visit the repository home
+page at: https://github.com/privly/privly-web
+
+The current setup guide for this server can be found here: 
+https://github.com/privly/privly-web/wiki/Setup-Guide-for-Developers
 
 The most up-to-date README is found at the bottom of the page here:
-https://github.com/smcgregor/privly-web
+https://github.com/privly/privly-web
 
 Cron jobs are tasks, which computers run on timed intervals without users 
 needing to start them. For a production environment, you can setup the 

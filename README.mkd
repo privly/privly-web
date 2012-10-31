@@ -1,17 +1,65 @@
-# Privly Development Server
+## About ##
 
-This application hosts the content injected into websites by Privly extensions. Since any server technology could potentially support the (under development) Privly standard, this server is the [reference implementation](http://en.wikipedia.org/wiki/Reference_implementation) for fully private hosting of Privly content.
+Privly is a developing set of browser extensions for protecting content wherever it is posted on the internet. It allows users to view content on any website, without the host site being able to read the content. This content server is meant to store content for users with a Privly extension.
 
-**System Status: Pre-Alpha**
+For more information on what Privly is, [read about us](https://priv.ly/pages/about).
 
-For more information on what Privly is, see https://priv.ly.
+## Development Status ##
 
-The development home of Privly is at http://www.privly.org/. For information on how to join the Privly community, read this: http://www.privly.org/content/welcome-privly-development
+**[Burrowing Owl](https://github.com/privly/privly-organization/wiki/Burrowing) Alpha Version**
 
-## Information for Server Developers
+We are currently fixing bugs and developing the [cryptography library](https://github.com/privly/privly-library/) to package into the extensions. For more information about our development path, please see the [central wiki](https://github.com/privly/privly-organization/wiki/Version-List).
 
-There is a [setup guide](https://github.com/privly/privly-web/wiki/Setup-Guide-for-Developers) for this server on GitHub. The "master" branch of this application is deployed to http://dev.privly.org. The "kickstarter" branch is deployed to https://priv.ly. The issue queue has the current areas needing development.
+The Privly-Web content server is currently maintained by [Sean McGregor](https://github.com/smcgregor), on behalf of the [Privly Foundation](https://github.com/smcgregor).
 
-## Information for Extension Developers
+## About this Content Server ##
 
-If you want a development account on dev.privly.org (useful if you don't want to setup this server locally), post to this thread on privly.org: http://www.privly.org/content/official-code-development-team-thread
+This server currently supports:
+
+* Posting content from the extensions
+* Two [Injectable Applications](https://github.com/privly/privly-organization/wiki/Injectable-Applications), including Privly Posts and ZeroBin.
+* Serialized JSON storage for any text content.
+* Sharing by email, domain, and IP Address.
+
+## Testing/Submitting Bugs ##
+
+If you have discovered a bug, only [open a public issue](https://github.com/privly/privly-web/issues/new) on GitHub if it could not possibly be a security related bug. If the bug affects the security of the system, please report it privately at [privly.org](http://www.privly.org/content/bug-report). We will then fix the bug and follow a process of responsible disclosure.
+
+## Developer Documentation ##
+
+Discussion of system concepts and high level processes are found in the [central wiki](https://github.com/privly/privly-organization/wiki). Auto-generated code documentation for several repositories is found at [doc.privly.org](http://doc.privly.org).
+
+## Resources ##
+
+[Foundation Home](http://www.privly.org)  
+[Privly Project Repository List](https://github.com/privly)  
+[Development Mailing List](http://groups.google.com/group/privly)  
+[Testing Mailing List](http://groups.google.com/group/privly-test)  
+[Announcement Mailing List](http://groups.google.com/group/privly-announce)  
+[Central Wiki](https://github.com/privly/privly-organization/wiki)  
+[Submit a Bug](http://www.privly.org/content/bug-report)  
+[IRC](http://www.privly.org/content/irc)  
+[Production Content Server](https://privlyalpha.org)  
+[Development Content Server](https://dev.privly.org)  
+[Download Extension](https://priv.ly/pages/download)  
+
+There is a [setup guide](https://github.com/privly/privly-web/wiki/Setup-Guide-for-Developers) for this server on GitHub. The "master" branch of this application is deployed to [dev.privly.org](https://dev.privly.org) and [privlyalpha.org](https://privlyalpha.org).
+
+If you want a development account on a whitelisted content server (useful if you don't want to setup this server locally), contact Sean McGregor via one of the means below.
+
+## Contacts ##
+
+**Email**:  
+Community [the 'at' sign] privly.org  
+
+**Mail**:  
+Privly  
+PO Box 79  
+Corvallis, OR 97339 
+ 
+**IRC**:  
+Contact the Nick "[smcgregor](https://github.com/smcgregor)" on irc.freenode.net #privly
+
+**Bug**:  
+If you open a bug on this repository, you'll get someone's attention.
+
