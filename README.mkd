@@ -29,6 +29,8 @@ There is a [setup guide](https://github.com/privly/privly-web/wiki/Setup-Guide-f
 
 If you want a development account on a whitelisted content server (useful if you don't want to setup this server locally), contact Sean McGregor via one of the means below.
 
+The [content server](https://github.com/privly/privly-web) hosted at [privlyalpha.org](https://privlyalpha.org) is currently closed to non-developers. If you setup your own content server, you can [manually add](https://github.com/privly/privly-organization/wiki/Manually-Adding-Domains-to-the-Whitelist) your domain to the extension's whitelist.
+
 ## Developer Documentation ##
 
 Discussion of system concepts and high level processes are found in the [central wiki](https://github.com/privly/privly-organization/wiki). Auto-generated code documentation for several repositories is found at [doc.privly.org](http://doc.privly.org).
