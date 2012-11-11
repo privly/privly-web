@@ -41,7 +41,7 @@ Privly::Application.routes.draw do
   
   #legacy pages
   get "pages/faq" => redirect("http://www.privly.org/faq")
-  get "pages/join" => redirect("http://www.privly.org/")
+  get "pages/join" => redirect("http://www.privly.org/content/how-get-started")
   get "pages/people" => redirect("http://www.privly.org/people")
   get "pages/license" => redirect("/pages/about")
   get "pages/terms" => redirect("/pages/privacy")
