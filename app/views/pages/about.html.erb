@@ -1,22 +1,18 @@
 <% content_for(:title) do %>
-    About
+  About
 <% end %>
 
 <% content_for(:extrajs) do %>
   <script>
-  
     $(document).ready(function() {        
       $(".subhead").css("cssText","margin: 0 0 0px -10px !important");
-    
       $( "#tabs" ).tabs();
-      $( "#how_it_works_accordion" ).accordion({autoHeight: false, collapsible: true, active: false});
-      
+      $( "#how_it_works_accordion" )
+        .accordion({autoHeight: false, collapsible: true, active: false});
       setTimeout( function() {
         $( "#sidebar_accordion" ).accordion( "option", "collapsible", false );
       }, 50);
-      
     });
-  
   </script>
 <% end %>
 
@@ -24,7 +20,6 @@
 
 <div>
   <div id="tabs">
-    
     <ul>
       <li><a href="#tabs-1" onclick="$('#sidebar_accordion').accordion('activate', '#in_the_news');">What is Privly?</a></li>
       <li><a href="#tabs-2" onclick="$('#sidebar_accordion').accordion('activate', '#sidebar_about_1');">How Does It Work?</a></li>
@@ -47,22 +42,22 @@
         <li>Give the content creator ownership of their data</li>
       </ul>
       <br />
-      <p><b>Privly Does NOT:</b></p>
+      <p><b>Official Privly Hosts Do NOT:</b></p>
       <ul>
         <li>Use or sell your data</li>
         <li>Give your data to third party companies</li>
         <li>Own your content, you do</li>
       </ul>
       <br />
-      <p>Privly has proven itself as a concept. You can use it right now with Facebook, Gmail, Google+, Twitter, Reddit, and just about anywhere else. As we refine the <%= link_to "extensions", pages_download_path %> and develop versions for other browsers, we hope you will check back. Sign up for an <%= link_to "invitation", new_user_invitation_path %>, <%= link_to "donate", pages_donate_path %>, or <%= link_to "join us", pages_join_path %>!</p>
+      <p>Privly has proven itself as a concept. You can use it right now with Facebook, Gmail, Google+, Twitter, Reddit, and just about anywhere else. As we refine the <%= link_to "extensions", pages_download_path %> and develop versions for other browsers, we hope you will check back. Sign up for an <%= link_to "invitation", new_user_invitation_path %>, <%= link_to "donate", pages_donate_path %>, or get a developer account and <%= link_to "start building", pages_join_path %>!</p>
     </div>
     
     <div id="tabs-2">
-      <p>Privly gives you more than privacy, it gives you security. Shifting your data and trust from an organization that sells your data to one that in the long run, can’t even protect it, doesn’t help. Eventually, a hacker, rogue employee, government, or even someone close to you will expose everything you wrote in an email, said in a chat, or posted in a message. No company can be trusted to protect your data forever. So now that you know even Privly can't protect you, what is the solution? Encryption.</p>
+      <p>Privly gives you more than <b>privacy</b>, it gives you <b>security</b>. Shifting your data and trust from an organization that sells your data to one that in the long run, can’t even protect it, doesn’t help. Eventually, a hacker, rogue employee, government, or even someone close to you will expose everything you wrote in an email, said in a chat, or posted in a message. <b>No one can be trusted to protect your data forever</b>, so how can you use the internet for personal communication? The answer to the privacy problem is <b>encryption</b>.</p>
       <br />
-      <p>Privly will help security minded organizations and "subversives" alike by encrypting your content and data <em>before</em> you send it to a public server for storage. Encrypting your data before sending it to the server means the server only sees a scrambled version of your content. This way, you can store your data anywhere without worrying about losing your privacy.</p>
+      <p>Most users do not host their own web server, so Privly will enable people to trust <b>any storage provider</b> by taking away their ability to read your content. The Privly extensions will <b>encrypt your data</b> <em>before</em> you send it to a server for storage. Encrypting your data means the server only sees a scrambled version of your content. This way, you can store your data anywhere without losing your privacy.</p>
       <br />
-      <p>Privly works with Facebook, Gmail, Google+, Twitter, Reddit, and just about anywhere else. As we add encryption capabilities to the <%= link_to "extensions", pages_download_path %> and develop versions for other browsers, we hope you will check back. Sign up for an <%= link_to "invitation", new_user_invitation_path %>, <%= link_to "donate", pages_donate_path %>, or <%= link_to "join us", pages_join_path %>!</p>
+      <p>Privly has proven itself as a concept. You can use it right now with Facebook, Gmail, Google+, Twitter, Reddit, and just about anywhere else. As we refine the <%= link_to "extensions", pages_download_path %> and develop versions for other browsers, we hope you will check back. Sign up for an <%= link_to "invitation", new_user_invitation_path %>, <%= link_to "donate", pages_donate_path %>, or get a developer account and <%= link_to "start building", pages_join_path %>!</p>
       <br/>
       <div class="accordionhead">
         <div id="how_it_works_accordion">
@@ -211,27 +206,51 @@
       
       <p>
         <strong><em>Maintainers:</em></strong> <br />
-        <%= link_to "Sean McGregor", "https://github.com/smcgregor/" %>: <%= link_to "Firefox", "https://github.com/privly/privly-firefox" %>, <%= link_to "Chrome", "https://github.com/privly/privly-chrome" %>, <%= link_to "Content Server", "https://github.com/privly/privly-web" %>, <%= link_to "Test Cases", "https://github.com/privly/privly-test" %> <br />
-        <%= link_to "Jen Davidson", "https://github.com/jewifer" %>: <%= link_to "Privly.org", "http://www.privly.org" %> <br />
-        <%= link_to "Balaji Athreya", "https://github.com/balajiathreya" %>: <%= link_to "Firefox", "https://github.com/privly/privly-firefox" %> <br />
-        <%= link_to "Sanchit Karve", "https://github.com/born2c0de" %>: <%= link_to "Opera", "https://github.com/privly/privly-opera" %> <br />
-        <%= link_to "Jesse Markowitz", "https://github.com/JesseMarkowitz" %>: <%= link_to "Privly.org", "http://www.privly.org" %> <br />
-        <%= link_to "Jesse Hostetler", "https://github.com/jhostetler" %>: <%= link_to "Library", "https://github.com/privly/privly-library" %>
+        <%= link_to "Sean McGregor", "https://github.com/smcgregor/" %>: 
+        <%= link_to "Firefox", "https://github.com/privly/privly-firefox" %>, 
+        <%= link_to "Chrome", "https://github.com/privly/privly-chrome" %>, 
+        <%= link_to "Content Server", "https://github.com/privly/privly-web" %>, 
+        <%= link_to "Test Cases", "https://github.com/privly/privly-test" %> 
+        <br />
+        <%= link_to "Jen Davidson", "https://github.com/jewifer" %>:
+        <%= link_to "Privly.org", "http://www.privly.org" %>
+        <br />
+        <%= link_to "Balaji Athreya", "https://github.com/balajiathreya" %>: 
+        <%= link_to "Firefox", "https://github.com/privly/privly-firefox" %> 
+        <br />
+        <%= link_to "Sanchit Karve", "https://github.com/born2c0de" %>: 
+        <%= link_to "Opera", "https://github.com/privly/privly-opera" %> 
+        <br />
+        <%= link_to "Jesse Markowitz", "https://github.com/JesseMarkowitz" %>: 
+        <%= link_to "Privly.org", "http://www.privly.org" %>
+        <br />
+        <%= link_to "Jesse Hostetler", "https://github.com/jhostetler" %>:
+        <%= link_to "Library", "https://github.com/privly/privly-library" %>
       </p>
       
       <br />
       
-      <p><strong><em>Contributors:</em></strong> <br />
-        <%= link_to "Hanno Wagner", "http://de.linkedin.com/pub/hanno-wagner/6/33/305" %> (System Administration) <br />
-        <%= link_to "Tyler Dugoni", "http://www.linkedin.com/profile/view?id=204119935&locale=en_US&trk=tyah" %>  (Graphics) <br />
-        Jared Howe (User Docs) <br />
+      <p>
+        <strong><em>Contributors:</em></strong> 
+        <br />
+        <%= link_to "Hanno Wagner", "http://de.linkedin.com/pub/hanno-wagner/6/33/305" %> (System Administration) 
+        <br />
+        <%= link_to "Tyler Dugoni", "http://www.linkedin.com/profile/view?id=204119935&locale=en_US&trk=tyah" %>  (Graphics)
+        <br />
+        Jared Howe (User Docs)
+        <br />
       </p>
       
       <br />
       
-      <p><strong><em>Past Contributors:</em></strong> <br />
-        <%= link_to "Jesse Pollak", "https://github.com/jessepollak" %>: Commits to <%= link_to "Safari", "https://github.com/privly/privly-safari" %> and <%= link_to "Content Server", "https://github.com/privly/privly-web" %> <br />
-        Charles Martin: Commits to <%= link_to "Firefox", "https://github.com/privly/privly-firefox" %>
+      <p><strong><em>Past Contributors:</em></strong>
+        <br />
+        <%= link_to "Jesse Pollak", "https://github.com/jessepollak" %>: 
+        Commits to <%= link_to "Safari", "https://github.com/privly/privly-safari" %> 
+        and <%= link_to "Content Server", "https://github.com/privly/privly-web" %>
+        <br />
+        Charles Martin:
+        Commits to <%= link_to "Firefox", "https://github.com/privly/privly-firefox" %>
       </p>
       
       <br />
