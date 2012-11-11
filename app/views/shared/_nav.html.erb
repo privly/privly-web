@@ -6,19 +6,11 @@
                 
                 <% if controller.controller_name == "sessions" or controller.controller_name == "invitations" %>
                     <% if user_signed_in? %>
-                        <% if request.headers["auth_token"] %>
-                            <li><%= link_to destroy_user_session_path, :method => :delete, :confirm => "The extension is still signed in, are you sure you want to logout of the website?" do %>
-                                Logout
-                                <span>auth</span>
-                                <% end %>
-                            </li>
-                        <% else%>
-                            <li><%= link_to destroy_user_session_path, :method => :delete do %>
-                                Logout
-                                <span>auth</span>
-                                <% end %>
-                            </li>
-                        <% end %>
+                      <li><%= link_to destroy_user_session_path, :method => :delete do %>
+                          Logout
+                          <span>auth</span>
+                          <% end %>
+                      </li>
                     <% else %>
                     <li class="active"><%= link_to new_user_invitation_path do %>
                         Get Invited
@@ -28,19 +20,11 @@
                     <% end %>
                 <% else %>
                     <% if user_signed_in? %>                    
-                        <% if request.headers["auth_token"] %>
-                            <li><%= link_to destroy_user_session_path, :method => :delete, :confirm => "The extension is still signed in, are you sure you want to logout of the website?" do %>
-                                Logout
-                                <span>auth</span>
-                                <% end %>
-                            </li>
-                        <% else%>
-                            <li><%= link_to destroy_user_session_path, :method => :delete do %>
-                                Logout
-                                <span>auth</span>
-                                <% end %>
-                            </li>
-                        <% end %>
+                      <li><%= link_to destroy_user_session_path, :method => :delete do %>
+                          Logout
+                          <span>auth</span>
+                          <% end %>
+                      </li>
                     <% else %>
                     <li><%= link_to new_user_invitation_path do %>
                         Get Invited
@@ -65,13 +49,15 @@
                 <% end %>
                 
                 <% if user_signed_in? and current_user.can_post %>
-                    <% if controller.controller_name == "posts" and controller.action_name == "new" %>
+                    <% if controller.controller_name == "posts" and (controller.action_name == "new" or
+                      controller.action_name == "plain_post") %>
                         <li class="active"><a href="/posts/new">Post <span>new</span></a></li>
                     <% else %>
                         <li><a href="/posts/new">Post <span>new</span></a></li>
                     <% end %>
                 
-                    <% if controller.controller_name == "posts" and not controller.action_name == "new" %>
+                    <% if controller.controller_name == "posts" and not (controller.action_name == "new" or
+                      controller.action_name == "plain_post") %>
                         <li class="active"><a href="/posts">Post <span>management</span></a></li>
                     <% else %>
                         <li><a href="/posts">Post <span>management</span></a></li>

@@ -1,21 +1,26 @@
 Privly::Application.routes.draw do
   
+  # Active Admin
   ActiveAdmin.routes(self)
-
   devise_for :admin_users, ActiveAdmin::Devise.config
-
+  
+  # Deprecated Zero-Bin specific storage endpoint
   match "/zero_bin/:id" => "zero_bins#show", :as => :show_zero_bins, :via => [:get]
   match "/zero_bin" => "zero_bins#create", :via => [:post]
   match "/zero_bin/index.html" => "zero_bins#create", :via => [:post]
   
+  # Endpoint for destroying all the user's stored posts
   match '/posts/destroy_all' => 'posts#destroy_all', :via => :delete
-
+  
+  # Authenticating Applications
   resources :token_authentications, :only => [:create, :new]
   match "token_authentications" => "token_authentications#show", :as => :show_token_authentications, :via => [:get, :post]
   match 'token_authentications' => 'token_authentications#destroy', :as => :destroy_token_authentications, :via => [:delete]
-
+  
+  # User authentication
   devise_for :users, :controllers => { :invitations => 'users/invitations' }
-
+  
+  # Invitations and mailers
   devise_scope :user do
     post "users/invitations/send_invitation" => "users/invitations#send_invitation", :as => :user_send_invitations
     post "users/invitations/send_update" => "users/invitations#send_update", :as => :user_send_update
@@ -47,13 +52,24 @@ Privly::Application.routes.draw do
   #Deprecated
   match '/posts/get_csrf' => "posts#get_csrf", :as => :get_csrf_post, :via => [:get]
   
-  match '/posts/user_account_data' => "posts#user_account_data", :as => :get_user_account_data, :via => [:get]
+  # Posting initialization endpoint
+  match '/posts/user_account_data' => "posts#user_account_data", 
+    :as => :get_user_account_data, :via => [:get]
+    
+  # PlainPost form
+  match '/posts/plain_post' => "posts#plain_post", 
+    :as => :new_plain_post, :via => [:get]
+  
+  # Post storage and viewing
   resources :posts
   
   # posts#create_anonymous is deprecated
   match '/posts/posts_anonymous' => "posts#create_anonymous", :as => :create_anonymous_post, :via => [:post]
+  
+  # Shares
   resources :shares, :only => [:create, :destroy, :update]
-
+  
+  # Root Page
   match '/' => 'welcome#index', :as => :welcome
 
   # The priority is based upon order of creation:

@@ -39,7 +39,7 @@ class Ability
                     "#{@privly_verified_domain_id}:#{user.domain}"]
       
       # Users can manage their own content
-      can [:show, :index, :edit, :new, :update, :destroy, :share], Post, {:user_id => user.id}
+      can [:show, :index, :edit, :new, :update, :destroy, :share, :plain_post], Post, {:user_id => user.id}
       can :manage, Share, :post => {:user_id => user.id}
       
       # The user account must have the posting permission

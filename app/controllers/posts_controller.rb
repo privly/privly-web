@@ -163,7 +163,30 @@ class PostsController < ApplicationController
     end
   end
   
-  # == Present an HTML form for creating a new post.
+  # == Present Choices for Applications to Generate Content
+  #
+  # Requires a user account.
+  #
+  # === Routing  
+  #
+  # GET /posts/new
+  #
+  # === Formats  
+  #  
+  # * +html+
+  #
+  # === Parameters  
+  #
+  # None
+  #
+  def new
+    @sidebar = {:posts => true}
+    respond_to do |format|
+      format.html # new.html.erb
+    end
+  end
+  
+  # == Present an HTML form for creating a new plain post.
   #
   # Requires update permission.
   #
@@ -192,8 +215,10 @@ class PostsController < ApplicationController
   # * Default: true
   # Indicates whether anyone can view the content.
   #
-  def new
-    @sidebar = {:markdown => true, :posts => true}
+  def plain_post
+    @sidebar = {:posts => true}
+    
+    @post = Post.new
     
     if user_signed_in? and current_user.can_post
       @post.burn_after_date = Time.now + Privly::Application.config.user_can_post_lifetime_max - 1.day
@@ -208,9 +233,8 @@ class PostsController < ApplicationController
     else
       @post.public = true
     end
-    
     respond_to do |format|
-      format.html # new.html.erb
+      format.html # plain_post.html.erb
     end
   end
   
