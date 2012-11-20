@@ -1,0 +1,60 @@
+<h2 id="post_info_sidebar"><a>Post Info</a></h2>
+<div>
+    <ul class="posts">
+        <% if @post.burn_after_date %>
+            <% if @post.burn_after_date > Time.now %>
+                <li>
+                    <a>
+                        Destroyed in 
+                        <%= time_ago_in_words(
+                            @post.burn_after_date) %>
+                    </a>
+                </li>
+            <% end %>
+        <% else %>
+            <li><a>No Destroy Date Set</a></li>
+        <% end %>
+        <% if user_signed_in? %>
+            <% if current_user == @post.user %>
+                <li><a>You Own This</a></li>
+                <li>
+                    <a class="date">
+                        Posted 
+                        <%= time_ago_in_words(@post.created_at) %> ago.
+                    </a>
+                </li>
+            <% else %>
+                <li><a>You Don't Own This</a></li>
+            <% end %>
+        <% else %>
+            <li>
+                <%= link_to "log in for ownership information",
+                    new_user_session_url %>
+            </li>
+        <% end %>
+        
+        <% if @post.public %>
+            <li><a>Public Post</a></li>
+            <% if can? :update, @post and can? :share, @post %>
+              <li><a>
+                <%= form_for(@post) do |f| %>
+                  <%= f.hidden_field(:public, {:value=>0}) %>
+                  <%= f.submit "Make Private" %>
+                  <%= hidden_field_tag :random_token, @post.random_token %>
+                <% end %>
+              </a></li>
+            <% end %>
+        <% else %>
+            <li><a>Private Post</a></li>
+            <% if can? :update, @post and can? :share, @post %>
+              <li><a>
+                <%= form_for(@post) do |f| %>
+                  <%= f.hidden_field(:public, {:value=>1}) %>
+                  <%= hidden_field_tag :random_token, @post.random_token %>
+                  <%= f.submit "Make Public" %>
+                <% end %>
+              </a></li>
+            <% end %>
+        <% end %>
+    </ul>
+</div>

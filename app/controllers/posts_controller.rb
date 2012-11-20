@@ -153,7 +153,11 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       format.html {
-        @sidebar = {:post => true, :posts => true, :link_options => true}
+        if @post.content or not @post.structured_content
+          @sidebar = {:post => true, :posts => true, :link_options => true}
+        else
+          @sidebar = {:post => true, :posts => true}
+        end
         render
       }
       format.iframe { render }
@@ -216,9 +220,10 @@ class PostsController < ApplicationController
   # Indicates whether anyone can view the content.
   #
   def plain_post
-    @sidebar = {:posts => true}
     
     @post = Post.new
+    
+    @post.user_id = current_user.id
     
     if user_signed_in? and current_user.can_post
       @post.burn_after_date = Time.now + Privly::Application.config.user_can_post_lifetime_max - 1.day
@@ -234,7 +239,9 @@ class PostsController < ApplicationController
       @post.public = true
     end
     respond_to do |format|
-      format.html # plain_post.html.erb
+      format.html {
+        render :layout => "posting_application" 
+      } # plain_post.html.erb
     end
   end
   
@@ -419,23 +426,29 @@ class PostsController < ApplicationController
         # defaulting to viewing permission only.
         if params[:post][:share] and params[:post][:share][:share_csv]
           @shares = @post.add_shares_from_csv params[:post][:share][:share_csv],
-                                                    params[:post][:share][:can_show],
-                                                    params[:post][:share][:can_update],
-                                                    params[:post][:share][:can_destroy],
-                                                    params[:post][:share][:can_share] 
+                                              params[:post][:share][:can_show],
+                                              params[:post][:share][:can_update],
+                                              params[:post][:share][:can_destroy],
+                                              params[:post][:share][:can_share] 
         end
         
         injectable_url = get_injectable_url
         response.headers["X-Privly-Url"] = injectable_url
         response.headers["privlyurl"] = injectable_url #deprecated
         
-        format.html { redirect_to injectable_url, :notice => 'Post was successfully created.' }
-        format.json { render :json => get_json, :status => :created, :location => @post }
-        format.any { render :json => get_json, :status => :created, :location => @post }
+        format.html { redirect_to injectable_url,
+          :notice => 'Post was successfully created.' }
+        format.json { render :json => get_json, 
+          :status => :created, :location => @post }
+        format.any { render :json => get_json, 
+          :status => :created, :location => @post }
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @post.errors, :status => :unprocessable_entity }
-        format.any { render :json => @post.errors, :status => :unprocessable_entity }
+        format.html { render :action => "plain_post", 
+          :layout => "posting_application" }
+        format.json { render :json => @post.errors, 
+          :status => :unprocessable_entity }
+        format.any { render :json => @post.errors, 
+          :status => :unprocessable_entity }
       end
     end
   end
@@ -559,10 +572,10 @@ class PostsController < ApplicationController
       # defaulting to viewing permission only.
       if params[:post][:share] and params[:post][:share][:share_csv]
         @shares = @post.add_shares_from_csv params[:post][:share][:share_csv],
-                                                  params[:post][:share][:can_show],
-                                                  params[:post][:share][:can_update],
-                                                  params[:post][:share][:can_destroy],
-                                                  params[:post][:share][:can_share]
+                                            params[:post][:share][:can_show],
+                                            params[:post][:share][:can_update],
+                                            params[:post][:share][:can_destroy],
+                                            params[:post][:share][:can_share]
       end
       
       @post.public = params[:post][:public]

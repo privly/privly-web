@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<%# 
+  # This layout is provided for posting applications while they are under
+  # development. You should not assume that the Javascript application will
+  # be hosted by the Rails server if you want it to be integrated with the
+  # Privly extensions.
+%>
+<head>
+
+  <title><%= Privly::Application.config.name %> &middot; <%= yield :title %></title>
+  
+  <%= stylesheet_link_tag    :application %>
+  <%= javascript_include_tag :application %>
+  
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      $( "#sidebar_accordion" ).accordion({autoHeight: false,
+        collapsible: true, active: false});
+    });
+  </script>
+  
+  <style>
+    .subhead {font:bold 16px "Trebuchet MS", Arial, Helvetica, sans-serif!important; background:url(subheadh2bg.jpg) left bottom no-repeat; padding:8px 10px 4px 25px; height:20px; color:#b3a893; margin:0 0 3px -10px !important;}
+
+    #sidebar h2 {display:block; font: bold 14px Vollkorn; padding:5px; border-bottom: dashed 1px #c8bead;}
+    #sidebar li {font: bold 12px Vollkorn; padding:5px;}
+    #sidebar .posts li span {
+      padding: 3px 0 0 0px;
+    }
+
+    #fourbox {
+        text-align: justify;
+        -ms-text-justify: distribute-all-lines;
+        text-justify: distribute-all-lines;
+    }
+    .box1, .box2, .box3, .box4 {
+        width: 51px;
+        vertical-align: top;
+        text-align: center;
+        display: inline-block;
+        *display: inline;
+        zoom: 1
+    }
+  </style>
+  
+  <%= yield :extrahead %>
+  <%= yield :extracss %>
+  <%= yield :extrajs %>
+  <%= csrf_meta_tags %>
+  
+</head>
+
+<body privly-exclude="true">
+  <div id="pagewrap">
+    <div id="wrap">
+      <% if notice %>
+        <div class="flash notice">
+          <p><%= notice %></p>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="flash alert">
+          <p><%= alert %></p>
+        </div>
+      <% end %>
+      <div id="maincontent">
+        <div class="clear bordered"></div>
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+  <!--FOOTER 
+  <div id="footer">
+      <p>Priv.ly</p>
+      <span class="credit"><a href="http://cssheaven.org" title="free and open source css template">CSS Template</a> by CSS Heaven Released under GPL License</span>
+  </div>-->
+</body>
+</html>
