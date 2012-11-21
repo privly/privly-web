@@ -115,7 +115,6 @@ function updateURL()
     }
     
     var newUrl = 
-      //window.location.href.substring(0, anchorIndex) + 
       "#" +
       hashToParameterString(parameterObject);
     document.getElementById('newFormattedLink').innerHTML = newUrl;
@@ -137,6 +136,29 @@ function firePrivlyURLEvent(url) {
 }
 
 /**
+ * Handles posted messages by checking whether they have the appropriate
+ * secret. Take note that this function returns a callback, it is not the
+ * callback itself.
+ *
+ * @param secret string the secret string that only the extension can know.
+ *
+ * @return a function for handling message events.
+ */
+function messageHandler(secret) {
+  return function(message) {
+    if( message.data.indexOf(secret) === 0 ) {
+      var remaining = message.data.substr(secret.length);
+      if ( remaining.indexOf("InitialContent") === 0 ) {
+        $("#post_content").val(
+          remaining.substring("InitialContent".length));
+      } else if ( remaining.indexOf("Submit") === 0 ) {
+        document.forms["new_post"].submit();
+      }
+    }
+  }
+}
+
+/**
  * Send a random sequence of characters to privly-type extensions.
  * Messages containing the random sequence will be assumed to come
  * from the extensions.
@@ -155,24 +177,22 @@ function firePrivlyMessageSecretEvent() {
       evt.initEvent("PrivlyMessageSecretEvent", true, false);  
 
       window.addEventListener("message", 
-        function(message) {
-          if( message.data.indexOf(secret) === 0 ) {
-            $("#post_content").val(message.data.substring(secret.length))
-          }
-        },
+        messageHandler(secret),
         false);
 
       messageSecretElement.dispatchEvent(evt);
     }
 }
 
+// Initialize the communication channel
+// https://github.com/privly/privly-organization/wiki/Communication-Channel
 jQuery(document).ready(function(){
   //We need to give the content script time to start watching for the event
-  setTimeout(function(){ 
+  setTimeout(function(){
       firePrivlyMessageSecretEvent();
       if ($("#javascriptEventLink").html() !== undefined && 
         $("#javascriptEventLink").html() !== "") {
         firePrivlyURLEvent($("#javascriptEventLink").html().replace(/&amp;/g, "&"));
       }
-    },500);
+    },300);
 });

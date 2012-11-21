@@ -59,12 +59,14 @@
               <br />
               <span id="type_mesasge"></span>
             </h3>
-            <%= text_field_tag 'post[share][share_csv]', "", {:autocomplete => "off",
+            <%= text_field_tag 'post[share][share_csv]', "", {
+                                          :autocomplete => "off",
                                           :onsubmit => "identityIdAndMessage($('#post_share_share_csv').val(), $('#type_mesasge'), $('#identity_provider_name'))",
                                           :onchange => "identityIdAndMessage($('#post_share_share_csv').val(), $('#type_mesasge'), $('#identity_provider_name'))",
                                           :onkeyup => "identityIdAndMessage($('#post_share_share_csv').val(), $('#type_mesasge'), $('#identity_provider_name'))",
                                           :style => "width: 100%;",
-                                          :placeholder => "Type an Email, domain, or IP" } %>
+                                          :placeholder => "Type an Email, domain, or IP"
+                                          } %>
             <%= hidden_field_tag 'post[share][identity_provider_name]', 'Password', {:id => "identity_provider_name"} %>
             <br />
             <div id="fourbox">
