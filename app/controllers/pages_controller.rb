@@ -88,7 +88,7 @@ class PagesController < ApplicationController
   # none
   #
   def about
-    @sidebar = {:about => true, :in_the_news => true}
+    @sidebar = {:about => true, :news => true, :in_the_news => true}
   end
   
   # == Kickstarter Information
