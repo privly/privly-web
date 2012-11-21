@@ -17,7 +17,7 @@ The Privly-Web content server is currently maintained by [Sean McGregor](https:/
 This server currently supports:
 
 * Posting content from the extensions
-* Two [Injectable Applications](https://github.com/privly/privly-organization/wiki/Injectable-Applications), including Privly Posts and ZeroBin.
+* Two [Injectable Applications](https://github.com/privly/privly-organization/wiki/Injectable-Applications), including [Plain Posts](https://github.com/privly/privly-organization/wiki/Posts) and [ZeroBin](https://github.com/privly/privly-organization/wiki/ZeroBin).
 * Serialized JSON storage for any text content.
 * Sharing by email, domain, and IP Address.
 
