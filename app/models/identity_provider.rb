@@ -70,6 +70,15 @@ class IdentityProvider < ActiveRecord::Base
   
   class << self
     
+    extend ActiveSupport::Memoizable
+    
+    # This function speeds calls to the identity
+    # provider object by memoizing the result of the function.
+    def identity_provider_memoizer(name)
+      find_by_name(name)
+    end
+    memoize :identity_provider_memoizer
+    
     #
     # Identity specific validations
     #

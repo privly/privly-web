@@ -10,7 +10,7 @@ class Ability
   # Initialize receives the current identity information of the request and determines whether
   # the user should have access to the content.
   #
-  def initialize(user, ip_address = "0.0.0.0", random_token = nil, content_password = nil)
+  def initialize(user, ip_address = nil, random_token = nil, content_password = nil)
     
     # Anyone can create ZeroBin content, but to view it you need the random_token
     can :create, ZeroBin
@@ -19,11 +19,10 @@ class Ability
     # Collect all the identities this user has
     identities = []
     
-    # This should be refactored to remove the database call
-    @privly_verified_email_id = IdentityProvider.find_by_name('Privly Verified Email').id
-    @privly_verified_domain_id = IdentityProvider.find_by_name('Privly Verified Domain').id
-    @password_id = IdentityProvider.find_by_name('Password').id
-    @ip_address_id = IdentityProvider.find_by_name('IP Address').id
+    @privly_verified_email_id = IdentityProvider.identity_provider_memoizer('Privly Verified Email').id
+    @privly_verified_domain_id = IdentityProvider.identity_provider_memoizer('Privly Verified Domain').id
+    @password_id = IdentityProvider.identity_provider_memoizer('Password').id
+    @ip_address_id = IdentityProvider.identity_provider_memoizer('IP Address').id
     if not content_password.nil?
       identities << "#{@password_id}:#{content_password}"
     end
