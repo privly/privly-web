@@ -12,7 +12,7 @@
 
 <h2 class="subhead"><span>Privacy and Terms of Service</span></h2>
 
-<p>A new draft of the Privacy Policy, License, and Terms will be published following the inaugural board meeting of the Privly Foundation. Until the draft legal documents are adopted and published here, these policies are in effect.</p>
+<p>A new draft of the Privacy Policy, License, and Terms will be adopted by the Privly Foundation board. Until the draft legal documents are adopted and published here, these policies are in effect. We will discuss the draft documents on the <%= link_to "development mailing list", "http://groups.google.com/group/privly" %>.</p>
 
 <div class="accordionhead">
     <div id="rules_accordion">
@@ -127,9 +127,9 @@
           </div>
       </div>
       
-      <h2><a id="accordion_license" href="#accordion_license">License</a></h2>
+      <h2><a id="accordion_license" href="#accordion_license">Source Code License</a></h2>
       <div>
-          <p>The Privly extensions and content server are licensed under the <%= link_to "MIT License", "/license.txt" %>. The development home of Privly is at <%= link_to "www.privly.org", "http://www.privly.org" %></p>
+          <p>The Privly extensions and content server are licensed under the <%= link_to "MIT License", "/license.txt" %>. The Privly source code is hosted at <%= link_to "github.com", "https://github.com/privly/" %></p>
           
           <%= link_to image_tag("OSI-Approved-License-100x137.png", :style=>"display: block;   margin-left: auto;   margin-right: auto;"), "/license.txt" %>
       </div>
@@ -137,6 +137,30 @@
       <h2><a id="accordion_terms" href="#accordion_terms">Terms of Service</a></h2>
       <div>
           <%= render "terms" %>
+      </div>
+      
+      <h2><a id="accordion_trademark" href="#accordion_trademark">Privly Trademark FAQ</a></h2>
+      <div>
+        <h2>How can I use the name "Privly"?</h2>
+        <p>The <%= link_to "Privly Foundation", "http://www.privly.org" %> encourages developers to use the name Privly in ways that do not confuse the public about the source of privacy software and services. If you are building open-source non-commercial software or services that incorporate or work with The Privly Project's code, you may use the name "Privly" in an accurate description of your work. We ask you to include a link to the official Privly website <%= link_to "https://priv.ly", "https://priv.ly" %> so users can verify the original source of Privly for themselves, and a note indicating that your project is not sponsored by The Privly Foundation. For example, "This product is produced independently from the Privly&trade; privacy software and carries no guarantee from The Privly Foundation about quality, suitability or anything else."</p>
+        <br />
+        <h2>Can I use the Privly logo?</h2>
+        <p>If you're making non-commercial use of Privly software, you may also use the Privly logo (as an illustration, not as a brand for your products). Please don't modify the design or colors of the logo. You can use items that look like the Privly logo to illustrate a point (e.g. the Privly logo in composition with a browser, for instance), so long as they're not used as logos in ways that would confuse people.</p>
+        <br />
+        <h2>Can I use the word "Privly" as part of the name of my product or my domain name?</h2>
+        <p>We recommend that you don't do this, but rather find a name that will accurately identify your products or services. Remember that our goal is to make sure that people aren't confused about whether your product or project is made or endorsed by The Privly Project. Creating a new brand that incorporates the Privly brand is likely to lead to confusion.</p>
+        <br />
+        <h2>Does this mean you're enforcing trademark rights?</h2>
+        <p>The Privly Foundation is a non-profit corporation organized to research and develop the Privly privacy software and network. We don't want to be trademark bullies, but we will use trademark to protect the public's ability to recognize Privly Project software. Trademark law helps us to assure that the name is used only in connection with genuine Privly privacy software and for accurate description of software and services. After all, to protect their privacy securely, computer users must be able to identify the software they are using, so they can account properly for its strengths and weaknesses. We work with developers to improve the software and actively encourage researchers to document attacks to help us strengthen its privacy protection further. We distribute the software itself freely, but require correct attribution.</p>
+        <br />
+        <h2>What if I produce non-open source, commercial products based on Privly?</h2>
+        <p>Contact us, and let's talk.</p>
+        <br />
+        <h2>What is the difference between Privly and Priv.ly?</h2>
+        <p>Priv.ly hosts a list of Privly compliant hosts, and is used for marketing Privly. The Privly name is pending a formal trademark, and Priv.ly is a "Domain Hack" of the Privly trademark and enjoys the same protections as Privly.</p>
+        <br />
+        <h2>About this Document</h2>
+        <p>This document was repurposed from <%= link_to "TOR's FAQ", "https://www.torproject.org/docs/trademark-faq.html.en" %>, which is licensed under the <%= link_to "Creative Commons Attribution 3.0", "http://creativecommons.org/licenses/by/3.0/us/" %> United States License.</p>
       </div>
     </div>
     
