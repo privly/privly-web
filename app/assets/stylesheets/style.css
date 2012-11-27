@@ -45,7 +45,7 @@ body {background:#242424; font: 14px Georgia, "Times New Roman", Times, serif; c
 #page {width:640px; float:left; padding: 0 10px 10px 10px; border-right:solid 1px #ac9f87;}
 #sidebar {width:300px; float:right; padding:10px;}
 .bordered {border-bottom:solid 1px #ac9f87;}
-.subhead {font:bold 16px "Trebuchet MS", Arial, Helvetica, sans-serif!important; background:url(subheadh2bg.jpg) left bottom no-repeat; padding:8px 10px 4px 25px; height:20px; color:#b3a893; margin:0 0 25px -10px!important;}
+.subhead {font:bold 16px "Trebuchet MS", Arial, Helvetica, sans-serif!important; background:url(/assets/subheadh2bg.jpg) left bottom no-repeat; padding:8px 10px 4px 25px; height:20px; color:#b3a893; margin:0 0 25px -10px!important;}
 .subhead a:hover {background-color:yellow;}
 
 .rotate {

@@ -11,13 +11,15 @@ class PostsController < ApplicationController
   # Force the user to authenticate using Devise
   before_filter :authenticate_user!, :except => [:show, :edit, :update, 
                                                  :get_csrf, :create_anonymous, 
-                                                 :destroy, :user_account_data]
+                                                 :destroy, :user_account_data,
+                                                 :plain_post]
   
   # Checks request's permissions defined in ability.rb and loads 
   # resource if they have access. This will assign @post or @posts depending
   # on the action.
   load_and_authorize_resource :except => [:destroy_all, :create_anonymous, 
-                                          :get_csrf, :user_account_data]
+                                          :get_csrf, :user_account_data,
+                                          :plain_post]
   
   # Obscure whether the record exists when not found
   rescue_from ActiveRecord::RecordNotFound do |exception|
@@ -222,16 +224,7 @@ class PostsController < ApplicationController
   def plain_post
     
     @post = Post.new
-    
-    @post.user_id = current_user.id
-    
-    if user_signed_in? and current_user.can_post
-      @post.burn_after_date = Time.now + Privly::Application.config.user_can_post_lifetime_max - 1.day
-    elsif user_signed_in?
-      @post.burn_after_date = Time.now + Privly::Application.config.user_cant_post_lifetime_max - 1.day
-    else
-      @post.burn_after_date = Time.now + Privly::Application.config.not_logged_in_lifetime_max - 1.day
-    end
+    @post.burn_after_date = Time.now + Privly::Application.config.user_can_post_lifetime_max - 1.day
     
     if params[:post] and not params[:post][:public].nil?
       @post.public = params[:post][:public]

@@ -184,6 +184,49 @@ function firePrivlyMessageSecretEvent() {
     }
 }
 
+/**
+ * Show the form if the user has posting permission, otherwise tell the user to
+ * sign in. Also adds the CSRF token to all requests.
+ *
+ * @param canPostCallback function the function to execute when initialization is 
+ * successful.
+ *
+ * @param loginCallback function the function to execute if the user is not logged
+ * in.
+ *
+ * @param cantPostLoginCallback function the function to execute if the user is logged
+ * in but their user account does not have posting permission.
+ *
+ * @param errorCallback function the function to execute if the remote server is not
+ * available.
+ * 
+ */
+function initPrivlyService(canPostCallback, cantPostLoginCallback, loginCallback, errorCallback) {
+  var csrfTokenAddress = window.location.protocol + "//" + window.location.host + "/posts/user_account_data";
+  
+  $.ajax({
+    url: csrfTokenAddress,
+    dataType: "json",
+    success: function (json, textStatus, jqXHR) {
+      $.ajaxSetup({
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('X-CSRF-Token', json.csrf);
+      }});
+      
+      if(json.signedIn && json.canPost) {
+        canPostCallback();
+      } else if(json.signedIn) {
+        cantPostLoginCallback();
+      } else {
+        loginCallback();
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      errorCallback(jqXHR, textStatus, errorThrown);
+    }
+  });
+}
+
 // Initialize the communication channel
 // https://github.com/privly/privly-organization/wiki/Communication-Channel
 jQuery(document).ready(function(){
