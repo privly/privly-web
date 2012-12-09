@@ -1,29 +1,19 @@
-# Example of a database setup. 
+# Example of a database setup.
 # You should change the relevant lines
 # to match your system, then copy
 # this file to database.yml
-baseSettings: &baseSettings
-    adapter: mysql2
-    username: your_database_user_name
-    host: localhost
-    password: your_database_password
-    pool: 5
-    timeout: 5000
-    socket: /tmp/mysql.sock #Mac OSX
-    #socket: /var/run/mysqld/mysqld.sock #Ubuntu
-
 development:
-  <<: *baseSettings
-  database: privly_development
+  adapter: sqlite3
+  database: db/privly_development.sqlite
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *baseSettings
-  database: privly_test
+  adapter: sqlite3
+  database: db/privly_test.sqlite
 
 production:
-  <<: *baseSettings
-  database: privly_production
+  adapter: sqlite3
+  database: db/privly_production.sqlite
 

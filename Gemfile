@@ -2,9 +2,11 @@ source 'http://rubygems.org'
 
 # Core System
 gem 'rails', '3.1.8'
-gem 'mysql2'
 gem 'json'
 gem 'jquery-rails', '>= 1.0.12'
+
+# Database gem
+gem 'sqlite3-ruby'
 
 # Gems used only for assets and not required
 # in production environments by default.
