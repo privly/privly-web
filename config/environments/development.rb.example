@@ -27,43 +27,43 @@ Privly::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-  
+
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  
+
   # Set this variable to change the displayed name of the site.
-  config.name = "Site Name
-  
+  config.name = "Site Name"
+
   # Users with the "can_post" permission will be able to create posts lasting
   # this long
   config.user_can_post_lifetime_max = 30.days
-  
+
   # Users without the "can_post" permission will be able to create posts
   # lasting this long. Also, their posts will not be tied to their user account
   config.user_cant_post_lifetime_max = 0.days
-  
+
   # Users who are not logged in will be able to create posts lasting this long
   config.not_logged_in_lifetime_max = 0.days
-  
+
   # Turns on domain redirection to the primary domain set below
   config.redirect_html_requests_to_root_domain = true
-  
+
   # Set the primary host domain.
   # HTML format requests are checked in
   # the application controller for this domain. If this domain
   # is not present, the request is redirected to the same resource
   # on this domain.
   config.primary_domain_host = "localhost"
-  
-  # This is the domain to redirect users to if they are viewing the 
+
+  # This is the domain to redirect users to if they are viewing the
   # HTML version of the site and the request came from a different domain.
   # Ports are optionally included.
   config.primary_domain_redirect = "localhost:3000"
-  
+
   # The host new injectible links should be created on.
   # If you don't know what you are doing here, you should set
   # it to the same domain as the primary_domain_host
   config.link_domain_host = "localhost"
-  
+
   config.action_mailer.default_url_options = { :host => 'localhost' }
-  
+
 end
