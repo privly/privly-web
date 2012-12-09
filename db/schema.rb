@@ -54,11 +54,11 @@ ActiveRecord::Schema.define(:version => 20120906045507) do
   end
 
   create_table "posts", :force => true do |t|
-    t.text     "content",            :limit => 255
+    t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.boolean  "public",                            :default => false, :null => false
+    t.boolean  "public",             :default => false, :null => false
     t.datetime "burn_after_date"
     t.string   "random_token"
     t.text     "structured_content"
