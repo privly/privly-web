@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -79,12 +80,12 @@ ActiveRecord::Schema.define(:version => 20120906045507) do
   add_index "shares", ["identity_pair"], :name => "index_shares_on_identity_pair"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                          :default => "",    :null => false
-    t.string   "encrypted_password",              :limit => 128, :default => ""
+    t.string   "email",                                         :default => "",    :null => false
+    t.string   "encrypted_password",                            :default => ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                                  :default => 0
+    t.integer  "sign_in_count",                                 :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -92,31 +93,31 @@ ActiveRecord::Schema.define(:version => 20120906045507) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.integer  "failed_attempts",                                :default => 0
+    t.integer  "failed_attempts",                               :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",                                          :default => false, :null => false
+    t.boolean  "admin",                                         :default => false, :null => false
     t.string   "invitation_token",                :limit => 60
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.boolean  "pending_invitation",                             :default => false, :null => false
+    t.boolean  "pending_invitation",                            :default => false, :null => false
     t.datetime "last_emailed"
-    t.integer  "alpha_invites",                                  :default => 0,     :null => false
-    t.integer  "beta_invites",                                   :default => 0,     :null => false
-    t.float    "forever_account_value",                          :default => 0.0,   :null => false
-    t.float    "permissioned_requests_served",                   :default => 0.0,   :null => false
-    t.float    "nonpermissioned_requests_served",                :default => 0.0,   :null => false
-    t.boolean  "can_post",                                       :default => false, :null => false
-    t.boolean  "wants_to_test",                                  :default => false, :null => false
-    t.boolean  "accepted_test_statement",                        :default => false, :null => false
-    t.boolean  "notifications",                                  :default => true,  :null => false
-    t.string   "domain",                                                            :null => false
+    t.integer  "alpha_invites",                                 :default => 0,     :null => false
+    t.integer  "beta_invites",                                  :default => 0,     :null => false
+    t.float    "forever_account_value",                         :default => 0.0,   :null => false
+    t.float    "permissioned_requests_served",                  :default => 0.0,   :null => false
+    t.float    "nonpermissioned_requests_served",               :default => 0.0,   :null => false
+    t.boolean  "can_post",                                      :default => false, :null => false
+    t.boolean  "wants_to_test",                                 :default => false, :null => false
+    t.boolean  "accepted_test_statement",                       :default => false, :null => false
+    t.boolean  "notifications",                                 :default => true,  :null => false
+    t.string   "domain",                                        :default => "",    :null => false
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
