@@ -1,7 +1,8 @@
 # This file contains all the record creation needed to seed the database with its default values.
-# The data can be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
-
+# You should remove users from this file before running it on a production server.
+#
+# The data can be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # These share types are assumed to be present
 #
@@ -9,18 +10,22 @@
 identity_provider = IdentityProvider.new
 identity_provider.name = "Privly Verified Email"
 identity_provider.description = "The Privly Verified email is the email for the Privly user's account. Users must verify their email ownership with Privly"
+identity_provider.save
 
 identity_provider = IdentityProvider.new
 identity_provider.name = "Privly Verified Domain"
 identity_provider.description = "The Privly Verified domain is the domain for the Privly user's email account. Users must verify their email ownership with Privly"
+identity_provider.save
 
 identity_provider = IdentityProvider.new
 identity_provider.name = "Password"
 identity_provider.description = "The password is a secret that when sent with the request will add permissions on the content"
+identity_provider.save
 
 identity_provider = IdentityProvider.new
 identity_provider.name = "IP Address"
 identity_provider.description = "The IP address is where Privly requests originate"
+identity_provider.save
 
 #
 # Production environments will want to customize records below this point
@@ -45,6 +50,8 @@ unless development_user
   )
   # Confirm the user for Devise
   development_user.confirm!
+  development_user.can_post = true
+  development_user.save
 end
 
 demonstration_user = User.find_by_email("demonstration@priv.ly")
@@ -57,20 +64,19 @@ unless demonstration_user
   )
   # Confirm the user for Devise
   demonstration_user.confirm!
+  demonstration_user.can_post = true
+  demonstration_user.save
 end
 
-sean = User.find_by_email("privly@seanbmcgregor.com")
-unless sean
+admin_user = AdminUser.find_by_email("admin@priv.ly")
+unless admin_user
   password = get_password
-  sean = User.create(
-    :email                  => 'privly@seanbmcgregor.com',
+  admin_user = AdminUser.create(
+    :email                  => 'admin@priv.ly',
     :password               => password,
     :password_confirmation  => password
   )
-  # Confirm the user for Devise
-  sean.confirm!
 end
-
 
 Post.create({:public => true, :content => '
 Privly is a method for taking control of everything you share electronically. Facebook, Google, Twitter, and the rest do not own your data. You do.
