@@ -110,7 +110,11 @@ class PostsController < ApplicationController
   #            "public":false,"updated_at":"2012-09-05T04:08:31Z",
   #            "structured_content":{"salt":"ytyzBr2OkEc",
   #            "iv":"RSBeCnAklAbi0qvq/P8twA","ct":"23hqJJ7QKNkxpLVtfp9uEg"},
-  #            "id":149,"user_id":2,"content":null,"random_token":"a53642b006"}
+  #            "id":149,"user_id":2,"content":null,"random_token":"a53642b006",
+  #            "permissions":
+  #                {canshow: true, canupdate: false, candestroy: false, 
+  #                canshare: false}
+  #          }
   # * +jsonp+
   # * +iframe+  Intended for injectable applications.
   #
@@ -798,12 +802,18 @@ class PostsController < ApplicationController
       injectable_url = get_injectable_url
       post_json.merge!(
          :privlyurl => injectable_url, #Deprecated
-         "X-Privly-Url" => injectable_url, :privlyInject1 => true)
-      
+         "X-Privly-Url" => injectable_url, :privlyInject1 => true, 
+         :permissions => {
+           :canshow => can?(:show, @post), 
+           :canupdate => can?(:update, @post), 
+           :candestroy => can?(:destroy, @post),
+           :canshare => can?(:share, @post)
+           }
+          )
       post_json
     end
     
-    # Converts rails 3 part date form object to a single Date object
+    # Converts rails 3-part date form object to a Ruby Date object
     def convert_date(hash, date_symbol_or_string)
       attribute = date_symbol_or_string.to_s
       return Date.new(hash[attribute + '(1i)'].to_i, hash[attribute + '(2i)'].to_i, hash[attribute + '(3i)'].to_i)   

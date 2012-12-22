@@ -3,26 +3,14 @@
         <%= javascript_include_tag :iframe %>
         <script type="text/javascript" >
             jQuery(document).ready(function(){
-              
-              // Update the tooltip message so that the user know they can
-              // double click to edit.
-              <% if can? :update, @post %>
-                  updateTooltipMessage("Privly Writable (Double Click)");
-              <% end %>
-              
-              jQuery("body").on("click",function(evt){
-                  iframeBehavior.clickCount++;
-                  if(iframeBehavior.clickCount < 2)
-                  {   
-                      // If the user can update the post then allow the 
-                      // double click behavior (opens the edit form)
-                      <% if can? :update, @post %>
-                          setTimeout(function(){iframeBehavior.click(evt)},
-                              300);
-                      <% else %>
-                          iframeBehavior.singleClick(evt);
-                      <% end %>
-                  }
+              // Public posts are easily crawlable by bots. Most bots don't
+              // execute javascript, so we can protect public posts by 
+              // fetching the rendered markdown after page load
+              var url = window.location.href;
+              var jsonURL = url.replace("format=iframe", "format=json");
+              $.getJSON(jsonURL, function(data) {
+                $("#post_content").html(data.rendered_markdown);
+                iframeBehavior.resize();
               });
             });
         </script>
@@ -30,9 +18,7 @@
     </head>
     <body privly-exclude="true">
         <div id="wrapper">
-            <div id="post_content">
-              <%= @post.content.safe_markdown %>
-            </div>
+            <div id="post_content"></div>
             <div id="post_form" style="display:none;background:none">
                 <%= render 'iframe_form.html' %>
             </div>

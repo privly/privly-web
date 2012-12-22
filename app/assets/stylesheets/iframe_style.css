@@ -1,5 +1,23 @@
 #post_content {padding: 5px 10px 0 10px}
 
+/**
+ * Rules required for the tooltip.
+ */
+body {
+  cursor:pointer;
+}
+
+#tooltip {
+  position:absolute;
+  border:1px solid #333;
+  background:#f7f5d1;
+  padding:1px 1px;
+  color:#333;
+  display:none;
+  font:14px Helvetica;
+}
+
+
 /*!
  * Bootstrap v2.0.2
  *

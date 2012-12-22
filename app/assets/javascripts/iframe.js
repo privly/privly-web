@@ -8,4 +8,3 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require privly_iframe
-//= require privly_tooltip
