@@ -41,6 +41,12 @@
  */
 jQuery(document).ready(function(){
     
+    // Don't run the script if the document is not in an iframe
+    if (window.top === window.self) {
+      document.getElementsByTagName("body")[0].style.cursor = "default";
+      return;
+    }
+    
     // Creates a tooptip which indicates the content is not a 
     // natural element of the page
     iframeBehavior.tooltip();
