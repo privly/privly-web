@@ -11,3 +11,4 @@ config/environments/production.rb
 config/deploy.rb
 public/zero_bin
 doc/app/
+.idea
