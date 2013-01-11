@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # Core System
-gem 'rails', '3.1.8'
+gem 'rails', '3.1.10'
 gem 'json'
 gem 'jquery-rails', '>= 1.0.12'
 
