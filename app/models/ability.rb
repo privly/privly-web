@@ -23,15 +23,15 @@ class Ability
     @privly_verified_domain_id = IdentityProvider.identity_provider_memoizer('Privly Verified Domain').id
     @password_id = IdentityProvider.identity_provider_memoizer('Password').id
     @ip_address_id = IdentityProvider.identity_provider_memoizer('IP Address').id
-    if not content_password.nil?
+    unless content_password.nil?
       identities << "#{@password_id}:#{content_password}"
     end
     
-    if not ip_address.nil?
+    unless ip_address.nil?
       identities << "#{@ip_address_id}:#{ip_address}"
     end
     
-    if not user.nil?
+    unless user.nil?
       
       # Add the user's email and domain identities
       identities << ["#{@privly_verified_email_id}:#{user.email}",

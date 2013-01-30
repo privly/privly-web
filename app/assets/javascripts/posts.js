@@ -11,17 +11,19 @@
  */
 function hashToParameterString(associativeArray)
 {
-  var parameterString = ""
-  for (key in associativeArray)
+  "use strict";
+
+  var parameterString = "";
+  for (var key in associativeArray)
   {
-      if( parameterString === "" )
-      {
-        parameterString = encodeURIComponent(key);
-        parameterString += "=" + encodeURIComponent(associativeArray[key]);
-      } else {
-        parameterString += "&" + encodeURIComponent(key);
-        parameterString += "=" + encodeURIComponent(associativeArray[key]);
-      }
+    if( parameterString === "" )
+    {
+      parameterString = encodeURIComponent(key);
+      parameterString += "=" + encodeURIComponent(associativeArray[key]);
+    } else {
+      parameterString += "&" + encodeURIComponent(key);
+      parameterString += "=" + encodeURIComponent(associativeArray[key]);
+    }
   }
   
   //padding for URL shorteners
@@ -40,10 +42,12 @@ function hashToParameterString(associativeArray)
  */
 function parameterStringToHash(parameterString)
 {
+  "use strict";
+
   var parameterHash = {};
   var parameterArray = parameterString.split("&");
   for (var i = 0; i < parameterArray.length; i++) {
-    //var currentParamterString = decodeURIComponent(parameterArray[i]);
+    //var currentParameterString = decodeURIComponent(parameterArray[i]);
     var pair = parameterArray[i].split("=");
     var key = decodeURIComponent(pair[0]);
     var value = decodeURIComponent(pair[1]);
@@ -94,6 +98,8 @@ function fillFormStartingValues()
  */
 function updateURL()
 {
+    "use strict";
+
     var parameterObject = {};
     var elem = document.getElementById('linkFormatterForm').elements;
     for(var i = 0; i < elem.length; i++)
