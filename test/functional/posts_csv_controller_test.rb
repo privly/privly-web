@@ -19,7 +19,8 @@ class PostsControllerTest < ActionController::TestCase
         :share => {:share_csv => csv_row}}
         
       assert_redirected_to post_path(
-        assigns(:post), 
+        assigns(:post),
+        :privlyInjectableApplication => "PlainPost",
         :privlyBurntAfter => assigns(:post).burn_after_date.to_i,
         :burntAfter => assigns(:post).burn_after_date.to_i,
         :privlyInject1 => true, 

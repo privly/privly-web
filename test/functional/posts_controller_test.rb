@@ -33,6 +33,7 @@ class PostsControllerTest < ActionController::TestCase
     end
     assert_redirected_to post_path(
       assigns(:post), 
+      :privlyInjectableApplication => "PlainPost",
       :privlyBurntAfter => assigns(:post).burn_after_date.to_i,
       :burntAfter => assigns(:post).burn_after_date.to_i,
       :privlyInject1 => true, 
@@ -50,6 +51,7 @@ class PostsControllerTest < ActionController::TestCase
     assert assigns(:post).structured_content[:this_will_be_serialized] == "Test Post 1"
     assert_redirected_to post_path(
       assigns(:post), 
+      :privlyInjectableApplication => "Unknown",
       :privlyBurntAfter => assigns(:post).burn_after_date.to_i,
       :burntAfter => assigns(:post).burn_after_date.to_i,
       :privlyInject1 => true, 
@@ -137,7 +139,8 @@ class PostsControllerTest < ActionController::TestCase
   test "should update post" do
     put :update, :id => @post.to_param, :post => @post.attributes
     assert_redirected_to post_path(
-      assigns(:post), 
+      assigns(:post),
+      :privlyInjectableApplication => "PlainPost",
       :privlyBurntAfter => assigns(:post).burn_after_date.to_i,
       :burntAfter => assigns(:post).burn_after_date.to_i,
       :privlyInject1 => true, 

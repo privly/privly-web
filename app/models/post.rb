@@ -116,8 +116,17 @@ class Post < ActiveRecord::Base
   # Get a hash of the injectable URL parameters.
   # Use this method to get the parameters for the post's URL helpers.
   def injectable_parameters
+    
+    injectable_application_name = "Unknown"
+    
+    if self.content
+      injectable_application_name = "PlainPost"
+    end
+    
     if self.burn_after_date
-      sharing_url_parameters = {:random_token => self.random_token,
+      sharing_url_parameters = {
+        :privlyInjectableApplication => injectable_application_name,
+        :random_token => self.random_token,
         :privlyBurntAfter => self.burn_after_date.to_i,
         :burntAfter => self.burn_after_date.to_i, # Deprecated
         :privlyInject1 => true, 
@@ -125,7 +134,9 @@ class Post < ActiveRecord::Base
         :port => nil}
       return sharing_url_parameters
     else
-      sharing_url_parameters = {:random_token => self.random_token,
+      sharing_url_parameters = {
+        :privlyInjectableApplication => injectable_application_name,
+        :random_token => self.random_token,
         :privlyInject1 => true, 
         :host => Privly::Application.config.link_domain_host,
         :port => nil}
