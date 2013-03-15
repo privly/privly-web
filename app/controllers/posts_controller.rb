@@ -576,7 +576,7 @@ class PostsController < ApplicationController
       end
       
       @post.public = params[:post][:public]
-      if not params[:post][:random_token].nil?
+      unless params[:post][:random_token].nil?
         @post.random_token = params[:post][:random_token]
       end
     end
