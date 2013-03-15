@@ -1,9 +1,10 @@
 source 'http://rubygems.org'
 
 # Core System
-gem 'rails', '3.1.10'
+gem 'rails', '3.1.11'
 gem 'json'
-gem 'jquery-rails', '>= 1.0.12'
+#gem 'jquery-rails', '>= 2.1.3' # Current version breaks styling on accordions
+gem 'jquery-rails', '2.1.3'
 
 # Database gem
 gem 'mysql2'
