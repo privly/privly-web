@@ -14,7 +14,8 @@
   <%= csrf_meta_tags %>
   
 </head>
-<body privly-exclude="true">
+<!-- the "privly-exclude" attribute is deprecated -->
+<body privly-exclude="true" data-privly-exclude="true">
 
 <!--TOP BANNER AND NAVIGATION -->
 <%= render "shared/nav" %>
