@@ -7,7 +7,7 @@ gem 'json'
 gem 'jquery-rails', '2.1.3'
 
 # Database gem
-gem 'mysql2'
+gem 'mysql2' # Comment out this line to use another Database type
 # gem 'sqlite3-ruby'
 
 # Gems used only for assets and not required

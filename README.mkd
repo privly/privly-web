@@ -21,24 +21,34 @@ This server currently supports:
 * Serialized JSON storage for any text content.
 * Sharing by email, domain, and IP Address.
 
-## Installation ##
+## Development Server Installation ##
 
+These shell commands step through a standard installation.
+
+    # Clone this repository
     git clone git://github.com/privly/privly-web.git
     cd privly-web
+    
+    # Copy configuration files
+    cp config/environments/development.rb.example config/environments/development.rb
     #for mysql as database
         cp config/database.yml.mysql.example config/database.yml
     #for sqlite as database
-        #uncomment the line in Gemfile: gem 'sqlite3-ruby'
+        #uncomment the gemfile line: gem 'sqlite3-ruby'
+        #comment the gemfile line: gem 'mysql2'
         cp config/database.yml.sqlite.example config/database.yml
-    cp config/environments/development.rb.example config/environments/development.rb
+    
+    # Get the injectable applications
     cd public
     git clone git://github.com/privly/ZeroBin.git
     cd ..
-    bundle install
-    rake db:create
-    rake db:schema:load
-    rake db:seed
-    rails server
+    
+    # Run installation scripts
+    bundle install #Installs the required gems
+    rake db:create #Creates the Database
+    rake db:schema:load #Loads the Scheme
+    rake db:seed #Seeds the DB
+    rails server #Starts the server
 
 ## Testing/Submitting Bugs ##
 
