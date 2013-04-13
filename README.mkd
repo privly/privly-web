@@ -21,6 +21,25 @@ This server currently supports:
 * Serialized JSON storage for any text content.
 * Sharing by email, domain, and IP Address.
 
+## Installation ##
+
+    git clone git://github.com/privly/privly-web.git
+    cd privly-web
+    #for mysql as database
+        cp config/database.yml.mysql.example config/database.yml
+    #for sqlite as database
+        #uncomment the line in Gemfile: gem 'sqlite3-ruby'
+        cp config/database.yml.sqlite.example config/database.yml
+    cp config/environments/development.rb.example config/environments/development.rb
+    cd public
+    git clone git://github.com/privly/ZeroBin.git
+    cd ..
+    bundle install
+    rake db:create
+    rake db:schema:load
+    rake db:seed
+    rails server
+
 ## Testing/Submitting Bugs ##
 
 If you have discovered a bug, only [open a public issue](https://github.com/privly/privly-web/issues/new) on GitHub if it could not possibly be a security related bug. If the bug affects the security of the system, please report it privately at [privly.org](http://www.privly.org/content/bug-report). We will then fix the bug and follow a process of responsible disclosure.
