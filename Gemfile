@@ -3,8 +3,7 @@ source 'http://rubygems.org'
 # Core System
 gem 'rails', '3.1.12'
 gem 'json'
-#gem 'jquery-rails', '>= 2.1.3' # Current version breaks styling on accordions
-gem 'jquery-rails', '2.1.3'
+gem 'jquery-rails', '>= 2.1.3'
 
 # Database gem
 gem 'mysql2' # Comment out this line to use another Database type
