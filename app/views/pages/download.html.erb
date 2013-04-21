@@ -37,52 +37,51 @@
 <br />
 
 <div style="margin-bottom: 285px;">
-    <div id="firefox_link" style="float: left; width: 33%;">
-        <%= link_to("https://addons.mozilla.org/en-US/firefox/addon/privly/") do %>
-          <div style="position:relative;width:10em;padding:1em;height:150px">
-              <%= image_tag "firefox_logo_150.png", :alt => "Firefox Logo", :style=>"position:absolute;right:0;top:0;opacity:0.4;filter:alpha(opacity=40);" %>
-              <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :style=>"position:absolute;right:27px;top:20px;" %>
-          </div>         
-          <div name="extension" style="text-align: center">
-              <h1 id="firefox">Firefox Extension</h1>
-              <div id="firefox_message" style="display:none;background:none">
-                  <p>(Alpha) The Firefox extension supports viewing Privly links, and uploading new content directly to the Privly servers.</p>
-              </div>
-          </div>
-        <% end %>
+  <div id="chrome_link" style="float: left; width: 33%;">
+  <%= link_to("https://chrome.google.com/webstore/detail/pkokikcdapfpkkkjpdaamjanniaempol") do %>
+    <div style="position:relative;width:10em;padding:1em;height:150px">
+        <%= image_tag "chrome-logo_150X.png", :alt => "Google Chrome Logo", :style=>"position:absolute;right:0;top:0;opacity:0.4;filter:alpha(opacity=40);" %>
+        <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :style=>"position:absolute;right:27px;top:20px;" %>
     </div>
-
-    <div id="opera_link" style="float: left; width: 34%;">
-        <%= link_to("https://addons.opera.com/en/extensions/details/privly-2/?display=en") do %>
-        
-          <div style="position:relative;width:10em;padding:1em;height:150px">
-              <%= image_tag "opera_logo_150.png", :alt => "Google Chrome Logo", :style=>"position:absolute;right:0;top:0;opacity:0.4;filter:alpha(opacity=40);" %>
-              <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :style=>"position:absolute;right:27px;top:20px;" %>
-          </div>
-          <div name="extension" style="text-align: center">
-              <h1 id="opera">Opera Extension</h1>
-              <div id="opera_message" style="display:none;background:none">
-                  <p>(Pre-Alpha) The Opera extension supports viewing Privly links, and uploading new content directly to the Privly servers.</p>
-              </div>
-          </div>
-        <% end %>
+    <div name="extension" style="text-align: center">
+        <h1 id="chrome">Chrome Extension</h1>
+        <div id="chrome_message" style="display:none;background:none">
+            <p>(Alpha) The Chrome extension supports viewing Privly links, and uploading new content directly to any content server.</p>
+        </div>
     </div>
+  <% end %>
+  </div>
+  
+  <div id="firefox_link" style="float: left; width: 33%;">
+      <%= link_to("https://addons.mozilla.org/en-US/firefox/addon/privly/") do %>
+        <div style="position:relative;width:10em;padding:1em;height:150px">
+            <%= image_tag "firefox_logo_150.png", :alt => "Firefox Logo", :style=>"position:absolute;right:0;top:0;opacity:0.4;filter:alpha(opacity=40);" %>
+            <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :style=>"position:absolute;right:27px;top:20px;" %>
+        </div>         
+        <div name="extension" style="text-align: center">
+            <h1 id="firefox">Firefox Extension</h1>
+            <div id="firefox_message" style="display:none;background:none">
+                <p>(Alpha) The Firefox extension supports viewing Privly links, and uploading new content directly to the Privly servers.</p>
+            </div>
+        </div>
+      <% end %>
+  </div>
 
-
-    <div id="chrome_link" style="float: left; width: 33%;">
-    <%= link_to("https://chrome.google.com/webstore/detail/pkokikcdapfpkkkjpdaamjanniaempol") do %>
-      <div style="position:relative;width:10em;padding:1em;height:150px">
-          <%= image_tag "chrome-logo_150X.png", :alt => "Google Chrome Logo", :style=>"position:absolute;right:0;top:0;opacity:0.4;filter:alpha(opacity=40);" %>
-          <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :style=>"position:absolute;right:27px;top:20px;" %>
-      </div>
-      <div name="extension" style="text-align: center">
-          <h1 id="chrome">Chrome Extension</h1>
-          <div id="chrome_message" style="display:none;background:none">
-              <p>(Alpha) The Chrome extension supports viewing Privly links, and uploading new content directly to the Privly servers.</p>
-          </div>
-      </div>
-    <% end %>
-    </div>
+  <div id="opera_link" style="float: left; width: 34%;">
+      <%= link_to("https://addons.opera.com/en/extensions/details/privly-2/?display=en") do %>
+      
+        <div style="position:relative;width:10em;padding:1em;height:150px">
+            <%= image_tag "opera_logo_150.png", :alt => "Google Chrome Logo", :style=>"position:absolute;right:0;top:0;opacity:0.4;filter:alpha(opacity=40);" %>
+            <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :style=>"position:absolute;right:27px;top:20px;" %>
+        </div>
+        <div name="extension" style="text-align: center">
+            <h1 id="opera">Opera Extension</h1>
+            <div id="opera_message" style="display:none;background:none">
+                <p>(Pre-Alpha) The Opera extension supports viewing Privly links, and uploading new content directly to the Privly servers.</p>
+            </div>
+        </div>
+      <% end %>
+  </div>
 </div>
 
 <br />
