@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/gregbell/active_admin.git
-  revision: 30ec1e9511c77c3d469cec8e5d09cae19bcc904a
+  revision: aaeb34d0d2a05450e5e2eab8893aea13636d12e1
   specs:
     activeadmin (0.6.0)
       arbre (>= 1.0.1)
@@ -110,7 +110,7 @@ GEM
       activerecord (~> 3.1)
       activesupport (~> 3.1)
       polyamorous (~> 0.5.0)
-    mime-types (1.22)
+    mime-types (1.23)
     multi_json (1.7.2)
     mysql2 (0.3.11)
     net-scp (1.1.0)
