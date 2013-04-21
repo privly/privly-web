@@ -38,17 +38,13 @@ class IdentityProvider < ActiveRecord::Base
     if self.name == "Privly Verified Email"
       identity.strip!
       identity.downcase!
-      return identity
     elsif self.name == "Privly Verified Domain"
       identity.strip!
       identity.downcase!
-      return identity
     elsif self.name == "Password"
       identity.strip!
-      return identity
     elsif self.name == "IP Address"
       identity.strip!
-      return identity
     end
   end
   
@@ -58,13 +54,13 @@ class IdentityProvider < ActiveRecord::Base
   # error.
   def validate_identity(identity)
     if self.name == "Privly Verified Email"
-      return IdentityProvider.privly_email_validations(identity)
+      IdentityProvider.privly_email_validations(identity)
     elsif self.name == "Privly Verified Domain"
-      return IdentityProvider.privly_domain_validations(identity)
+      IdentityProvider.privly_domain_validations(identity)
     elsif self.name == "Password"
-      return "Password based sharing is deactivated until the next version. Available sharing options are email, domain, and IP address"
+      "Password based sharing is deactivated until the next version. Available sharing options are email, domain, and IP address"
     elsif self.name == "IP Address"
-      return IdentityProvider.ip_address_validations(identity)
+      IdentityProvider.ip_address_validations(identity)
     end
   end
   
@@ -87,9 +83,9 @@ class IdentityProvider < ActiveRecord::Base
     # Return an error message if the email does not match.
     def privly_email_validations(identity)
       if EMAIL_REGEXP.match(identity)
-        return ""
+        ""
       else
-        return "the identity is not a proper email"
+        "the identity is not a proper email"
       end
     end
 
@@ -97,9 +93,9 @@ class IdentityProvider < ActiveRecord::Base
     # Return an error message if the email does not match.
     def privly_domain_validations(identity)
       if DOMAIN_REGEXP.match(identity)
-        return ""
+        ""
       else
-        return "the identity is not a proper domain"
+        "the identity is not a proper domain"
       end
     end
 
@@ -107,9 +103,9 @@ class IdentityProvider < ActiveRecord::Base
     # Return an error message if the IP Address does not match.
     def ip_address_validations(identity)
       if IP_ADDRESS_REGEXP.match(identity)
-        return ""
+        ""
       else
-        return "the identity is not a proper IP Address"
+        "the identity is not a proper IP Address"
       end
     end
     
@@ -117,11 +113,11 @@ class IdentityProvider < ActiveRecord::Base
     # in turn until one passes.
     def identity_provider_from_identity(identity)
       if privly_email_validations(identity).empty?
-        return IdentityProvider.find_by_name("Privly Verified Email")
+        IdentityProvider.find_by_name("Privly Verified Email")
       elsif privly_domain_validations(identity).empty?
-        return IdentityProvider.find_by_name("Privly Verified Domain")
+        IdentityProvider.find_by_name("Privly Verified Domain")
       elsif ip_address_validations(identity).empty?
-        return IdentityProvider.find_by_name("IP Address")
+        IdentityProvider.find_by_name("IP Address")
       end
     end
     
