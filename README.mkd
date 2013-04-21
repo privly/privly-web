@@ -54,7 +54,7 @@ These shell commands step through a standard installation.
 
 If you have discovered a bug, only [open a public issue](https://github.com/privly/privly-web/issues/new) on GitHub if it could not possibly be a security related bug. If the bug affects the security of the system, please report it privately at [privly.org](http://www.privly.org/content/bug-report). We will then fix the bug and follow a process of responsible disclosure.
 
-There is a [setup guide](https://github.com/privly/privly-web/wiki/Setup-Guide-for-Developers) for this server on GitHub. The "master" branch of this repository is deployed to [dev.privly.org](https://dev.privly.org) and [privlyalpha.org](https://privlyalpha.org).
+The "master" branch of this repository is deployed to [dev.privly.org](https://dev.privly.org) and [privlyalpha.org](https://privlyalpha.org).
 
 If you want a development account on a whitelisted content server (useful if you don't want to setup this server locally), contact Sean McGregor via one of the means below.
 
