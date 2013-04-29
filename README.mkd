@@ -38,11 +38,12 @@ These shell commands step through a standard installation.
         #comment the gemfile line: gem 'mysql2'
         cp config/database.yml.sqlite.example config/database.yml
     
-    # Get the injectable applications
+    # Get the injectable applications into the "public" dir.
     cd public
-    git clone git://github.com/privly/ZeroBin.git
-    cd ..
-    
+    # Clone the ZeroBin Git into "zero_bin"
+    git clone git://github.com/privly/ZeroBin.git zero_bin
+    cd .. 
+
     # Run installation scripts
     bundle install #Installs the required gems
     rake db:create #Creates the Database
