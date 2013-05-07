@@ -6,7 +6,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
-//= require download-link
-//= require share
-//= require posts
+//= require dataTables/jquery.dataTables
+//= require_tree .
