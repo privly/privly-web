@@ -47,7 +47,7 @@ gem 'rdiscount'
 
 # Pagination Gem
 gem 'kaminari'
-gem 'will_paginate' #needed for the Pagination in the Dynamic Datatables
+gem 'will_paginate' #needed for the Pagination in the jQuery Plugin Datatables
 
 
 # Useragent inspection
