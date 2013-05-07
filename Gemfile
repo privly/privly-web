@@ -15,6 +15,10 @@ group :assets do
   gem 'sass-rails', "3.1.5"
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
+  # Added for Jquery Plugin Datatables
+  gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
+  gem 'jquery-ui-rails'
+
 end
 
 # Deploy with Capistrano
@@ -42,6 +46,8 @@ gem 'rdiscount'
 
 # Pagination Gem
 gem 'kaminari'
+gem 'will_paginate' #needed for the Pagination in the jQuery Plugin Datatables
+
 
 # Useragent inspection
 gem 'useragent'

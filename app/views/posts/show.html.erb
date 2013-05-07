@@ -145,30 +145,45 @@
   </div>
 <% end %>
 
-<% @post.shares.each do |share| %>
-    <div class="post">
-        <div class="posthead">
-            <h3><%= "#{share.identity_provider.name}: #{share.identity}" %></h3>
+<div class="datatable">
+<table id="shares" class="display">
+  <thead>
+    <tr>
+      <th>Identity Provider</th>
+      <th>Shared With</th>
+      <th>Share Options</th>
+      <th>Update Share</th>
+      <th>Destroy Share</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @post.shares.each do |share| %>
+    <tr>
+
+            <td><%= "#{share.identity_provider.name}"%></td>
+            <td><%= "#{share.identity}" %></td>
             
             <%= form_for(share) do |f| %>
-                <div class="field">
-                    <p>
-                        <%= f.check_box :can_show %>
-                        <%= f.label :can_show, "Can View" %>
+        
+                    
+                        <td><%= f.check_box :can_show %>
+                        <%= f.label :can_show, "Can View" %></br>
                         <%= f.check_box :can_destroy %>
-                        <%= f.label :can_destroy %>
+                        <%= f.label :can_destroy %></br>
                         <%= f.check_box :can_update %>
-                        <%= f.label :can_update %>
+                        <%= f.label :can_update %></br>
                         <%= f.check_box :can_share %>
                         <%= f.label :can_share %>
-                        <%= hidden_field_tag :random_token, @post.random_token %>
-                        <%= f.submit %>
-                        <%= link_to 'Destroy Share', share, :confirm => 'Are you sure?', :method => :delete %>
-                    </p>
-                </div>
+                        <%= hidden_field_tag :random_token, @post.random_token %></td>
+                        <td><%= f.submit %></td>
+                        <td><%= link_to 'Destroy Share', share, :confirm => 'Are you sure?', :method => :delete %></td>
+    
+        
             <% end %>
-        </div>
-    </div>
+     
+  </tr>
 <% end %>
+</tbody>
+</table>
+</div>
 <% end %>
-
