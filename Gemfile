@@ -22,8 +22,6 @@ group :assets do
 
 end
 
-gem 'will_paginate'
-
 # Deploy with Capistrano
 gem 'capistrano'
 
@@ -49,6 +47,8 @@ gem 'rdiscount'
 
 # Pagination Gem
 gem 'kaminari'
+gem 'will_paginate' #needed for the Pagination in the Dynamic Datatables
+
 
 # Useragent inspection
 gem 'useragent'
