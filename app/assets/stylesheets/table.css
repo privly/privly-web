@@ -1,0 +1,16 @@
+.display tr.even {
+        background-color: #EDE4D4;
+}
+.display tr.even td.sorting_1 {
+    background-color: #F4F0EC;
+}
+.ui-widget-header {
+    background: #111111;
+    border: 1px solid #111111;
+}
+.display tr.odd {
+    background-color: #F4F0EC;
+}
+.display tr.odd td.sorting_1 {
+    background-color: #EDE4D4;
+}
