@@ -163,7 +163,9 @@
                         <%= f.label :can_share %>
                         <%= hidden_field_tag :random_token, @post.random_token %>
                         <%= f.submit %>
-                        <%= link_to 'Destroy Share', share, :confirm => 'Are you sure?', :method => :delete %>
+                        <%= link_to 'Destroy Share', share_path(share, 
+                            {:random_token => @post.random_token}), 
+                            :confirm => 'Are you sure?', :method => :delete %>
                     </p>
                 </div>
             <% end %>
