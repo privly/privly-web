@@ -6,8 +6,7 @@
  *= require_tree ../../../vendor/assets/stylesheets
  *= require notifications
  *= require style
- *= require jquery.ui.core
- *= require jquery.ui.theme
+ *= require table
  *= require dataTables/src/demo_table_jui
  *= require pagination
 */
