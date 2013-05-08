@@ -18,7 +18,6 @@ group :assets do
   gem 'uglifier'
   # Added for Jquery Plugin Datatables
   gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
-  gem 'jquery-ui-rails'
 
 end
 
@@ -47,8 +46,6 @@ gem 'rdiscount'
 
 # Pagination Gem
 gem 'kaminari'
-gem 'will_paginate' #needed for the Pagination in the jQuery Plugin Datatables
-
 
 # Useragent inspection
 gem 'useragent'
