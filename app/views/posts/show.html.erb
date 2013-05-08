@@ -117,8 +117,11 @@
   <br />
   
   <h3>
-    New Sharing Rule: <br /><span id="type_mesasge">Type an Email, domain, IP Address, or password</span>
+    New Sharing Rule: <br /><span id="type_mesasge">Type an Email, domain, IP Address, or <%= link_to 'password', 'javascript:void(0)', :id => 'content_password_info' %></span>
   </h3>
+  <div id="info_about_content_password">
+    <%= render :partial => 'content_password_info' %>
+  </div>
   <div class="field">
     <p>
         <%= f.label :identity %><br />
