@@ -1,20 +1,3 @@
-GIT
-  remote: git://github.com/gregbell/active_admin.git
-  revision: aaeb34d0d2a05450e5e2eab8893aea13636d12e1
-  specs:
-    activeadmin (0.6.0)
-      arbre (>= 1.0.1)
-      bourbon (>= 1.0.0)
-      devise (>= 1.1.2)
-      fastercsv
-      formtastic (>= 2.0.0)
-      inherited_resources (>= 1.3.1)
-      jquery-rails (>= 1.0.0)
-      kaminari (>= 0.13.0)
-      meta_search (>= 0.9.2)
-      rails (>= 3.0.0)
-      sass (>= 3.1.0)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -32,6 +15,18 @@ GEM
       rack-mount (~> 0.8.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.0.4)
+    activeadmin (0.6.0)
+      arbre (>= 1.0.1)
+      bourbon (>= 1.0.0)
+      devise (>= 1.1.2)
+      fastercsv
+      formtastic (>= 2.0.0)
+      inherited_resources (>= 1.3.1)
+      jquery-rails (>= 1.0.0)
+      kaminari (>= 0.13.0)
+      meta_search (>= 0.9.2)
+      rails (>= 3.0.0)
+      sass (>= 3.1.0)
     activemodel (3.1.12)
       activesupport (= 3.1.12)
       builder (~> 3.0.0)
@@ -46,7 +41,7 @@ GEM
       activesupport (= 3.1.12)
     activesupport (3.1.12)
       multi_json (~> 1.0)
-    airbrake (3.1.11)
+    airbrake (3.1.12)
       activesupport
       builder
       json
@@ -57,8 +52,8 @@ GEM
     bourbon (2.1.1)
       sass (>= 3.1)
     builder (3.0.4)
-    cancan (1.6.9)
-    capistrano (2.14.2)
+    cancan (1.6.10)
+    capistrano (2.15.4)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -71,7 +66,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
-    devise (2.2.3)
+    devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (~> 3.1)
@@ -111,11 +106,11 @@ GEM
       activesupport (~> 3.1)
       polyamorous (~> 0.5.0)
     mime-types (1.23)
-    multi_json (1.7.2)
+    multi_json (1.7.3)
     mysql2 (0.3.11)
     net-scp (1.1.0)
       net-ssh (>= 2.6.5)
-    net-sftp (2.1.1)
+    net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
@@ -177,7 +172,7 @@ GEM
     uglifier (2.0.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    useragent (0.5.0)
+    useragent (0.6.0)
     warden (1.2.1)
       rack (>= 1.0)
 
@@ -185,7 +180,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activeadmin!
+  activeadmin
   airbrake
   cancan
   capistrano
@@ -196,7 +191,6 @@ DEPENDENCIES
   fastercsv
   jquery-rails (>= 2.1.3)
   json
-  kaminari
   mysql2
   rails (= 3.1.12)
   rdiscount

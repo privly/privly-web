@@ -35,13 +35,10 @@ gem 'devise' #https://github.com/plataformatec/devise
 gem 'devise_invitable', '~> 1.0.0'
 
 # Administration interface
-gem "activeadmin", :git => 'git://github.com/gregbell/active_admin.git'
+gem "activeadmin"
 
-# Markdown lightwirght markup language gem
+# Markdown lightweight markup language gem
 gem 'rdiscount'
-
-# Pagination Gem
-gem 'kaminari'
 
 # Useragent inspection
 gem 'useragent'

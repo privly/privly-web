@@ -1,7 +1,6 @@
 Privly::Application.routes.draw do
   
   # Active Admin
-  ActiveAdmin.routes(self)
   devise_for :admin_users, ActiveAdmin::Devise.config
   
   # Deprecated Zero-Bin specific storage endpoint
@@ -71,7 +70,10 @@ Privly::Application.routes.draw do
   
   # Root Page
   match '/' => 'welcome#index', :as => :welcome
-
+  
+  # Active Admin
+  ActiveAdmin.routes(self)
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
