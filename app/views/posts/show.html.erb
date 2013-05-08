@@ -117,8 +117,11 @@
   <br />
   
   <h3>
-    New Sharing Rule: <br /><span id="type_mesasge">Type an Email, domain, IP Address, or password</span>
+    New Sharing Rule: <br /><span id="type_mesasge">Type an Email, domain, IP Address, or <%= link_to 'password', 'javascript:void(0)', :id => 'content_password_info' %></span>
   </h3>
+  <div id="info_about_content_password">
+    <%= render :partial => 'content_password_info' %>
+  </div>
   <div class="field">
     <p>
         <%= f.label :identity %><br />
@@ -148,7 +151,7 @@
 <% @post.shares.each do |share| %>
     <div class="post">
         <div class="posthead">
-            <h3><%= "#{share.identity_provider.name}: #{share.identity}" %></h3>
+            <h3><%= "#{share.identity_provider.name}#{"(encrypted)" if share.identity_provider.id == 3} : #{share.identity}" %></h3>
             
             <%= form_for(share) do |f| %>
                 <div class="field">

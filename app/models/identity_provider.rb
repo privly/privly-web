@@ -45,6 +45,7 @@ class IdentityProvider < ActiveRecord::Base
       return identity
     elsif self.name == "Password"
       identity.strip!
+      identity = BCrypt::Password.create identity
       return identity
     elsif self.name == "IP Address"
       identity.strip!
@@ -62,7 +63,7 @@ class IdentityProvider < ActiveRecord::Base
     elsif self.name == "Privly Verified Domain"
       return IdentityProvider.privly_domain_validations(identity)
     elsif self.name == "Password"
-      return "Password based sharing is deactivated until the next version. Available sharing options are email, domain, and IP address"
+      return IdentityProvider.content_password_validations
     elsif self.name == "IP Address"
       return IdentityProvider.ip_address_validations(identity)
     end
@@ -78,6 +79,10 @@ class IdentityProvider < ActiveRecord::Base
       find_by_name(name)
     end
     memoize :identity_provider_memoizer
+
+    def content_password_validations
+      ""
+    end
     
     #
     # Identity specific validations

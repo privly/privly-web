@@ -244,4 +244,9 @@ jQuery(document).ready(function(){
         firePrivlyURLEvent($("#javascriptEventLink").html().replace(/&amp;/g, "&"));
       }
     },300);
+
+    //show hide info about content password
+    $('#content_password_info').click(function(){
+        $("#info_about_content_password").toggle("slow");
+    });
 });
