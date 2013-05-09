@@ -45,7 +45,7 @@ class IdentityProvider < ActiveRecord::Base
       return identity
     elsif self.name == "Password"
       identity.strip!
-      identity = BCrypt::Password.create identity
+      identity = BCrypt::Password.create(identity, :cost => 12) #about cost http://goo.gl/AKZWq
       return identity
     elsif self.name == "IP Address"
       identity.strip!
