@@ -145,47 +145,40 @@
   </div>
 <% end %>
 
-</br>
+<br />
 <h2>Shares</h2>
 <div class="datatable">
-<table id="shares" class="display">
-  <thead>
-    <tr>
-      <th>Identity Provider</th>
-      <th>Shared With</th>
-      <th>Share Options</th>
-      <th>Update Share</th>
-      <th>Destroy Share</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @post.shares.each do |share| %>
-    <tr>
-
-            <td><%= "#{share.identity_provider.name}"%></td>
-            <td><%= "#{share.identity}" %></td>
-            
-            <%= form_for(share) do |f| %>
-        
-                    
-                        <td><%= f.check_box :can_show %>
-                        <%= f.label :can_show, "Can View" %></br>
-                        <%= f.check_box :can_destroy %>
-                        <%= f.label :can_destroy %></br>
-                        <%= f.check_box :can_update %>
-                        <%= f.label :can_update %></br>
-                        <%= f.check_box :can_share %>
-                        <%= f.label :can_share %>
-                        <%= hidden_field_tag :random_token, @post.random_token %></td>
-                        <td><%= f.submit %></td>
-                        <td><%= link_to 'Destroy Share', share, :confirm => 'Are you sure?', :method => :delete %></td>
-    
-        
-            <% end %>
-     
-  </tr>
-<% end %>
-</tbody>
-</table>
+  <table id="shares" class="display">
+    <thead>
+      <tr>
+        <th>Identity Provider</th>
+        <th>Shared With</th>
+        <th>Share Options</th>
+        <th>Update Share</th>
+        <th>Destroy Share</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @post.shares.each do |share| %>
+        <tr>
+          <td><%= "#{share.identity_provider.name}"%></td>
+          <td><%= "#{share.identity}" %></td>
+          <%= form_for(share) do |f| %>          
+            <td><%= f.check_box :can_show %>
+            <%= f.label :can_show, "Can View" %></br>
+            <%= f.check_box :can_destroy %>
+            <%= f.label :can_destroy %></br>
+            <%= f.check_box :can_update %>
+            <%= f.label :can_update %></br>
+            <%= f.check_box :can_share %>
+            <%= f.label :can_share %>
+            <%= hidden_field_tag :random_token, @post.random_token %></td>
+            <td><%= f.submit %></td>
+            <td><%= link_to 'Destroy Share', share, :confirm => 'Are you sure?', :method => :delete %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 <% end %>
