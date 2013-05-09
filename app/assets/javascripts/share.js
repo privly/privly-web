@@ -62,3 +62,13 @@ function sharesFormSubmit(identity, identityDestination, swapIfEmpty) {
   }
 }
 
+/*
+ * Initialize your datatables
+*/
+$(function() {
+   $('#shares').dataTable( {
+    "sPaginationType": "full_numbers",
+    "bJQueryUI": true
+  });
+});
+
