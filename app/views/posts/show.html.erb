@@ -147,13 +147,11 @@
 
 <br />
 <h2>Shares</h2>
-<div class="datatable">
   <table id="shares" class="display">
     <thead>
       <tr>
         <th>Identity Provider</th>
         <th>Shared With</th>
-        <th>Share Options</th>
         <th>Update Share</th>
         <th>Destroy Share</th>
       </tr>
@@ -163,22 +161,16 @@
         <tr>
           <td><%= "#{share.identity_provider.name}"%></td>
           <td><%= "#{share.identity}" %></td>
-          <%= form_for(share) do |f| %>          
-            <td><%= f.check_box :can_show %>
-            <%= f.label :can_show, "Can View" %></br>
-            <%= f.check_box :can_destroy %>
-            <%= f.label :can_destroy %></br>
-            <%= f.check_box :can_update %>
-            <%= f.label :can_update %></br>
-            <%= f.check_box :can_share %>
-            <%= f.label :can_share %>
-            <%= hidden_field_tag :random_token, @post.random_token %></td>
-            <td><%= f.submit %></td>
-            <td><%= link_to 'Destroy Share', share, :confirm => 'Are you sure?', :method => :delete %></td>
-          <% end %>
+          <td>
+              Can Show: <b><%= best_in_place sharing, :can_show, :type => :checkbox, :collection => ["No", "Yes"] %></b><br />
+              Can Destroy: <b><%= best_in_place sharing, :can_destroy, :type => :checkbox, :collection => ["No", "Yes"] %></b><br />
+              Can Update: <b><%= best_in_place sharing, :can_update, :type => :checkbox, :collection => ["No", "Yes"] %></b><br />
+              Can Share: <b><%= best_in_place sharing, :can_share, :type => :checkbox, :collection => ["No", "Yes"] %></b>  
+              <%= hidden_field_tag :random_token, @post.random_token %> 
+          </td>
+          <td><%= link_to 'Destroy Share', share, :confirm => 'Are you sure?', :method => :delete %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-</div>
 <% end %>
