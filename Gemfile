@@ -55,3 +55,6 @@ gem 'fastercsv'
 
 # Error reporting service
 gem "airbrake"
+
+# In Place Editing for DataTables Plug-In
+gem 'best_in_place'
