@@ -163,10 +163,10 @@
           <td><%= "#{share.identity_provider.name}"%></td>
           <td><%= "#{share.identity}" %></td>
           <td>
-              Can Show: <b><%= best_in_place sharing, :can_show, :type => :checkbox, :collection => ["No", "Yes"] %></b><br />
-              Can Destroy: <b><%= best_in_place sharing, :can_destroy, :type => :checkbox, :collection => ["No", "Yes"] %></b><br />
-              Can Update: <b><%= best_in_place sharing, :can_update, :type => :checkbox, :collection => ["No", "Yes"] %></b><br />
-              Can Share: <b><%= best_in_place sharing, :can_share, :type => :checkbox, :collection => ["No", "Yes"] %></b>  
+              Can Show: <b><%= best_in_place share, :can_show, :type => :checkbox, :collection => ["No", "Yes"] %></b><br />
+              Can Destroy: <b><%= best_in_place share, :can_destroy, :type => :checkbox, :collection => ["No", "Yes"] %></b><br />
+              Can Update: <b><%= best_in_place share, :can_update, :type => :checkbox, :collection => ["No", "Yes"] %></b><br />
+              Can Share: <b><%= best_in_place share, :can_share, :type => :checkbox, :collection => ["No", "Yes"] %></b>  
               <%= hidden_field_tag :random_token, @post.random_token %> 
           </td>
           <td><%= link_to 'Destroy Share', share, :confirm => 'Are you sure?', :method => :delete %></td>
