@@ -127,7 +127,8 @@
         <%= f.label :identity %><br />
         <%= text_field_tag 'share[share_csv]', "", {:autocomplete => "off",
                                                      :style => "display:none;"}  %>
-        <%= f.text_field :identity,  {:autocomplete => "off",
+        <%= f.text_field :identity,  {:required => true,
+                                      :autocomplete => "off",
                                       :onsubmit => "identityIdAndMessage($('#share_identity').val(), $('#type_mesasge'), $('#identity_provider_name'))",
                                       :onchange => "identityIdAndMessage($('#share_identity').val(), $('#type_mesasge'), $('#identity_provider_name'))",
                                       :onkeyup => "identityIdAndMessage($('#share_identity').val(), $('#type_mesasge'), $('#identity_provider_name'))"} %>
