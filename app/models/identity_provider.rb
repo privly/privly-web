@@ -45,7 +45,6 @@ class IdentityProvider < ActiveRecord::Base
       return identity
     elsif self.name == "Password"
       identity.strip!
-      identity = BCrypt::Password.create(identity, :cost => 12) #about cost http://goo.gl/AKZWq
       return identity
     elsif self.name == "IP Address"
       identity.strip!
@@ -63,7 +62,7 @@ class IdentityProvider < ActiveRecord::Base
     elsif self.name == "Privly Verified Domain"
       return IdentityProvider.privly_domain_validations(identity)
     elsif self.name == "Password"
-      return IdentityProvider.content_password_validations
+      return IdentityProvider.content_password_validations(identity)
     elsif self.name == "IP Address"
       return IdentityProvider.ip_address_validations(identity)
     end
@@ -80,7 +79,7 @@ class IdentityProvider < ActiveRecord::Base
     end
     memoize :identity_provider_memoizer
 
-    def content_password_validations
+    def content_password_validations(identity)
       ""
     end
     
@@ -127,6 +126,8 @@ class IdentityProvider < ActiveRecord::Base
         return IdentityProvider.find_by_name("Privly Verified Domain")
       elsif ip_address_validations(identity).empty?
         return IdentityProvider.find_by_name("IP Address")
+      elsif content_password_validations(identity).empty?
+        return IdentityProvider.find_by_name("Password")
       end
     end
     
