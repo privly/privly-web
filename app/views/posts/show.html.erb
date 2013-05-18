@@ -127,8 +127,7 @@
         <%= f.label :identity %><br />
         <%= text_field_tag 'share[share_csv]', "", {:autocomplete => "off",
                                                      :style => "display:none;"}  %>
-        <%= f.text_field :identity,  {:required => true,
-                                      :autocomplete => "off",
+        <%= f.text_field :identity,  {:autocomplete => "off",
                                       :onsubmit => "identityIdAndMessage($('#share_identity').val(), $('#type_mesasge'), $('#identity_provider_name'))",
                                       :onchange => "identityIdAndMessage($('#share_identity').val(), $('#type_mesasge'), $('#identity_provider_name'))",
                                       :onkeyup => "identityIdAndMessage($('#share_identity').val(), $('#type_mesasge'), $('#identity_provider_name'))"} %>
@@ -152,7 +151,7 @@
 <% @post.shares.each do |share| %>
     <div class="post">
         <div class="posthead">
-            <h3><%= "#{share.identity_provider.name}#{"(encrypted)" if share.identity_provider.id == 3} : #{share.identity}" %></h3>
+            <h3><%= "#{share.identity_provider.name}#{"(encrypted)" if share.identity_provider.name == 'Password'} : #{share.identity}" %></h3>
             
             <%= form_for(share) do |f| %>
                 <div class="field">
