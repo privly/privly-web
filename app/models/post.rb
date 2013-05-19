@@ -102,6 +102,9 @@ class Post < ActiveRecord::Base
         share.identity = value
         share.identity_provider = 
           IdentityProvider.identity_provider_from_identity(value)
+        if share.identity_provider.name == "Password"
+          share.identity = share.identity_provider.get_random_string
+        end
         share.post = self
         if share.save
           created_shares << share

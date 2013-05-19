@@ -42,7 +42,7 @@ class ShareControllerTest < ActionController::TestCase
   test "should update post" do
     assert @share.can_share
     put :update, :id => @share.to_param, :share => {:can_share => false}
-    assert_redirected_to post_path(@share.post, :random_token => @share.post.random_token)
+    assert_redirected_to post_path(@share.post, @share.post.injectable_parameters)
   end
 
   test "should delete destroy" do
@@ -50,7 +50,8 @@ class ShareControllerTest < ActionController::TestCase
     assert_difference('Share.count', -1) do
       delete :destroy, :id => @share.id
     end
-    assert_redirected_to post_path(current_post, :random_token => @share.post.random_token)
+    
+    assert_redirected_to post_path(current_post, current_post.injectable_parameters)
   end
 
 end

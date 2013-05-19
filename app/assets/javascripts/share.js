@@ -35,7 +35,7 @@ function identityIdAndMessage(identity, messageNode, hiddenElement)
     hiddenElement.val("IP Address");
   }
   else {
-    messageNode.text("Password (this functionality is active in the next version)");
+    messageNode.text("Generate Random Password. Type '@domain.com', 'email@domain.com', or an IP address for those share types");
     hiddenElement.val("Password");
   }
 }
@@ -59,6 +59,8 @@ function sharesFormSubmit(identity, identityDestination, swapIfEmpty) {
   if (swapIfEmpty.val() === "") {
     identityDestination.val(identity.val());
     identity.val("");
+  } else if(swapIfEmpty.val() === "Password"){
+    identity.val("");// Forces server to generate a random password
   }
 }
 

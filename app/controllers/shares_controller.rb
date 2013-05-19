@@ -86,7 +86,10 @@ class SharesController < ApplicationController
                                                 params[:share][:can_destroy], 
                                                 params[:share][:can_share]
       respond_to do |format|
-        format.html { redirect_to post_path(@share.post, @share.post.injectable_parameters),
+        format.html { 
+          redirect_to post_path(@share.post,
+            @share.post.injectable_parameters.merge(
+              :content_password => params[:content_password])),
           :notice => "#{@shares.length} shares were successfully created." }
         format.json { render :json => {}, :status => :created }
       end
@@ -96,11 +99,15 @@ class SharesController < ApplicationController
       
       respond_to do |format|
         if @share.save
-          format.html { redirect_to post_path(@share.post, @share.post.injectable_parameters), :notice => 'Share was successfully created.' }
+          format.html { redirect_to post_path(@share.post, 
+                                    @share.post.injectable_parameters.merge(:content_password => params[:content_password])), 
+                                    :notice => 'Share was successfully created.' }
           format.json { render :json => @share, :status => :created }
         else
-          format.html { redirect_to post_path(@share.post, @share.post.injectable_parameters), :alert => @share.errors.full_messages }
-          format.json { render :json => @share.errors, :status => :unprocessable_entity }
+          format.html { redirect_to post_path(@share.post, @share.post.injectable_parameters.merge(:content_password => params[:content_password])), 
+                                    :alert => @share.errors.full_messages }
+          format.json { render :json => @share.errors, 
+                               :status => :unprocessable_entity }
         end
       end
     end
@@ -127,7 +134,8 @@ class SharesController < ApplicationController
   def destroy
     @post = @share.post
     @share.destroy
-    redirect_to post_path(@post, :random_token => @post.random_token), :notice => 'Share was destroyed.'
+    redirect_to post_path(@post, @post.injectable_parameters.merge(:content_password => params[:content_password])), 
+                                 :notice => 'Share was destroyed.'
   end
   
   # == Update a share.
@@ -188,10 +196,13 @@ class SharesController < ApplicationController
   def update
     respond_to do |format|
       if @share.update_attributes(params[:share])
-        format.html { redirect_to post_path(@share.post, :random_token => @share.post.random_token), :notice => 'Share was successfully updated.' }
+        format.html { redirect_to post_path(@share.post, 
+                        @share.post.injectable_parameters.merge(:content_password => params[:content_password])
+                        ), 
+                        :notice => 'Share was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { redirect_to post_path(@share.post, :random_token => @share.post.random_token), :notice => 'We could not update that email share.' }
+        format.html { redirect_to post_path(@share.post, @share.post.injectable_parameters.merge(:content_password => params[:content_password])), :notice => 'We could not update that email share.' }
         format.json { render :json => @share.errors, :status => :unprocessable_entity }
       end
     end

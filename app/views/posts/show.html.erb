@@ -26,11 +26,13 @@
           Post Start
           <% if can? :update, @post %>
               &middot;
-              <%= link_to 'Edit', edit_post_path(@post, {:random_token => @post.random_token}), :style => 'color:#b3a893;' %>
+              <%= link_to 'Edit', edit_post_path(@post, {:random_token => @post.random_token, 
+                                :content_password => params[:content_password]}), :style => 'color:#b3a893;' %>
           <% end %>
           <% if can? :destroy, @post %>
               &middot;
-              <%= link_to 'Destroy', post_path(@post, {:random_token => @post.random_token}), :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+              <%= link_to 'Destroy', post_path(@post, {:random_token => @post.random_token,
+                                :content_password => params[:content_password]}), :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
           <% end %>
       </span>
   </h2>
@@ -57,11 +59,13 @@
       <span style="color:#b3a893;">Post End
           <% if can? :update, @post %>
               &middot;
-              <%= link_to 'Edit', edit_post_path(@post, {:random_token => @post.random_token}), :style => 'color:#b3a893;' %>
+              <%= link_to 'Edit', edit_post_path(@post, {:random_token => @post.random_token, 
+                                :content_password => params[:content_password]}), :style => 'color:#b3a893;' %>
           <% end %>
           <% if can? :destroy, @post %>
               &middot;
-              <%= link_to 'Destroy', post_path(@post, {:random_token => @post.random_token}), :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+              <%= link_to 'Destroy', post_path(@post, {:random_token => @post.random_token, 
+                                :content_password => params[:content_password]}), :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
           <% end %>
       </span>
   </h2>
@@ -70,11 +74,13 @@
       <span style="color:#b3a893;">Post Actions
           <% if can? :update, @post %>
               &middot;
-              <%= link_to 'Edit', edit_post_path(@post, {:random_token => @post.random_token}), :style => 'color:#b3a893;' %>
+              <%= link_to 'Edit', edit_post_path(@post, {:random_token => @post.random_token, 
+                                :content_password => params[:content_password]}), :style => 'color:#b3a893;' %>
           <% end %>
           <% if can? :destroy, @post %>
               &middot;
-              <%= link_to 'Destroy', post_path(@post, {:random_token => @post.random_token}), :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+              <%= link_to 'Destroy', post_path(@post, {:random_token => @post.random_token, 
+                                :content_password => params[:content_password]}), :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
           <% end %>
       </span>
   </h2>
@@ -87,11 +93,13 @@
       <span style="color:#b3a893;">Post Actions
           <% if can? :update, @post %>
               &middot;
-              <%= link_to 'Edit', edit_post_path(@post, {:random_token => @post.random_token}), :style => 'color:#b3a893;' %>
+              <%= link_to 'Edit', edit_post_path(@post, {:random_token => @post.random_token, 
+                                :content_password => params[:content_password]}), :style => 'color:#b3a893;' %>
           <% end %>
           <% if can? :destroy, @post %>
               &middot;
-              <%= link_to 'Destroy', post_path(@post, {:random_token => @post.random_token}), :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
+              <%= link_to 'Destroy', post_path(@post, {:random_token => @post.random_token, 
+                                :content_password => params[:content_password]}), :confirm => 'Are you sure?', :method => :delete, :style => 'color:#b3a893;' %>
           <% end %>
       </span>
   </h2>
@@ -120,7 +128,7 @@
     New Sharing Rule: <br /><span id="type_mesasge">Type an Email, domain, IP Address, or <%= link_to 'password', 'javascript:void(0)', :id => 'content_password_info' %></span>
   </h3>
   <div id="info_about_content_password">
-    <%= render :partial => 'content_password_info' %>
+    <p>Content passwords are randomly generated and are used by Privly applications to permission content.</p>
   </div>
   <div class="field">
     <p>
@@ -151,7 +159,7 @@
 <% @post.shares.each do |share| %>
     <div class="post">
         <div class="posthead">
-            <h3><%= "#{share.identity_provider.name}#{"(encrypted)" if share.identity_provider.name == 'Password'} : #{share.identity}" %></h3>
+            <h3><%= "#{"Random " if share.identity_provider.name == 'Password'} #{share.identity_provider.name} : #{share.identity}" %></h3>
             
             <%= form_for(share) do |f| %>
                 <div class="field">
@@ -165,10 +173,12 @@
                         <%= f.check_box :can_share %>
                         <%= f.label :can_share %>
                         <%= hidden_field_tag :random_token, @post.random_token %>
+                        <%= hidden_field_tag :content_password, params[:content_password] %>
                         <%= f.submit %>
                         <%= link_to 'Destroy Share', share_path(share, 
-                            {:random_token => @post.random_token}), 
-                            :confirm => 'Are you sure?', :method => :delete %>
+                            {:random_token => @post.random_token, 
+                             :content_password => params[:content_password]}), 
+                             :confirm => 'Are you sure?', :method => :delete %>
                     </p>
                 </div>
             <% end %>

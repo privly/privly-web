@@ -779,7 +779,8 @@ class PostsController < ApplicationController
     
     # This helper gives the URL intended for injection into the page
     def get_injectable_url
-      url = post_url @post, @post.injectable_parameters
+      url = post_url @post, @post.injectable_parameters.merge(
+        :content_password => params[:content_password])
       url
     end
     
@@ -802,7 +803,7 @@ class PostsController < ApplicationController
       injectable_url = get_injectable_url
       post_json.merge!(
          :privlyurl => injectable_url, #Deprecated
-         "X-Privly-Url" => injectable_url, :privlyInject1 => true, 
+         "X-Privly-Url" => injectable_url, 
          :permissions => {
            :canshow => can?(:show, @post), 
            :canupdate => can?(:update, @post), 

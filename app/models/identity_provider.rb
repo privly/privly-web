@@ -44,6 +44,9 @@ class IdentityProvider < ActiveRecord::Base
       identity.downcase!
       return identity
     elsif self.name == "Password"
+      if identity.blank?
+        identity = get_random_string
+      end
       identity.strip!
       return identity
     elsif self.name == "IP Address"
@@ -66,6 +69,12 @@ class IdentityProvider < ActiveRecord::Base
     elsif self.name == "IP Address"
       return IdentityProvider.ip_address_validations(identity)
     end
+  end
+  
+  # Generate random string
+  def get_random_string
+    chars = [('a'..'z'), ('A'..'Z'), ('0'..'9')].map{|i| i.to_a}.flatten
+    (0...20).map{ chars[rand(chars.length)] }.join
   end
   
   class << self

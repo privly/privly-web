@@ -9,7 +9,9 @@
 
 <br />
 
-<%= link_to 'Back to Post', post_path(@post, {:random_token => @post.random_token}) %>
+<%= link_to 'Back to Post', 
+            post_path(@post, {:random_token => @post.random_token, 
+                              :content_password => params[:content_password]}) %>
 <% if user_signed_in? and current_user.can_post %> |
   <%= link_to 'Your Posts', posts_path %>
 <% end %>
