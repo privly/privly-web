@@ -85,7 +85,7 @@ Devise.setup do |config|
   config.invitation_limit = 0
   
   # The key to be used to check existing users when sending an invitation
-  config.invite_key = :email
+  config.invite_key = {:email => Devise.email_regexp}
   
   # Flag that force a record to be valid before being actually invited 
   # Default: false
