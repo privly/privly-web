@@ -19,7 +19,7 @@ function identityIdAndMessage(identity, messageNode, hiddenElement)
     hiddenElement.val("");
   } 
   else if ( identity === "" ) {
-    messageNode.text("Type an Email, domain, IP Address, or password ");
+    messageNode.text("Type an Email, domain, IP Address, or Password ");
     hiddenElement.val("");
   }
   else if ( identity.indexOf("@") === 0 ) {
