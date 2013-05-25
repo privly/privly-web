@@ -140,7 +140,8 @@
                                       :onchange => "identityIdAndMessage($('#share_identity').val(), $('#type_mesasge'), $('#identity_provider_name'))",
                                       :onkeyup => "identityIdAndMessage($('#share_identity').val(), $('#type_mesasge'), $('#identity_provider_name'))"} %>
         <%= hidden_field_tag 'share[identity_provider_name]', 'Password', {:id => "identity_provider_name"} %>
-        <%= f.submit  "Create Share", :onclick => "sharesFormSubmit($('#share_identity'), $('#share_share_csv'), $('#identity_provider_name'));" %>
+        <%= f.submit  "Create Share", {:id => "create_share_button",
+                                       :onclick => "sharesFormSubmit($('#share_identity'), $('#share_share_csv'), $('#identity_provider_name'));"} %>
         <br />
         <%= f.check_box :can_show, {:checked => true} %>
         <%= f.label :can_show, "Can View" %>
