@@ -27,7 +27,7 @@ body {background:#242424; font: 14px Georgia, "Times New Roman", Times, serif; c
 #threecol .col1 {width:300px; float:left; padding:10px;}
 #threecol .col2 {width:300px; float:right; padding:10px;}
 #threecol .col3 {padding:10px; margin:0 335px 0 335px;}
-#maincontent h2 {font:  bold 20px "Trebuchet MS", Arial, Helvetica, sans-serif; margin-bottom:10px; text-shadow:#fff 1px 1px 1px;}
+#maincontent h2 {font:  bold 20px "Trebuchet MS", Arial, Helvetica, sans-serif; margin-top:10px; text-shadow:#fff 1px 1px 1px;}
 #maincontent p {font: normal 14px Vollkorn; line-height:22px;}
 #topbanner .container {width:1010px;  margin:auto;}
 #sitename {width:250px; float:left; display:block; color:#f3ebd9; font: normal 32px Lobster; padding:13px 0 0 10px; line-height:32px;}
