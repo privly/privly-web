@@ -51,7 +51,7 @@ class PostsControllerTest < ActionController::TestCase
     assert assigns(:post).structured_content[:this_will_be_serialized] == "Test Post 1"
     assert_redirected_to post_path(
       assigns(:post), 
-      :privlyInjectableApplication => "Unknown",
+      :privlyInjectableApplication => "ZeroBin",
       :privlyBurntAfter => assigns(:post).burn_after_date.to_i,
       :burntAfter => assigns(:post).burn_after_date.to_i,
       :privlyInject1 => true, 
@@ -138,13 +138,13 @@ class PostsControllerTest < ActionController::TestCase
 
   test "should update post" do
     put :update, :id => @post.to_param, :post => @post.attributes
-    assert_redirected_to post_path(
-      assigns(:post),
-      :privlyInjectableApplication => "PlainPost",
-      :privlyBurntAfter => assigns(:post).burn_after_date.to_i,
-      :burntAfter => assigns(:post).burn_after_date.to_i,
-      :privlyInject1 => true, 
-      :random_token => assigns(:post).random_token)
+    privlyDataURL = post_url @post, @post.data_url_parameters.merge(
+      :format => "json")
+    result = "#{request.protocol}#{request.host_with_port}/apps/" + 
+      @post.privly_application + "/show?" + 
+      @post.url_parameters.to_query + 
+      "&privlyDataURL=" + ERB::Util.url_encode(privlyDataURL)
+    assert_redirected_to result
   end
   
   test "should get CSV" do

@@ -7,16 +7,19 @@ one:
   public: true
   burn_after_date: <%= (Time.now + 2.day).strftime("%Y-%m-%d") %>
   random_token: random_token_NOT
+  privly_application: PlainPost
 
 two:
   id: 2
   content: Test Post 2
   public: true
   burn_after_date: <%= (Time.now + 2.day).strftime("%Y-%m-%d") %>
+  privly_application: PlainPost
   
 burnt:
   id: 3
   user_id: 1
   content: Test Post 3
   burn_after_date: <%= (Time.now - 2.day).strftime("%Y-%m-%d") %>
+  privly_application: PlainPost
   

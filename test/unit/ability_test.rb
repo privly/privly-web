@@ -9,6 +9,7 @@ class AbilityTest < ActiveSupport::TestCase
     ability = Ability.new(user)
     post = Post.new
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.user = user
     post.burn_after_date = Time.now + 1.hour
     post.public = true
@@ -20,6 +21,7 @@ class AbilityTest < ActiveSupport::TestCase
     ability = Ability.new(nil)
     post = Post.new
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.user = User.first
     post.public = true
     post.burn_after_date = Time.now + 1.hour
@@ -42,6 +44,7 @@ class AbilityTest < ActiveSupport::TestCase
     ability = Ability.new(nil)
     post = Post.new
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.public = true
     post.burn_after_date = Time.now + 1.hour
     post.random_token = "random_token_NOT"
@@ -66,6 +69,7 @@ class AbilityTest < ActiveSupport::TestCase
     
     post = Post.new
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.user = user
     post.burn_after_date = Time.now + 1.hour
     post.public = true
@@ -85,6 +89,7 @@ class AbilityTest < ActiveSupport::TestCase
   test "can create anonymous" do
     post = Post.new
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.burn_after_date = Time.now + 1.hour
     post.public = true
     assert post.valid?
@@ -186,6 +191,7 @@ class AbilityTest < ActiveSupport::TestCase
     #Create the post
     post = Post.new
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.user = user
     post.burn_after_date = Time.now + 1.hour
     post.public = true
@@ -239,6 +245,7 @@ class AbilityTest < ActiveSupport::TestCase
     #Create the post
     post = Post.new
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.user = user
     post.burn_after_date = Time.now + 1.hour
     post.public = true
@@ -283,6 +290,7 @@ class AbilityTest < ActiveSupport::TestCase
     #Create the post
     post = Post.new
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.user = user
     post.burn_after_date = Time.now + 1.hour
     post.public = true
@@ -327,6 +335,7 @@ class AbilityTest < ActiveSupport::TestCase
     #Create the post
     post = Post.new
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.user = user
     post.burn_after_date = Time.now + 1.hour
     post.public = true
@@ -371,6 +380,7 @@ class AbilityTest < ActiveSupport::TestCase
     #Create the post
     post = Post.new
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.user = user
     post.burn_after_date = Time.now + 1.hour
     post.public = true

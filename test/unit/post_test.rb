@@ -18,6 +18,7 @@ class PostTest < ActiveSupport::TestCase
   test "should save post" do
     post = Post.new
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.user = User.first
     post.burn_after_date = Time.now + 14.days
     post.public = false
@@ -25,6 +26,7 @@ class PostTest < ActiveSupport::TestCase
     
     post = Post.new
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.random_token = "notReallyRandom"
     post.burn_after_date = Time.now + 1.hour
     post.public = true
@@ -32,6 +34,7 @@ class PostTest < ActiveSupport::TestCase
     
     post = Post.new
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.burn_after_date = Time.now + 1.hour
     post.random_token = "notReallyRandom"
     post.public = true
@@ -40,6 +43,7 @@ class PostTest < ActiveSupport::TestCase
     post = Post.new
     post.user = User.first
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.burn_after_date = Time.now + 1.hour
     post.random_token = "notReallyRandom"
     post.public = true
@@ -48,6 +52,7 @@ class PostTest < ActiveSupport::TestCase
     post = Post.new
     post.public = true
     post.content = "content"
+    post.privly_application = "PlainPost"
     post.burn_after_date = Time.now + 1.hour
     assert post.save
   end

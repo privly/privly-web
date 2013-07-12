@@ -87,12 +87,10 @@
     <h2 id="post_options_sidebar"><a>Post Options</a></h2>
     <div>
       <ul class="posts">
-      
         <li>
           <%= f.check_box :public, {:onclick => "$('#csv_form').slideDown('slow')"} %>
           <%= f.label :public %>
         </li>
-      
         <li>
           <div id="csv_form">
             <br />
@@ -135,7 +133,6 @@
             </div><!-- check boxes -->
           </div><!-- CSV Form -->
         </li>
-      
         <li>
           Destroy After 
           <br />
@@ -144,7 +141,6 @@
               :start_year => Time.now.year, :end_year => (Time.now + Privly::Application.config.user_can_post_lifetime_max).year,  
               :prompt => {:day => 'Choose day', :month => 'Choose month', :year => 'Choose year'}} %>
         </li>
-      
       </ul>
     </div>
   

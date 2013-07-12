@@ -12,6 +12,8 @@ class Post < ActiveRecord::Base
   # by any injectable application.
   serialize :structured_content
   
+  validates :privly_application, :presence => true
+  
   has_many :shares, :dependent => :destroy
   
   before_create :generate_random_token
@@ -118,12 +120,16 @@ class Post < ActiveRecord::Base
   
   # Get a hash of the injectable URL parameters.
   # Use this method to get the parameters for the post's URL helpers.
-  def injectable_parameters
+  # This is for legacy applications that don't specify their
+  # injectable app.
+  def deprecated_injectable_parameters
     
     injectable_application_name = "Unknown"
     
     if self.content
       injectable_application_name = "PlainPost"
+    elsif self.structured_content
+      injectable_application_name = "ZeroBin"
     end
     
     if self.burn_after_date
@@ -145,6 +151,34 @@ class Post < ActiveRecord::Base
         :port => nil}
       return sharing_url_parameters
     end
+  end
+  
+  # Get the parameters for the non data URL parts of the model
+  def url_parameters
+    
+    if self.burn_after_date
+      sharing_url_parameters = {
+        :privlyApp => self.privly_application,
+        :random_token => self.random_token,
+        :privlyInject1 => true}
+    else
+      sharing_url_parameters = {
+        :privlyApp => self.privly_application,
+        :random_token => self.random_token,
+        :privlyInject1 => true}
+    end
+    
+    return sharing_url_parameters
+  end
+  
+  # Get the parameters intendended to be on the
+  # data URL.
+  def data_url_parameters
+    parameters = {
+      :random_token => self.random_token,
+      :host => Privly::Application.config.link_domain_host,
+      :port => nil}
+    return parameters
   end
   
   class << self

@@ -150,7 +150,7 @@ class PostsController < ApplicationController
       User.increment_counter(:permissioned_requests_served, @post.user.id)
     end
     
-    @injectable_url = get_injectable_url
+    @injectable_url = get_privly_application_url
     response.headers["X-Privly-Url"] = @injectable_url
     #deprecated
     response.headers["privlyurl"] = @injectable_url
@@ -315,6 +315,13 @@ class PostsController < ApplicationController
   # * Default: nil
   # Structured content is for the storage of serialized JSON in the database.
   #
+  # <b>post [privly_application]</b> - string - Optional
+  # * Values: Any of the currently supported Privly application identifiers can
+  # be set here. Current examples include "PlainPost" and "ZeroBin", but no
+  # validation is performed on the string. It is only used to generate URLs
+  # into the static folder of the server.
+  # * Default: nil
+  #
   # <b>post [public]</b> - _boolean_ - Optional
   # * Values: true, false
   # * Default: nil
@@ -415,6 +422,18 @@ class PostsController < ApplicationController
       @post.burn_after_date = convert_date params[:post], "burn_after_date"
     end
     
+    legacy = false
+    
+    if params[:post][:privly_application]
+      @post.privly_application = params[:post][:privly_application]
+    elsif @post.structured_content
+      legacy = true
+      @post.privly_application = "ZeroBin"
+    else
+      legacy = true
+      @post.privly_application = "PlainPost"
+    end
+    
     respond_to do |format|
       if @post.save
         
@@ -429,16 +448,24 @@ class PostsController < ApplicationController
                                               params[:post][:share][:can_share] 
         end
         
-        injectable_url = get_injectable_url
+        # This fork is only necessary until the end of August, 2013 in order to
+        # support legacy ZeroBin applications. After that time, the legacy
+        # branch should be removed
+        if legacy
+          injectable_url = deprecated_get_privly_application_url
+        else
+          injectable_url = get_privly_application_url
+        end
+        
         response.headers["X-Privly-Url"] = injectable_url
         response.headers["privlyurl"] = injectable_url #deprecated
-        
         format.html { redirect_to injectable_url,
           :notice => 'Post was successfully created.' }
         format.json { render :json => get_json, 
           :status => :created, :location => @post }
         format.any { render :json => get_json, 
           :status => :created, :location => @post }
+        
       else
         format.html { render :action => "plain_post", 
           :layout => "posting_application" }
@@ -594,7 +621,7 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       if @post.update_attributes(params[:post])
-        format.html { redirect_to get_injectable_url, :notice => 'Post was successfully updated.' }
+        format.html { redirect_to get_privly_application_url, :notice => 'Post was successfully updated.' }
         format.json { render :json => get_json, :callback => params[:callback] }
       else
         format.html { render :action => "edit" }
@@ -672,7 +699,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         
-        injectable_url = get_injectable_url
+        injectable_url = get_privly_application_url
         response.headers["X-Privly-Url"] = injectable_url
         response.headers["privlyurl"] = injectable_url #deprecated
         
@@ -777,10 +804,27 @@ class PostsController < ApplicationController
   
   private
     
-    # This helper gives the URL intended for injection into the page
-    def get_injectable_url
-      url = post_url @post, @post.injectable_parameters.merge(
+    # This helper gives the URL intended for injection into the page.
+    # If the injectable application is specified, generate the URL with
+    # the data endpoint parameter specified and the path tied to the 
+    # application in the static storage.
+    def get_privly_application_url
+      privlyDataURL = post_url @post, @post.data_url_parameters.merge(
+        :format => "json",
         :content_password => params[:content_password])
+      "#{request.protocol}#{request.host_with_port}/apps/" + 
+        @post.privly_application + "/show?" + 
+        @post.url_parameters.to_query + 
+        "&privlyDataURL=" + ERB::Util.url_encode(privlyDataURL)
+    end
+    
+    # Deprecated. This helper gives the URL intended for injection into the page.
+    # If the injectable application is specified, generate the URL with
+    # the data endpoint parameter specified and the path tied to the 
+    # application in the static storage.
+    def deprecated_get_privly_application_url
+      url = post_url @post, @post.deprecated_injectable_parameters.merge(
+              :content_password => params[:content_password])
       url
     end
     
@@ -800,7 +844,7 @@ class PostsController < ApplicationController
         :rendered_markdown => @post.content.safe_markdown)
       end
       
-      injectable_url = get_injectable_url
+      injectable_url = get_privly_application_url
       post_json.merge!(
          :privlyurl => injectable_url, #Deprecated
          "X-Privly-Url" => injectable_url, 

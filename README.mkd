@@ -8,16 +8,15 @@ For more information on what Privly is, [read about us](https://priv.ly/pages/ab
 
 **[Burrowing Owl](https://github.com/privly/privly-organization/wiki/Burrowing) Alpha Version**
 
-We are currently fixing bugs and developing the [cryptography library](https://github.com/privly/privly-library/) to package into the extensions. For more information about our development path, please see the [central wiki](https://github.com/privly/privly-organization/wiki/Version-List).
+For information about our development path, please see the [central wiki](https://github.com/privly/privly-organization/wiki/Version-List).
 
-The Privly-Web content server is currently maintained by [Sean McGregor](https://github.com/smcgregor), on behalf of the [Privly Foundation](http://www.privly.org).
+We are in the process of integrating the [Privly applications](https://github.com/privly/privly-applications) repository into this rail server. The Privly-Web content server is currently maintained by [Sean McGregor](https://github.com/smcgregor), on behalf of the [Privly Foundation](http://www.privly.org).
 
 ## About this Content Server ##
 
 This server currently supports:
 
-* Posting content from the extensions
-* Two [Injectable Applications](https://github.com/privly/privly-organization/wiki/Injectable-Applications), including [Plain Posts](https://github.com/privly/privly-organization/wiki/Posts) and [ZeroBin](https://github.com/privly/privly-organization/wiki/ZeroBin).
+* All the applications found in the [Privly Applications](https://github.com/privly/privly-applications) repository.
 * Serialized JSON storage for any text content.
 * Sharing by email, domain, and IP Address.
 
@@ -38,12 +37,18 @@ These shell commands step through a standard installation.
         #comment the gemfile line: gem 'mysql2'
         cp config/database.yml.sqlite.example config/database.yml
     
-    # Get the injectable applications into the "public" dir.
+    # (deprecated) Get the injectable applications into the "public" dir.
     cd public
     # Clone the ZeroBin Git into "zero_bin"
     git clone git://github.com/privly/ZeroBin.git zero_bin
     cd .. 
-
+    
+    # Get the privly application repository into the "public" dir.
+    cd public
+    # Clone the applications Git into "app"
+    git clone git://github.com/privly/privly-applications.git app
+    cd ..
+    
     # Run installation scripts
     bundle install #Installs the required gems
     rake db:create #Creates the Database
