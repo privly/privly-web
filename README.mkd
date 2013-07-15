@@ -46,7 +46,7 @@ These shell commands step through a standard installation.
     # Get the privly application repository into the "public" dir.
     cd public
     # Clone the applications Git into "apps"
-    git clone https://github.com/privly/privly-organization.git apps
+    git clone https://github.com/privly/privly-applications.git apps
     cd ..
     
     # Run installation scripts
