@@ -8,7 +8,7 @@ class AddPrivlyApplicationStringToPosts < ActiveRecord::Migration
       else
         post.privly_application = "ZeroBin"
       end
-      post.save!
+      post.save(:validate => false)
     end
     
   end

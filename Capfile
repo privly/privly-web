@@ -20,7 +20,7 @@ namespace :deploy do
         run "rm #{latest_release}/config/initializers/secret_token.rb"
         run "ln -s #{privly_shared_path}secret_token.rb #{latest_release}/config/initializers/secret_token.rb"
         run "cd #{privly_shared_path}ZeroBin; git pull"
-        run "cd #{privly_shared_path}privly-applications; git pull"
+        run "cd #{privly_shared_path}apps; git pull"
         run "ln -s #{privly_shared_path}ZeroBin #{latest_release}/public/zero_bin"
         run "ln -s #{privly_shared_path}privly-applications #{latest_release}/public/apps"
         run "ln -s #{privly_shared_path}airbrake.rb #{latest_release}/config/initializers/airbrake.rb"
