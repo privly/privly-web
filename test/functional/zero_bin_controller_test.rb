@@ -28,15 +28,6 @@ class ZeroBinControllerTest < ActionController::TestCase
     assert_response(403)
   end
   
-  test "should get create" do
-    
-    post :create, :iv => "initialization_vector", 
-      :salt => "salt", :ct => "encrypted_content", 
-      :random_token => "random_access_token", 
-      :burn_after_date => Time.now + 1.day
-    assert_response :success
-  end
-  
   test "should be burnt Zero Bin" do
     
     @zero_bin = zero_bins(:burnt)

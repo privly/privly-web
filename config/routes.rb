@@ -5,8 +5,6 @@ Privly::Application.routes.draw do
   
   # Deprecated Zero-Bin specific storage endpoint
   match "/zero_bin/:id" => "zero_bins#show", :as => :show_zero_bins, :via => [:get]
-  match "/zero_bin" => "zero_bins#create", :via => [:post]
-  match "/zero_bin/index.html" => "zero_bins#create", :via => [:post]
   
   # Endpoint for destroying all the user's stored posts
   match '/posts/destroy_all' => 'posts#destroy_all', :via => :delete
@@ -56,14 +54,11 @@ Privly::Application.routes.draw do
     :as => :get_user_account_data, :via => [:get]
     
   # PlainPost form
-  match '/posts/plain_post' => "posts#plain_post", 
+  match '/posts/plain_post', :to  => redirect('/apps/PlainPost/new.html'), 
     :as => :new_plain_post, :via => [:get]
   
   # Post storage and viewing
   resources :posts
-  
-  # posts#create_anonymous is deprecated
-  match '/posts/posts_anonymous' => "posts#create_anonymous", :as => :create_anonymous_post, :via => [:post]
   
   # Shares
   resources :shares, :only => [:create, :destroy, :update]

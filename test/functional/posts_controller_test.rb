@@ -20,11 +20,6 @@ class PostsControllerTest < ActionController::TestCase
     get :new
     assert_response :success
   end
-  
-  test "should get plain post" do
-    get :plain_post
-    assert_response :success
-  end
 
   test "should create post" do
     sign_in  users(:one)
