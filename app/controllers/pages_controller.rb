@@ -6,11 +6,6 @@ class PagesController < ApplicationController
   before_filter :authenticate_user!, :only => [:account]
   skip_before_filter :redirect_to_alpha_domain
 
-  # Deprecated. This endpoint is left in place for legacy purposes
-  def roadmap
-    @sidebar = {:about => true}
-  end
-
   # == Get the privacy policy, disclosures, terms of service, and alerts
   # 
   # Returns the current legal and disclosure information

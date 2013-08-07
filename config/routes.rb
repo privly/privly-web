@@ -29,7 +29,6 @@ Privly::Application.routes.draw do
   get "pages/account"
   
   #nearly static pages
-  get "pages/roadmap"
   get "pages/privacy"
   get "pages/donate"
   get "pages/download"
@@ -37,6 +36,7 @@ Privly::Application.routes.draw do
   get "pages/kickstarter"
   
   #legacy pages
+  get "pages/roadmap" => redirect("/pages/about")
   get "pages/faq" => redirect("http://www.privly.org/faq")
   get "pages/join" => redirect("http://www.privly.org/content/how-get-started")
   get "pages/people" => redirect("http://www.privly.org/people")

@@ -12,10 +12,6 @@ class Ability
   #
   def initialize(user, ip_address = nil, random_token = nil, content_password = nil)
     
-    # Anyone can create ZeroBin content, but to view it you need the random_token
-    can :create, ZeroBin
-    can :show, ZeroBin, {:random_token => random_token}
-    
     # Collect all the identities this user has
     identities = []
     
@@ -50,13 +46,7 @@ class Ability
     # If it is marked public and they have the random_token, they can read it
     can :show, Post, {:public => true, :random_token => random_token}
     
-    # Anonymous posts are allowed (deprecated)
-    can :create_anonymous, Post
-    
     can :new, Post
-    
-    # Users can post anonymous content
-    can :create, Post, {:user => nil} if !user.can_post
     
     #
     # Share management permitted by a share

@@ -79,23 +79,9 @@ class AbilityTest < ActiveSupport::TestCase
     user.can_post = false
     ability = Ability.new(user)
     assert ability.cannot?(:create, post)
-    assert ability.can?(:create_anonymous, post)
     
     ability = Ability.new(nil)
     assert ability.cannot?(:create, post)
-    assert ability.can?(:create_anonymous, post)
-  end
-  
-  test "can create anonymous" do
-    post = Post.new
-    post.content = "content"
-    post.privly_application = "PlainPost"
-    post.burn_after_date = Time.now + 1.hour
-    post.public = true
-    assert post.valid?
-    ability = Ability.new(nil)
-    assert ability.can?(:create_anonymous, post)
-    assert ability.can?(:create, ZeroBin.new)
   end
   
   test "can create share" do

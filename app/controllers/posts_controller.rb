@@ -5,19 +5,16 @@
 # storage. Shares can permission any type of post.
 class PostsController < ApplicationController
   
-  # Allow posting to the create_anonymous endpoint without the CSRF token (deprecated)
-  skip_before_filter :verify_authenticity_token, :only => [:create_anonymous]
-  
   # Force the user to authenticate using Devise
   before_filter :authenticate_user!, :except => [:show, :edit, :update, 
-                                                 :get_csrf, :create_anonymous, 
+                                                 :get_csrf, 
                                                  :destroy, :user_account_data,
                                                  :plain_post]
   
   # Checks request's permissions defined in ability.rb and loads 
   # resource if they have access. This will assign @post or @posts depending
   # on the action.
-  load_and_authorize_resource :except => [:destroy_all, :create_anonymous, 
+  load_and_authorize_resource :except => [:destroy_all, 
                                           :get_csrf, :user_account_data,
                                           :plain_post]
   
@@ -674,48 +671,6 @@ class PostsController < ApplicationController
     end
   end
   
-  # == deprecated
-  # A Create endpoint which will not associate the post with any user account
-  # POST /posts/anonymous
-  # POST /posts/anonymous.json
-  def create_anonymous
-    
-    @post = Post.new(params[:post])
-    
-    if params[:post][:seconds_until_burn]
-      seconds_until_burn = params[:post][:seconds_until_burn].to_i
-      @post.burn_after_date = Time.now + seconds_until_burn.seconds
-    else
-      @post.burn_after_date = Time.now + 1.day
-    end
-    
-    if @post.burn_after_date.nil? or @post.burn_after_date > Time.now + 1.day
-      @post.burn_after_date = Time.now + 1.day
-    end
-    
-    # Anonymous posts must be public
-    @post.public = true
-    
-    respond_to do |format|
-      if @post.save
-        
-        injectable_url = get_privly_application_url
-        response.headers["X-Privly-Url"] = injectable_url
-        response.headers["privlyurl"] = injectable_url #deprecated
-        
-        format.html { redirect_to url, :notice => 'Post was successfully created.' }
-        format.json {
-          render :json => get_json, :status => :created, 
-            :location => injectable_url,
-            :callback => params[:callback] }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @post.errors, 
-          :status => :unprocessable_entity }
-      end
-    end
-  end
-  
   # == Destroy all of the User's owned posts.
   #
   # Requires content ownership.
@@ -740,12 +695,6 @@ class PostsController < ApplicationController
     end
 
     redirect_to posts_url, :notice => "Destroyed all Posts."
-  end
-  
-  # Deprecated
-  def get_csrf
-    render :json => {:csrf => form_authenticity_token},
-      :callback => params[:callback]
   end
   
   # == Get User Account Data

@@ -9,11 +9,6 @@ class PagesControllerTest < ActionController::TestCase
     sign_in  users(:one)
   end
 
-  test "should get roadmap" do
-    get :roadmap
-    assert_response :success
-  end
-
   test "should get privacy" do
     get :privacy
     assert_response :success
