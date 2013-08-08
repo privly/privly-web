@@ -26,11 +26,6 @@ function hashToParameterString(associativeArray)
     }
   }
   
-  //padding for URL shorteners
-  if (parameterString !== "") {
-    parameterString += "&p=p";
-  }
-  
   return parameterString;
 }
 

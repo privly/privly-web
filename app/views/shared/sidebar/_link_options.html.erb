@@ -5,22 +5,7 @@
       <p>Link options change the way links are displayed on pages you post links to. When you update these options, the link to the left will change to reflect your changes. Copy the updated link to pages you are sharing on. This information is not stored by Privly.</p>
       <%= form_tag nil, :id => "linkFormatterForm" do %>
           <li>
-              Burn Message
-              <%= text_field_tag(:privlyBurnMessage, nil,
-                  {:onkeyup=>"updateURL();", :use_in_url=>"true"}) %>
-          </li>
-          <li>
-              Passive Message
-              <%= text_field_tag(:privlyPassiveMessage, nil,
-                  {:onkeyup=>"updateURL();", :use_in_url=>"true"}) %>
-          </li>
-          <li>
-              Force Passive?
-              <%= check_box_tag(:privlyPassive, "true", false,
-                  {:onclick=>"updateURL();", :use_in_url=>"true"}) %>
-          </li>
-          <li>
-              Exclude from Replacement?
+              Do not inject link
               <%= check_box_tag(:privlyExclude, "true", false,
                   {:onclick=>"updateURL();", :use_in_url=>"true"}) %>
           </li>
