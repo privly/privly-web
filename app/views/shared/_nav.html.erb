@@ -1,78 +1,51 @@
 <div id="topbanner">
-    <div class="container">
-        <h1 id="sitename"><a href="/"><%= Privly::Application.config.name %></a><span>Share Priv(ate).ly</span></h1>
-        <div id="mainnav">
-            <ul>
-                
-                <% if controller.controller_name == "sessions" or controller.controller_name == "invitations" %>
-                    <% if user_signed_in? %>
-                      <li><%= link_to destroy_user_session_path, :method => :delete do %>
-                          Logout
-                          <span>auth</span>
-                          <% end %>
-                      </li>
-                    <% else %>
-                    <li class="active"><%= link_to new_user_invitation_path do %>
-                        Get Invited
-                        <span>sign up</span>
-                        <% end %>
-                    </li>
-                    <% end %>
-                <% else %>
-                    <% if user_signed_in? %>                    
-                      <li><%= link_to destroy_user_session_path, :method => :delete do %>
-                          Logout
-                          <span>auth</span>
-                          <% end %>
-                      </li>
-                    <% else %>
-                    <li><%= link_to new_user_invitation_path do %>
-                        Get Invited
-                        <span>sign up</span>
-                        <% end %>
-                    </li>
-                    <% end %>
+  <div class="container">
+    <h1 id="sitename"><a href="/"><%= Privly::Application.config.name %></a><span>Share Priv(ate).ly</span></h1>
+      <div id="mainnav">
+        <ul>
+          <% if user_signed_in? %>
+            <li><%= link_to destroy_user_session_path, :method => :delete do %>
+                Logout
+                <span>auth</span>
                 <% end %>
-                
-                <% if user_signed_in? %>
-                    <li <% if controller.action_name == "account" %>class="active"<% end %>>
-                        <%= link_to pages_account_path do %>
-                            Account <span>info</span>
-                        <% end %>
-                    </li>
-                <% else %>
-                    <li <% if controller.controller_name == "pages" and controller.action_name != "download" %>class="active"<% end %>>
-                        <%= link_to pages_about_path do %>
-                            About <span>more info</span>
-                        <% end %>
-                    </li>
+            </li>
+            <li <% if controller.action_name == "account" %>class="active"<% end %>>
+                <%= link_to pages_account_path do %>
+                    Account <span>info</span>
                 <% end %>
-                
-                <% if user_signed_in? and current_user.can_post %>
-                    <% if controller.controller_name == "posts" and (controller.action_name == "new" or
-                      controller.action_name == "plain_post") %>
-                        <li class="active"><a href="/posts/new">Post <span>new</span></a></li>
-                    <% else %>
-                        <li><a href="/posts/new">Post <span>new</span></a></li>
-                    <% end %>
-                
-                    <% if controller.controller_name == "posts" and not (controller.action_name == "new" or
-                      controller.action_name == "plain_post") %>
-                        <li class="active"><a href="/posts">Post <span>management</span></a></li>
-                    <% else %>
-                        <li><a href="/posts">Post <span>management</span></a></li>
-                    <% end %>
+            </li>
+            <li><a href="/apps/ZeroBin/new.html">
+              New ZeroBin
+              <span>Link Encrypted</span>
+              </a>
+            </li>
+            <li><a href="/apps/PlainPost/new.html">
+              New PlainPost
+              <span>Unencrypted</span>
+              </a>
+            </li>
+            <li><a href="/apps/Index/new.html">
+              Index
+              <span>View Posts</span>
+              </a>
+            </li>
+          <% else %>
+            <% if controller.controller_name == "sessions" or controller.controller_name == "invitations" %>
+              <li class="active"><%= link_to new_user_invitation_path do %>
+                  Get Invited
+                  <span>sign up</span>
                 <% end %>
-                
-                <% if extension_available? and not has_extension? %>
-                    <li <% if controller.action_name == "download" %>class="active"<% end %>>
-                        <%= link_to pages_download_path do %>
-                            Download Extension <span>for Browsers</span>
-                        <% end %>
-                    </li>
+              </li>
+            <% else %>
+              <li><%= link_to new_user_invitation_path do %>
+                Get Invited
+                <span>sign up</span>
                 <% end %>
-            </ul>
-        </div>
-        <div class="clear"></div>
-    </div>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    <div class="clear"></div>
+  </div>
 </div>

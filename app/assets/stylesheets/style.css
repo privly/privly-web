@@ -90,6 +90,7 @@ body {background:#242424; font: 14px Georgia, "Times New Roman", Times, serif; c
 #sidebar .posts a:hover {color:#000!important; background:url(starblt2.gif) 3px 1px no-repeat;}
 #sidebar h2 {display:block; font: bold 18px Vollkorn; padding:5px; border-bottom: dashed 1px #c8bead;}
 #sidebar #sidebar_accordion h2 a{margin-left: 25px !important;}
+#rules_accordion h2 a{margin-left: 25px !important;}
 #how_it_works_accordion h2 a{margin-left: 32px !important;}
 
 #bottom {padding:10px 0 0 0; color:#c2b7a2; border-top:solid 2px #111;}

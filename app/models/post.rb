@@ -83,6 +83,31 @@ class Post < ActiveRecord::Base
      end
   end
   
+  # Give the URL for the Privly Application along with query parameters
+  # for the required access tokens. This should only be called for users
+  # who already have access to the content.
+  def privly_URL
+    
+    privlyDataURL = Privly::Application.config.required_protocol +
+      "://" +
+      Privly::Application.config.link_domain_host +
+      "/posts/" +
+      self.id.to_s + 
+      ".json"
+      
+    if self.random_token
+      privlyDataURL += "?random_token=" + self.random_token
+    end
+      
+    Privly::Application.config.required_protocol +
+      "://" +
+      Privly::Application.config.link_domain_host +
+      "/apps/" + 
+      self.privly_application + "/show?" + 
+      self.url_parameters.to_query + 
+      "&privlyDataURL=" + ERB::Util.url_encode(privlyDataURL)
+  end
+  
   # Add shares to the current post from a comma and space separated list of
   # values. The share defualts to viewing permission, but any level of
   # permission can be generated.

@@ -76,4 +76,7 @@ Privly::Application.configure do
   
   config.action_mailer.default_url_options = { :host => 'localhost' }
   
+  # Required protocol, choose "http" or "https"
+  config.required_protocol = "http"
+  
 end

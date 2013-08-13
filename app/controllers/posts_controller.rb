@@ -73,10 +73,10 @@ class PostsController < ApplicationController
     end
     respond_to do |format|
       format.html {
-        @sidebar = {:posts => true}
-        render  # index.html.erb
+        redirect_to "/apps/Index/new.html"
       }
-      format.json { render :json => @posts.to_json() }
+      format.json {
+        render :json => @posts.to_json(:methods => :privly_URL) }
       format.csv do |csv|
         @filename = "posts_" + Time.now.strftime("%m-%d-%Y") + ".csv"
         csv_data = FasterCSV.generate("") do |csv|
@@ -147,7 +147,7 @@ class PostsController < ApplicationController
       User.increment_counter(:permissioned_requests_served, @post.user.id)
     end
     
-    @injectable_url = get_privly_application_url
+    @injectable_url = @post.privly_URL
     response.headers["X-Privly-Url"] = @injectable_url
     #deprecated
     response.headers["privlyurl"] = @injectable_url
@@ -451,7 +451,7 @@ class PostsController < ApplicationController
         if legacy
           injectable_url = deprecated_get_privly_application_url
         else
-          injectable_url = get_privly_application_url
+          injectable_url = @post.privly_URL
         end
         
         response.headers["X-Privly-Url"] = injectable_url
@@ -618,7 +618,7 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       if @post.update_attributes(params[:post])
-        format.html { redirect_to get_privly_application_url, :notice => 'Post was successfully updated.' }
+        format.html { redirect_to @post.privly_URL, :notice => 'Post was successfully updated.' }
         format.json { render :json => get_json, :callback => params[:callback] }
       else
         format.html { render :action => "edit" }
@@ -753,20 +753,6 @@ class PostsController < ApplicationController
   
   private
     
-    # This helper gives the URL intended for injection into the page.
-    # If the injectable application is specified, generate the URL with
-    # the data endpoint parameter specified and the path tied to the 
-    # application in the static storage.
-    def get_privly_application_url
-      privlyDataURL = post_url @post, @post.data_url_parameters.merge(
-        :format => "json",
-        :content_password => params[:content_password])
-      "#{request.protocol}#{request.host_with_port}/apps/" + 
-        @post.privly_application + "/show?" + 
-        @post.url_parameters.to_query + 
-        "&privlyDataURL=" + ERB::Util.url_encode(privlyDataURL)
-    end
-    
     # Deprecated. This helper gives the URL intended for injection into the page.
     # If the injectable application is specified, generate the URL with
     # the data endpoint parameter specified and the path tied to the 
@@ -793,7 +779,7 @@ class PostsController < ApplicationController
         :rendered_markdown => @post.content.safe_markdown)
       end
       
-      injectable_url = get_privly_application_url
+      injectable_url = @post.privly_URL
       post_json.merge!(
          :privlyurl => injectable_url, #Deprecated
          "X-Privly-Url" => injectable_url, 

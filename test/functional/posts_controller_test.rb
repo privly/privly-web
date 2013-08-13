@@ -12,8 +12,7 @@ class PostsControllerTest < ActionController::TestCase
 
   test "should get index" do
     get :index
-    assert_response :success
-    assert_not_nil assigns(:posts)
+    assert_redirected_to "/apps/Index/new.html"
   end
 
   test "should get new" do
