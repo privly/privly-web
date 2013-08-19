@@ -68,9 +68,6 @@ class PostsController < ApplicationController
   # ** Default: html
   #
   def index
-    unless params[:format] == "csv"
-      @posts = @posts.order('created_at DESC').page params[:page]
-    end
     respond_to do |format|
       format.html {
         redirect_to "/apps/Index/new.html"
@@ -422,6 +419,9 @@ class PostsController < ApplicationController
     legacy = false
     
     if params[:post][:privly_application]
+      
+      # This is potentially dangerous. Should evaluate further and potentially
+      # move to an explicit list of privly applications.
       @post.privly_application = params[:post][:privly_application]
     elsif @post.structured_content
       legacy = true
