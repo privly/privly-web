@@ -7,29 +7,10 @@ class ApplicationController < ActionController::Base
   # is specified
   protect_from_forgery
   
-  before_filter :redirect_to_alpha_domain if Privly::Application.config.redirect_html_requests_to_root_domain
-  
   helper_method :has_extension?, :extension_available?, :firefox_browser?, 
                 :opera_browser?, :chrome_browser?
   
   protected
-    
-    # The application will serve content to priv.ly only on the nearly-static
-    # pages. All other requests will be redirected to the domain found in the
-    # environment variable Privly::Application.config.primary_domain_redirect
-    def redirect_to_alpha_domain
-      if request.format == "html" and 
-        Privly::Application.config.primary_domain_host != request.host
-        
-        # Get all the request URL after the domain
-        query_string_index = request.url.index("/", 8)
-        if query_string_index
-          redirect_to "#{request.protocol}#{Privly::Application.config.primary_domain_redirect}#{request.url[query_string_index, request.url.length]}"
-        else
-          redirect_to "#{Privly::Application.config.primary_domain}"
-        end
-      end
-    end
     
     # If the user is not signed in, all "access denied" and
     # "Not Found" requests will be 403 and prompt the user to
