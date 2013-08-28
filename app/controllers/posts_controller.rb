@@ -190,52 +190,6 @@ class PostsController < ApplicationController
     end
   end
   
-  # == Present an HTML form for creating a new plain post.
-  #
-  # Requires update permission.
-  #
-  # === Routing  
-  #
-  # GET /posts/new
-  #
-  # === Formats  
-  #  
-  # * +html+
-  #
-  # === Parameters  
-  #
-  # <b>post [content]</b> - _string_ - Optional
-  # * Values: Any Markdown formatted string. No images supported.
-  # * Default: nil
-  # The content is rendered on the website, or for injection into web pages.
-  #
-  # <b>post [structured_content]</b> - _JSON_ - Optional
-  # * Values: Any JSON document
-  # * Default: nil
-  # Structured content is for the storage of serialized JSON in the database.
-  #
-  # <b>post [public]</b> - _boolean_ - Optional
-  # * Values: true, false
-  # * Default: true
-  # Indicates whether anyone can view the content.
-  #
-  def plain_post
-    
-    @post = Post.new
-    @post.burn_after_date = Time.now + Privly::Application.config.user_can_post_lifetime_max - 1.day
-    
-    if params[:post] and not params[:post][:public].nil?
-      @post.public = params[:post][:public]
-    else
-      @post.public = true
-    end
-    respond_to do |format|
-      format.html {
-        render :layout => "posting_application" 
-      } # plain_post.html.erb
-    end
-  end
-  
   # == Edit a post.
   #
   # Requires update permission.
@@ -464,8 +418,7 @@ class PostsController < ApplicationController
           :status => :created, :location => @post }
         
       else
-        format.html { render :action => "plain_post", 
-          :layout => "posting_application" }
+        format.html { render :action => "new" }
         format.json { render :json => @post.errors, 
           :status => :unprocessable_entity }
         format.any { render :json => @post.errors, 
