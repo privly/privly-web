@@ -599,7 +599,10 @@ class PostsController < ApplicationController
                                             params[:post][:share][:can_share]
       end
       
-      @post.public = params[:post][:public]
+      unless params[:post][:public].nil?
+        @post.public = params[:post][:public]
+      end
+      
       unless params[:post][:random_token].nil?
         @post.random_token = params[:post][:random_token]
       end
