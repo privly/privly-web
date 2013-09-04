@@ -10,9 +10,20 @@
     </script>
 <% end %>
 
-<h2 class="subhead"><span>Privacy and Terms of Service</span></h2>
+<h2 class="subhead"><span>Trust Center</span></h2>
 
-<p>A new draft of the Privacy Policy, License, and Terms will be adopted by the Privly Foundation board. Until the draft legal documents are adopted and published here, these policies are in effect. We will discuss the draft documents on the <%= link_to "development mailing list", "http://groups.google.com/group/privly" %>.</p>
+<p>This page contains information about this specific content server.</p>
+
+<div style="color: #FF0000;">
+  <h2>Disclaimer</h2>
+  <p>Please note that this content server does <span style="font-weight:bold;">not</span> currently offer:</p>
+  <ul>
+    <li>Protection from governments</li>
+    <li>Protection from our hosting provider</li>
+    <li>Protection from the domain name system</li>
+  </ul>
+  <p>Privly is under active development and should not be trusted with anything important.</p>
+</div>
 
 <div class="accordionhead">
     <div id="rules_accordion">
@@ -20,53 +31,41 @@
       <h2><a id="accordion_security_alerts" href="#accordion_security_alerts">Security Alerts</a></h2>
       <div>
         <p>
-          If you have a security issue you believe needs immediate attention, please do not publicly disclose it until we have a chance to fix it. You can email us directly at privly [at] privly.org for critical issues, or enter less critical issues into the <%= link_to "bug form", "http://www.privly.org/content/bug-report" %>. At the time of this writing, there were no known security issues.
+          If you have a security issue you believe needs immediate attention, please do not publicly disclose it without first giving a chance for the Privly developers to fix it. You can email us directly at privly [at] privly.org for critical issues, or enter less critical issues into the <%= link_to "bug form", "http://www.privly.org/content/bug-report" %>. At the time of this writing, there were no known security issues.
         </p>
       </div>
       
       <h2><a id="accordion_disclosures" href="#accordion_disclosures">Trusted Parties</a></h2>
       <div>
-        <p>This section is dedicated to describing the parties with any level of access to information transmitted to Privly, or inferable from those transmissions. We are actively working to reduce the necessary disclosures of this list to the final item.</p>
+        <p>This section is dedicated to describing the parties with any level of access to information transmitted by this content server, or inferable from those transmissions. We are actively working to reduce the necessary disclosures of this list.</p>
         
-        <br />
-        
-        <h3>The Privly Foundation: Code Updates, System Administration</h3>
         <p>
-          You are currently trusting Privly's system administration capabilities. Active system administrators include Sean McGregor (the content server), and Hanno Wagner (test.privly.org, doc.privly.org). We are working to reduce all trust and reliance on content hosts by developing the client-side encryption capabilities of Privly.
+          <strong>The Privly Foundation: Code Updates, System Administration:</strong>
+          You are currently trusting Privly's system administration capabilities. Active system administrators include Sean McGregor (the content server). We are working to reduce all trust and reliance on content hosts by developing the client-side encryption capabilities of Privly.
         </p>
         
-        <br />
-        
-        <h3>Rackspace: Virtual Private Server Host</h3>
         <p>
-          Our host could likely gain root access on our server. Doing so without legal action by the US government could jeopardize their massive hosting business.
+          <strong>Rackspace: Virtual Private Server Host:</strong>
+          Our host could likely gain root access on our server.
         </p>
         
-        <br />
-        
-        <h3>GoDaddy: DNS, privlyalpha.org Registrar</h3>
         <p>
-          The Alpha version of the server has DNS through GoDaddy, and the domain is registered through their servers. We need to do a critical evaluation of all the DNS and domain registrars available.
+          <strong>GoDaddy: DNS, privlyalpha.org Registrar:</strong>
+          The Alpha version of the server has DNS through GoDaddy, and the domain is registered through their servers. We need a critical evaluation of all the DNS and domain registrars available.
         </p>
         
-        <br />
-        
-        <h3>thoughtbot and Airbrake: Error Logging Service</h3>
         <p>
-          Privly uses the Airbrake error logging service for recording and managing errors in the Privly content server. In some instances this could lead to Airbrake obtaining information available to Privly. We will consider switching to a self-hosted solution when we transition to the Beta version.
+          <strong>thoughtbot and Airbrake: Error Logging Service:</strong>
+          We use the Airbrake error logging service for recording and managing errors in the content server. In some instances this could lead to Airbrake obtaining information available to Privly. We will consider switching to a self-hosted solution when we transition to the Beta version.
         </p>
         
-        <br />
-        
-        <h3>Mozilla, Opera, Google: Extension Distribution</h3>
         <p>
-          The Privly extensions are distributed by their respective browsers. We trust them to distribute unmodified versions of Privly. If you don't trust Mozilla, Opera, or Google to distribute the original extension, you should download the extension's source code directly from the Privly repository.
+          <strong>Browser Distributors: Extension Distribution:</strong>
+          The Privly extensions are distributed by their respective browser authors. We trust them to distribute unmodified versions of Privly. If you don't trust Mozilla, Opera, or Google to distribute the original extension, you should download the extension's source code directly from the appropriate Privly repository.
         </p>
         
-        <br />
-        
-        <h3>Our Users: Understanding</h3>
         <p>
+          <strong>Our Users: Understanding:</strong>
           Privly is a new concept under active development. We can build Privly, but unless our users understand Privly capabilities, they will not be able to protect their content with Privly.
         </p>
           
@@ -110,37 +109,23 @@
                   <p>Above all we want to enable privacy across the internet. We will keep development and policies open and responsive to the users, so get involved!</p>
               </div>
           </div>
-          
-          <div class="post" style="color: #FF0000;">
-              <div class="posthead">
-                  <h2>Disclaimer</h2>
-                  <p>Please note that the extension does <span style="font-weight:bold;">not</span> currently offer:</p>
-                  <ul>
-                      <li>Encryption (content is stored in the clear)</li>
-                      <li>Protection from governments</li>
-                      <li>Protection from our hosting provider</li>
-                      <li>Protection from the domain name system</li>
-                      <li>Or security of any kind</li>
-                  </ul>
-                  <p>We made the extension available so you can test it out with your favorite site, but until we tell you otherwise, post with the expectation that it is public.</p>
-              </div>
-          </div>
       </div>
-      
-      <h2><a id="accordion_license" href="#accordion_license">Source Code License</a></h2>
-      <div>
-          <p>The Privly extensions and content server are licensed under the <%= link_to "MIT License", "/license.txt" %>. The Privly source code is hosted at <%= link_to "github.com", "https://github.com/privly/" %></p>
-          
-          <%= link_to image_tag("OSI-Approved-License-100x137.png", :style=>"display: block;   margin-left: auto;   margin-right: auto;"), "/license.txt" %>
-      </div>
-      
+            
       <h2><a id="accordion_terms" href="#accordion_terms">Terms of Service</a></h2>
       <div>
-          <%= render "terms" %>
+        <p>A new draft of the Privacy Policy, License, and Terms will be adopted by the Privly Foundation board. Until the draft legal documents are adopted and published here, these policies are in effect. We will discuss the draft documents on the <%= link_to "development mailing list", "http://groups.google.com/group/privly" %></p>
+        <hr>
+        <%= render "terms" %>
       </div>
       
-      <h2><a id="accordion_trademark" href="#accordion_trademark">Privly Trademark FAQ</a></h2>
+      <h2><a id="accordion_trademark" href="#accordion_trademark">Privly Trademark FAQ and License</a></h2>
       <div>
+        
+        
+        <p>The Privly extensions and content server are licensed under the <%= link_to "MIT License", "/license.txt" %>. The Privly source code is hosted at <%= link_to "github.com", "https://github.com/privly/" %></p>
+        
+        <%= link_to image_tag("OSI-Approved-License-100x137.png", :style=>"display: block;   margin-left: auto;   margin-right: auto;"), "/license.txt" %>
+        
         <h2>How can I use the name "Privly"?</h2>
         <p>The <%= link_to "Privly Foundation", "http://www.privly.org" %> encourages developers to use the name Privly in ways that do not confuse the public about the source of privacy software and services. If you are building open-source non-commercial software or services that incorporate or work with The Privly Project's code, you may use the name "Privly" in an accurate description of your work. We ask you to include a link to the official Privly website <%= link_to "https://priv.ly", "https://priv.ly" %> so users can verify the original source of Privly for themselves, and a note indicating that your project is not sponsored by The Privly Foundation. For example, "This product is produced independently from the Privly&trade; privacy software and carries no guarantee from The Privly Foundation about quality, suitability or anything else."</p>
         <br />
@@ -154,7 +139,7 @@
         <p>The Privly Foundation is a non-profit corporation organized to research and develop the Privly privacy software and network. We don't want to be trademark bullies, but we will use trademark to protect the public's ability to recognize Privly Project software. Trademark law helps us to assure that the name is used only in connection with genuine Privly privacy software and for accurate description of software and services. After all, to protect their privacy securely, computer users must be able to identify the software they are using, so they can account properly for its strengths and weaknesses. We work with developers to improve the software and actively encourage researchers to document attacks to help us strengthen its privacy protection further. We distribute the software itself freely, but require correct attribution.</p>
         <br />
         <h2>What if I produce non-open source, commercial products based on Privly?</h2>
-        <p>Contact us, and let's talk.</p>
+        <p>Contact the Privly Foundation.</p>
         <br />
         <h2>What is the difference between Privly and Priv.ly?</h2>
         <p>Priv.ly hosts a list of Privly compliant hosts, and is used for marketing Privly. The Privly name is pending a formal trademark, and Priv.ly is a "Domain Hack" of the Privly trademark and enjoys the same protections as Privly.</p>

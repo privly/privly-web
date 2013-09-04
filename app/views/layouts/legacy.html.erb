@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title><%= Privly::Application.config.name %> &middot; <%= yield :title %></title>
+  
+  <%= stylesheet_link_tag    :application %>
+  <%= javascript_include_tag :application %>
+  
+  <%= yield :extrahead %>
+  <%= yield :extracss %>
+  <%= yield :extrajs %>
+
+  <%= csrf_meta_tags %>
+  
+</head>
+<!-- the "privly-exclude" attribute is deprecated -->
+<body privly-exclude="true" data-privly-exclude="true">
+
+<!--TOP BANNER AND NAVIGATION -->
+<%= render "shared/nav" %>
+
+<div id="pagewrap">
+    <div id="wrap" style="min-height:400px;">
+        <% if notice %>
+        <div class="flash notice">
+            <p><%= notice %></p>
+        </div>
+        <% end %>
+        <% if alert %>
+        <div class="flash alert">
+            <p><%= alert %></p>
+        </div>
+        <% end %>
+        <%= yield :top_column %>
+        <div id="maincontent">
+                
+            <!-- OPTIONAL MAIN CONTENT AREA, used mostly on welcome page-->
+            <%= yield :top_main_content_column %>
+                
+            <div class="clear bordered"></div>
+                
+            <!--MAIN CONTENT-->
+            <div id="page">
+                <%= yield %>
+            </div>
+            
+            <%= render "shared/sidebar" %>
+            
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+
+<div id="bottom">
+  <!--Bottom Row -->
+  <div id="btmcontent">
+    <div class="row">
+      <div class="span12">
+        <div id="downloadmessage" style="display:none;">
+          <% if not has_extension? and firefox_browser? %>
+            <div id="firefox_link" style="float: left; width: 33%;">
+                <%= link_to("https://addons.mozilla.org/en-US/firefox/addon/privly/") do %>
+                  <div style="position:relative;width:10em;padding:1em;height:150px">
+                    <%= image_tag "firefox_logo_150.png", :alt => "Firefox Logo", :style=>"position:absolute;right:0;top:0;opacity:0.9;filter:alpha(opacity=90);" %>
+                    <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :style=>"position:absolute;right:27px;top:20px;" %>
+                  </div>         
+                <% end %>
+            </div>
+          <% end %>
+
+          <% if not has_extension? and opera_browser? %>
+            <div id="opera_link" style="float: left; width: 34%;">
+              <%= link_to("https://addons.opera.com/en/extensions/details/privly-2/?display=en") do %>
+
+                <div style="position:relative;width:10em;padding:1em;height:150px">
+                  <%= image_tag "opera_logo_150.png", :alt => "Google Chrome Logo", :style=>"position:absolute;right:0;top:0;opacity:0.9;filter:alpha(opacity=90);background-color:rgba(255, 255, 255, 0.08);" %>
+                  <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :style=>"position:absolute;right:27px;top:20px;" %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+
+          <% if not has_extension? and chrome_browser? %>
+            <div id="chrome_link" style="float: left; width: 33%;">
+              <%= link_to("https://chrome.google.com/webstore/detail/pkokikcdapfpkkkjpdaamjanniaempol") do %>
+                <div style="position:relative;width:10em;padding:1em;height:150px">
+                  <%= image_tag "chrome-logo_150X.png", :alt => "Google Chrome Logo", :style=>"position:absolute;right:0;top:0;opacity:0.9;filter:alpha(opacity=90);" %>
+                  <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :style=>"position:absolute;right:33px;top:15px;" %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+
+          <h2>View Privly Content Automatically</h2>
+          <p>Privly works by injecting status updates, emails, tweets... anything really... directly into pages you view everyday. We never want you to come back to this website again. <%= link_to "Download", pages_download_path %> the extension and you won't have to.</p>
+        </div><!-- downloadmessage -->
+      </div>
+    </div> <!-- row -->
+  </div><!-- btmcontent -->
+    
+  <!--FOOTER 
+  <div id="footer">
+      <p>Priv.ly</p>
+      <span class="credit"><a href="http://cssheaven.org" title="free and open source css template">CSS Template</a> by CSS Heaven Released under GPL License</span>
+  </div>-->
+    
+</div><!-- bottom -->
+
+</body>
+</html>

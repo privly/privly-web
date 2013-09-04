@@ -6,14 +6,12 @@
 
 <h2 class="subhead"><span>Request an Invitation</span></h2>
 
-<p>Privly is in closed Alpha. Only developers currently have access. To get invited to the next major release, enter your email below. Existing users can <%= link_to "Sign in", new_user_session_path %>.</p>
-
-<br/>
+<p><%= Privly::Application.config.name %> is in closed Alpha. Only developers currently have access. To get invited to the next major release, enter your email below. Existing users can <%= link_to "Sign in", new_user_session_path %>.</p>
 
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
   <%= devise_error_messages! %>
 
-  <p><%= f.label :email %><br />
+  <p><%= f.label :email %>
   <%= f.text_field :email %></p>
 
   <p><%= f.submit "Sign up for an invitation" %></p>

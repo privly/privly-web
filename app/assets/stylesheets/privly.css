@@ -1,0 +1,78 @@
+@font-face {
+  font-family: 'Vollkorn';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Vollkorn Regular'), local('Vollkorn-Regular'), url('../volkorn.woff') format('woff');
+}
+@font-face {
+  font-family: 'Lobster';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Lobster'), url('../lobster.woff') format('woff');
+}
+body {
+  background:url('../images/bg.jpg');
+}
+
+/* Bootstrap Tweaks */
+div.navbar-inner {
+  background: #242424; 
+  border: none;
+  border-radius: 0;
+}
+div.navbar .nav > li > a {
+  color:#827B6E;
+  height: 42px;
+  padding-top:23px;
+  text-shadow:none;
+  font:bold 18px "Trebuchet MS",Arial,Helvetica,sans-serif;
+}
+div.navbar .nav > li > a span {
+  display:block;
+  color:#6C675E;
+  font:14px 'Vollkorn',Georgia,"Times New Roman",Times,serif;
+}
+div.navbar .nav > .active > a, 
+div.navbar .nav > li > a:hover,
+div.navbar .nav > .active > a:hover, 
+div.navbar .nav > .active > a:focus {
+  color:#F3EBD9;
+  background-color:transparent;
+  background-image: url('../images/menuactive.gif');
+  background-repeat: no-repeat;
+  background-position: bottom center;
+}
+/* End Bootstrap Tweaks */
+
+
+#site_name {
+  float:left;
+  padding: 0 0 9px;
+}
+#site_name a {
+  color:#F3EBD9;
+  text-shadow:none;
+  font-family:'Lobster';
+  font-size:32px;
+  margin: 4px 0;
+}
+#site_name span {
+  clear:both;
+  display:block;
+  color:#999;
+  font:bold 16px/17px "Trebuchet MS",Arial,Helvetica,sans-serif !important;
+}
+
+#side_block {
+  margin-left: auto;
+  margin-right: auto;
+  border:1px dashed #333;
+  background-color:#eee;
+}
+
+img.center {
+  display: block;
+      margin-left: auto;
+      margin-right: auto
+}
+

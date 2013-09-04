@@ -13,26 +13,6 @@ class PagesControllerTest < ActionController::TestCase
     get :privacy
     assert_response :success
   end
-
-  test "should get donate" do
-    get :donate
-    assert_response :success
-  end
-
-  test "should get download" do
-    get :download
-    assert_response :success
-  end
-
-  test "should get about" do
-    get :about
-    assert_response :success
-  end
-  
-  test "should get kickstarter" do
-    get :kickstarter
-    assert_response :success
-  end
   
   test "should get account" do
     get :account

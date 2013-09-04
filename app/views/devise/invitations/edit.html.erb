@@ -7,7 +7,6 @@
 <p>
     Welcome developer, donor, tester, or cool person! Once you set your password your account will be ready to go.
 </p>
-<br/>
 
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
   <%= devise_error_messages! %>

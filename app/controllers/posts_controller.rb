@@ -89,6 +89,8 @@ class PostsController < ApplicationController
   end
   
   # == Shows an individual post.
+  #
+  # (deprecated) Use a Privly application.
   #  
   # === Routing  
   #
@@ -153,12 +155,8 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       format.html {
-        if @post.content or not @post.structured_content
-          @sidebar = {:post => true, :posts => true, :link_options => true}
-        else
-          @sidebar = {:post => true, :posts => true}
-        end
-        render
+        @sidebar = {:post => true}
+        render :layout => "legacy"
       }
       format.iframe { render }
       format.json {
@@ -184,7 +182,6 @@ class PostsController < ApplicationController
   # None
   #
   def new
-    @sidebar = {:posts => true}
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -192,7 +189,7 @@ class PostsController < ApplicationController
   
   # == Edit a post.
   #
-  # Requires update permission.
+  # (deprecated) Requires update permission.
   #
   # === Routing  
   #
@@ -224,7 +221,7 @@ class PostsController < ApplicationController
   # Structured content is for the storage of serialized JSON in the database.
   #
   def edit
-    @sidebar = {:markdown => true, :post => true, :posts => true}
+    @sidebar = {:post => true}
     respond_to do |format|
       format.html {
         if @post.structured_content.nil?

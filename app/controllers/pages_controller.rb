@@ -23,88 +23,8 @@ class PagesController < ApplicationController
   # none
   #
   def privacy
-    @sidebar = {:contribute => true}
   end
 
-  # == Donation Information
-  # 
-  # Returns the current avenues for donation.
-  #  
-  # ==== Routing  
-  #
-  # +GET+: /pages/donate
-  #
-  # ==== Formats  
-  #  
-  # * +html+
-  #
-  # ==== Parameters  
-  # 
-  # none
-  #
-  def donate
-    @sidebar = {:contribute => true}
-  end
-
-  # == Download Information
-  # 
-  # Returns information on the publicly available software.
-  #  
-  # ==== Routing  
-  #
-  # +GET+: /pages/download
-  #
-  # ==== Formats  
-  #  
-  # * +html+
-  #
-  # ==== Parameters  
-  # 
-  # none
-  #
-  def download
-    @sidebar = {:contribute => true}
-  end
-
-  # == General Information
-  # 
-  # Returns the general information about the Privly Project
-  #  
-  # ==== Routing
-  #
-  # +GET+: /pages/about
-  #
-  # ==== Formats  
-  #  
-  # * +html+
-  #
-  # ==== Parameters  
-  # 
-  # none
-  #
-  def about
-    @sidebar = {:about => true, :news => true, :in_the_news => true}
-  end
-  
-  # == Kickstarter Information
-  # 
-  # Tells the user the Kickstarter is completed.
-  #  
-  # ==== Routing  
-  #
-  # +GET+: /pages/kickstarter
-  #
-  # ==== Formats  
-  #  
-  # * +html+
-  #
-  # ==== Parameters  
-  # 
-  # none
-  #
-  def kickstarter
-    @sidebar = {:news => true, :about => true, :contribute => true}
-  end
   
   # == Account Information
   # 

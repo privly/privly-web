@@ -2,91 +2,25 @@
     Welcome
 <% end %>
 
-<% content_for(:extrajs) do %>
-  <script type="text/javascript">
-    jQuery(document).ready(function(){
-        $("#page").css("border-right","none");
-    });
-    
-    jQuery(document).ready(function(){
-      $("#main_accordion").accordion({fillSpace: true});
-    })
-    
-  </script>
-<% end %>
-
-<% content_for :top_column do %>
-<div id="homeheader">
-    <div id="mainimg">
-      <div id="main_accordion">
-        <h2><a href="#">What is Privly?</a></h2>
-        <div style="text-align: justify;"><p><%= image_tag "icons/icon_128.png", :title => "Privly Icon", :style => "float: left;vertical-align: top;" %><%= image_tag "icons/icon_128.png", :title => "Privly Icon", :style => "float: right;vertical-align: top;" %>
-          
-          
-          Privly enables you to securely send and receive content through online services, without those services having access to the content. Privly works by extending browsers to look for specially formatted links, which are then "injected" into the pages you are viewing. Privly is a Foundation owned concept being made by and for all internet users. For more information about what Privly is, read our <%= link_to "about page." %></p></div>
-        
-        <h2><a href="#">Where are things now?</a></h2>
-        <div style="text-align: justify;">
-          <p>The Chrome and Firefox versions of the extension are currently in Alpha testing, which means they are usable but not finished. You should not expect privacy or security from any software before it is reaches a Beta version (Beta versions release after Alpha versions). The current Chrome and Firefox versions of Privly offer the following guarantees:</p>
-          <p>
-            <strong>Privacy:</strong> Privly currently has two Applications (see "Privly Applications" below), and each one offers its own privacy guarantees. Content created with the ZeroBin application is encrypted before transmission for storage. People will be able to read your content if they have access to the content server and the link you share around the web. Content created using a Privly "PlainPost" is stored unencrypted by the content server. Anyone you give access to the content's link will be able to read the content.
-          </p>
-          <p>
-            <strong>Sharing:</strong> The reference implementation of the Privly Content server currently allows you to permission content by email, domain, and IP address. These sharing rules can restrict who has access to your data, but they do not change what information Privly has access to.
-          </p>
-          <p>
-            <strong>Organization:</strong> <%= link_to "Kickstarter", "http://www.kickstarter.com/projects/229630898/protect-your-content-anywhere-on-the-web-privly" %> donations in April of 2012 lead to the founding of the Privly Foundation, a non-profit dedicated to online Privacy software and education.
-          </p>
-        </div>
-        
-        <h2><a href="#">What is Next?</a></h2>
-        <div style="text-align: justify;">
-          <p><strong>Information for Everyone:</strong> We are working to make the system more secure, and to decrease the number of parties you must trust with your data. The next version will offer more encryption capabilities.</p>
-          <p><strong>Information for Developers:</strong> The Chrome extension recently reached a major development milestone and is working towards a security review. Join the Privly development mailing list for system discussion, <%= link_to "Development Mailing List", "https://groups.google.com/group/privly" %>, or join our <%= link_to "IRC channel", "http://www.privly.org/content/irc" %>.</p>
-        </div>
-        
-        <h2><a href="#">Privly Hosts</a></h2>
-        <div style="text-align: justify;"><p>The Google Chrome browser extension allows users to whitelist any content server for content injection. Developers and testers can ask for an account on the <%= link_to "Alpha Server", "https://privlyalpha.org" %>, but unaffiliated groups and individuals are welcome to experiment with their own content hosts. If you are hosting a Privly content server, notify the <%= link_to "Development Mailing List", "https://groups.google.com/group/privly" %>.</p></div>
-        
-        <h2><a href="#">(Developers Only) Privly Applications</a></h2>
-        <div style="text-align: justify;"><p>When Privly securely injects content into sites like Facebook, the injected content has its own scripting environment. The "injectable application" abstraction frees content for uses and security models not imagined by the Privly core development team. However, allowing arbitrary code to execute with the injected content is dangerous for user data and the user's cryptographic identities. To enable advanced security and communication technologies within the Privly system, Privly will verify the security guarantees of applications for addition to the Privly network. Anyone can develop and submit applications for addition to the Privly network.</p></div>
-        
-        <h2><a href="#">(Developers Only) Privly Development</a></h2>
-        <div style="text-align: justify;"><p>For a more thorough treatment of Privly as a whole, visit <%= link_to "the overview", "https://github.com/privly/privly-organization/wiki/Privly-System-and-Organization-Overview" %>. For development discussion, join the <%= link_to "Development Mailing List", "https://groups.google.com/group/privly" %>. Many <%= link_to "repositories", "https://github.com/privly/" %> have their own wikis, but content not specific to a single repository will be in the <%= link_to "central wiki", "https://github.com/privly/privly-organization/wiki/" %>. Official announcements are found on <%= link_to "www.privly.org", "http://www.privly.org" %>. Live versions of the content server can be found at <%= link_to "privlyalpha.org", "https://privlyalpha.org" %> (stable) and <%= link_to "dev.privly.org", "https://dev.privly.org" %> (development). Auto-generated documentation can be found at <%= link_to "doc.privly.org", "http://doc.privly.org" %>. Extension test cases can be found at <%= link_to "test.privly.org", "http://test.privly.org" %>. 
-            <br />
-            <br />
-            Privly developers gather on IRC in the #Privly room on irc.freenode.net
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="clear"></div>
+<div class="page-header">
+  <h1>Welcome to <%= Privly::Application.config.name %></h1>
 </div>
-<% end %>
 
-<% content_for :top_main_content_column do %>
-    <div id="threecol" style="margin-top:60px;">
-        <div class="col1">
-            <div id="about_text">
-                <h2><%= link_to "Privly Development", "http://www.privly.org" %></h2>
-                <p>Privly is a foundation-funded project anyone can contribute to. Join our <%= link_to "Development Mailing List", "https://groups.google.com/group/privly" %>, read the <%= link_to "development summary", "https://github.com/privly/privly-organization/wiki/Privly-System-and-Organization-Overview" %>, then checkout the <%= link_to "Foundation's Home", "http://www.privly.org" %>.</p>
-            </div>
-        </div>
-        
-        <div class="col2">
-            <div id="roadmap_text">
-                <h2><%= link_to "Try it Out!", "http://www.privly.org/content/give-privly-try" %></h2>
-                <p>We need your help to find problems with Privly. Anyone can <%= link_to "give Privly a try", "http://www.privly.org/content/give-privly-try" %>, but only developers and people who <%= link_to "submit bugs", pages_bug_path %> get closed Alpha Accounts.</p>
-            </div>
-        </div>
-
-        <div class="col3">
-            <div id="donate_text">
-                <h2><%= link_to "About", pages_about_path %></h2>
-                <p>Privly is a developing technology for posting content to websites without giving those sites your content. <%= link_to "Learn more", pages_about_path %></p>
-            </div>
-        </div>
-        
-        <div class="clear"></div>
-    </div>
-<% end %>
+<div class="row-fluid">
+  <div class="span7">
+    <p>
+      This server <strong>hosts content for</strong> the Privly family of <strong>privacy and security applications</strong>. Privly enables you to securely send and receive content through online services, without those services having access to the content. The Privly Project is a non-profit, foundation-owned concept being made by and for all internet users. For more information about Privly, go to <%= link_to "Priv.ly", "https://priv.ly" %>
+    </p>
+    <h2>Invitation Only</h2>
+    <p>
+      Hosting on this server is only for users invited by the site owners. You can request an account at the <%= link_to "invitation page", new_user_invitation_path %>, but invites are limited. If you don't want to wait for an invitation, we recommend you join the development effort.</p>
+  </div>
+  <div class="span1"></div>
+  <div class="span4" id="side_block">
+    <%= link_to("https://priv.ly") do %>
+      <h2>Learn More</h2>
+      <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :class => "center" %>
+      <h2>About Privly</h2>
+    <%  end %>
+  </div>
+</div>

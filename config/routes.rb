@@ -30,21 +30,22 @@ Privly::Application.routes.draw do
   
   #nearly static pages
   get "pages/privacy"
-  get "pages/donate"
-  get "pages/download"
-  get "pages/about"
-  get "pages/kickstarter"
+  get "pages/terms" => redirect("pages/privacy") # One central info page
+  get "pages/license" => redirect("pages/privacy") # One central info page
   
   #legacy pages
-  get "pages/roadmap" => redirect("/pages/about")
+  get "pages/donate" => redirect("https://priv.ly/pages/donate")
+  get "pages/download" => redirect("https://priv.ly/pages/download")
+  get "pages/about" => redirect("https://priv.ly/pages/about")
+  get "pages/people" => redirect("https://priv.ly/pages/about")
+  get "pages/roadmap" => redirect("https://priv.ly/pages/about")
+  get "pages/kickstarter" => redirect("https://priv.ly/pages/kickstarter")
   get "pages/faq" => redirect("http://www.privly.org/faq")
   get "pages/join" => redirect("http://www.privly.org/content/how-get-started")
-  get "pages/people" => redirect("http://www.privly.org/people")
-  get "pages/license" => redirect("/pages/about")
-  get "pages/terms" => redirect("/pages/privacy")
   get "pages/irc" => redirect("http://www.privly.org/content/irc")
   get "pages/bug" => redirect("http://www.privly.org/content/bug-report")
   get "pages/email" => redirect("https://groups.google.com/forum/?fromgroups#!forum/privly")
+
   
   #Deprecated
   match '/posts/get_csrf' => "posts#get_csrf", :as => :get_csrf_post, :via => [:get]
