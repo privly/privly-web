@@ -74,41 +74,37 @@ class SharesController < ApplicationController
   #
   def create
     
+    @failures = []
+    
     # If the CSV parameter is defined, then create a list of shares with
-    # the same settings. Otherwise, create a single share from a known
-    # share type.
+    # the same settings.
     if not params[:share][:share_csv].nil? and 
       params[:share][:share_csv] != ""
       
-      @shares = @share.post.add_shares_from_csv params[:share][:share_csv], 
+      @failures.concat (@share.post.add_shares_from_csv params[:share][:share_csv], 
                                                 params[:share][:can_show], 
                                                 params[:share][:can_update], 
                                                 params[:share][:can_destroy], 
-                                                params[:share][:can_share]
-      respond_to do |format|
-        format.html { 
-          redirect_to post_path(@share.post,
-            @share.post.url_parameters.merge(
-              :content_password => params[:content_password])),
-          :notice => "#{@shares.length} shares were successfully created." }
-        format.json { render :json => {}, :status => :created }
-      end
+                                                params[:share][:can_share])
     else
       identity_provider = IdentityProvider.find_by_name(params[:share][:identity_provider_name])
       @share.identity_provider = identity_provider
-      
-      respond_to do |format|
-        if @share.save
-          format.html { redirect_to post_path(@share.post, 
-                                    @share.post.url_parameters.merge(:content_password => params[:content_password])), 
-                                    :notice => 'Share was successfully created.' }
-          format.json { render :json => @share, :status => :created }
-        else
-          format.html { redirect_to post_path(@share.post, @share.post.url_parameters.merge(:content_password => params[:content_password])), 
-                                    :alert => @share.errors.full_messages }
-          format.json { render :json => @share.errors, 
-                               :status => :unprocessable_entity }
-        end
+
+      unless @share.save
+        @failures << @share
+      end                                           
+    end
+    
+    respond_to do |format|
+      if @failures.empty?
+        format.html { redirect_to post_path_helper, 
+                                  :notice => 'Share was successfully created.' }
+        format.json { render :json => @share.post.shares, :status => :created }
+      else
+        format.html { redirect_to post_path_helper, 
+                                  :alert => @failures.first.errors.full_messages }
+        format.json { render :json => @failures.first.errors, 
+                             :status => :unprocessable_entity }
       end
     end
   end
@@ -196,16 +192,21 @@ class SharesController < ApplicationController
   def update
     respond_to do |format|
       if @share.update_attributes(params[:share])
-        format.html { redirect_to post_path(@share.post, 
-                        @share.post.url_parameters.merge(:content_password => params[:content_password])
-                        ), 
+        format.html { redirect_to post_path_helper, 
                         :notice => 'Share was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { redirect_to post_path(@share.post, @share.post.url_parameters.merge(:content_password => params[:content_password])), :notice => 'We could not update that email share.' }
+        format.html { redirect_to post_path_helper, :notice => 'We could not update that share.' }
         format.json { render :json => @share.errors, :status => :unprocessable_entity }
       end
     end
   end
-
+  
+  private
+    
+    # URL back to the post after the share was changed
+    def post_path_helper
+      post_path(@share.post, @share.post.url_parameters.merge(:content_password => params[:content_password]))
+    end
+  
 end

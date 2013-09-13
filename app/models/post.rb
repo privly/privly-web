@@ -112,11 +112,11 @@ class Post < ActiveRecord::Base
   # values. The share defualts to viewing permission, but any level of
   # permission can be generated.
   #
-  # Returns an array of successfully created shares, or an empty array.
+  # Returns an array of unsuccessfully created shares, or an empty array.
   def add_shares_from_csv(csv, can_show = true, can_update = false, 
     can_destroy = false, can_share = false)
     
-    created_shares = []
+    failed_shares = []
     
     values = csv.split(/,| /)
     values.each do |value|
@@ -133,13 +133,13 @@ class Post < ActiveRecord::Base
           share.identity = share.identity_provider.get_random_string
         end
         share.post = self
-        if share.save
-          created_shares << share
+        unless share.save
+          failed_shares << share
         end
       end
     end
     
-    return created_shares
+    return failed_shares
     
   end
   
