@@ -1,8 +1,11 @@
 <html>
     <head>
       <%= javascript_include_tag :iframe %>
+      <%= stylesheet_link_tag :iframe %>
     </head>
-    <body privly-exclude="true">
-        This <%= link_to "Priv.ly", welcome_url, {:target => "_blank"} %> link is not shared with you or does not exist.
+    <body>
+      <div id="wrapper">
+        This link is not shared with you or does not exist.
+      </div>
     </body>
 </html>
