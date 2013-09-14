@@ -91,8 +91,6 @@
       <hr>
       <footer>
         <div id="btmcontent">
-          <% if not has_extension? and extension_available? %>
-
             <div id="downloadmessage">
 
               <% if firefox_browser? %>
@@ -130,9 +128,8 @@
               <% end %>
 
               <h2>Never View this Site Again</h2>
-              <p>Privly works by injecting status updates, emails, tweets... anything really... directly into pages you view everyday. We never want you to come back to this website again. <%= link_to "Download", pages_download_path %> the extension and you won't have to.</p>
+              <p>Privly works by injecting status updates, emails, tweets... anything really... directly into pages you view everyday. We never want you to come back to this website again. <%= link_to "Download", "https://priv.ly/pages/download" %> the extension and you won't have to.</p>
             </div><!-- downloadmessage -->
-          <% end %>
         </div><!-- btmcontent -->
       </footer>
       

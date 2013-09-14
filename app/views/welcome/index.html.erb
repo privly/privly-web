@@ -16,11 +16,12 @@
       Hosting on this server is only for users invited by the site owners. You can request an account at the <%= link_to "invitation page", new_user_invitation_path %>, but invites are limited. If you don't want to wait for an invitation, we recommend you join the development effort.</p>
   </div>
   <div class="span1"></div>
-  <div class="span4" id="side_block">
-    <%= link_to("https://priv.ly") do %>
+  <div class="span4">
+    <div id="side_block">
+    <%= link_to("https://priv.ly/pages/servers.html") do %>
+      <%= image_tag "logo_no_bleed.png", :alt => "Privly Logo", :class => "center" %>
       <h2>Learn More</h2>
-      <%= image_tag "icons/icon_96.png", :alt => "Privly Icon", :class => "center" %>
-      <h2>About Privly</h2>
     <%  end %>
+    </div>
   </div>
 </div>

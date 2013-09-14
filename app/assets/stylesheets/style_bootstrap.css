@@ -71,12 +71,16 @@
 
 /* News Side Block */
 #side_block {
-  background:white;
+  background:#252525;
   border-radius:6px;
   padding:13px;
+  height:270px;
+  text-align:center;
 }
 
-#side_block h3 {
+
+#side_block a {
   font-size:13px;
   border-bottom:1px solid #242424;
+  color: #F3EBD9;
 }
