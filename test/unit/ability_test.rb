@@ -6,6 +6,7 @@ class AbilityTest < ActiveSupport::TestCase
   test "user can only destroy posts which he owns or has a share" do
     user = User.create!(:email => "ability_test@email.com",
       :password => "password", :password_confirmation => "password")
+    user.can_post = true
     ability = Ability.new(user)
     post = Post.new
     post.content = "content"
@@ -33,7 +34,7 @@ class AbilityTest < ActiveSupport::TestCase
     assert ability.cannot?(:show, post)
     
     post.user = nil
-    assert post.save
+    assert post.save(:validate => false)
     assert ability.cannot?(:destroy, post)
     assert ability.cannot?(:update, post)
     assert ability.cannot?(:share, post)
@@ -48,6 +49,7 @@ class AbilityTest < ActiveSupport::TestCase
     post.public = true
     post.burn_after_date = Time.now + 1.hour
     post.random_token = "random_token_NOT"
+    post.user = User.first
     assert post.save
     assert ability.cannot?(:destroy, post)
     assert ability.cannot?(:update, post)
@@ -61,7 +63,7 @@ class AbilityTest < ActiveSupport::TestCase
   end
   
   test "can only post to identity with posting permission" do
-    user = User.new(:email => "ability_test@email.com",
+    user = User.create!(:email => "ability_test@email.com",
       :password => "password", :password_confirmation => "password")
     user.can_post = true
     ability = Ability.new(user)
@@ -87,6 +89,7 @@ class AbilityTest < ActiveSupport::TestCase
   test "can create share" do
     user = User.create!(:email => "ability_test@email.com",
       :password => "password", :password_confirmation => "password")
+    user.can_post = true
     ability = Ability.new(user)
     
     post = Post.first
@@ -128,6 +131,7 @@ class AbilityTest < ActiveSupport::TestCase
     user2 = User.create!(:email => "ability_test2@email.com",
       :password => "password", :password_confirmation => "password")
     user.can_post = true
+    user2.can_post = true
     ability = Ability.new(user)
     post = Post.new
     post.user = user2
@@ -147,9 +151,11 @@ class AbilityTest < ActiveSupport::TestCase
   test "cannot create share on another's post" do
     user = User.create!(:email => "ability_test@email.com",
       :password => "password", :password_confirmation => "password")
+    user.can_post = true
     ability = Ability.new(user)
     user2 = User.create!(:email => "ability_test2@email.com",
       :password => "password", :password_confirmation => "password")
+    user2.can_post = true
     post = Post.new
     post.user = user2
     
@@ -173,6 +179,8 @@ class AbilityTest < ActiveSupport::TestCase
       :password => "password", :password_confirmation => "password")
     user_shared_with = User.create!(:email => "ability_test2@email.com",
       :password => "password", :password_confirmation => "password")
+    user.can_post = true
+    user_shared_with.can_post = true
     
     #Create the post
     post = Post.new
@@ -221,11 +229,13 @@ class AbilityTest < ActiveSupport::TestCase
   test "can perform actions based on domain share" do
     
     #Create the users
-    user = User.new(:email => "ability_test@email.com",
+    user = User.create!(:email => "ability_test@email.com",
       :password => "password", :password_confirmation => "password")
+    user.can_post = true
     assert user.save
-    user_shared_with = User.new(:email => "ability_test2@email.com",
+    user_shared_with = User.create!(:email => "ability_test2@email.com",
       :password => "password", :password_confirmation => "password")
+    user_shared_with.can_post = true
     assert user_shared_with.save
     
     #Create the post
@@ -270,8 +280,10 @@ class AbilityTest < ActiveSupport::TestCase
     #Create the users
     user = User.create!(:email => "ability_test@email.com",
       :password => "password", :password_confirmation => "password")
+    user.can_post = true
     user_shared_with = User.create!(:email => "ability_test2@email.com",
       :password => "password", :password_confirmation => "password")
+    user_shared_with.can_post = true
     
     #Create the post
     post = Post.new
@@ -315,8 +327,10 @@ class AbilityTest < ActiveSupport::TestCase
     #Create the users
     user = User.create!(:email => "ability_test@email.com",
       :password => "password", :password_confirmation => "password")
+    user.can_post = true
     user_shared_with = User.create!(:email => "ability_test2@email.com",
       :password => "password", :password_confirmation => "password")
+    user_shared_with.can_post = true
     
     #Create the post
     post = Post.new
@@ -360,9 +374,10 @@ class AbilityTest < ActiveSupport::TestCase
     #Create the users
     user = User.create!(:email => "ability_test@email.com",
       :password => "password", :password_confirmation => "password")
+    user.can_post = true
     user_shared_with = User.create!(:email => "ability_test2@email.com",
       :password => "password", :password_confirmation => "password")
-    
+    user_shared_with.can_post = true
     #Create the post
     post = Post.new
     post.content = "content"

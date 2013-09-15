@@ -25,13 +25,7 @@ class PostsControllerTest < ActionController::TestCase
     assert_difference('Post.count') do
       post :create, :post => {:content => "Test Post 1", :public => true}
     end
-    assert_redirected_to post_path(
-      assigns(:post), 
-      :privlyInjectableApplication => "PlainPost",
-      :privlyBurntAfter => assigns(:post).burn_after_date.to_i,
-      :burntAfter => assigns(:post).burn_after_date.to_i,
-      :privlyInject1 => true, 
-      :random_token => assigns(:post).random_token)
+    assert_redirected_to assigns(:post).privly_URL
   end
   
   test "should create structured content post" do
@@ -40,16 +34,10 @@ class PostsControllerTest < ActionController::TestCase
       post :create, :post => {
                       :structured_content => {
                         :this_will_be_serialized => "Test Post 1"
-                        }, :public => true}
+                        }, :public => true, :privly_application => "FakeApp"}
     end
     assert assigns(:post).structured_content[:this_will_be_serialized] == "Test Post 1"
-    assert_redirected_to post_path(
-      assigns(:post), 
-      :privlyInjectableApplication => "ZeroBin",
-      :privlyBurntAfter => assigns(:post).burn_after_date.to_i,
-      :burntAfter => assigns(:post).burn_after_date.to_i,
-      :privlyInject1 => true, 
-      :random_token => assigns(:post).random_token)
+    assert_redirected_to assigns(:post).privly_URL
   end
 
   test "should show post no format" do

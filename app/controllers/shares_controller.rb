@@ -81,7 +81,7 @@ class SharesController < ApplicationController
     if not params[:share][:share_csv].nil? and 
       params[:share][:share_csv] != ""
       
-      @failures.concat (@share.post.add_shares_from_csv params[:share][:share_csv], 
+      @failures.concat(@share.post.add_shares_from_csv params[:share][:share_csv], 
                                                 params[:share][:can_show], 
                                                 params[:share][:can_update], 
                                                 params[:share][:can_destroy], 

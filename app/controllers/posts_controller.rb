@@ -7,16 +7,12 @@ class PostsController < ApplicationController
   
   # Force the user to authenticate using Devise
   before_filter :authenticate_user!, :except => [:show, :edit, :update, 
-                                                 :get_csrf, 
-                                                 :destroy, :user_account_data,
-                                                 :plain_post]
+                                                 :destroy, :user_account_data]
   
   # Checks request's permissions defined in ability.rb and loads 
   # resource if they have access. This will assign @post or @posts depending
   # on the action.
-  load_and_authorize_resource :except => [:destroy_all, 
-                                          :get_csrf, :user_account_data,
-                                          :plain_post]
+  load_and_authorize_resource :except => [:destroy_all, :user_account_data]
   
   # Obscure whether the record exists when not found
   rescue_from ActiveRecord::RecordNotFound do |exception|
@@ -336,16 +332,6 @@ class PostsController < ApplicationController
   # * (deprecated) +privlyurl+
   def create
     
-    if user_signed_in? and current_user.can_post
-      @post.user = current_user
-      @post.burn_after_date = Time.now + Privly::Application.config.user_can_post_lifetime_max - 1.day
-    elsif user_signed_in?
-      @post.burn_after_date = Time.now + Privly::Application.config.user_cant_post_lifetime_max - 1.day
-    else
-      @post.user = nil
-      @post.burn_after_date = Time.now + Privly::Application.config.not_logged_in_lifetime_max - 1.day
-    end
-    
     # Posts default to Private
     if params[:post][:public]
       @post.public = params[:post][:public]
@@ -365,20 +351,14 @@ class PostsController < ApplicationController
       @post.burn_after_date = Time.now + seconds_until_burn.seconds
     elsif params[:post]["burn_after_date(1i)"]
       @post.burn_after_date = convert_date params[:post], "burn_after_date"
+    else
+      @post.burn_after_date = Time.now + Privly::Application.config.user_can_post_lifetime_max - 1.day
     end
     
-    legacy = false
     
     if params[:post][:privly_application]
-      
-      # This is potentially dangerous. Should evaluate further and potentially
-      # move to an explicit list of privly applications.
       @post.privly_application = params[:post][:privly_application]
-    elsif @post.structured_content
-      legacy = true
-      @post.privly_application = "ZeroBin"
-    else
-      legacy = true
+    elsif @post.structured_content.nil?
       @post.privly_application = "PlainPost"
     end
     
@@ -396,14 +376,7 @@ class PostsController < ApplicationController
                                               params[:post][:share][:can_share] 
         end
         
-        # This fork is only necessary until the end of August, 2013 in order to
-        # support legacy ZeroBin applications. After that time, the legacy
-        # branch should be removed
-        if legacy
-          injectable_url = deprecated_get_privly_application_url
-        else
-          injectable_url = @post.privly_URL
-        end
+        injectable_url = @post.privly_URL
         
         response.headers["X-Privly-Url"] = injectable_url
         response.headers["privlyurl"] = injectable_url #deprecated
@@ -684,21 +657,10 @@ class PostsController < ApplicationController
   # <b>No Parameters</b>
   def user_account_data
     
-    if user_signed_in? and current_user.can_post
-      burn_after = Time.now + Privly::Application.config.user_can_post_lifetime_max
-      can_post = true
-    elsif user_signed_in?
-      burn_after = Time.now + Privly::Application.config.user_cant_post_lifetime_max
-      can_post = false
-    else
-      burn_after = Time.now + Privly::Application.config.not_logged_in_lifetime_max
-      can_post = false
-    end 
-    
     render :json => {
                        :csrf => form_authenticity_token,
-                       :burntAfter => burn_after,
-                       :canPost => can_post,
+                       :burntAfter => Time.now + Privly::Application.config.user_can_post_lifetime_max,
+                       :canPost => user_signed_in?,
                        :signedIn => user_signed_in?
                      }, 
                      :callback => params[:callback]

@@ -12,7 +12,8 @@ class Post < ActiveRecord::Base
   # by any injectable application.
   serialize :structured_content
   
-  validates :privly_application, :presence => true
+  validates :privly_application, :presence => true, :format => { :with => /\A[a-zA-Z]+\z/,
+      :message => "only allows letters" }
   
   has_many :shares, :dependent => :destroy
   
@@ -55,20 +56,14 @@ class Post < ActiveRecord::Base
     
     if not self.burn_after_date
       errors.add(:burn_after_date, "#{burn_after_date} must be specified.")
-      return
+    elsif self.burn_after_date > Time.now + Privly::Application.config.user_can_post_lifetime_max
+      errors.add(:burn_after_date, "#{burn_after_date} must be before #{Time.now + Privly::Application.config.user_can_post_lifetime_max}.")
     end
     
-    if not user_id.nil? and self.user.can_post
-      if self.burn_after_date > Time.now + Privly::Application.config.user_can_post_lifetime_max
-        errors.add(:burn_after_date, "#{burn_after_date} must be before #{Time.now + Privly::Application.config.user_can_post_lifetime_max}.")
-      end
-    elsif not user_id.nil?
-      if self.burn_after_date > Time.now + Privly::Application.config.user_cant_post_lifetime_max
-        errors.add(:burn_after_date, "#{burn_after_date} must be before #{Time.now + Privly::Application.config.user_cant_post_lifetime_max}.")
-      end
-    elsif self.burn_after_date > Time.now + Privly::Application.config.not_logged_in_lifetime_max
-      errors.add(:burn_after_date, "#{burn_after_date} must be before #{Time.now + Privly::Application.config.not_logged_in_lifetime_max}.")
+    if user_id.nil? or not self.user.can_post
+      errors.add(:burn_after_date, "Your user account cannot create content.")
     end
+    
   end
   
   # Generate a random token for controlling access to the content.

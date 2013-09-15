@@ -15,6 +15,16 @@ class PostTest < ActiveSupport::TestCase
     assert !post.save
   end
   
+  test "should not save non-text privly_application" do
+    post = Post.new
+    post.content = "content"
+    post.privly_application = "Plain\\Post"
+    post.user = User.first
+    post.burn_after_date = Time.now + 14.days
+    post.public = false
+    assert !post.save
+  end
+  
   test "should save post" do
     post = Post.new
     post.content = "content"
@@ -30,6 +40,7 @@ class PostTest < ActiveSupport::TestCase
     post.random_token = "notReallyRandom"
     post.burn_after_date = Time.now + 1.hour
     post.public = true
+    post.user = User.first
     assert post.save
     
     post = Post.new
@@ -38,6 +49,7 @@ class PostTest < ActiveSupport::TestCase
     post.burn_after_date = Time.now + 1.hour
     post.random_token = "notReallyRandom"
     post.public = true
+    post.user = User.first
     assert post.save
     
     post = Post.new
@@ -47,6 +59,7 @@ class PostTest < ActiveSupport::TestCase
     post.burn_after_date = Time.now + 1.hour
     post.random_token = "notReallyRandom"
     post.public = true
+    post.user = User.first
     assert post.save
     
     post = Post.new
@@ -54,6 +67,7 @@ class PostTest < ActiveSupport::TestCase
     post.content = "content"
     post.privly_application = "PlainPost"
     post.burn_after_date = Time.now + 1.hour
+    post.user = User.first
     assert post.save
   end
   
