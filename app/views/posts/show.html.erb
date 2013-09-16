@@ -47,7 +47,7 @@
           // fetching the rendered markdown after page load
           var url = window.location.href;
           var jsonURL = url.replace("format=html", "format=json");
-          jsonURL = url.replace(".html", ".json");
+          jsonURL = jsonURL.replace(".html", ".json");
           $.getJSON(jsonURL, function(data) {
             $("#post_markdown").html(data.rendered_markdown);
           });
