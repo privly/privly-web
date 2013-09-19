@@ -2,40 +2,41 @@
     Account
 <% end %>
 
-<h2 class="subhead"><span>Account</span></h2>
 
-<% #Account Information %>
-<h2>Testing Account Information</h2>
-<% if current_user.can_post %>
-  <p>Your test user account is active. Privly is in a closed Alpha version. Post at your own risk.</p>
-<% else %>
-  <p>Your user account's posting permission has been deactivated for lack of development and testing activity. If you are active in Privly development, please ask on email or IRC for it to be reactivated.</p>
-<% end %>
+<div class="page-header">
+  <h1>Your <%= Privly::Application.config.name %> Account</h1>
+</div>
 
-<% #Identity Information %>
-<br /><h2>Identity Information</h2>
-<p>Your Privly verified email is "<%= current_user.email %>".</p>
-<p>Your Privly verified domain is "<%= current_user.domain %>".</p>
-<p>Your current IP address is "<%= request.remote_ip %>".</p>
-<p>Additional forms of identification are under development.</p>
-<p>To change the password for the account associated with <%= current_user.email %>, <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %> and check login options to manage your password.</p>
+<div class="row-fluid">
+  <div class="span7">
+    <% unless current_user.can_post %>
+      <p>Your user account's posting permission has been deactivated for lack of development and testing activity. If you are active in Privly development, please ask on email or IRC for it to be reactivated.</p>
+    <% end %>
+    <h2>Invitations</h2>
+    <% if current_user.forever_account_value > 0 %>
+      <p>Your user account currently has a forever account value of $<%= current_user.forever_account_value %>/month. Forever account benefits are not currently active. You will be emailed when your forever account value is active.</p>
+    <% end %>
+    <% if current_user.alpha_invites > 0 %>
+      <p>Your user account currently has <%= current_user.alpha_invites %> Alpha invites.</p>
+      <%= form_tag(user_use_invite_path, {:class => "form"}) do %>
+        <p>Invite Email</p>
+        <%= email_field_tag "user[email]", "" %>
+        <%= submit_tag "Send Invitation", :id => "submit", :name => "submit", :class => "form_submit", :disabled => false, :disable_with => "Please wait..." %>
+      <% end -%>
+    <% else %>
+      <p>You do not currently have any invitations.</p>
+    <% end %>
+  </div>
+  <div class="span5">
+    <h2>Manage Your Data</h2>
+    <p><%= button_to 'Export All My Posts', {:controller => "posts", :action => "index", :format => :csv}, :confirm => 'Are you sure? This will export all of your posts in .csv format.', :method => :get %></p>
+    <p><%= button_to 'Destroy All My Posts', posts_destroy_all_path, :confirm => 'Are you sure? This will destroy everything you know and love in this site.', :method => :delete %></p>
 
-<% #Account Value %>
-<% if current_user.forever_account_value > 0 or current_user.beta_invites > 0 %>
-  <br /><h2>Perks</h2>
-<% end %>
-<% if current_user.forever_account_value > 0 %>
-  <p>Your user account currently has a forever account value of $<%= current_user.forever_account_value %>/month. Forever account benefits are not currently active, and will not necessarily be on this server, but if transferred, the account value will carry over.</p>
-<% end %>
-<% if current_user.beta_invites > 0 %>
-  <p>Your user account currently has <%= current_user.beta_invites %> beta invites and <%= current_user.alpha_invites %> alpha invites, but they are not currently active. We will email you when it is time to invite your friends.</p>
-<% else %>
-  <p>You do not currently have any invitations.</p>
-<% end %>
-
-<% #Post Actions %>
-<% if current_user.posts.count > 0 %>
-  <br /><h2>User Account Data Management</h2>
-  <p><%= button_to 'Export All My Posts', {:controller => "posts", :action => "index", :format => :csv}, :confirm => 'Are you sure? This will export all of your posts in .csv format.', :method => :get %></p>
-  <p><%= button_to 'Destroy All My Posts', posts_destroy_all_path, :confirm => 'Are you sure? This will destroy everything you know and love in this site.', :method => :delete %></p>
-<% end %>
+    <p><strong><%= Privly::Application.config.name %> knows this about you:</strong></p>
+    <p>Your <%= Privly::Application.config.name %> verified email is "<%= current_user.email %>".</p>
+    <p>Your <%= Privly::Application.config.name %> verified domain is "<%= current_user.domain %>".</p>
+    <p>Your current IP address is "<%= request.remote_ip %>".</p>
+    <h2>Password</h2>
+    <p>To change the password for the account associated with <%= current_user.email %>, <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %> and check login options to manage your password.</p>
+  </div>
+</div>

@@ -1,10 +1,14 @@
-# Invitations are sent by administrators after approving the user account.
+# Invitations are sent by administrators after approving the user account or
+# by users who have invitations remaining on their user account.
 # User accounts are automatically created by the server when a person signs
 # up for an invitation, but the activation link is not sent.
 #
 class Users::InvitationsController < Devise::InvitationsController
   
-  before_filter :authenticate_admin_user!, :except => [:create, :new]
+  before_filter :authenticate_admin_user!, 
+   :except => [:create, :new, :use_invite]
+  
+  before_filter :authenticate_user!, :only => [:use_invite]
   
   # == Create a pending invitation.
   #
@@ -30,45 +34,90 @@ class Users::InvitationsController < Devise::InvitationsController
     if not params[:user] or not params[:user][:email]
       return
     end
-    
-    # Most invitations will not be sent immediatly
-    skip_invite = true
-    
+        
     email = params[:user][:email]
-    
-    # Allow the sending of invites if the user has +oscon in the email
-    if email.include?("+oscon")
-      oscon_index = email.index("+oscon")
-      email = email.to(oscon_index - 1) + email.from(oscon_index + 6)
-      skip_invite = false
-    end
     
     # Make sure it is not creating a duplicate user
     email.downcase!
     if User.where(:email => email).count > 0
-      set_flash_message :notice, :send_instructions, :email => email
-      redirect_to pages_about_path
+      redirect_to welcome_path, :notice => "Thanks " + email + 
+        "! When we are ready for more users we will send you a message."
       return
     end
     
-    # Send or don't send the invitation
+    # Don't send the invitation
     self.resource = resource_class.invite!(params[resource_name], current_inviter) do |u|
       u.email = email
-      if skip_invite 
-        u.skip_invitation = true
-        u.pending_invitation = true
-      else
-        u.can_post = true
-        u.pending_invitation = false
-      end
+      u.skip_invitation = true
+      u.pending_invitation = true
     end
 
     if resource.errors.empty?
-      set_flash_message :notice, :send_instructions, :email => self.resource.email
-      respond_with resource, :location => after_invite_path_for(resource)
+      Notifier.pending_invitation(
+        User.find(:first, :conditions => [ "email = ?", email])
+      ).deliver # sends the email
+      redirect_to welcome_path, 
+        :notice => "Thanks " + email + 
+          "! When we are ready for more users we will send you a message."
     else
       respond_with_navigational(resource) { render :new }
     end
+  end
+  
+  # == A user is using one of their invitations
+  #
+  # Create a user account for the email address supplied, and send the
+  # activation link. Also use up an invitation credit.
+  #
+  # === Routing  
+  #
+  # POST /user/use_invite
+  #
+  # === Formats  
+  #  
+  # * +html+
+  #
+  # === Parameters  
+  #
+  # <b>user [email]</b> - _string_ - Required
+  # * Values: valid email address
+  # * Default: nil
+  # The email of the new user account
+  def use_invite
+    
+    # Make sure the user has invites remaining
+    if current_user.alpha_invites < 1
+      # todo, set message
+      redirect_to pages_account_path, :notice => "You do not have any invitations at this time."
+      return
+    end
+    
+    # Invite existing user
+    email = params[:user][:email]
+    email.downcase!
+    user = User.find_by_email(email)
+    if user and user.pending_invitation
+      user.can_post = true
+      user.pending_invitation = false
+      user.save
+      user.invite!
+      current_user.alpha_invites -= 1
+      current_user.save
+    end
+    
+    # Create a new user
+    unless user
+      self.resource = resource_class.invite!(params[resource_name], current_inviter) do |u|
+        u.email = email
+        u.can_post = true
+        u.pending_invitation = false
+      end
+      if resource.errors.empty?
+        current_user.alpha_invites -= 1
+        current_user.save
+      end
+    end
+    redirect_to pages_account_path, :notice => "We emailed " + email + " with an invitation."
   end
   
   # == Activate an account.
@@ -93,6 +142,8 @@ class Users::InvitationsController < Devise::InvitationsController
   # * Default: nil
   # The ID of the user to be invited to the system.
   def send_invitation
+    
+    # check whether the user is admin or has invitations remaining
     
     user = User.find_by_id(params[:user][:id])
     

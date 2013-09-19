@@ -17,6 +17,7 @@ one:
  invitation_accepted_at: 2012-08-07 19:07:33
  pending_invitation: false
  can_post: true
+ alpha_invites: 1
 
 two:
   id: 2
@@ -36,3 +37,4 @@ two:
   invitation_sent_at: 2012-08-07 19:06:50
   invitation_accepted_at: 2012-08-07 19:07:33
   pending_invitation: false
+  alpha_invites: 0

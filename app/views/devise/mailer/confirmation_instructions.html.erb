@@ -1,3 +1,7 @@
+<% # This email is sent when a user signs up for an account and is granted
+   # access immediatly.
+  %>
+
 <p>Welcome <%= @resource.email %>!</p>
 
 <p>Privly is still in private alpha. The extension works on most sites, but there are <%= link_to "bugs", pages_bug_url %>, and we need more review before you should post anything private. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_url %> so we can fix the problem for you. There are bound to be some rough edges when you are interfacing with the entire internet, but in most cases, Privly will work wherever you bring it.</p>
@@ -11,7 +15,7 @@
 <p>
     Thanks!
     <br />
-    -Privly
+    -<%= Privly::Application.config.name %>
 </p>
 
 <p><%= link_to 'Follow our Twitter', "https://twitter.com/#!/Privly" %> for updates.</p>

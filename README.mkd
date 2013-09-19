@@ -32,16 +32,10 @@ These shell commands step through a standard installation.
     cp config/environments/development.rb.example config/environments/development.rb
     #for mysql as database
         cp config/database.yml.mysql.example config/database.yml
-    #for sqlite as database
+    #for sqlite as database, if you did not setup a MySQL database
         #uncomment the gemfile line: gem 'sqlite3-ruby'
         #comment the gemfile line: gem 'mysql2'
         cp config/database.yml.sqlite.example config/database.yml
-    
-    # (deprecated) Get the injectable applications into the "public" dir.
-    cd public
-    # Clone the ZeroBin Git into "zero_bin"
-    git clone git://github.com/privly/ZeroBin.git zero_bin
-    cd .. 
     
     # Get the privly application repository into the "public" dir.
     cd public
@@ -56,15 +50,23 @@ These shell commands step through a standard installation.
     rake db:seed #Seeds the DB
     rails server #Starts the server
 
+## Managing Users
+
+This content server can effectively be used by a single user, but you may also want to host for some friends. There is a rudimentary administrative interface you can login to at `/admin`.
+
+The seed file will create several users for you in development, including: `admin@priv.ly`, `demonstration@priv.ly`, `development@priv.ly`. All these accounts have the same password, `password`. Use the admin account to login to the admin interface. Use the development account for logging into your development server.
+
+**User Account States**  
+User accounts could be in one of several states:
+
+1. **Signed up for an invitation:** When a user submits their email to the invitation form, they do not automatically get an active account. You can invite the user via the administrative interface, or a user who has invitation credits can invite the user at a later date.
+1. **Invited:** A user who has been invited by an administrator or a user with invitation credits has been "invited." They need to verify their email address before they may begin creating content.
+1. **Can Post:** The user can create content on the server. This is usually the state after the user has verified their email address and has paid whatever toll they need to support hosting expenses.
+1. **Can't Post:** In order to create new content on the server, a user must have posting permission. You will only generally use this option if the user is abusing the content server or not contributing enough to hosting costs. There is no option for locking a user account completely, because they should maintain access to content they have already created.
+
 ## Testing/Submitting Bugs ##
 
-If you have discovered a bug, only [open a public issue](https://github.com/privly/privly-web/issues/new) on GitHub if it could not possibly be a security related bug. If the bug affects the security of the system, please report it privately at [privly.org](http://www.privly.org/content/bug-report). We will then fix the bug and follow a process of responsible disclosure.
-
-The "master" branch of this repository is deployed to [dev.privly.org](https://dev.privly.org) and [privlyalpha.org](https://privlyalpha.org).
-
-If you want a development account on a whitelisted content server (useful if you don't want to setup this server locally), contact Sean McGregor via one of the means below.
-
-The [content server](https://github.com/privly/privly-web) hosted at [privlyalpha.org](https://privlyalpha.org) is currently closed to non-developers. If you setup your own content server, you can [manually add](https://github.com/privly/privly-organization/wiki/Manually-Adding-Domains-to-the-Whitelist) your domain to the extension's whitelist.
+If you have discovered a bug, only [open a public issue](https://github.com/privly/privly-web/issues/new) on GitHub if it could not possibly be a security related bug. If the bug affects the security of the system, please report it privately at [privly.org](http://www.privly.org/content/bug-report). If it is an urgent issue, please email privly@privly.org. We will then fix the bug and follow a process of responsible disclosure.
 
 ## Developer Documentation ##
 

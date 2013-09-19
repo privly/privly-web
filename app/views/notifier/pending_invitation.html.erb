@@ -1,0 +1,25 @@
+<p>Hello <%= @user.email %>,</p>
+
+<p>Thanks for signing up for an invitation on <%= Privly::Application.config.name %>!</p>
+
+<p>We'll remember your email when we start sending out general invitations. We are prioritizing accounts on this server for developers, testers, and donors.</p>
+
+<p>For more information about Privly, please visit one of these sources:</p>
+
+<ul>
+  <li><a href="http://groups.google.com/group/privly" target="_blank">Development Mailing List</a></li>
+  <li><a href="http://groups.google.com/group/privly-test" target="_blank">Testing Mailing List</a></li>
+  <li><a href="http://groups.google.com/group/privly-announce" target="_blank">Announcements Mailing List</a></li>
+  <li><a href="http://privly.org" target="_blank">Privly Foundation Home</a></li>
+  <li><a href="https://github.com/privly/privly-organization/wiki" target="_blank">Development Wiki</a></li>
+  <li><a href="https://github.com/privly" target="_blank">Repository List</a></li>
+  <li><a href="http://www.privly.org/content/bug-report" target="_blank">Submit a Bug</a></li>
+  <li><a href="http://www.privly.org/content/irc" target="_blank">IRC</a></li>
+  <li><a href="https://priv.ly/pages/download" target="_blank">Download Extension</a></li>
+</ul>
+
+<p>
+    Sincerely,
+    <br />
+    -The <%= Privly::Application.config.name %> Team
+</p>

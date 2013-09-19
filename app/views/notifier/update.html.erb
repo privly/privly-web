@@ -1,23 +1,11 @@
 <p>Hello <%= @user.email %>,</p>
 
-<p>Thanks for signing up for an invitation on <%= link_to "Priv.ly", "https://priv.ly" %>!</p>
+<p>Thanks for signing up for an invitation on <%= Privly::Application.config.name %>!</p>
 
-<p>Are you a developer, tester, graphic designer, crypto-expert, legal expert, or all-round awesome individual? <%= link_to "Join our open source effort!", pages_join_url %></p>
-
-<p>
-Check us out on <%= link_to 'Twitter', "https://twitter.com/#!/Privly" %>, and remember to tell your friends how Privly will let you:     
-</p>
-
-<ul>
-    <li>Maintain control of your content wherever you post it</li>
-    <li>Prevent companies from selling and scanning your most private communications</li>
-    <li>Share content across social networks, email, blogs, and forums using the same privacy settings</li>
-    <li>Prevent governments from shutting down free speech</li>
-    <li>Have easy use of modern encryption technologies</li>
-</ul>
+<p>We are still limiting the number of user accounts we allow on this server. We will send an email with an activation code as soon as we are ready for you.</p>
 
 <p>
-    Share Priv(ate)ly,
+    Sincerely,
     <br />
-    -The Privly Team
+    -The <%= Privly::Application.config.name %> Team
 </p>

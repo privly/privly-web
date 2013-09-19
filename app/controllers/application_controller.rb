@@ -48,14 +48,6 @@ class ApplicationController < ActionController::Base
     #to verify the identity of the user.
     def authenticate_inviter!
     end
-  
-    #checks current user to see if they are administrators
-    #and redirects them if they are not
-    def require_admin
-      unless user_signed_in? and current_user.admin?
-        redirect_to root_url, :notice => "Only administrators have access to that."
-      end
-    end
     
     # This is a structure for user agent inspection.
     # The UserAgent gem uses this to process the user

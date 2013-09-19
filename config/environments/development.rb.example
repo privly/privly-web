@@ -38,8 +38,7 @@ Privly::Application.configure do
   config.user_can_post_lifetime_max = 30.days
 
   # The host new injectible links should be created on.
-  # If you don't know what you are doing here, you should set
-  # it to the same domain as the primary_domain_host
+  # You should generally set this to the domain of your server
   config.link_domain_host = "localhost:3000"
 
   config.action_mailer.default_url_options = { :host => 'localhost' }

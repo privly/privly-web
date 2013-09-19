@@ -1,20 +1,15 @@
+<% # This email is sent when the user is invited to the system with 
+   # a valid invitation. The user is able to immediatly activate an account.
+  %>
+
+
 <p>Hello <%= @resource.email %>!</p>
 
 <p>Someone has invited you to <%= root_url %>, you can accept it through the link below.</p>
 
-<% if @resource.can_post %>
-  <p>When you are logged into this account, all your posts will automatically be tied to your username. This means you can user Privly's <%= link_to "post management page", posts_url %> and get longer-living posts. Only backers, testers, and developers have access to this page.</p>
-<% else %>
-  <p>When you are logged into this account, people will be able to share with your email, domain, and IP address identities. When we are ready for wider release, you will also have access to pages exclusive to backers, testers, and developers.</p>
-<% end %>
-
-<p></p>
-
-<p>Privly is currently in Alpha Testing. The extension works on most sites, but there are <%= link_to "bugs", pages_bug_url %>. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_url %> so we can fix the problem for you. There are bound to be some rough edges when you are interfacing with the entire internet, but in most cases, Privly will work wherever you bring it.</p>
+<p>Privly is currently in Alpha Testing. The extension works on most sites, but there are bugs. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_url %> so we can fix the problem for you. There are bound to be some rough edges when you are interfacing with the entire internet, but in most cases, Privly will work wherever you bring it.</p>
 
 <p>Software in Alpha testing is not secure. If you want to use Privly with private data, you should wait until the Beta release.</p>
-
-<p>The potential server demands for Privly are substantial, so until our financial picture improves, we are going to prioritize active accounts in this order: 1. Developers, 2. Testers (People who regularly submit bug reports), 3. Forever Account Holders, 4. Backers, 5. Friends of Backers</p>
 
 <p><%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></p>
 
@@ -23,9 +18,9 @@
 <p>
     Thanks for the Support, and let us know how it goes!
     <br />
-    -Privly
+    -<%= Privly::Application.config.name %>
 </p>
 
 <p>
-Are you a developer, tester, graphic designer, crypo-expert, or all-round awesome individual? <%= link_to "Join Us!", pages_join_url %>
+Are you a developer, tester, graphic designer, security expert, or all-round awesome individual? <%= link_to "Join Us!", pages_join_url %>
 </p>
