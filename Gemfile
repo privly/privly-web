@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
 # Core System
-gem 'rails', '3.1.12'
+gem 'rails', '~> 3.1.0'
 gem 'json'
-gem 'jquery-rails', '>= 2.1.3'
+gem 'jquery-rails', "~> 2.3.0"
 
 # Database gem
 gem 'mysql2' # Comment out this line to use another Database type
@@ -43,9 +43,6 @@ gem 'rdiscount'
 
 # Useragent inspection
 gem 'useragent'
-
-# CSV generator
-gem 'fastercsv'
 
 # Error reporting service
 gem "airbrake"

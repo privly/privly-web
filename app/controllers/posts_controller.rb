@@ -5,6 +5,8 @@
 # storage. Shares can permission any type of post.
 class PostsController < ApplicationController
   
+  require 'csv'
+  
   # Force the user to authenticate using Devise
   before_filter :authenticate_user!, :except => [:show, :edit, :update, 
                                                  :destroy, :user_account_data]
@@ -70,9 +72,9 @@ class PostsController < ApplicationController
       }
       format.json {
         render :json => @posts.to_json(:methods => :privly_URL) }
-      format.csv do |csv|
+      format.csv {
         @filename = "posts_" + Time.now.strftime("%m-%d-%Y") + ".csv"
-        csv_data = FasterCSV.generate("") do |csv|
+        csv_data = CSV.generate do |csv|
           csv << ["content", "created_at", "updated_at", "public"]
           @posts.each do |post|
             csv << [post.content, post.created_at, post.updated_at, post.public]
@@ -80,7 +82,7 @@ class PostsController < ApplicationController
         end
         send_data csv_data, :type => 'text/csv; charset=iso-8859-1; header=present',
           :disposition => "attachment; filename=#{@filename}"
-      end
+      }
     end
   end
   
