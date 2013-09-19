@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130807041052) do
+ActiveRecord::Schema.define(:version => 20130916030319) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -99,7 +100,6 @@ ActiveRecord::Schema.define(:version => 20130807041052) do
     t.string   "authentication_token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",                                         :default => false, :null => false
     t.string   "invitation_token",                :limit => 60
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
@@ -114,8 +114,6 @@ ActiveRecord::Schema.define(:version => 20130807041052) do
     t.float    "permissioned_requests_served",                  :default => 0.0,   :null => false
     t.float    "nonpermissioned_requests_served",               :default => 0.0,   :null => false
     t.boolean  "can_post",                                      :default => false, :null => false
-    t.boolean  "wants_to_test",                                 :default => false, :null => false
-    t.boolean  "accepted_test_statement",                       :default => false, :null => false
     t.boolean  "notifications",                                 :default => true,  :null => false
     t.string   "domain",                                        :default => "",    :null => false
   end
