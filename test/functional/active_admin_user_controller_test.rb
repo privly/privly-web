@@ -102,4 +102,10 @@ class ActiveAdminUserControllerTest < ActionController::TestCase
     assert_redirected_to admin_admin_users_path
   end
   
+  test "should get users page" do
+    sign_in  admin_users(:one)
+    get :index
+    assert_response :success
+  end
+  
 end

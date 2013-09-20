@@ -1,7 +1,6 @@
 one:
  id: 1
  email: test@test.com
- admin: false
  encrypted_password: $2a$10$XVXlpksdF4NqtNN6tJLNc.Al3Aah7qh3IqK.yFFY7VeVtbjjQotLu
  sign_in_count: 1
  current_sign_in_at: 2012-08-07 19:07:33
@@ -12,7 +11,6 @@ one:
  failed_attempts: 0
  created_at: 2012-08-07 19:03:57
  updated_at: 2012-08-07 19:07:33
- admin: false
  invitation_sent_at: 2012-08-07 19:06:50
  invitation_accepted_at: 2012-08-07 19:07:33
  pending_invitation: false
@@ -22,7 +20,6 @@ one:
 two:
   id: 2
   email: test2@test.com
-  admin: false
   encrypted_password: $2a$10$XVXlpksdF4NqtNN6tJLNc.Al3Aah7qh3IqK.yFFY7VeVtbjjQotLu
   sign_in_count: 1
   current_sign_in_at: 2012-08-07 19:07:33
@@ -33,7 +30,6 @@ two:
   failed_attempts: 0
   created_at: 2012-08-07 19:03:57
   updated_at: 2012-08-07 19:07:33
-  admin: false
   invitation_sent_at: 2012-08-07 19:06:50
   invitation_accepted_at: 2012-08-07 19:07:33
   pending_invitation: false

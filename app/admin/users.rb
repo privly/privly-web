@@ -24,8 +24,6 @@ ActiveAdmin.register User do
   filter :permissioned_requests_served
   filter :nonpermissioned_requests_served
   filter :can_post, :as => :select
-  filter :wants_to_test, :as => :select
-  filter :accepted_test_statement, :as => :select
   filter :notifications, :as => :select
   
   
@@ -45,8 +43,6 @@ ActiveAdmin.register User do
     #column :nonpermissioned_requests_served
     
     column :can_post
-    column :wants_to_test
-    column :accepted_test_statement
     column :notifications
     
     column "Posts" do |user|
@@ -117,7 +113,6 @@ ActiveAdmin.register User do
         user.alpha_invites = alpha_invites
         user.beta_invites = beta_invites
         user.forever_account_value = forever_account_value
-        user.wants_to_test = is_tester
         if not user.save
           raise "error, user in CSV would not update"
         end
@@ -129,8 +124,6 @@ ActiveAdmin.register User do
         user.beta_invites = beta_invites
         user.forever_account_value = forever_account_value
         user.can_post = false
-        user.wants_to_test = is_tester
-        user.accepted_test_statement = false
         user.password = SecureRandom.base64(12)
         if not user.save
           raise "error, new user in CSV would not save"
