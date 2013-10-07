@@ -5,7 +5,8 @@
 <% content_for(:extrajs) do %>
     <script type="text/javascript">
       $(function() {
-          $( "#rules_accordion" ).accordion({autoHeight: false, collapsible: true, active: false});
+          $( "#rules_accordion" ).accordion({autoHeight: false, 
+            collapsible: true, active: false, heightStyle: "content" });
       });
     </script>
 <% end %>
