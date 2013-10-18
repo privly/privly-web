@@ -49,3 +49,6 @@ gem 'fastercsv'
 
 # Error reporting service
 gem "airbrake"
+
+#Payment
+gem 'activemerchant'

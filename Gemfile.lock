@@ -15,6 +15,9 @@ GEM
       rack-mount (~> 0.8.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.0.4)
+    active_utils (2.0.1)
+      activesupport (>= 2.3.11)
+      i18n
     activeadmin (0.6.0)
       arbre (>= 1.0.1)
       bourbon (>= 1.0.0)
@@ -27,6 +30,14 @@ GEM
       meta_search (>= 0.9.2)
       rails (>= 3.0.0)
       sass (>= 3.1.0)
+    activemerchant (1.39.2)
+      active_utils (~> 2.0, >= 2.0.1)
+      activesupport (>= 2.3.14, < 5.0.0)
+      builder (>= 2.1.2, < 4.0.0)
+      i18n (~> 0.5)
+      json (~> 1.7)
+      money (< 6.0.0)
+      nokogiri (~> 1.4)
     activemodel (3.1.12)
       activesupport (= 3.1.12)
       builder (~> 3.0.0)
@@ -106,6 +117,9 @@ GEM
       activesupport (~> 3.1)
       polyamorous (~> 0.5.0)
     mime-types (1.23)
+    mini_portile (0.5.1)
+    money (5.1.1)
+      i18n (~> 0.6.0)
     multi_json (1.7.3)
     mysql2 (0.3.11)
     net-scp (1.1.0)
@@ -115,6 +129,8 @@ GEM
     net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
+    nokogiri (1.6.0)
+      mini_portile (~> 0.5.0)
     orm_adapter (0.4.0)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
@@ -143,7 +159,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (~> 0.14.6)
-    rake (10.0.4)
+    rake (10.1.0)
     rdiscount (2.0.7.2)
     rdoc (3.12.2)
       json (~> 1.4)
@@ -181,6 +197,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  activemerchant
   airbrake
   cancan
   capistrano

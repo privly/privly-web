@@ -1,5 +1,8 @@
 Privly::Application.routes.draw do
   
+  # Donation
+  post "payments/donate"
+
   # Active Admin
   devise_for :admin_users, ActiveAdmin::Devise.config
   
