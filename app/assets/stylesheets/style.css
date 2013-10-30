@@ -2,7 +2,7 @@
   font-family: 'Vollkorn';
   font-style: normal;
   font-weight: normal;
-  src: local('Vollkorn Regular'), local('Vollkorn-Regular'), url('https://priv.ly/volkorn.woff') format('woff');
+  src: local('Vollkorn Regular'), local('Vollkorn-Regular'), url('/volkorn.woff') format('woff');
 }
 @font-face {
   font-family: 'Lobster';
