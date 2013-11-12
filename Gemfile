@@ -46,3 +46,6 @@ gem 'useragent'
 
 # Error reporting service
 gem "airbrake"
+
+# Payment
+gem 'activemerchant'
