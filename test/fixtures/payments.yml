@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  card_type: MyString
+  card_holder_name: MyString
+  amount: 1
+  ip: MyString
+
+two:
+  card_type: MyString
+  card_holder_name: MyString
+  amount: 1
+  ip: MyString

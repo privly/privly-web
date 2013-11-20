@@ -25,3 +25,10 @@
     </div>
   </div>
 </div>
+
+<%= form_tag payments_donate_path, :method => :post do%>
+    <div><%= number_field_tag 'amount', nil, :placeholder => 'Amount in cents', :min => 0 %></div>
+    <div><%= text_field_tag 'first_name', nil, :placeholder => 'First Name' %></div>
+    <div><%= text_field_tag 'last_name', nil, :placeholder => 'Last Name' %></div>
+    <div><%= submit_tag 'Donate' %></div>
+<% end %>
