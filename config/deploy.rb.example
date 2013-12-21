@@ -13,6 +13,8 @@ set :application, "privly"
 set :repository,  "git@github.com:your_user_name/privly-web.git"
 set :branch, "your_branch_here"
 
+set :git_enable_submodules, 1
+
 set :deploy_to, "/path/to/application/on/server"
 set :privly_shared_path, "#{deploy_to}/shared/"
 default_run_options[:pty] = true
