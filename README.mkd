@@ -29,27 +29,21 @@ Prerequisites:
 
 These shell commands step through a standard installation.
 
-    # Clone this repository
-    git clone git://github.com/privly/privly-web.git
+    # Clone this repository and the privly-applications repository.
+    # The `--recursive` flag ensures you get the privly-applications
+    # repository.
+    git clone --recursive https://github.com/privly/privly-web.git
     cd privly-web
     
-    # Copy configuration files. You don't need to make any changes unless you
-    # want to.
-    cp config/environments/development.rb.example config/environments/development.rb
-
-    # For mysql as database. You will need to edit the resulting file to
-    # hook it into your MySQL database.
+    # You need to setup a database. For a development install you should use
+    # option 2 since you will not need to setup MySQL.
+    # Option 1: MySQL. You will need to edit the resulting file appropriately.
         cp config/database.yml.mysql.example config/database.yml
-    # for sqlite as database, if you did not setup a MySQL database
-        # uncomment the gemfile line: gem 'sqlite3-ruby'
-        # comment the gemfile line: gem 'mysql2'
-        cp config/database.yml.sqlite.example config/database.yml
-    
-    # Get the privly application repository into the "public" dir.
-    cd public
-    # Clone the applications Git into "apps"
-    git clone https://github.com/privly/privly-applications.git apps
-    cd ..
+    # Option 2: SQLite.
+      # You need to edit two lines in `Gemfile`
+      # uncomment the gemfile line: gem 'sqlite3'
+      # comment the gemfile line: gem 'mysql2'
+      cp config/database.yml.sqlite.example config/database.yml
     
     # Run installation scripts
     bundle install #Installs the required gems
