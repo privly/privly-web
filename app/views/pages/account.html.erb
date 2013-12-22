@@ -16,15 +16,13 @@
     <% if current_user.forever_account_value > 0 %>
       <p>Your user account currently has a forever account value of $<%= current_user.forever_account_value %>/month. Forever account benefits are not currently active. You will be emailed when your forever account value is active.</p>
     <% end %>
+    <p>Your user account currently has <%= current_user.alpha_invites %> Alpha invites.</p>
     <% if current_user.alpha_invites > 0 %>
-      <p>Your user account currently has <%= current_user.alpha_invites %> Alpha invites.</p>
       <%= form_tag(user_use_invite_path, {:class => "form"}) do %>
         <p>Invite Email</p>
         <%= email_field_tag "user[email]", "" %>
         <%= submit_tag "Send Invitation", :id => "submit", :name => "submit", :class => "form_submit", :disabled => false, :disable_with => "Please wait..." %>
       <% end -%>
-    <% else %>
-      <p>You do not currently have any invitations.</p>
     <% end %>
   </div>
   <div class="span5">

@@ -33,17 +33,16 @@ ActiveAdmin.register User do
     column :email
     column :sign_in_count
     column :last_sign_in_at
-    column :failed_attempts
     column :created_at
-    
-    #column :alpha_invites
+    column :failed_attempts
+    column :alpha_invites
     #column :beta_invites
     #column :forever_account_value
     #column :permissioned_requests_served
     #column :nonpermissioned_requests_served
     
-    column :can_post
-    column :notifications
+    #column :can_post
+    #column :notifications
     
     column "Posts" do |user|
       user.posts.count
@@ -52,11 +51,27 @@ ActiveAdmin.register User do
     # Show, edit, delete
     default_actions
     
-    column "Send Confirmation Link" do |user|
-      link_to "Send Invitation", { :action => "send_invitation", :controller=>"users/invitations", :user => {:id => user.id} },
-            :confirm => "Send Invitation: Are you sure?", :method => :post
+    column "Invite Status" do |user|
+      if user.can_post
+        "can post"
+      elsif not user.pending_invitation and not user.invitation_accepted_at
+        # invitation sent but not accepted
+        link_to "Resend Invite", { :action => "send_invitation", 
+          :controller=>"users/invitations", :user => {:id => user.id} },
+          :confirm => "Send Invitation: Are you sure?", :method => :post
+      elsif user.pending_invitation
+        # invitation not sent
+        link_to "Send Invite", { :action => "send_invitation", 
+          :controller=>"users/invitations", :user => {:id => user.id} },
+          :confirm => "Send Invitation: Are you sure?", :method => :post
+      elsif not user.pending_invitation and user.invitation_accepted_at and not user.can_post
+        # invitation sent, accepted, but can't post. This usually means the
+        # user account was being abused somehow.
+        "Deactivated Account"
+      else
+        raise "error, user account in unknown state"
+      end
     end
-    
   end
   
   # Turn on and off the user's posting ability
@@ -73,63 +88,86 @@ ActiveAdmin.register User do
     redirect_to collection_path, :alert => "Users Have Been Toggled"
   end
   
-  # Sidebar area help
-  sidebar :help do
-    ul do
-      li "The Administration interface is under active development"
-    end
-  end
-  
   # Importing CSV form calls collection_action :import_csv
   sidebar :import_csv do
+    ul do
+      li "Creat and update user perks"
+      li "Format: email, alpha_invites, beta_invites, forever_account_value, tester, platform"
+    end
     form_tag(import_csv_admin_users_path, :multipart => true) do
       file_field_tag('csv') +
       submit_tag("Submit", :confirm => "Are you sure you want to modify the user database with a CSV?")
     end
   end
   
-  # Updates user table with the number of invites and forever
-  # accounts the user has.
+  # Updates user table with the perks the user has. This should only be
+  # applied once, or else it will restore the user account to full perks.
+  # Users not in the table will be created, but they will not be emailed
+  # an invitation or confirmation link.
   #
-  # expects rows with:
-  # email,alpha_invites,beta_invites,forever_account_value
+  # User accounts are confirmed on creation, but are not active without 
+  # receiving an invitation or confirmation link. This means an
+  # administrator or an already invited user needs to send an invitation link.
+  # Users must recieve their invitation link in order to activate the content,
+  # since there is still a sharing system underneath the content server that
+  # can optionally authorize users based on emails.
+  #
+  # The CSV file is expected to have no header, but contain the following fields:
+  # email,    alpha_invites,beta_invites,forever_account_value,tester,platform
+  # Ex: 
+  # e@dom.com,      1      ,      1     ,       100           ,  1   , firefox
+  #
+  # Named Route:
   # import_csv_admin_users_path
-  # adds controller and route
   collection_action :import_csv, :method => :post do
+    
+    require 'csv'
     
     total_imported = 0
     total_updated = 0
     
-    FasterCSV.parse(params[:csv].tempfile).each do |row|
+    CSV.parse(params[:csv].tempfile).each do |row|
+      
+      # Assign values from CSV
       email = row[0]
       alpha_invites = row[1]
       beta_invites = row[2]
       forever_account_value = row[3]
-      is_tester = (row[4].to_i == 1)
+      wants_to_test = (row[4].to_i == 1)
+      platform = row[5]
       
-      user = User.find_by_email(email)
-      
+      # Update the user account if it exists,
+      # else create the account.
+      user = User.find_by_email(email.downcase)
       if user
-        user.alpha_invites = alpha_invites
-        user.beta_invites = beta_invites
-        user.forever_account_value = forever_account_value
-        if not user.save
-          raise "error, user in CSV would not update"
-        end
         total_updated += 1
+        unless user.can_post
+          user.pending_invitation = true
+        end
       else
         user = User.new
         user.email = email
-        user.alpha_invites = alpha_invites
-        user.beta_invites = beta_invites
-        user.forever_account_value = forever_account_value
         user.can_post = false
+        user.pending_invitation = true
         user.password = SecureRandom.base64(12)
-        if not user.save
-          raise "error, new user in CSV would not save"
-        end
+        user.platform = platform unless platform.nil?
         total_imported += 1
       end
+      
+      user.alpha_invites = alpha_invites unless alpha_invites.nil?
+      user.beta_invites = beta_invites unless beta_invites.nil?
+      user.forever_account_value = forever_account_value unless forever_account_value.nil?
+      user.wants_to_test = wants_to_test unless wants_to_test.nil?
+      
+      # Don't email them the confirmation. This will result in the user account
+      # being "confirmed," but they will not have the activation link without
+      # an invite.
+      user.skip_confirmation!
+      
+      if not user.save
+        raise "error, new user in CSV would not save"
+      end
+      
     end
     
     redirect_to admin_users_path, :alert => "CSV Import Successfull, " + 

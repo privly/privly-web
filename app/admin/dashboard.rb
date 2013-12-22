@@ -15,7 +15,7 @@ ActiveAdmin.register_page "Dashboard" do
       column do
         panel "Recently Added Users" do
           ul do
-            User.where("can_post = true").order("id DESC").first(10).map do |user|
+            User.where(:can_post => true).order("id DESC").first(10).map do |user|
               li link_to(user.email, admin_user_path(user)) + " Post Count: #{user.posts.count}"
             end
           end
