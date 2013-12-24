@@ -87,7 +87,6 @@ class Users::InvitationsController < Devise::InvitationsController
     
     # Make sure the user has invites remaining
     if current_user.alpha_invites < 1
-      # todo, set message
       redirect_to pages_account_path, :notice => "You do not have any invitations at this time."
       return
     end

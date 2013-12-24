@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130916030319) do
+ActiveRecord::Schema.define(:version => 20131221203008) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -116,6 +116,8 @@ ActiveRecord::Schema.define(:version => 20130916030319) do
     t.boolean  "can_post",                                      :default => false, :null => false
     t.boolean  "notifications",                                 :default => true,  :null => false
     t.string   "domain",                                        :default => "",    :null => false
+    t.boolean  "wants_to_test",                                 :default => false, :null => false
+    t.string   "platform"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

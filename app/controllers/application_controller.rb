@@ -131,10 +131,10 @@ class ApplicationController < ActionController::Base
 
     # Devise: Where to redirect users once they have logged in
     def after_sign_in_path_for(resource)
-      if user_signed_in? and current_user.can_post
-        new_post_path
+      if admin_user_signed_in?
+        admin_root_path
       else
-        pages_about_path
+        new_post_path
       end
     end
 

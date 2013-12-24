@@ -15,7 +15,7 @@ Privly::Application.routes.draw do
   match 'token_authentications' => 'token_authentications#destroy', :as => :destroy_token_authentications, :via => [:delete]
   
   # User authentication
-  devise_for :users, :controllers => { :invitations => 'users/invitations' }
+  devise_for :users, :controllers => { :invitations => 'users/invitations', :sessions => 'sessions' }
   
   # Invitations and mailers
   devise_scope :user do

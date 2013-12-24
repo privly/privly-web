@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
   has_many :posts, :dependent => :destroy
   
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  # :token_authenticatable, :encryptable, :confirmable, :lockable, 
+  # :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable,
          :recoverable, :rememberable, :trackable, 
          :validatable, :token_authenticatable, 
@@ -26,7 +27,9 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
   # ActiveAdmin permissions
-  attr_accessible :alpha_invites, :beta_invites, :forever_account_value, :permissioned_requests_served, :nonpermissioned_requests_served, :can_post, :as => :admin
+  attr_accessible :alpha_invites, :beta_invites, :forever_account_value,
+    :permissioned_requests_served, :nonpermissioned_requests_served, :can_post,
+    :as => :admin
   
   # Downcase the email and store the email's domain in a separate
   # column.
@@ -38,6 +41,12 @@ class User < ActiveRecord::Base
     domain = self.email.split("@")[1]
     if domain
       self.domain = "@" + domain
+    end
+  end
+  
+  before_save do
+    if not self.platform.nil?
+      self.platform = self.platform.downcase.strip
     end
   end
   
