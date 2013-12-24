@@ -52,7 +52,7 @@ class TokenAuthenticationsControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_path
     
     get :show, :format => "json"
-    assert_response(401)
+    assert_response(302)
   end
 
 end

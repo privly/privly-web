@@ -67,9 +67,9 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
-    devise_invitable (1.0.3)
+    devise_invitable (1.1.8)
       actionmailer (~> 3.0)
-      devise (>= 2.0.0)
+      devise (>= 2.1.2)
       railties (~> 3.0)
     erubis (2.7.0)
     execjs (2.0.2)
@@ -100,7 +100,7 @@ GEM
       polyamorous (~> 0.5.0)
     mime-types (1.25.1)
     multi_json (1.8.2)
-    mysql2 (0.3.13)
+    mysql2 (0.3.14)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.7.0)
@@ -182,7 +182,7 @@ DEPENDENCIES
   capistrano
   coffee-rails (~> 3.1.0)
   devise
-  devise_invitable (~> 1.0.0)
+  devise_invitable (~> 1.1.0)
   execjs
   jquery-rails (~> 2.3.0)
   json

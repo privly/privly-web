@@ -42,16 +42,13 @@
             <ul class="nav">
               <% if user_signed_in? %>
                 <li>
-                  <a href="/apps/Index/new.html">Index</a>
-                </li>
-                <li>
-                  <a href="/apps/PlainPost/new.html">New PlainPost</a>
-                </li>
-                <li>
-                  <a href="/apps/ZeroBin/new.html">New ZeroBin</a>
+                  <a href="/apps/Index/new.html">Privly Applications</a>
                 </li>
                 <li <% if controller.action_name == "account" %>class="active"<% end %>>
                   <%= link_to "Account", pages_account_path %>
+                </li>
+                <li <% if controller.action_name == "privacy" %>class="active"<% end %>>
+                  <%= link_to "Trust Center", pages_privacy_path %>
                 </li>
                 <li>
                   <%= link_to "Logout", 
@@ -59,11 +56,11 @@
                   :method => :delete %>
                 </li>
               <% else %>
+                <li <% if controller.action_name == "privacy" %>class="active"<% end %>>
+                  <%= link_to "Trust Center", pages_privacy_path %>
+                </li>
                 <li <% if controller.controller_name == "invitations" %>class="active"<% end %>>
                   <%= link_to "Sign Up", new_user_invitation_path %>
-                </li>
-                <li <% if controller.controller_name == "pages" %>class="active"<% end %>>
-                  <%= link_to "Trust Center", pages_privacy_path %>
                 </li>
               <% end %>
             </ul>

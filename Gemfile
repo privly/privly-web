@@ -33,7 +33,7 @@ gem 'cancan'
 
 # Authentication
 gem 'devise' #https://github.com/plataformatec/devise
-gem 'devise_invitable', '~> 1.0.0'
+gem 'devise_invitable', '~> 1.1.0'
 
 # Administration interface
 gem "activeadmin"
