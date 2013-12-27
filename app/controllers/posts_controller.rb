@@ -62,7 +62,7 @@ class PostsController < ApplicationController
   # ==== Parameters  
   # 
   # * *format* - _string_ - Optional
-  # ** Values: html, json, iframe
+  # ** Values: html, json
   # ** Default: html
   #
   def index
@@ -110,7 +110,6 @@ class PostsController < ApplicationController
   #                canshare: false}
   #          }
   # * +jsonp+
-  # * +iframe+  Intended for injectable applications.
   #
   # === Parameters  
   #
@@ -122,13 +121,12 @@ class PostsController < ApplicationController
   # the user will not be able to access this endpoint.
   #
   # *format* - _string_ - Optional
-  # * Values: html, json, iframe
+  # * Values: html, json
   # * Default: html
   #
   # === Response Headers
   # * +X-Privly-Url+ The URL for this content which should be posted to other
   # websites.
-  # * (deprecated) +privlyurl+
   def show
     
     # If the post will be destroyed in the next cron job, tell the user
@@ -146,8 +144,6 @@ class PostsController < ApplicationController
     
     @injectable_url = @post.privly_URL
     response.headers["X-Privly-Url"] = @injectable_url
-    #deprecated
-    response.headers["privlyurl"] = @injectable_url
     
     @share = Share.new
     
@@ -156,7 +152,6 @@ class PostsController < ApplicationController
         @sidebar = {:post => true}
         render :layout => "legacy"
       }
-      format.iframe { render }
       format.json {
         render :json => get_json, :callback => params[:callback]
       }
@@ -331,7 +326,6 @@ class PostsController < ApplicationController
   # === Response Headers
   # * +X-Privly-Url+ The URL for this content which should be posted to other
   # websites.
-  # * (deprecated) +privlyurl+
   def create
     
     # Posts default to Private
@@ -381,7 +375,6 @@ class PostsController < ApplicationController
         injectable_url = @post.privly_URL
         
         response.headers["X-Privly-Url"] = injectable_url
-        response.headers["privlyurl"] = injectable_url #deprecated
         format.html { redirect_to injectable_url,
           :notice => 'Post was successfully created.' }
         format.json { render :json => get_json, 
@@ -507,7 +500,6 @@ class PostsController < ApplicationController
   # === Response Headers
   # * +X-Privly-Url+ The URL for this content which should be posted to other
   # websites.
-  # * (deprecated) +privlyurl+
   def update
     
     # Permissions can only be updated by people with sharing permission
@@ -670,16 +662,6 @@ class PostsController < ApplicationController
   
   private
     
-    # Deprecated. This helper gives the URL intended for injection into the page.
-    # If the injectable application is specified, generate the URL with
-    # the data endpoint parameter specified and the path tied to the 
-    # application in the static storage.
-    def deprecated_get_privly_application_url
-      url = post_url @post, @post.deprecated_injectable_parameters.merge(
-              :content_password => params[:content_password])
-      url
-    end
-    
     # This helper gives a JSON document containing only the 
     # attributes the requestor has access to
     def get_json
@@ -698,7 +680,6 @@ class PostsController < ApplicationController
       
       injectable_url = @post.privly_URL
       post_json.merge!(
-         :privlyurl => injectable_url, #Deprecated
          "X-Privly-Url" => injectable_url, 
          :permissions => {
            :canshow => can?(:show, @post), 

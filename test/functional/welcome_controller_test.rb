@@ -9,9 +9,5 @@ class WelcomeControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  test "should get iframe format index" do
-    get :index, :format => "iframe"
-    assert_response :success
-  end
 
 end

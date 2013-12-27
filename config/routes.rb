@@ -3,9 +3,6 @@ Privly::Application.routes.draw do
   # Active Admin
   devise_for :admin_users, ActiveAdmin::Devise.config
   
-  # Deprecated Zero-Bin specific storage endpoint
-  match "/zero_bin/:id" => "zero_bins#show", :as => :show_zero_bins, :via => [:get]
-  
   # Endpoint for destroying all the user's stored posts
   match '/posts/destroy_all' => 'posts#destroy_all', :via => :delete
   
@@ -47,10 +44,6 @@ Privly::Application.routes.draw do
   get "pages/bug" => redirect("http://www.privly.org/content/bug-report")
   get "pages/email" => redirect("https://groups.google.com/forum/?fromgroups#!forum/privly")
 
-  
-  #Deprecated
-  match '/posts/get_csrf' => "posts#get_csrf", :as => :get_csrf_post, :via => [:get]
-  
   # Posting initialization endpoint
   match '/posts/user_account_data' => "posts#user_account_data", 
     :as => :get_user_account_data, :via => [:get]
