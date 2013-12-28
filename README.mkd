@@ -6,7 +6,7 @@ For more information on what Privly is, [read about us](https://priv.ly/pages/ab
 
 ## Development Status ##
 
-**[Burrowing Owl](https://github.com/privly/privly-organization/wiki/Burrowing) Alpha Version**
+**Alpha**
 
 For information about our development path, please see the [central wiki](https://github.com/privly/privly-organization/wiki/Version-List).
 
@@ -18,7 +18,11 @@ This server currently supports:
 
 * All the applications found in the [Privly Applications](https://github.com/privly/privly-applications) repository.
 * Serialized JSON storage for any text content.
-* Sharing by email, domain, and IP Address. This functionality is currently hidden by default.
+* Sharing by email, domain, and IP Address.
+
+**Server API**  
+
+Read about the [API](https://github.com/privly/privly-web/blob/master/API.md).
 
 ## Development Server Installation ##
 
@@ -54,9 +58,7 @@ These shell commands step through a standard installation.
 
 ## Managing Users
 
-This content server can effectively be used by a single user, but you may also want to host for some friends. There is a rudimentary administrative interface you can login to at `/admin`.
-
-The seed file will create several users for you in development, including: `admin@priv.ly`, `demonstration@priv.ly`, `development@priv.ly`. All these accounts have the same password, `password`. Use the admin account to login to the admin interface. Use the development account for logging into your development server.
+The seed file (run with `rake db:seed`) will create several users for you in development, including: `admin@priv.ly`, `demonstration@priv.ly`, `development@priv.ly`. All these accounts have the same password, `password`. Use the admin account to login to the admin interface found at `/admin`. Use the development or demonstration accounts for other purposes.
 
 **User Account States**  
 User accounts could be in one of several states:
@@ -65,6 +67,9 @@ User accounts could be in one of several states:
 1. **Invited:** A user who has been invited by an administrator or a user with invitation credits has been "invited." They need to verify their email address before they may begin creating content.
 1. **Can Post:** The user can create content on the server. This is usually the state after the user has verified their email address and has paid whatever toll they need to support hosting expenses.
 1. **Can't Post:** In order to create new content on the server, a user must have posting permission. You will only generally use this option if the user is abusing the content server or not contributing enough to hosting costs. There is no option for locking a user account completely, because they should maintain access to content they have already created.
+
+**Retrieving User Account Activation Tokens**  
+You can retrieve emails when you are running a development server by examining the web server's log.
 
 ## Testing/Submitting Bugs ##
 
@@ -101,6 +106,5 @@ Corvallis, OR 97339
 **IRC**:  
 Contact the Nick "[smcgregor](https://github.com/smcgregor)" on irc.freenode.net #privly
 
-**Bug**:  
-If you open a bug on this repository, you'll get someone's attention.
-
+**Issue**:  
+If you [open an issue](https://github.com/privly/privly-web/issues) on this repository, you'll get someone's attention.
