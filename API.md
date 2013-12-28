@@ -84,12 +84,12 @@ post[content] - string - Optional
 
 The content is rendered on the website, or for injection into web pages.
 
-post[structured_content] - JSON - Optional
+**post[structured_content]** - JSON - Optional
 * Values: Any JSON document
 * Default: nil
 Structured content is for the storage of serialized JSON in the database.
 
-post[privly\_application] - string - Optional
+**post[privly\_application]** - string - Optional
 
 * Values: Any of the currently supported Privly application identifiers can
 be set here. Current examples include "PlainPost" and "ZeroBin", but no
@@ -97,14 +97,14 @@ validation is performed on the string. It is only used to generate URLs
 into the static folder of the server.
 * Default: nil
 
-post[public] - boolean - Optional
+**post[public]** - boolean - Optional
 
 * Values: true, false
 * Default: nil
 
 A public post is viewable by any user.
 
-post[random\_token] - string - Optional
+**post[random\_token]** - string - Optional
 
 * Values: Any string
 * Default: A random sequence of Base64 characters
@@ -113,7 +113,7 @@ The random token is used to permission requests to content
 not owned by the requesting user. It ensures the user has access to the link,
 and not didn't crawl the resource identifiers.
 
-post[seconds\_until\_burn] - integer - Optional
+**post[seconds\_until\_burn]** - integer - Optional
 
 * Values: 1 to 99999999
 * Default: nil
@@ -123,21 +123,21 @@ The number of seconds until the post is destroyed.
 If this parameter is specified, then the burn\_after\_date
 is ignored.
 
-post[burn\_after\_date(1i)] - integer - Required
+**post[burn\_after\_date(1i)]** - integer - Required
 
 * Values: 2012
 * Default: 2012
 
 The year in which the content will be destroyed
 
-post[burn\_after\_date(2i)] - integer - Required
+**post[burn\_after\_date(2i)]** - integer - Required
 
 * Values: 1 to 12
 * Default: current month
 
 The month in which the content will be destroyed
 
-post[burn\_after\_date(3i)] - integer - Required
+**post[burn\_after\_date(3i)]** - integer - Required
 
 * Values: 1 to 31
 Default: Defaults to two days from now if the user
@@ -147,8 +147,7 @@ The day after which the content will be destroyed. The combined day,
 month, and year must be within the next 14 days for users with
 posting permission, or 2 days for users without posting permission.
 
-
-post[share[share\_csv]] - csv - Optional
+**post[share[share\_csv]]** - csv - Optional
 
 * Values: a single row of comma separated values
 * Default: nil
@@ -156,28 +155,28 @@ post[share[share\_csv]] - csv - Optional
 Send in comma separated values representing identities
 like domains, emails, and IP Addresses.
 
-post [share [can\_show]] - boolean - Optional
+**post [share [can\_show]]** - boolean - Optional
 
 * Values: true, false
 * Default: true
 
 Assign a show sharing permission to the share\_csv row's values
 
-post [share [can\_update]] - boolean - Optional
+**post [share [can\_update]]** - boolean - Optional
 
 * Values: true, false
 * Default: false
 
 Assign a update sharing permission to the share\_csv row's values
 
-post [share [can\_destroy]] - boolean - Optional
+**post [share [can\_destroy]]** - boolean - Optional
 
 * Values: true, false
 * Default: false
 
 Assign a destroy sharing permission to the share\_csv row's values
 
-post [share [can\_share]] - boolean - Optional
+**post [share [can\_share]] **- boolean - Optional
 
 * Values: true, false
 * Default: false
@@ -197,14 +196,14 @@ Update a post. Requires update permission or content ownership.
 PUT /posts/:id  
 PUT /posts/:id.:format
 
-id - integer - Required
+**id** - integer - Required
 
 * Values: 0 to 9999999
 * Default: None 
 
 The identifier of the post.
 
-random\_token - string - Required
+**random\_token** - string - Required
 
 * Values: Any string of non-whitespace characters
 * Default: None 
@@ -213,28 +212,28 @@ Either the user owns the post, or they must supply this parameter.
 Without this parameter, even with complete share access to the content,
 the user will not be able to access this endpoint.
 
-post[content] - string - Optional
+**post[content]** - string - Optional
 
 * Values: Any Markdown formatted string. No images supported.
 * Default: nil 
 
 The content is rendered on the website, or for injection into web pages.
 
-post [structured\_content] - JSON - Optional
+**post [structured\_content]** - JSON - Optional
 
 * Values: Any JSON document
 * Default: nil
 
 Structured content is for the storage of serialized JSON in the database.
 
-post[public] - boolean - Optional
+**post[public]** - boolean - Optional
 
 * Values: true, false
 * Default: nil
 
 A public post is viewable by any user.
 
-post [random\_token] - string - Optional
+**post [random\_token]** - string - Optional
 
 * Values: Any string
 * Default: A random sequence of Base64 characters
@@ -242,7 +241,7 @@ The random token is used to permission requests to content
 not owned by the requesting user. It ensures the user has access to the link,
 and not didn't crawl the resource identifiers.
 
-post [seconds\_until\_burn] - integer - Optional
+**post [seconds\_until\_burn]** - integer - Optional
 
 * Values: 1 to 99999999
 * Default: nil
@@ -252,7 +251,7 @@ If this parameter is specified, then the burn\_after\_date
 is ignored. Requires destroy permission.
 
 
-post [burn\_after\_date(1i)] - integer - optional
+**post [burn\_after\_date(1i)]** - integer - optional
 
 * Values: 2012
 * Default: 2012
@@ -260,7 +259,7 @@ post [burn\_after\_date(1i)] - integer - optional
 The year in which the content will be destroyed
 Requires destroy permission.
 
-post [burn\_after\_date(2i)] - integer - optional
+**post [burn\_after\_date(2i)]** - integer - optional
 
 * Values: 1 to 12
 * Default: current month
@@ -268,7 +267,7 @@ post [burn\_after\_date(2i)] - integer - optional
 The month in which the content will be destroyed
 Requires destroy permission.
 
-post [burn\_after\_date(3i)] - integer - optional
+**post [burn\_after\_date(3i)]** - integer - optional
 
 * Values: 1 to 31
 
@@ -288,14 +287,14 @@ DELETE /posts/:id.:format
 
 **Parameters**  
 
-id - integer - Required
+**id** - integer - Required
 
 * Values: 0 to 9999999
 * Default: None 
 
 The identifier of the post.
 
-random\_token - string - Required
+**random\_token** - string - Required
 
 * Values: Any string of non-whitespace characters
 * Default: None 
@@ -333,7 +332,7 @@ Example:
 
 **Parameters**
 
-random_token - string - Required
+**random_token** - string - Required
 
 * Values: Any string of non-whitespace characters
 * Default: None 
