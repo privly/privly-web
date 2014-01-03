@@ -4,7 +4,6 @@
 class PagesController < ApplicationController
   
   before_filter :authenticate_user!, :only => [:account]
-  skip_before_filter :redirect_to_alpha_domain
 
   # == Get the privacy policy, disclosures, terms of service, and alerts
   # 

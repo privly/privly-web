@@ -50,10 +50,6 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  test "should show iframe format post" do
-    get :show, :id => @post.to_param, :format => "iframe"
-    assert_response :success
-  end
   
   test "should deny show post" do
     sign_out users(:one)
@@ -68,12 +64,6 @@ class PostsControllerTest < ActionController::TestCase
     assert error["error"] == "No access or it does not exist. You might have access to this if you login."
   end
   
-  test "should deny show post iframe" do
-    sign_out users(:one)
-    get :show, :id => @post.id, :format => "iframe"
-    assert_template "login"
-  end
-  
   test "should be burnt post no format" do
     @post = posts(:burnt)
     get :show, :id => @post.id
@@ -85,12 +75,6 @@ class PostsControllerTest < ActionController::TestCase
     get :show, {:id => @post.id, :format => "json"}
     error = JSON.parse(@response.body)
     assert error["error"] == "You do not have access or it doesn't exist."
-  end
-  
-  test "should be burnt post iframe" do
-    @post = posts(:burnt)
-    get :show, :id => @post.id, :format => "iframe"
-    assert_template "posts/noaccess"
   end
 
   test "should show post without random token" do

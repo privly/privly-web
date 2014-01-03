@@ -28,13 +28,11 @@ class ApplicationController < ActionController::Base
             @sidebar = {:posts => true}
             render "posts/noaccess"
           }
-          format.iframe { render "posts/noaccess" }
           format.json { render :json => {:error => "You do not have access or it doesn't exist."}}
         else
           format.html {
             redirect_to new_user_session_path, :notice => 'You might have access to this when you login, if it exists.'
           }
-          format.iframe { render "login" }
           format.json {
             render :json => {:error => "No access or it does not exist. You might have access to this if you login."}, 
             :status => :unprocessable_entity}
