@@ -17,14 +17,15 @@ ActiveAdmin.register User do
   filter :confirmation_sent_at
   filter :failed_attempts
   filter :created_at
-  filter :admin
-  #filter :alpha_invites
+  filter :alpha_invites
   #filter :beta_invites
   #filter :forever_account_value
   filter :permissioned_requests_served
   filter :nonpermissioned_requests_served
   filter :can_post, :as => :select
   filter :notifications, :as => :select
+  filter :wants_to_test
+  filter :platform
   
   
   # Which columns are shown in the table
