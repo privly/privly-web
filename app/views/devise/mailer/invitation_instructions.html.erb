@@ -1,26 +1,34 @@
 <% # This email is sent when the user is invited to the system with 
    # a valid invitation. The user is able to immediatly activate an account.
   %>
-
-
 <p>Hello <%= @resource.email %>!</p>
 
-<p>Someone has invited you to <%= root_url %>, you can accept it through the link below.</p>
+<p>Someone has invited you to <%= root_url %>, you can accept it through the link below. Make sure you read this entire email before using the Privly Project.</p>
 
-<p>Privly is currently in Alpha Testing. The extension works on most sites, but there are bugs. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_url %> so we can fix the problem for you. There are bound to be some rough edges when you are interfacing with the entire internet, but in most cases, Privly will work wherever you bring it.</p>
+<p>We recommend you watch this <a href="https://vimeo.com/83073455">overview video</a> and if you are technically minded, this <a href="https://vimeo.com/83258935">technical video</a>.</p>
 
-<p>Software in Alpha testing is not secure. If you want to use Privly with private data, you should wait until the Beta release.</p>
-
-<p><%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></p>
-
-<p><%= link_to 'Follow our Twitter', "https://twitter.com/#!/Privly" %> for updates.</p>
+<p><strong>Warning:</strong> Software in Alpha testing is not secure. If you want to use Privly with private data, you should wait until the Beta release. We are opening this server for accounts so users can influence the development of the system. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_url %> so we can fix the problem for you.</p>
 
 <p>
-    Thanks for the Support, and let us know how it goes!
+  <strong>How to Use:</strong>
+</p>
+<ol>
+  <li>Click and complete the forms -> <%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></li>
+  <li>Create your account on the server</li>
+  <li><a href="https://priv.ly/pages/download.html">Download the extension for your browser</a></li>
+  <li>Restart your browser</li>
+  <li>Right-click on a form that you want to post Privly-type content to</li>
+  <li>Select the Privly Application you want to post with (ZeroBin, PlainPost, etc)</li>
+  <li>Submit the Privly App's form</li>
+  <li>Submit the form on the page</li>
+</ol>
+
+<p>
+    Thanks for the Support!
     <br />
     -<%= Privly::Application.config.name %>
 </p>
 
 <p>
-Are you a developer, tester, graphic designer, security expert, or all-round awesome individual? <%= link_to "Join Us!", pages_join_url %>
+  <%= link_to 'Follow our Twitter', "https://twitter.com/#!/Privly" %> for updates and join our <a href="https://groups.google.com/group/privly">development mailing list</a> for discussion.
 </p>

@@ -1,22 +1,29 @@
+<% # This email is sent when the user is invited to the system with 
+   # a valid invitation. The user is able to immediatly activate an account.
+  %>
 Hello <%= @resource.email %>!
 
-Someone has invited you to <%= root_url %>, you can accept it through the link below.
+Someone has invited you to <%= root_url %>, you can accept it through the link below. Make sure you read this entire email before using the Privly Project.
 
-Privly is currently in Alpha Testing. The extension works on most sites, but there are bugs. When you find a problem, make sure you report a bug so we can fix the problem for you. There are bound to be some rough edges when you are interfacing with the entire internet, but in most cases, Privly will work wherever you bring it.
+We recommend you watch the overview video (https://vimeo.com/83073455) and if you are technically minded, technical video (https://vimeo.com/83258935).
 
-***Software in Alpha testing is not secure.*** If you want to use Privly with private data, you should wait until the Beta release.
+Warning: Software in Alpha testing is not secure. If you want to use Privly with private data, you should wait until the Beta release. We are opening this server for accounts so users can influence the development of the system. When you find a problem, make sure you report the bug (<%= pages_bug_url %>) so we can fix the problem for you.
 
-Accept invitation: <%= accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %>.
-
-Follow our Twitter for updates: https://twitter.com/#!/Privly.
-
+How to Use:
+1. Visit and complete the forms -> <%= accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %>
+2. Download the extension for your browser: https://priv.ly/pages/download.html
+3. Restart your browser
+4. Right-click on a form that you want to post Privly-type content to
+5. Select the Privly Application you want to post with (ZeroBin, PlainPost, etc)
+6. Submit the Privly App's form
+7. Submit the form on the page
 
     Thanks for the Support, and let us know how it goes!
     
     -<%= Privly::Application.config.name %>
 
-
-Are you a developer, tester, graphic designer, security expert, or all-round awesome individual? <%= pages_join_url %>
+Follow our Twitter for updates: https://twitter.com/#!/Privly
+Join our development mailing list for discussion: https://groups.google.com/group/privly
 
 <% # This email is sent when the user is invited to the system with 
    # a valid invitation. The user is able to immediatly activate an account.
