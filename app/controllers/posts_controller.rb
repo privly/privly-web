@@ -158,28 +158,6 @@ class PostsController < ApplicationController
     end
   end
   
-  # == Present Choices for Applications to Generate Content
-  #
-  # Requires a user account.
-  #
-  # === Routing  
-  #
-  # GET /posts/new
-  #
-  # === Formats  
-  #  
-  # * +html+
-  #
-  # === Parameters  
-  #
-  # None
-  #
-  def new
-    respond_to do |format|
-      format.html # new.html.erb
-    end
-  end
-  
   # == Edit a post.
   #
   # (deprecated) Requires update permission.

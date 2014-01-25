@@ -6,7 +6,7 @@
 
 <h2 class="subhead"><span>Request an Invitation</span></h2>
 
-<p><%= Privly::Application.config.name %> is in closed Alpha. Only developers currently have access. To get invited to the next major release, enter your email below. Existing users can <%= link_to "Sign in", new_user_session_path %>.</p>
+<p><%= Privly::Application.config.name %> is in closed Alpha. Only contributors and their invited friends have access. To get invited to the next major release, enter your email below. Existing users can <%= link_to "Sign in", new_user_session_path %>.</p>
 
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
   <%= devise_error_messages! %>

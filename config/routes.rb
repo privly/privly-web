@@ -52,6 +52,10 @@ Privly::Application.routes.draw do
   match '/posts/plain_post', :to  => redirect('/apps/PlainPost/new.html'), 
     :as => :new_plain_post, :via => [:get]
   
+  # Information on creating new posts is in the privly-applications
+  # bundle.
+  get "posts/new" => redirect("/apps/Help/new.html")
+  
   # Post storage and viewing
   resources :posts
   

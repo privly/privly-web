@@ -132,7 +132,7 @@ class ApplicationController < ActionController::Base
       if admin_user_signed_in?
         admin_root_path
       else
-        new_post_path
+        "/apps/Help/new.html"
       end
     end
 

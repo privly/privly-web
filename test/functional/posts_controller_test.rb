@@ -15,11 +15,6 @@ class PostsControllerTest < ActionController::TestCase
     assert_redirected_to "/apps/Index/new.html"
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
   test "should create post" do
     sign_in  users(:one)
     assert_difference('Post.count') do
