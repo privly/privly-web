@@ -2,9 +2,55 @@
     Account
 <% end %>
 
+<% content_for(:extrajs) do %>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function(){
+      
+      // Make the user type a message before displaying the destroy button
+      document.querySelector('#confirmation_text').addEventListener('keyup', 
+        function(){
+          if($("#confirmation_text").val() === 
+            "I understand that this will permanently destroy my user account and the data might not be recoverable") {
+            $("#confirmed_destroy_button").show();
+          }
+        }
+      );
+      
+      // Show the destroy button when the user has successfully typed the
+      // destroy confirmation.
+      document.querySelector('#destroy_account_button').addEventListener('click', 
+        function(){
+          $("#type_confirmation_message").show();
+        }
+      );
+    });
+  </script>
+<% end %>
 
 <div class="page-header">
   <h1>Your <%= Privly::Application.config.name %> Account</h1>
+</div>
+
+<div id="type_confirmation_message" class="row-fluid" style="display:none;">
+  <div class="span12">
+    <h2>Destroy Account Confirmation</h2>
+    <p>
+      To destroy your account, type this message exactly: 
+      "I understand that this will permanently destroy my user account and the data might not be recoverable"
+    </p>
+    <input id="confirmation_text" 
+      type="text" 
+      placeholder="I understand that this will permanently destroy my user account and the data might not be recoverable" 
+      style="width:700px;"></input>
+    <%= button_to 'Destroy My User Account and Posts', 
+      user_destroy_account_path,
+      :id => "confirmed_destroy_button",
+      :confirm => 'Are you sure? This will destroy all your data.', 
+      :method => :delete,
+      :style => "display:none;",
+      :class => "btn btn-large btn-danger" %>
+    <hr />
+  </div>
 </div>
 
 <div class="row-fluid">
@@ -27,8 +73,22 @@
   </div>
   <div class="span5">
     <h2>Manage Your Data</h2>
-    <p><%= button_to 'Export All My Posts', {:controller => "posts", :action => "index", :format => :csv}, :confirm => 'Are you sure? This will export all of your posts in .csv format.', :method => :get %></p>
-    <p><%= button_to 'Destroy All My Posts', posts_destroy_all_path, :confirm => 'Are you sure? This will destroy everything you know and love in this site.', :method => :delete %></p>
+    <p>
+      <%= button_to 'Export All My Posts', 
+        {:controller => "posts", :action => "index", :format => :csv}, 
+        :confirm => 'Are you sure? This will export all of your posts in .csv format.', 
+        :method => :get, :class => "btn btn-large btn-success" %>
+    </p>
+    <p>
+      <%= button_to 'Destroy All My Posts', posts_destroy_all_path, 
+        :confirm => 'Are you sure? This will destroy everything you know and love in this site.',
+        :method => :delete, :class => "btn btn-large btn-warning" %>
+    </p>
+    <p>
+      <input id="destroy_account_button" 
+        class="btn btn-large btn-danger" 
+        type="button" value="Destroy My User Account and Posts" />
+    </p>
 
     <p><strong><%= Privly::Application.config.name %> knows this about you:</strong></p>
     <p>Your <%= Privly::Application.config.name %> verified email is "<%= current_user.email %>".</p>

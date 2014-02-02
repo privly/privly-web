@@ -5,6 +5,7 @@ Privly::Application.routes.draw do
   
   # Endpoint for destroying all the user's stored posts
   match '/posts/destroy_all' => 'posts#destroy_all', :via => :delete
+  match '/user/destroy_account' => 'users#destroy', :via => :delete
   
   # Authenticating Applications
   resources :token_authentications, :only => [:create, :new]
