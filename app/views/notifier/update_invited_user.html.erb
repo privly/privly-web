@@ -1,0 +1,46 @@
+<p>Hello <%= @user.email %>,</p>
+
+<p>
+  This email is to update you regarding recent changes on 
+  <%= Privly::Application.config.name %>.
+</p>
+
+<p>
+  We recently updated all the Privly Applications hosted by this server
+  with numerous improvements to make it a smoother experience.
+  We also added documentation to applications to help you
+  understand the privacy each application is offering. If you have
+  and thoughts or issues with the status of the system, please 
+  <a href="http://www.privly.org/content/bug-report" target="_blank">
+    submit a bug
+  </a>
+  or email privly@privly.org.
+</p>
+
+<p>
+  Sincerely,
+  <br />
+  -The <%= Privly::Application.config.name %> Team
+</p>
+
+<p>
+  For more information about Privly, please visit one of these sources:
+</p>
+<ul>
+  <li><a href="http://groups.google.com/group/privly" target="_blank">Development Mailing List</a></li>
+  <li><a href="http://groups.google.com/group/privly-test" target="_blank">Testing Mailing List</a></li>
+  <li><a href="http://groups.google.com/group/privly-announce" target="_blank">Announcements Mailing List</a></li>
+  <li><a href="http://privly.org" target="_blank">Privly Foundation Home</a></li>
+  <li><a href="https://github.com/privly/privly-organization/wiki" target="_blank">Development Wiki</a></li>
+  <li><a href="https://github.com/privly" target="_blank">Repository List</a></li>
+  <li><a href="http://www.privly.org/content/bug-report" target="_blank">Submit a Bug</a></li>
+  <li><a href="http://www.privly.org/content/irc" target="_blank">IRC</a></li>
+  <li><a href="https://priv.ly/pages/download" target="_blank">Download Extension</a></li>
+</ul>
+
+<p>
+  We will not contact you via email unless there are significant changes to
+  the software, organization, or your data's safety. To stop receiving these
+  messages, you can destroy your user account on this server by logging in and
+  visiting the <%= link_to "account page.", pages_account_url %>
+</p>
