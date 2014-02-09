@@ -29,7 +29,11 @@ Read about the [API](https://github.com/privly/privly-web/blob/master/API.md).
 Prerequisites:
 
 * Ruby 1.9.2+
+ * To check what version of Ruby you are running, type "ruby" in your terminal
+ * To update/install Ruby, check out the [Ruby website](https://www.ruby-lang.org/en/downloads/)
 * [Bundler](http://bundler.io/)
+ * You can ignore the part about "specifying dependencies"
+
 
 These shell commands step through a standard installation.
 
