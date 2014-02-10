@@ -40,14 +40,17 @@ These shell commands step through a standard installation.
     cd privly-web
     
     # You need to setup a database. For a development install you should use
-    # option 2 since you will not need to setup MySQL.
-    # Option 1: MySQL. You will need to edit the resulting file appropriately.
-        cp config/database.yml.mysql.example config/database.yml
-    # Option 2: SQLite.
-      # You need to edit two lines in `Gemfile`
-      # uncomment the gemfile line: gem 'sqlite3'
-      # comment the gemfile line: gem 'mysql2'
-      cp config/database.yml.sqlite.example config/database.yml
+    # option 1. 
+    # Option 1: SQLite.
+     # You need to edit two lines in `Gemfile`
+      > cd privly-web
+      > vim (or your editor of choice) Gemfile 
+     # uncomment the gemfile line: gem 'sqlite3'
+     # comment the gemfile line: gem 'mysql2'
+       > cp config/database.yml.sqlite.example config/database.yml
+    # Option 2: MySQL. You will need to edit the resulting file appropriately.
+        > cp config/database.yml.mysql.example config/database.yml
+
     
     # Run installation scripts
     bundle install #Installs the required gems
