@@ -4,7 +4,7 @@ class Notifier < ActionMailer::Base
           :return_path => "no-reply@" + Privly::Application.config.link_domain_host
   
   # Send a system update to the recipient (user account)
-  def update(recipient)
+  def update_invited_user(recipient)
     @user = recipient
     @user.last_emailed = Time.now
     @user.save

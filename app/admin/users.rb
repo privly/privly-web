@@ -18,14 +18,14 @@ ActiveAdmin.register User do
   filter :failed_attempts
   filter :created_at
   filter :alpha_invites
-  #filter :beta_invites
-  #filter :forever_account_value
+  filter :beta_invites
   filter :permissioned_requests_served
   filter :nonpermissioned_requests_served
   filter :can_post, :as => :select
   filter :notifications, :as => :select
   filter :wants_to_test
   filter :platform
+  filter :last_emailed
   
   
   # Which columns are shown in the table
@@ -36,14 +36,12 @@ ActiveAdmin.register User do
     column :last_sign_in_at
     column :created_at
     column :failed_attempts
-    column :alpha_invites
-    #column :beta_invites
-    #column :forever_account_value
-    #column :permissioned_requests_served
-    #column :nonpermissioned_requests_served
-    
-    #column :can_post
+    column :last_emailed
     #column :notifications
+    
+    column "Has Invites" do |user|
+     user.alpha_invites > 0 or user.beta_invites > 0
+    end
     
     column "Posts" do |user|
       user.posts.count
@@ -87,6 +85,16 @@ ActiveAdmin.register User do
       user.save
     end
     redirect_to collection_path, :alert => "Users Have Been Toggled"
+  end
+  
+  # Send an update email regarding the system
+  batch_action :update_user_via_email, :confirm => "Are you sure you want to send them the update email?" do |selection|
+    User.find(selection).each do |user|
+      if user.can_post
+        Notifier.update_invited_user(user)
+      end
+    end
+    redirect_to collection_path, :alert => "Users Have Been Updated via email"
   end
   
   # Importing CSV form calls collection_action :import_csv
