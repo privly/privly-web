@@ -1,0 +1,23 @@
+#Example of database setup for Travis-CI
+#The settings are corresponding to MySql 
+#database for test environment
+mysql: &mysql
+  adapter: mysql2
+  username: root
+  password:
+  database: privly_<%= Rails.env %>
+
+travisSettings: &travisSettings
+  pool: 5
+  timeout: 5000
+  host: localhost
+  <<: *<%= ENV['DB'] %>
+
+development:
+  <<: *travisSettings
+
+test:
+  <<: *travisSettings
+
+production:
+  <<: *travisSettings
