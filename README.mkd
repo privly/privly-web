@@ -28,7 +28,7 @@ Read about the [API](https://github.com/privly/privly-web/blob/master/API.md).
 
 Prerequisites:
 
-* Ruby 1.9.2+
+* Ruby 1.9.2+ (Ruby 2.* is not recommended due to gem conflicts)
 * [Bundler](http://bundler.io/)
 
 These shell commands step through a standard installation.
