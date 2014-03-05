@@ -31,6 +31,7 @@ Prerequisites:
 * Ruby 1.9.2+ (Ruby 2.* is not recommended due to gem conflicts)
  * To check what version of Ruby you are running, type `ruby --version` in your terminal
  * To update/install Ruby, check out the [Ruby website](https://www.ruby-lang.org/en/downloads/)
+* [Bundler](http://bundler.io/)
 
 These shell commands step through a standard installation.
 
