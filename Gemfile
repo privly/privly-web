@@ -6,9 +6,12 @@ gem 'json'
 gem 'jquery-rails', "~> 2.3.0"
 
 # Database gem
-gem 'mysql2' # Comment out this line to use another Database type
-# gem 'sqlite3'
-
+group :production do
+  gem 'mysql2' # Comment out this line to use another Database type
+end
+group :development, :test do
+  gem 'sqlite3'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -46,3 +49,8 @@ gem 'useragent'
 
 # Error reporting service
 gem "airbrake"
+
+# Jasmine testing
+group :development, :test do
+  gem 'jasmine'
+end
