@@ -12,6 +12,11 @@
 #
 src_files:
 #  - assets/application.js
+  - vendor/jquery.min.js
+  - vendor/markdown.js
+  - vendor/jquery.dataTables.min.js
+  - vendor/sjcl.js
+  - vendor/bootstrap/js/bootstrap.min.js
   - shared/javascripts/parameters.js
   - shared/javascripts/network_service.js
   - shared/javascripts/extension_integration.js
@@ -63,8 +68,8 @@ helpers:
 spec_files:
 #  - '**/*[sS]pec.js'
   - shared/test/parameter.js
-  - shared/test/network_service.js
   - shared/test/extension_integration.js
+  - shared/test/network_service.js
   - shared/test/tooltip.js
   - shared/test/host_page_integration.js
 #  - shared/test/execute.js
