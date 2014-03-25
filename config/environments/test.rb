@@ -43,17 +43,6 @@ Privly::Application.configure do
   # Set this variable to change the displayed name of the site.
   config.name = "test"
   
-  # Users with the "can_post" permission will be able to create posts lasting
-  # this long
-  config.user_can_post_lifetime_max = 30.days
-  
-  # Users without the "can_post" permission will be able to create posts
-  # lasting this long. Also, their posts will not be tied to their user account
-  config.user_cant_post_lifetime_max = 14.days
-  
-  # Users who are not logged in will be able to create posts lasting this long
-  config.not_logged_in_lifetime_max = 3.days
-  
   # The host new injectible links should be created on.
   # If you don't know what you are doing here, you should set
   # it to the same domain as the primary_domain_host
