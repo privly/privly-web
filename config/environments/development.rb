@@ -45,5 +45,12 @@ Privly::Application.configure do
   
   # Required protocol, choose "http" or "https"
   config.required_protocol = "http"
+  
+  # Don't send invitations to users by default.
+  # Setting this to false will send users
+  # accounts when they sign up for invitations,
+  # while setting it to true will send them
+  # a message that the system is currently in closed Alpha.
+  config.send_invitations = false
 
 end

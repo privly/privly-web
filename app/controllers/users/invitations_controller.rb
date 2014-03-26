@@ -13,7 +13,9 @@ class Users::InvitationsController < Devise::InvitationsController
   # == Create a pending invitation.
   #
   # Create a user account for the email address supplied, but do not
-  # supply them with the activation link.
+  # supply them with the activation link unless 
+  # Privly::Application.config.send_invitations is set to true in the
+  # environment config.
   #
   # === Routing  
   #
@@ -48,20 +50,23 @@ class Users::InvitationsController < Devise::InvitationsController
     # Don't send the invitation
     self.resource = resource_class.invite!(params[resource_name], current_inviter) do |u|
       u.email = email
-      u.skip_invitation = true
-      u.pending_invitation = true
+      if Privly::Application.config.send_invitations
+        u.pending_invitation = false
+        u.can_post = true
+      else
+        u.skip_invitation = true
+        u.pending_invitation = true
+      end
     end
-
-    if resource.errors.empty?
+    
+    if resource.errors.empty? and not Privly::Application.config.send_invitations
       Notifier.pending_invitation(
         User.find(:first, :conditions => [ "email = ?", email])
       ).deliver # sends the email
-      redirect_to welcome_path, 
-        :notice => "Thanks " + email + 
-          "! When we are ready for more users we will send you a message."
-    else
-      respond_with_navigational(resource) { render :new }
     end
+    redirect_to welcome_path, 
+      :notice => "Thanks " + email + 
+        "! When we are ready for more users we will send you a message."
   end
   
   # == A user is using one of their invitations
