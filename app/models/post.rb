@@ -33,20 +33,8 @@ class Post < ActiveRecord::Base
   # to be immediatly slotted for deletion.
   def burn_after_in_future
     if burn_after_date and burn_after_date < Time.now
-      errors.add(:burn_after_date, "#{burn_after_date} cannot be in the past, but you can destroy it now.")
-    end
-  end
-  
-  # Set the length of time content that is not associated with a user account
-  # will be stored before it is destroyed.
-  # All anonymous posts will be destroyed within two days.
-  def unauthenticated_user_settings
-    if user_id.nil? or not self.user.can_post
-      if not burn_after_date
-        errors.add(:burn_after_date, "#{burn_after_date} must be specified for anonymous posts.")
-      elsif burn_after_date > Time.now + 2.day
-        errors.add(:burn_after_date, "#{burn_after_date} cannot be more than two days into the future.")
-      end
+      errors.add(:burn_after_date, 
+      "#{burn_after_date} cannot be in the past, but you can destroy it now.")
     end
   end
   
@@ -54,14 +42,9 @@ class Post < ActiveRecord::Base
   # will be stored on the server before it is destroyed.
   def user_settings
     
-    if not self.burn_after_date
-      errors.add(:burn_after_date, "#{burn_after_date} must be specified.")
-    elsif self.burn_after_date > Time.now + Privly::Application.config.user_can_post_lifetime_max
-      errors.add(:burn_after_date, "#{burn_after_date} must be before #{Time.now + Privly::Application.config.user_can_post_lifetime_max}.")
-    end
-    
     if user_id.nil? or not self.user.can_post
-      errors.add(:burn_after_date, "Your user account cannot create content.")
+      errors.add(:burn_after_date, 
+        "Your user account cannot create content.")
     end
     
   end

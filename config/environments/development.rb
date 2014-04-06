@@ -33,10 +33,6 @@ Privly::Application.configure do
   # Set this variable to change the displayed name of the site.
   config.name = "Site Name"
 
-  # Users will be able to create posts that get deleted after this period
-  # of time.
-  config.user_can_post_lifetime_max = 30.days
-
   # The host new injectible links should be created on.
   # You should generally set this to the domain of your server
   config.link_domain_host = "localhost:3000"
