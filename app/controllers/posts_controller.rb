@@ -35,6 +35,8 @@ class PostsController < ApplicationController
   # == Get the Index
   # 
   # Get a list of all the user's posts. The user must be authenticated.
+  # This listing should only be used by a privly-application so it is
+  # data-only (JSON).
   #  
   # ==== Routing  
   #
@@ -47,7 +49,7 @@ class PostsController < ApplicationController
   #
   # ==== Formats  
   #  
-  # * +html+
+  # * +html+ (deprecated)
   # * +json+ Example:
   #          [{"created_at":"2012-09-05T04:08:31Z",
   #            "burn_after_date":"2012-09-19T04:08:31Z",
@@ -88,7 +90,9 @@ class PostsController < ApplicationController
   
   # == Shows an individual post.
   #
-  # (deprecated) Use a Privly application.
+  # This endpoint is data-only, meaning you should only use the
+  # JSON format. Privly-applications integrate with this endpoint
+  # using the JSON format.
   #  
   # === Routing  
   #
@@ -97,7 +101,7 @@ class PostsController < ApplicationController
   #
   # === Formats  
   #  
-  # * +html+
+  # * +html+ (deprecated) 
   # * +json+ Example:
   #          {"created_at":"2012-09-05T04:08:31Z",
   #            "burn_after_date":"2012-09-19T04:08:31Z",
@@ -325,10 +329,7 @@ class PostsController < ApplicationController
       @post.burn_after_date = Time.now + seconds_until_burn.seconds
     elsif params[:post]["burn_after_date(1i)"]
       @post.burn_after_date = convert_date params[:post], "burn_after_date"
-    else
-      @post.burn_after_date = Time.now + Privly::Application.config.user_can_post_lifetime_max - 1.day
     end
-    
     
     if params[:post][:privly_application]
       @post.privly_application = params[:post][:privly_application]
@@ -630,10 +631,10 @@ class PostsController < ApplicationController
   def user_account_data
     
     render :json => {
-                       :csrf => form_authenticity_token,
-                       :burntAfter => Time.now + Privly::Application.config.user_can_post_lifetime_max,
-                       :canPost => user_signed_in?,
-                       :signedIn => user_signed_in?
+                      :csrf => form_authenticity_token,
+                      :burntAfter => Time.now + 30.days, # Current recommended max life
+                      :canPost => user_signed_in?,
+                      :signedIn => user_signed_in?
                      }, 
                      :callback => params[:callback]
   end
