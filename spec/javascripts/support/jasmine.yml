@@ -1,0 +1,133 @@
+# src_files
+#
+# Return an array of filepaths relative to src_dir to include before jasmine specs.
+# Default: []
+#
+# EXAMPLE:
+#
+# src_files:
+#   - lib/source1.js
+#   - lib/source2.js
+#   - dist/**/*.js
+#
+src_files:
+#  - assets/application.js
+  - vendor/jquery.min.js
+  - vendor/markdown.js
+  - vendor/jquery.dataTables.min.js
+  - vendor/sjcl.js
+  - vendor/bootstrap/js/bootstrap.min.js
+  - shared/javascripts/parameters.js
+  - shared/javascripts/network_service.js
+  - shared/javascripts/extension_integration.js
+  - shared/javascripts/host_page_integration.js
+  - shared/javascripts/tooltip.js
+
+# stylesheets
+#
+# Return an array of stylesheet filepaths relative to src_dir to include before jasmine specs.
+# Default: []
+#
+# EXAMPLE:
+#
+# stylesheets:
+#   - css/style.css
+#   - stylesheets/*.css
+#
+stylesheets:
+#  - stylesheets/**/*.css
+  - vendor/bootstrap/css/bootstrap.min.css
+  - shared/css/common.css
+  - shared/css/tooltip.css
+  - shared/css/injected/injected.css
+  - shared/css/top/top.css
+
+# helpers
+#
+# Return an array of filepaths relative to spec_dir to include before jasmine specs.
+# Default: ["helpers/**/*.js"]
+#
+# EXAMPLE:
+#
+# helpers:
+#   - helpers/**/*.js
+#
+helpers:
+#  - 'helpers/**/*.js'
+
+# spec_files
+#
+# Return an array of filepaths relative to spec_dir to include.
+# Default: ["**/*[sS]pec.js"]
+#
+# EXAMPLE:
+#
+# spec_files:
+#   - **/*[sS]pec.js
+#
+spec_files:
+#  - '**/*[sS]pec.js'
+  - shared/test/parameter.js
+  - shared/test/extension_integration.js
+  - shared/test/network_service.js
+  - shared/test/tooltip.js
+  - shared/test/host_page_integration.js
+#  - shared/test/execute.js
+
+# src_dir
+#
+# Source directory path. Your src_files must be returned relative to this path. Will use root if left blank.
+# Default: project root
+#
+# EXAMPLE:
+#
+# src_dir: public
+#
+src_dir: public/apps/
+
+# spec_dir
+#
+# Spec directory path. Your spec_files must be returned relative to this path.
+# Default: spec/javascripts
+#
+# EXAMPLE:
+#
+# spec_dir: spec/javascripts
+#
+spec_dir: public/apps
+
+# spec_helper
+#
+# Ruby file that Jasmine server will require before starting.
+# Returned relative to your root path
+# Default spec/javascripts/support/jasmine_helper.rb
+#
+# EXAMPLE:
+#
+# spec_helper: spec/javascripts/support/jasmine_helper.rb
+#
+spec_helper: spec/javascripts/support/jasmine_helper.rb
+
+# boot_dir
+#
+# Boot directory path. Your boot_files must be returned relative to this path.
+# Default: Built in boot file
+#
+# EXAMPLE:
+#
+# boot_dir: spec/javascripts/support/boot
+#
+boot_dir:
+
+# boot_files
+#
+# Return an array of filepaths relative to boot_dir to include in order to boot Jasmine
+# Default: Built in boot file
+#
+# EXAMPLE
+#
+# boot_files:
+#   - '**/*.js'
+#
+boot_files:
+
