@@ -69,6 +69,14 @@ class PostTest < ActiveSupport::TestCase
     post.burn_after_date = Time.now + 1.hour
     post.user = User.first
     assert post.save
+    
+    post = Post.new
+    post.public = true
+    post.content = "content"
+    post.privly_application = "PlainPost"
+    post.burn_after_date = nil
+    post.user = User.first
+    assert post.save
   end
   
 end
