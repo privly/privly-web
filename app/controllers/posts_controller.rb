@@ -322,14 +322,7 @@ class PostsController < ApplicationController
     # if it is not assigned here.
     @post.random_token = params[:post][:random_token]
     
-    # Set the length of time until the post is destroyed
-    # by the server.
-    if params[:post][:seconds_until_burn]
-      seconds_until_burn = params[:post][:seconds_until_burn].to_i
-      @post.burn_after_date = Time.now + seconds_until_burn.seconds
-    elsif params[:post]["burn_after_date(1i)"]
-      @post.burn_after_date = convert_date params[:post], "burn_after_date"
-    end
+    set_burn_date
     
     if params[:post][:privly_application]
       @post.privly_application = params[:post][:privly_application]
@@ -504,16 +497,7 @@ class PostsController < ApplicationController
       end
     end
     
-    # Attributes which may lead to the destruction of the content can only
-    # be updated by people with destruction permissions
-    if can? :destroy, @post
-        if params[:post][:seconds_until_burn]
-          seconds_until_burn = params[:post][:seconds_until_burn].to_i
-          @post.burn_after_date = Time.now + seconds_until_burn.seconds
-        elsif params[:post]["burn_after_date(1i)"]
-          @post.burn_after_date = convert_date params[:post], "burn_after_date"
-        end
-    end
+    set_burn_date
     
     respond_to do |format|
       if @post.update_attributes(params[:post])
@@ -674,6 +658,33 @@ class PostsController < ApplicationController
     def convert_date(hash, date_symbol_or_string)
       attribute = date_symbol_or_string.to_s
       return Date.new(hash[attribute + '(1i)'].to_i, hash[attribute + '(2i)'].to_i, hash[attribute + '(3i)'].to_i)   
+    end
+    
+    # Set the burn date on the model.
+    # The user must have destroy permissions.
+    # The burn_after_date(1i) parameter has higher precedence than the
+    # seconds_until_burn parameter.
+    def set_burn_date
+      
+      if cannot? :destroy, @post
+          return
+      end
+      
+      if params[:post]["burn_after_date(1i)"]
+        @post.burn_after_date = convert_date params[:post], "burn_after_date"
+        return
+      end
+      
+      if params[:post][:seconds_until_burn]
+        seconds_until_burn = params[:post][:seconds_until_burn]
+        if seconds_until_burn == "" or seconds_until_burn == "nil"
+          @post.burn_after_date = nil
+        else
+          seconds_until_burn = params[:post][:seconds_until_burn].to_i
+          @post.burn_after_date = Time.now + seconds_until_burn.seconds
+        end
+      end
+      
     end
   
 end

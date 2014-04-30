@@ -32,6 +32,24 @@ class PostsControllerTest < ActionController::TestCase
     assert_redirected_to assigns(:post).privly_URL
   end
   
+  test "should create post with seconds_until_burn set to empty" do
+    sign_in  users(:one)
+    assert_difference('Post.count') do
+      post :create, :post => {:content => "Test Post 1", :public => true,
+        :seconds_until_burn => ""}
+    end
+    assert_redirected_to assigns(:post).privly_URL
+  end
+  
+  test "should create post with seconds_until_burn set to nil" do
+    sign_in  users(:one)
+    assert_difference('Post.count') do
+      post :create, :post => {:content => "Test Post 1", :public => true,
+        :seconds_until_burn => "nil"}
+    end
+    assert_redirected_to assigns(:post).privly_URL
+  end
+  
   test "should create structured content post" do
     sign_in  users(:one)
     assert_difference('Post.count') do
