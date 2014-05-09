@@ -24,13 +24,6 @@ class TokenAuthenticationsControllerTest < ActionController::TestCase
     assert_redirected_to new_token_authentication_path
   end
   
-  test "should login with auth token" do
-    user = users(:one)
-    post :create,  :email => user.email, :password => user.password, :format => "json"
-    
-  end
-
-
   test "should get token authentication" do
     sign_in  users(:one)
     

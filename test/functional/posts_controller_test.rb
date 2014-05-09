@@ -15,6 +15,19 @@ class PostsControllerTest < ActionController::TestCase
     assert_redirected_to "/apps/Index/new.html"
   end
 
+  test "should get index with auth token" do
+    sign_out users(:one)
+    auth_token = users(:one).authentication_token
+    get :index, :auth_token => auth_token
+    assert_redirected_to "/apps/Index/new.html"
+  end
+
+  test "should redirect user to sign in" do
+    sign_out users(:one)
+    get :index, :auth_token => "bad token"
+    assert_redirected_to "/users/sign_in"
+  end
+
   test "should create post" do
     sign_in  users(:one)
     assert_difference('Post.count') do

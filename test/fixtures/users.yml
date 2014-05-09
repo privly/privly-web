@@ -16,6 +16,7 @@ one:
  pending_invitation: false
  can_post: true
  alpha_invites: 1
+ authentication_token: AnAuthToken
 
 two:
   id: 2
