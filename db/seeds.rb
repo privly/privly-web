@@ -7,26 +7,6 @@
 # These share types are assumed to be present
 #
 
-identity_provider = IdentityProvider.new
-identity_provider.name = "Privly Verified Email"
-identity_provider.description = "The Privly Verified email is the email for the Privly user's account. Users must verify their email ownership with Privly"
-identity_provider.save
-
-identity_provider = IdentityProvider.new
-identity_provider.name = "Privly Verified Domain"
-identity_provider.description = "The Privly Verified domain is the domain for the Privly user's email account. Users must verify their email ownership with Privly"
-identity_provider.save
-
-identity_provider = IdentityProvider.new
-identity_provider.name = "Password"
-identity_provider.description = "The password is a secret that when sent with the request will add permissions on the content"
-identity_provider.save
-
-identity_provider = IdentityProvider.new
-identity_provider.name = "IP Address"
-identity_provider.description = "The IP address is where Privly requests originate"
-identity_provider.save
-
 #
 # Production environments will want to customize records below this point
 #

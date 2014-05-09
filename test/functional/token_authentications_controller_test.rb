@@ -13,7 +13,6 @@ class TokenAuthenticationsControllerTest < ActionController::TestCase
     
     for i in 0..9
       post :create, :email => @user.email, :password => "incorrect_password"
-      assert (@user.access_locked?.nil?)
       assert_redirected_to new_token_authentication_path
       @user = User.find_by_email("test@test.com")
       assert @user.failed_attempts == i + 1
@@ -24,6 +23,13 @@ class TokenAuthenticationsControllerTest < ActionController::TestCase
     assert @user.access_locked?
     assert_redirected_to new_token_authentication_path
   end
+  
+  test "should login with auth token" do
+    user = users(:one)
+    post :create,  :email => user.email, :password => user.password, :format => "json"
+    
+  end
+
 
   test "should get token authentication" do
     sign_in  users(:one)

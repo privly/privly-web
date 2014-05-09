@@ -70,7 +70,7 @@ Devise.setup do |config|
 
   # Setup a pepper to generate the encrypted password.
   config.pepper = "50371be2caef033d91d010ad11adc768b47ac8909b5a31232ab51823ac31e7fa47460ac9c15b2a51d61b918e77e07ae5aa5a0b89a91d75f79af57401cec81851"
-
+  
   # ==> Configuration for :invitable
   # The period the generated invitation token is valid, after
   # this period, the invited resource won't be able to accept the invitation.
@@ -167,14 +167,6 @@ Devise.setup do |config|
   # and :restful_authentication_sha1 (then you should set stretches to 10, and copy
   # REST_AUTH_SITE_KEY to pepper)
   # config.encryptor = :sha512
-
-  # ==> Configuration for :token_authenticatable
-  # Defines name of the authentication token params key
-  config.token_authentication_key = :auth_token
-
-  # If uncommented, authentication through token does not store user in session and needs
-  # to be supplied on each request. Useful if you are using the token as API token.
-  #config.skip_session_storage << :token_auth
 
   # ==> Scopes configuration
   # Turn scoped views on. Before rendering "sessions/new", it will first check for

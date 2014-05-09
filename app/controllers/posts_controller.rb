@@ -2,33 +2,22 @@
 # store cleartext markdown content and serialized JSON of any schema. Currently
 # two posting applications use the Post endpoint: ZeroBins push encrypted content
 # to the serialized JSON storage, and Privly "posts" use the rendered Markdown
-# storage. Shares can permission any type of post.
+# storage.
 class PostsController < ApplicationController
   
   require 'csv'
   
   # Force the user to authenticate using Devise
-  before_filter :authenticate_user!, :except => [:show, :edit, :update, 
+  before_filter :authenticate_user!, :except => [:show, :update, 
                                                  :destroy, :user_account_data]
   
-  # Checks request's permissions defined in ability.rb and loads 
-  # resource if they have access. This will assign @post or @posts depending
-  # on the action.
-  load_and_authorize_resource :except => [:destroy_all, :user_account_data]
+  # Determines whether the user has access to the 
+  # resource and assigns the @post variable
+  before_filter :load_and_authorize_resource, :except => [:destroy_all, 
+    :user_account_data, :index, :create]
   
   # Obscure whether the record exists when not found
   rescue_from ActiveRecord::RecordNotFound do |exception|
-    obscure_existence
-  end
-  
-  # Obscure whether the record exists when denied access
-  rescue_from CanCan::AccessDenied do |exception|
-    
-    # Count the number of requests the post has without being able to view it
-    if not @post.nil? and not @post.user.nil?
-      User.increment_counter(:nonpermissioned_requests_served, @post.user.id)
-    end
-    
     obscure_existence
   end
   
@@ -68,6 +57,9 @@ class PostsController < ApplicationController
   # ** Default: html
   #
   def index
+    
+    @posts = current_user.posts.all
+    
     respond_to do |format|
       format.html {
         redirect_to "/apps/Index/new.html"
@@ -121,8 +113,7 @@ class PostsController < ApplicationController
   # * Values: Any string of non-whitespace characters
   # * Default: None 
   # Either the user owns the post, or they must supply this parameter.
-  # Without this parameter, even with complete share access to the content,
-  # the user will not be able to access this endpoint.
+  # Without this parameter the user will not be able to access this endpoint.
   #
   # *format* - _string_ - Optional
   # * Values: html, json
@@ -132,12 +123,6 @@ class PostsController < ApplicationController
   # * +X-Privly-Url+ The URL for this content which should be posted to other
   # websites.
   def show
-    
-    # If the post will be destroyed in the next cron job, tell the user
-    # it is already gone.
-    if not @post.burn_after_date.nil? and @post.burn_after_date < Time.now
-      raise ActiveRecord::RecordNotFound
-    end
     
     # Count the number of permissioned requests the post has.
     # Note that users could use this to indicate the number of times content
@@ -149,62 +134,13 @@ class PostsController < ApplicationController
     @injectable_url = @post.privly_URL
     response.headers["X-Privly-Url"] = @injectable_url
     
-    @share = Share.new
-    
     respond_to do |format|
       format.html {
-        @sidebar = {:post => true}
-        render :layout => "legacy"
+        redirect_to @injectable_url#deprecated
+        return
       }
       format.json {
         render :json => get_json, :callback => params[:callback]
-      }
-    end
-  end
-  
-  # == Edit a post.
-  #
-  # (deprecated) Requires update permission.
-  #
-  # === Routing  
-  #
-  # Create a post
-  # POST /posts
-  # POST /posts.html
-  #
-  # === Formats  
-  #  
-  # * +html+
-  #
-  # === Parameters  
-  #
-  # <b>random_token</b> - _string_ - Required
-  # * Values: Any string of non-whitespace characters
-  # * Default: None 
-  # Either the user owns the post, or they must supply this parameter.
-  # Without this parameter, even with complete share access to the content,
-  # the user will not be able to access this endpoint.
-  #
-  # <b>post [content]</b> - _string_ - Optional
-  # * Values: Any Markdown formatted string. No images supported.
-  # * Default: nil
-  # The content is rendered on the website, or for injection into web pages.
-  #
-  # <b>post [structured_content]</b> - _JSON_ - Optional
-  # * Values: Any JSON document
-  # * Default: nil
-  # Structured content is for the storage of serialized JSON in the database.
-  #
-  def edit
-    @sidebar = {:post => true}
-    respond_to do |format|
-      format.html {
-        if @post.structured_content.nil?
-          render # edit.html.erb
-        else
-          render "edit", :locals => 
-            {:notice => "This post was generated with a web application. Changing this content might not change how the link is displayed."}
-        end
       }
     end
   end
@@ -279,70 +215,43 @@ class PostsController < ApplicationController
   # month, and year must be within the next 14 days for users with
   # posting permission, or 2 days for users without posting permission.
   #
-  # <b>post [share [share_csv]]</b> - _csv_ - Optional
-  # * Values: a single row of comma separated values
-  # * Default: nil
-  # Send in comma separated values representing identities
-  # like domains, emails, and IP Addresses.
-  #
-  # <b>post [share [can_show]]</b> - _boolean_ - Optional
-  # * Values: true, false
-  # * Default: true
-  # Assign a show sharing permission to the share_csv row's values
-  #
-  # <b>post [share [can_update]]</b> - _boolean_ - Optional
-  # * Values: true, false
-  # * Default: false
-  # Assign a update sharing permission to the share_csv row's values
-  #
-  # <b>post [share [can_destroy]]</b> - _boolean_ - Optional
-  # * Values: true, false
-  # * Default: false
-  # Assign a destroy sharing permission to the share_csv row's values
-  #
-  # <b>post [share [can_share]]</b> - _boolean_ - Optional
-  # * Values: true, false
-  # * Default: false
-  # Assign a share sharing permission to the share_csv row's values
-  #
   # === Response Headers
   # * +X-Privly-Url+ The URL for this content which should be posted to other
   # websites.
   def create
     
-    # Posts default to Private
-    if params[:post][:public]
-      @post.public = params[:post][:public]
-    else
-      @post.public = false
+    unless current_user.can_post
+      redirect_to welcome_page_path
     end
     
-    # The random token will be required for users other than the owner
-    # to access the content. The model will generate a token before saving
-    # if it is not assigned here.
-    @post.random_token = params[:post][:random_token]
+    @post = Post.new
     
-    set_burn_date
+    @post.user = current_user
     
     if params[:post][:privly_application]
       @post.privly_application = params[:post][:privly_application]
     elsif @post.structured_content.nil?
       @post.privly_application = "PlainPost"
     end
+
+    # Posts default to Private
+    if params[:post][:public]
+      @post.public = params[:post][:public]
+    else
+      @post.public = false
+    end
+
+    set_burn_date
+    
+    # The random token will be required for users other than the owner
+    # to access the content. The model will generate a token before saving
+    # if it is not assigned here.
+    @post.random_token = params[:post][:random_token]
+    
+    @post.update_attributes(params[:post])
     
     respond_to do |format|
       if @post.save
-        
-        # Create a series of shares based on a CSV line. 
-        # All shares will have the same permissions, 
-        # defaulting to viewing permission only.
-        if params[:post][:share] and params[:post][:share][:share_csv]
-          @shares = @post.add_shares_from_csv params[:post][:share][:share_csv],
-                                              params[:post][:share][:can_show],
-                                              params[:post][:share][:can_update],
-                                              params[:post][:share][:can_destroy],
-                                              params[:post][:share][:can_share] 
-        end
         
         injectable_url = @post.privly_URL
         
@@ -391,8 +300,7 @@ class PostsController < ApplicationController
   # * Values: Any string of non-whitespace characters
   # * Default: None 
   # Either the user owns the post, or they must supply this parameter.
-  # Without this parameter, even with complete share access to the content,
-  # the user will not be able to access this endpoint.
+  # Without this parameter the user will not be able to access this endpoint.
   #
   # <b>post [content]</b> - _string_ - Optional
   # * Values: Any Markdown formatted string. No images supported.
@@ -443,68 +351,29 @@ class PostsController < ApplicationController
   # month, and year must be within the next 14 days for users with
   # posting permission, or 2 days for users without posting permission.
   #
-  # <b>post [share [share_csv]]</b> - _csv_ - Optional
-  # * Values: a single row of comma separated values
-  # * Default: nil
-  # Send in comma separated values representing identities
-  # like domains, emails, and IP Addresses.
-  #
-  # <b>post [share [can_show]]</b> - _boolean_ - Optional
-  # * Values: true, false
-  # * Default: true
-  # Assign a show sharing permission to the share_csv row's values
-  #
-  # <b>post [share [can_update]]</b> - _boolean_ - Optional
-  # * Values: true, false
-  # * Default: false
-  # Assign a update sharing permission to the share_csv row's values
-  #
-  # <b>post [share [can_destroy]]</b> - _boolean_ - Optional
-  # * Values: true, false
-  # * Default: false
-  # Assign a destroy sharing permission to the share_csv row's values
-  #
-  # <b>post [share [can_share]]</b> - _boolean_ - Optional
-  # * Values: true, false
-  # * Default: false
-  # Assign a share sharing permission to the share_csv row's values
-  #
   # === Response Headers
   # * +X-Privly-Url+ The URL for this content which should be posted to other
   # websites.
   def update
     
-    # Permissions can only be updated by people with sharing permission
-    if can? :share, @post
-      
-      # Create a series of shares based on a CSV line. 
-      # All shares will have the same permissions, 
-      # defaulting to viewing permission only.
-      if params[:post][:share] and params[:post][:share][:share_csv]
-        @shares = @post.add_shares_from_csv params[:post][:share][:share_csv],
-                                            params[:post][:share][:can_show],
-                                            params[:post][:share][:can_update],
-                                            params[:post][:share][:can_destroy],
-                                            params[:post][:share][:can_share]
-      end
-      
-      unless params[:post][:public].nil?
-        @post.public = params[:post][:public]
-      end
-      
-      unless params[:post][:random_token].nil?
-        @post.random_token = params[:post][:random_token]
-      end
+    unless current_user = @post.user
+      return
+    end
+    
+    unless params[:post][:public].nil?
+      @post.public = params[:post][:public]
+    end
+    
+    unless params[:post][:random_token].nil?
+      @post.random_token = params[:post][:random_token]
     end
     
     set_burn_date
     
     respond_to do |format|
       if @post.update_attributes(params[:post])
-        format.html { redirect_to @post.privly_URL, :notice => 'Post was successfully updated.' }
         format.json { render :json => get_json, :callback => params[:callback] }
       else
-        format.html { render :action => "edit" }
         format.json { render :json => @post.errors,
           :status => :unprocessable_entity }
       end
@@ -538,8 +407,7 @@ class PostsController < ApplicationController
   # * Values: Any string of non-whitespace characters
   # * Default: None 
   # Either the user owns the post, or they must supply this parameter.
-  # Without this parameter, even with complete share access to the content,
-  # the user will not be able to access this endpoint.
+  # Without this parameter the user will not be able to access this endpoint.
   def destroy
     @post.destroy
     respond_to do |format|
@@ -625,6 +493,35 @@ class PostsController < ApplicationController
   
   private
     
+    # Load the post if the user has access to it
+    def load_and_authorize_resource
+      user = current_user
+      user ||= User.new # guest user (not logged in)
+      
+      post = Post.find(params[:id])
+      
+      # If the post will be destroyed in the next cron job, tell the user
+      # it is already gone.
+      if not post.burn_after_date.nil? and post.burn_after_date < Time.now
+        obscure_existence
+        return
+      end
+      
+      if post.user == current_user
+        @post = post
+        return
+      end
+      
+      if post.public and post.random_token == params[:random_token]
+        @post = post
+        return
+        # has access
+      end
+      
+      obscure_existence
+      
+    end
+    
     # This helper gives a JSON document containing only the 
     # attributes the requestor has access to
     def get_json
@@ -641,14 +538,15 @@ class PostsController < ApplicationController
         :rendered_markdown => @post.content.safe_markdown)
       end
       
+      permissioned = (@post.user == current_user)
       injectable_url = @post.privly_URL
       post_json.merge!(
          "X-Privly-Url" => injectable_url, 
          :permissions => {
-           :canshow => can?(:show, @post), 
-           :canupdate => can?(:update, @post), 
-           :candestroy => can?(:destroy, @post),
-           :canshare => can?(:share, @post)
+           :canshow => true, 
+           :canupdate => permissioned, 
+           :candestroy => permissioned,
+           :canshare => permissioned
            }
           )
       post_json
@@ -666,8 +564,8 @@ class PostsController < ApplicationController
     # seconds_until_burn parameter.
     def set_burn_date
       
-      if cannot? :destroy, @post
-          return
+      unless @post.user == current_user
+        return
       end
       
       if params[:post]["burn_after_date(1i)"]
