@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   # :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable,
          :recoverable, :rememberable, :trackable, 
-         :validatable, :token_authenticatable, 
+         :validatable, 
          :confirmable, :lockable, :timeoutable, :validate_on_invite => true
   
   before_create :process_email

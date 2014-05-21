@@ -2,4 +2,14 @@
     Token Authentication
 <% end %>
 
-<%= current_user.authentication_token %>
+<h1>Your Auth Token</h1>
+
+<p>
+  Your auth token is <strong><%= current_user.authentication_token %></strong>.
+  Append this to the URL as a parameter to access your account: 
+  <strong>auth_token=<%= current_user.authentication_token %></strong>
+</p>
+
+<p>Keep it secret!</p>
+
+<p>Keep it safe!</p>

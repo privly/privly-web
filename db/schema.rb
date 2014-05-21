@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131221203008) do
+ActiveRecord::Schema.define(:version => 20140509050818) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -46,13 +46,6 @@ ActiveRecord::Schema.define(:version => 20131221203008) do
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
-  create_table "identity_providers", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "posts", :force => true do |t|
     t.text     "content"
     t.datetime "created_at"
@@ -64,21 +57,6 @@ ActiveRecord::Schema.define(:version => 20131221203008) do
     t.text     "structured_content"
     t.string   "privly_application"
   end
-
-  create_table "shares", :force => true do |t|
-    t.integer  "post_id"
-    t.integer  "identity_provider_id"
-    t.string   "identity"
-    t.string   "identity_pair"
-    t.boolean  "can_show"
-    t.boolean  "can_destroy"
-    t.boolean  "can_update"
-    t.boolean  "can_share"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "shares", ["identity_pair"], :name => "index_shares_on_identity_pair"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                         :default => "",    :null => false
@@ -118,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20131221203008) do
     t.string   "domain",                                        :default => "",    :null => false
     t.boolean  "wants_to_test",                                 :default => false, :null => false
     t.string   "platform"
+    t.datetime "invitation_created_at"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

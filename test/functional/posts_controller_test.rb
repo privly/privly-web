@@ -15,6 +15,19 @@ class PostsControllerTest < ActionController::TestCase
     assert_redirected_to "/apps/Index/new.html"
   end
 
+  test "should get index with auth token" do
+    sign_out users(:one)
+    auth_token = users(:one).authentication_token
+    get :index, :auth_token => auth_token
+    assert_redirected_to "/apps/Index/new.html"
+  end
+
+  test "should redirect user to sign in" do
+    sign_out users(:one)
+    get :index, :auth_token => "bad token"
+    assert_redirected_to "/users/sign_in"
+  end
+
   test "should create post" do
     sign_in  users(:one)
     assert_difference('Post.count') do
@@ -63,12 +76,12 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "should show post no format" do
-    get :show, :id => @post.to_param
+    get :show, {:id => @post.id, :format => "json"}
     assert_response :success
   end
   
   test "should show json format post" do
-    get :show, :id => @post.to_param, :format => "json"
+    get :show, {:id => @post.id, :format => "json"}
     assert_response :success
   end
   
@@ -85,10 +98,16 @@ class PostsControllerTest < ActionController::TestCase
     assert error["error"] == "No access or it does not exist. You might have access to this if you login."
   end
   
-  test "should be burnt post no format" do
+  test "should redirect to JSON" do
     @post = posts(:burnt)
     get :show, :id => @post.id
-    assert_template "posts/noaccess"
+    assert_redirected_to "/apps/PlainPost/show.html"
+  end
+  
+  test "should be burnt post no format" do
+    @post = posts(:burnt)
+    get :show, {:id => @post.id, :format => "json"}
+    assert_response 403
   end
   
   test "should be burnt post json" do
@@ -101,37 +120,32 @@ class PostsControllerTest < ActionController::TestCase
   test "should show post without random token" do
     sign_out users(:one)
     @post = posts(:two)
-    get :show, :id => @post.to_param
+    get :show, {:id => @post.id, :format => "json"}
     assert_response :success
   end
   
   test "should deny signed in show post without random token" do
     sign_out users(:one)
     sign_in users(:two)
-    get :show, :id => @post.id
+    get :show, {:id => @post.id, :format => "json"}
     assert_response 403
   end
   
   test "should deny unauthenticated show post without random token" do
     sign_out users(:one)
-    get :show, :id => @post.id
-    assert_redirected_to new_user_session_path
-  end
-  
-  test "should get edit" do
-    get :edit, :id => @post.to_param
-    assert_response :success
+    get :show, {:id => @post.id, :format => "json"}
+    assert_response 422
   end
 
   test "should update post" do
-    put :update, :id => @post.to_param, :post => @post.attributes
+    put :update, :id => @post.to_param, :post => @post.attributes, :format => "json"
     privlyDataURL = post_url @post, @post.data_url_parameters.merge(
       :format => "json")
     result = "#{request.protocol}#{request.host_with_port}/apps/" + 
       @post.privly_application + "/show?" + 
       @post.url_parameters.to_query + 
       "&privlyDataURL=" + ERB::Util.url_encode(privlyDataURL)
-    assert_redirected_to result
+    assert_response 200
   end
   
   test "should get CSV" do

@@ -7,10 +7,30 @@ class ApplicationController < ActionController::Base
   # is specified
   protect_from_forgery
   
+  # Allow the user to authenticate using tokens
+  # See: https://gist.github.com/josevalim/fb706b1e933ef01e4fb6
+  # or: http://stackoverflow.com/questions/18931952/devise-token-authenticatable-deprecated-what-is-the-alternative
+  before_filter :authenticate_user_from_token!
+  
   helper_method :has_extension?, :extension_available?, :firefox_browser?, 
                 :opera_browser?, :chrome_browser?
   
   protected
+    
+    # Authenticate the user from a token. This is primarily used for mobile
+    # applications. 
+    def authenticate_user_from_token!
+      auth_token = params[:auth_token].presence
+      user       = auth_token && User.find_by_authentication_token(auth_token)
+
+      # Notice how we use Devise.secure_compare to compare the token
+      # in the database with the token given in the params, mitigating
+      # timing attacks.
+      if user && Devise.secure_compare(user.authentication_token, auth_token)
+        # The user will not be logged in without the token
+        sign_in user, store: false
+      end
+    end
     
     # If the user is not signed in, all "access denied" and
     # "Not Found" requests will be 403 and prompt the user to
@@ -24,17 +44,17 @@ class ApplicationController < ActionController::Base
       
       respond_to do |format|
         if user_signed_in?
-          format.html {
-            @sidebar = {:posts => true}
-            render "posts/noaccess"
-          }
-          format.json { render :json => {:error => "You do not have access or it doesn't exist."}}
+          format.html { redirect_to "/apps/PlainPost/show.html" } # Deprecated
+          format.json { render :json => 
+            {:error => "You do not have access or it doesn't exist."}}
         else
           format.html {
-            redirect_to new_user_session_path, :notice => 'You might have access to this when you login, if it exists.'
+            redirect_to new_user_session_path, 
+              :notice => 'You might have access to this when you login, if it exists.'
           }
           format.json {
-            render :json => {:error => "No access or it does not exist. You might have access to this if you login."}, 
+            render :json => 
+            {:error => "No access or it does not exist. You might have access to this if you login."}, 
             :status => :unprocessable_entity}
         end
       end
@@ -136,9 +156,4 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    #Give CanCan access to the IP address, random token, and content password
-    #See: https://github.com/ryanb/cancan/wiki/Accessing-Request-Data
-    def current_ability
-      @current_ability ||= Ability.new(current_user, request.remote_ip, params[:random_token], params[:content_password])
-    end
 end

@@ -2,7 +2,7 @@
 # store cleartext markdown content and serialized JSON of any schema. Currently
 # two posting applications use the Post endpoint: ZeroBins push encrypted content
 # to the serialized JSON storage, and Privly "posts" use the rendered Markdown
-# storage. Shares can permission any type of post.
+# storage.
 class Post < ActiveRecord::Base
   
   belongs_to :user
@@ -14,8 +14,6 @@ class Post < ActiveRecord::Base
   
   validates :privly_application, :presence => true, :format => { :with => /\A[a-zA-Z]+\z/,
       :message => "only allows letters" }
-  
-  has_many :shares, :dependent => :destroy
   
   before_create :generate_random_token
   
@@ -84,41 +82,6 @@ class Post < ActiveRecord::Base
       self.privly_application + "/show?" + 
       self.url_parameters.to_query + 
       "&privlyDataURL=" + ERB::Util.url_encode(privlyDataURL)
-  end
-  
-  # Add shares to the current post from a comma and space separated list of
-  # values. The share defualts to viewing permission, but any level of
-  # permission can be generated.
-  #
-  # Returns an array of unsuccessfully created shares, or an empty array.
-  def add_shares_from_csv(csv, can_show = true, can_update = false, 
-    can_destroy = false, can_share = false)
-    
-    failed_shares = []
-    
-    values = csv.split(/,| /)
-    values.each do |value|
-      if value and value.length > 0
-        share = Share.new
-        share.can_show = can_show
-        share.can_update = can_update
-        share.can_destroy = can_destroy
-        share.can_share = can_share
-        share.identity = value
-        share.identity_provider = 
-          IdentityProvider.identity_provider_from_identity(value)
-        if share.identity_provider.name == "Password"
-          share.identity = share.identity_provider.get_random_string
-        end
-        share.post = self
-        unless share.save
-          failed_shares << share
-        end
-      end
-    end
-    
-    return failed_shares
-    
   end
   
   # Get a hash of the injectable URL parameters.

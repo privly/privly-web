@@ -24,34 +24,37 @@ class CreateShares < ActiveRecord::Migration
       
     end
     
-    #These are the first forms of identity we are going to implement
-    #since they are immediatly available in the request
-    identity_provider = IdentityProvider.new
-    identity_provider.name = "Privly Verified Email"
-    identity_provider.description =
-      "The Privly Verified email is the email for the Privly user's account. " +
-      "Users must verify their email ownership with Privly"
-    identity_provider.save
-  
-    identity_provider = IdentityProvider.new
-    identity_provider.name = "Privly Verified Domain"
-    identity_provider.description =
-      "The Privly Verified Domain is the domain of the user's" +
-      "Privly email address"
-    identity_provider.save
-      
-    identity_provider = IdentityProvider.new
-    identity_provider.name = "Password"
-    identity_provider.description =
-      "The password is a secret that when sent with the request" +
-      "will add permissions on the content"
-    identity_provider.save
-    
-    identity_provider = IdentityProvider.new
-    identity_provider.name = "IP Address"
-    identity_provider.description =
-      "The IP address is where Privly requests originate"
-    identity_provider.save
+    # Removed since this breaks CI
+    if false
+      #These are the first forms of identity we are going to implement
+      #since they are immediatly available in the request
+      identity_provider = IdentityProvider.new
+      identity_provider.name = "Privly Verified Email"
+      identity_provider.description =
+        "The Privly Verified email is the email for the Privly user's account. " +
+        "Users must verify their email ownership with Privly"
+      identity_provider.save
+
+      identity_provider = IdentityProvider.new
+      identity_provider.name = "Privly Verified Domain"
+      identity_provider.description =
+        "The Privly Verified Domain is the domain of the user's" +
+        "Privly email address"
+      identity_provider.save
+
+      identity_provider = IdentityProvider.new
+      identity_provider.name = "Password"
+      identity_provider.description =
+        "The password is a secret that when sent with the request" +
+        "will add permissions on the content"
+      identity_provider.save
+
+      identity_provider = IdentityProvider.new
+      identity_provider.name = "IP Address"
+      identity_provider.description =
+        "The IP address is where Privly requests originate"
+      identity_provider.save
+    end
     
     drop_table :email_shares
     

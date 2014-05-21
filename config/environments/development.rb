@@ -49,4 +49,11 @@ Privly::Application.configure do
   # a message that the system is currently in closed Alpha.
   config.send_invitations = false
 
+  # Raise exception on mass assignment protection for Active Record models
+  config.active_record.mass_assignment_sanitizer = :logger
+
+  # Log the query plan for queries taking more than this (works
+  # with SQLite, MySQL, and PostgreSQL)
+  config.active_record.auto_explain_threshold_in_seconds = 0.5
+
 end

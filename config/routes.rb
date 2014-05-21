@@ -51,19 +51,16 @@ Privly::Application.routes.draw do
   match '/posts/user_account_data' => "posts#user_account_data", 
     :as => :get_user_account_data, :via => [:get]
     
-  # PlainPost form
+  # PlainPost form, deprecated
   match '/posts/plain_post', :to  => redirect('/apps/PlainPost/new.html'), 
     :as => :new_plain_post, :via => [:get]
   
   # Information on creating new posts is in the privly-applications
-  # bundle.
+  # bundle. Deprecated.
   get "posts/new" => redirect("/apps/Help/new.html")
   
   # Post storage and viewing
   resources :posts
-  
-  # Shares
-  resources :shares, :only => [:create, :destroy, :update]
   
   # Root Page
   match '/' => 'welcome#index', :as => :welcome
