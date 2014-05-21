@@ -44,16 +44,17 @@ class ApplicationController < ActionController::Base
       
       respond_to do |format|
         if user_signed_in?
-          format.html {
-            redirect_to "/apps/PlainPost/show.html"#deprecated
-          }
-          format.json { render :json => {:error => "You do not have access or it doesn't exist."}}
+          format.html { redirect_to "/apps/PlainPost/show.html" } # Deprecated
+          format.json { render :json => 
+            {:error => "You do not have access or it doesn't exist."}}
         else
           format.html {
-            redirect_to new_user_session_path, :notice => 'You might have access to this when you login, if it exists.'
+            redirect_to new_user_session_path, 
+              :notice => 'You might have access to this when you login, if it exists.'
           }
           format.json {
-            render :json => {:error => "No access or it does not exist. You might have access to this if you login."}, 
+            render :json => 
+            {:error => "No access or it does not exist. You might have access to this if you login."}, 
             :status => :unprocessable_entity}
         end
       end

@@ -136,7 +136,7 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       format.html {
-        redirect_to @injectable_url#deprecated
+        redirect_to @injectable_url # Deprecated
         return
       }
       format.json {
