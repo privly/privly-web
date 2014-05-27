@@ -225,14 +225,8 @@ class PostsController < ApplicationController
     end
     
     @post = Post.new
-    
     @post.user = current_user
-    
-    if params[:post][:privly_application]
-      @post.privly_application = params[:post][:privly_application]
-    elsif @post.structured_content.nil?
-      @post.privly_application = "PlainPost"
-    end
+    @post.privly_application = params[:post][:privly_application]
 
     # Posts default to Private
     if params[:post][:public]
@@ -252,21 +246,10 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       if @post.save
-        
-        injectable_url = @post.privly_URL
-        
-        response.headers["X-Privly-Url"] = injectable_url
-        format.html { redirect_to injectable_url,
-          :notice => 'Post was successfully created.' }
-        format.json { render :json => get_json, 
-          :status => :created, :location => @post }
+        response.headers["X-Privly-Url"] = @post.privly_URL
         format.any { render :json => get_json, 
           :status => :created, :location => @post }
-        
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @post.errors, 
-          :status => :unprocessable_entity }
         format.any { render :json => @post.errors, 
           :status => :unprocessable_entity }
       end
@@ -356,7 +339,7 @@ class PostsController < ApplicationController
   # websites.
   def update
     
-    unless current_user = @post.user
+    unless current_user == @post.user
       return
     end
     

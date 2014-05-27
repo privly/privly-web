@@ -31,36 +31,52 @@ class PostsControllerTest < ActionController::TestCase
   test "should create post" do
     sign_in  users(:one)
     assert_difference('Post.count') do
-      post :create, :post => {:content => "Test Post 1", :public => true}
+      post :create, :post => {
+        :privly_application => "PlainPost",
+        :content => "Test Post 1", 
+        :public => true
+        }
     end
-    assert_redirected_to assigns(:post).privly_URL
+    assert_response 201
   end
   
   test "should create post with seconds_until_burn" do
     sign_in  users(:one)
     assert_difference('Post.count') do
-      post :create, :post => {:content => "Test Post 1", :public => true,
-        :seconds_until_burn => 5}
+      post :create, :post => {
+        :privly_application => "PlainPost",
+        :content => "Test Post 1",
+        :public => true,
+        :seconds_until_burn => 5
+      }
     end
-    assert_redirected_to assigns(:post).privly_URL
+    assert_response 201
   end
   
   test "should create post with seconds_until_burn set to empty" do
     sign_in  users(:one)
     assert_difference('Post.count') do
-      post :create, :post => {:content => "Test Post 1", :public => true,
-        :seconds_until_burn => ""}
+      post :create, :post => {
+        :privly_application => "PlainPost",
+        :content => "Test Post 1", 
+        :public => true,
+        :seconds_until_burn => ""
+        }
     end
-    assert_redirected_to assigns(:post).privly_URL
+    assert_response 201
   end
   
   test "should create post with seconds_until_burn set to nil" do
     sign_in  users(:one)
     assert_difference('Post.count') do
-      post :create, :post => {:content => "Test Post 1", :public => true,
-        :seconds_until_burn => "nil"}
+      post :create, :post => {
+        :privly_application => "PlainPost",
+        :content => "Test Post 1",
+        :public => true,
+        :seconds_until_burn => "nil"
+        }
     end
-    assert_redirected_to assigns(:post).privly_URL
+    assert_response 201
   end
   
   test "should create structured content post" do
@@ -72,7 +88,7 @@ class PostsControllerTest < ActionController::TestCase
                         }, :public => true, :privly_application => "FakeApp"}
     end
     assert assigns(:post).structured_content[:this_will_be_serialized] == "Test Post 1"
-    assert_redirected_to assigns(:post).privly_URL
+    assert_response 201
   end
 
   test "should show post no format" do
