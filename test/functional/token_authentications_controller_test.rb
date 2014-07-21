@@ -35,15 +35,18 @@ class TokenAuthenticationsControllerTest < ActionController::TestCase
   end
   
   test "should create token authentication" do
-    
-    get :create, :email => users(:one).email, :password => "password"
+    get :create, :email => users(:two).email, :password => "password"
+    assert_not_nil assigns(:user).authentication_token
     assert_redirected_to show_token_authentications_path
-    
+  end
+  
+  test "should change token authentication" do
     get :create, :email => users(:one).email,
-      :password => users(:one).password,
+      :password => "password",
       :format => "json"
-    assert_response :success
-    
+    assert_not_nil assigns(:user).authentication_token
+    assert_not_equal assigns(:user).authentication_token, users(:one).authentication_token
+    assert_redirected_to show_token_authentications_path(:format => "json")
   end
   
   test "should deny token authentication" do
