@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
   validates :domain,
             :format => { :with => /^@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
   
+  validates :authentication_token, :uniqueness => true, :allow_nil => true
+  
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
@@ -55,6 +57,10 @@ class User < ActiveRecord::Base
   #https://github.com/scambra/devise_invitable/wiki/Disabling-devise-recoverable,-if-invitation-was-not-accepted
   def send_reset_password_instructions
     super if invitation_token.nil?
+  end
+  
+  def reset_authentication_token!
+    self.authentication_token = SecureRandom.hex(16).to_i(16).to_s(36)
   end
   
 end

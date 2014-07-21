@@ -1,9 +1,7 @@
 # == TokenAuthenticationsController
 #
 # Manages token authentications for API access. Token authentications
-# are currently only used by the Firefox Extension for logging in 
-# directly from the extension. Token authentications are managed by
-# the devise gem.
+# are currently only used by mobile apps.
 #
 class TokenAuthenticationsController < ApplicationController
   
@@ -110,13 +108,13 @@ class TokenAuthenticationsController < ApplicationController
     
     if @user
       sign_in(:user, @user)
+      current_user.reset_authentication_token!
+      current_user.save!
       respond_to do |format|
         format.html {
-          current_user.reset_authentication_token!
           redirect_to show_token_authentications_path
         }
         format.json { 
-          current_user.reset_authentication_token!
           redirect_to show_token_authentications_path({:format => :json})
         }
       end
