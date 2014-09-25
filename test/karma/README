@@ -1,0 +1,21 @@
+This directory gives the configuration for the Karma test runner.
+Karma runs the Jasmine tests defined in the privly-applications
+module on browsers you have defined locally or on Sauce labs.
+
+## Setup ##
+
+> npm install -g karma-cli && npm install
+
+## Running ##
+
+To run karma locally:
+
+> karma start
+
+To run karma on Sauce labs, 
+you must first associate your machine with Sauce Labs (see below), then
+
+> karma start karma.conf-ci.js
+
+For more details on how this was setup, see:
+https://docs.saucelabs.com/tutorials/js-unit-testing/
