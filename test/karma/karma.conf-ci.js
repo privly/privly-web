@@ -15,13 +15,34 @@ module.exports = function(config) {
 
   // Browsers to run on Sauce Labs
   var customLaunchers = {
-    'SL_Chrome': {
+    'sl_chrome': {
+          base: 'SauceLabs',
+          browserName: 'chrome',
+          platform: 'Windows 7',
+          version: '35'
+        },
+    'sl_firefox': {
       base: 'SauceLabs',
-      browserName: 'chrome'
+      browserName: 'firefox',
+      version: '30'
+    },
+    'sl_ios_safari': {
+      base: 'SauceLabs',
+      browserName: 'iphone',
+      platform: 'OS X 10.9',
+      version: '7.1'
+    },
+    'sl_ie_11': {
+      base: 'SauceLabs',
+      browserName: 'internet explorer',
+      platform: 'Windows 8.1',
+      version: '11'
     }
   };
 
   config.set({
+
+    startConnect: false,
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -34,10 +55,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      '../../public/apps/vendor/jquery.min.js',
       '../../public/apps/shared/javascripts/*.js',
       '../../public/apps/shared/javascripts/privly-web/*.js',
-      '../../public/apps/shared/test/*.js',
-      '../../public/apps/shared/test/privly-web/*.js'
+      '../../public/apps/shared/test/*.js'
+      //'../../public/apps/shared/test/privly-web/*.js'
     ],
 
     // files to exclude from testing
@@ -49,6 +71,7 @@ module.exports = function(config) {
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['dots', 'saucelabs'],
 
+    tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
 
     // web server port
     port: 9876,

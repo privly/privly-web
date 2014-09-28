@@ -15,10 +15,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      '../../public/apps/vendor/jquery.min.js',
       '../../public/apps/shared/javascripts/*.js',
       '../../public/apps/shared/javascripts/privly-web/*.js',
-      '../../public/apps/shared/test/*.js',
-      '../../public/apps/shared/test/privly-web/*.js'
+      '../../public/apps/shared/test/*.js'
+      //'../../public/apps/shared/test/privly-web/*.js'
     ],
 
     // files to exclude from testing
