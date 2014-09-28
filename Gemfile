@@ -18,6 +18,10 @@ group :assets do
   gem 'uglifier', '>=1.0.3'
 end
 
+group :test do
+  gem 'selenium-webdriver'
+end
+
 # Deploy with Capistrano
 gem 'capistrano', '~> 2.15.5'
 
