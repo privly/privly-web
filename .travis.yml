@@ -8,6 +8,7 @@ env:
   - DB=mysql
   - secure: IeHgStNKps3cHsB6NFnp3Z5OEwJJdS4nfn1hgf0qH87FoQa1u5xdaBBP69szsP318fgzhwa5gTN67ZpHtnBBrck6bMjyvcr+Yjk5pCvOgUNQPusx0whUa4hbW2yWpVxl0uMXuwodQ3Hn5nIKmrevf/8/VrsA2mT9i1PTsTUtAnc=
   - secure: RiO/V0y8b7XpsdT4eOhqwBepA+XnzNjVL9bWuy9f0SG9TaobSmcvubV9ocATW9kJzRDZpa6dvQmuW/A/0Gf+UOvPL/LRH55L5DaMHkOMuu28d5TKgMUlivFiybgm0hF04jPuW20kHFxSQK6duAv+HRnsbPeNYJFj0Lbrk9It+Kg=
+  - TRAVIS_LAUNCHES_SAUCE_CONNECT=true
 script:
 - RAILS_ENV=test bundle exec rake --trace db:migrate test
 - "cd test/karma/ && karma start karma.conf-ci.js && cd ../../"
@@ -15,3 +16,8 @@ before_script:
 - cp config/database.travis.yml config/database.yml
 - mysql -e 'create database privly_test'
 - cd test/karma/ ; npm install -g karma-cli ; npm install ; cd ../../
+addons:
+  sauce_connect:
+    username: smcgregor
+    access_key:
+      secure: "tPy91DK5Jp2+fVc609wY5d9XtYoXccCLA4nC6nPKsGcEeOYNkpF5zLHN+0G1QL+xCBMvqDFGdsKy5YH11PX9JTDiTg422cr6AeBVQCfUxX3EsYYWWcgpjqJRTpMaPZt1K5DmxVwzUGcMkBlLRq5UGszCDqYv1G8C7bw3D0u13KE="

@@ -13,6 +13,14 @@ module.exports = function(config) {
     }
   }
 
+  // Check the environment variables for a binding
+  // on TRAVIS_LAUNCHES_SAUCE_CONNECT, which indicates Travis
+  // launches Sauce Connect instead of this script
+  var thisFileLaunchesSauceConnect = true;
+  if (process.env.TRAVIS_LAUNCHES_SAUCE_CONNECT) {
+    thisFileLaunchesSauceConnect = false;
+  }
+
   // Browsers to run on Sauce Labs
   var customLaunchers = {
     'sl_chrome': {
@@ -42,8 +50,6 @@ module.exports = function(config) {
 
   config.set({
 
-    startConnect: false,
-
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
@@ -55,16 +61,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      '../../public/apps/*/test/*.js',
       '../../public/apps/vendor/jquery.min.js',
       '../../public/apps/shared/javascripts/*.js',
       '../../public/apps/shared/javascripts/privly-web/*.js',
-      '../../public/apps/shared/test/*.js'
-      //'../../public/apps/shared/test/privly-web/*.js'
+      '../../public/apps/shared/test/*.js',
+      '../../public/apps/shared/test/*/*.js'
     ],
 
     // files to exclude from testing
     exclude: ['../../public/apps/shared/test/execute.js'],
-
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -83,6 +89,7 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
     sauceLabs: {
+      startConnect: thisFileLaunchesSauceConnect,
       testName: 'Privly Jasmine Testing: Karma and Sauce Labs'
     },
     captureTimeout: 120000,
