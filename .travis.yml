@@ -6,16 +6,15 @@ rvm:
 env:
   global:
   - DB=mysql
-  - secure: IeHgStNKps3cHsB6NFnp3Z5OEwJJdS4nfn1hgf0qH87FoQa1u5xdaBBP69szsP318fgzhwa5gTN67ZpHtnBBrck6bMjyvcr+Yjk5pCvOgUNQPusx0whUa4hbW2yWpVxl0uMXuwodQ3Hn5nIKmrevf/8/VrsA2mT9i1PTsTUtAnc=
-  - secure: RiO/V0y8b7XpsdT4eOhqwBepA+XnzNjVL9bWuy9f0SG9TaobSmcvubV9ocATW9kJzRDZpa6dvQmuW/A/0Gf+UOvPL/LRH55L5DaMHkOMuu28d5TKgMUlivFiybgm0hF04jPuW20kHFxSQK6duAv+HRnsbPeNYJFj0Lbrk9It+Kg=
-  - TRAVIS_LAUNCHES_SAUCE_CONNECT=true
+  - TRAVIS_LAUNCHES_SAUCE_CONNECT=true # Tell the karma file that it does not need to launch Sauce connect
 script:
 - RAILS_ENV=test bundle exec rake --trace db:migrate test
-- "cd test/karma/ && karma start karma.conf-ci.js && cd ../../"
+- "cd public/apps/test/"
+- "./run_each.sh karma.conf-ci.js"
 before_script:
 - cp config/database.travis.yml config/database.yml
 - mysql -e 'create database privly_test'
-- cd test/karma/ ; npm install -g karma-cli ; npm install ; cd ../../
+- cd public/apps/test/ ; npm install -g karma-cli ; npm install ; cd ../../..
 addons:
   sauce_connect:
     username: smcgregor
