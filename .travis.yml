@@ -17,9 +17,9 @@ before_script:
 - cp config/database.travis.yml config/database.yml
 - mysql -e 'create database privly_test'
 - mysql -e 'create database privly_development'
-- rake db:create #Creates the Database
-- rake db:schema:load #Loads the Scheme
-- rake db:seed #Seeds the DB
+- bundle exec rake db:create #Creates the Database
+- bundle exec rake db:schema:load #Loads the Scheme
+- bundle exec rake db:seed #Seeds the DB
 - "bundle exec rails server -p 3000 &" # Start the server for Selenium testing
 addons:
   sauce_connect:
