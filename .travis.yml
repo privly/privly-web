@@ -1,17 +1,19 @@
 before_install:
-  - git submodule update --init --recursive
-
+- git submodule update --init --recursive
 language: ruby
-
 rvm:
-  - 1.9.3
-
+- 1.9.3
 env:
+  global:
   - DB=mysql
-
+  - TRAVIS_LAUNCHES_SAUCE_CONNECT=true # Tell the karma file that it does not need to launch Sauce connect
 script:
-  - RAILS_ENV=test bundle exec rake --trace db:migrate test
-
+- RAILS_ENV=test bundle exec rake --trace db:migrate test
 before_script:
-  - cp config/database.travis.yml config/database.yml
-  - mysql -e 'create database privly_test'
+- cp config/database.travis.yml config/database.yml
+- mysql -e 'create database privly_test'
+addons:
+  sauce_connect:
+    username: smcgregor
+    access_key:
+      secure: "tPy91DK5Jp2+fVc609wY5d9XtYoXccCLA4nC6nPKsGcEeOYNkpF5zLHN+0G1QL+xCBMvqDFGdsKy5YH11PX9JTDiTg422cr6AeBVQCfUxX3EsYYWWcgpjqJRTpMaPZt1K5DmxVwzUGcMkBlLRq5UGszCDqYv1G8C7bw3D0u13KE="
