@@ -6,7 +6,7 @@ rvm:
 env:
   global:
   - DB=mysql
-  - secure: "DyjRkiUG0oz+BHkSMS+x3TzYyglqID4iNMPWI/H7jH2UmMHFHItO2TUB/F8+lcqxBNRiS3vjUOXjQ+emSBzXC6L4jZMpZkcE0NyKmFAJoKLGXfnGG1XJMrXCKOZ3LHvRcjuKAKLOgcNKds/sUPJgwvQI/Rv6zvloI0gg9Dsi6UU=" # SAUCE_URL
+  - secure: "s3b8nVdQT/xTKhX7T3jirdOgth5SJU1Mk3m1Z8ISrgmTyo8au+CR05aNJaCcXhxyZEdkuw/g+xLv3XDEgaI0baAwE96Ju3hZGqf1PuJwejaklgMPvHY1kvAI0WF9I0dIi6J4X7XzaPE9rz0YRTpsmaEX753RYh9HDnm8jV7YR2I=" # SAUCE_URL
   - TRAVIS_LAUNCHES_SAUCE_CONNECT=true # Tell the karma file that it does not need to launch Sauce connect
   - RAILS_ENV=development #default to the development server for Selenium tests
 script:
