@@ -11,8 +11,9 @@ env:
   - RAILS_ENV=development #default to the development server for Selenium tests
 script:
 - RAILS_ENV=test bundle exec rake --trace db:migrate test
-- "cd public/apps && ruby test/selenium/run_all.rb -p sauce_firefox_web -c http://localhost:3000"
-- "cd public/apps && ruby test/selenium/run_all.rb -p sauce_chrome_web -c http://localhost:3000"
+- cd public/apps # Run the selenium tests
+- "ruby test/selenium/run_all.rb -p sauce_firefox_web -c http://localhost:3000"
+- "ruby test/selenium/run_all.rb -p sauce_chrome_web -c http://localhost:3000"
 before_script:
 - cp config/database.travis.yml config/database.yml
 - mysql -e 'create database privly_test'
