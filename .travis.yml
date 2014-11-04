@@ -9,12 +9,9 @@ env:
   - TRAVIS_LAUNCHES_SAUCE_CONNECT=true # Tell the karma file that it does not need to launch Sauce connect
 script:
 - RAILS_ENV=test bundle exec rake --trace db:migrate test
-- "cd public/apps/test/"
-- "./run_each.sh karma.conf-ci.js"
 before_script:
 - cp config/database.travis.yml config/database.yml
 - mysql -e 'create database privly_test'
-- cd public/apps/test/ ; npm install -g karma-cli ; npm install ; cd ../../..
 addons:
   sauce_connect:
     username: smcgregor
