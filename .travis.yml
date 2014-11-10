@@ -6,7 +6,7 @@ rvm:
 env:
   global:
   - DB=mysql
-  - secure: "s3b8nVdQT/xTKhX7T3jirdOgth5SJU1Mk3m1Z8ISrgmTyo8au+CR05aNJaCcXhxyZEdkuw/g+xLv3XDEgaI0baAwE96Ju3hZGqf1PuJwejaklgMPvHY1kvAI0WF9I0dIi6J4X7XzaPE9rz0YRTpsmaEX753RYh9HDnm8jV7YR2I=" # SAUCE_URL
+  - secure: "FP139mUtrjau6f+EgsN9wt+donGPyN88RiOhhIjjxVaAdUSFN0EggprtDI7BByqSJAYuEB/IiksbXHYUozQl/wzj00WYRLm4f5Qhvdj7zO2qH2D3BxtcG04nNdCEF4tvb2ldz0BkYwjtf8O7glJpki0Jq45ydMMQUTWRx+QVG80=" # SAUCE_URL
   - TRAVIS_LAUNCHES_SAUCE_CONNECT=true # Tell the karma file that it does not need to launch Sauce connect
   - RAILS_ENV=development #default to the development server for Selenium tests
 script:
@@ -24,6 +24,6 @@ before_script:
 - "bundle exec rails server -p 3000 &" # Start the server for Selenium testing
 addons:
   sauce_connect:
-    username: smcgregor
+    username: privly
     access_key:
-      secure: "tPy91DK5Jp2+fVc609wY5d9XtYoXccCLA4nC6nPKsGcEeOYNkpF5zLHN+0G1QL+xCBMvqDFGdsKy5YH11PX9JTDiTg422cr6AeBVQCfUxX3EsYYWWcgpjqJRTpMaPZt1K5DmxVwzUGcMkBlLRq5UGszCDqYv1G8C7bw3D0u13KE="
+      secure: "tg+mgtaoK22zRKTkZbz9JdZTlWDMb+nKZNq1GyVa80YUGejf+4LAnaUt4VFNb5PrrOLMEom6OLq1s+cyWfaH/wOLX869v7bPXxrJ/9mjI+8lMWuI0x4rEPW/5Nnv33mTyICVWK/24f8edgiKfqMO9OaINkHe6qsUlIwirUzkGTI="
