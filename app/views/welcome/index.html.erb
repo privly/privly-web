@@ -11,9 +11,18 @@
     <p>
       This server <strong>hosts content for</strong> the Privly family of <strong>privacy and security applications</strong>. Privly enables you to securely send and receive content through online services, without those services having access to the content. The Privly Project is a non-profit, foundation-owned concept being made by and for all internet users. For more information about Privly, go to <%= link_to "Priv.ly", "https://priv.ly" %>
     </p>
-    <h2>Invitation Only</h2>
+    <h3>Want an Invite?</h3>
     <p>
-      Hosting on this server is only for users invited by the site owners. You can request an account at the <%= link_to "invitation page", new_user_invitation_path %>, but invites are limited. If you don't want to wait for an invitation, we recommend you join the development effort.</p>
+      <%= form_for User.new,
+        :as => "user",
+        :url => "/users/invitation", :html => {:method => :post} do |f| %>
+        <p>
+          <%= f.text_field :email, :placeholder => "email",
+            :style => "margin-bottom:0px;" %>
+          <%= f.submit "Get Invited" %>
+        </p>
+      <% end %>
+    </p>
   </div>
   <div class="span1"></div>
   <div class="span4">

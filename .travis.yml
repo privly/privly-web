@@ -6,12 +6,22 @@ rvm:
 env:
   global:
   - DB=mysql
+  - secure: "s3b8nVdQT/xTKhX7T3jirdOgth5SJU1Mk3m1Z8ISrgmTyo8au+CR05aNJaCcXhxyZEdkuw/g+xLv3XDEgaI0baAwE96Ju3hZGqf1PuJwejaklgMPvHY1kvAI0WF9I0dIi6J4X7XzaPE9rz0YRTpsmaEX753RYh9HDnm8jV7YR2I=" # SAUCE_URL
   - TRAVIS_LAUNCHES_SAUCE_CONNECT=true # Tell the karma file that it does not need to launch Sauce connect
+  - RAILS_ENV=development #default to the development server for Selenium tests
 script:
 - RAILS_ENV=test bundle exec rake --trace db:migrate test
+- cd public/apps # Run the selenium tests
+- "bundle exec ruby test/selenium/run_all.rb -p sauce_firefox_web -c http://localhost:3000"
+- "bundle exec ruby test/selenium/run_all.rb -p sauce_chrome_web -c http://localhost:3000"
 before_script:
 - cp config/database.travis.yml config/database.yml
 - mysql -e 'create database privly_test'
+- mysql -e 'create database privly_development'
+- bundle exec rake db:create #Creates the Database
+- bundle exec rake db:schema:load #Loads the Scheme
+- bundle exec rake db:seed #Seeds the DB
+- "bundle exec rails server -p 3000 &" # Start the server for Selenium testing
 addons:
   sauce_connect:
     username: smcgregor
