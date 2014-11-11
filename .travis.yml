@@ -6,7 +6,7 @@ rvm:
 env:
   global:
   - DB=mysql
-  - secure: "FP139mUtrjau6f+EgsN9wt+donGPyN88RiOhhIjjxVaAdUSFN0EggprtDI7BByqSJAYuEB/IiksbXHYUozQl/wzj00WYRLm4f5Qhvdj7zO2qH2D3BxtcG04nNdCEF4tvb2ldz0BkYwjtf8O7glJpki0Jq45ydMMQUTWRx+QVG80=" # SAUCE_URL
+  - secure: "jsFhL3SkB6ocCVJvJ4NU133VjN2MYALKrvhZXvijZ5qFWWXENDx9oeBXutdTLae/NWuTkNx+5wAGfjF+Bx2wOUjgh+AB0/UbZkRD9JJ+te4hzb3fD4DjTLIz1rC6wwkzt6QlgXJUKTREmjhtfKUYvm1bFambs4cfanD31Lplo1w=" # SAUCE_URL
   - TRAVIS_LAUNCHES_SAUCE_CONNECT=true # Tell the karma file that it does not need to launch Sauce connect
   - RAILS_ENV=development #default to the development server for Selenium tests
 script:
@@ -26,4 +26,4 @@ addons:
   sauce_connect:
     username: privly
     access_key:
-      secure: "tg+mgtaoK22zRKTkZbz9JdZTlWDMb+nKZNq1GyVa80YUGejf+4LAnaUt4VFNb5PrrOLMEom6OLq1s+cyWfaH/wOLX869v7bPXxrJ/9mjI+8lMWuI0x4rEPW/5Nnv33mTyICVWK/24f8edgiKfqMO9OaINkHe6qsUlIwirUzkGTI="
+      secure: "BZ14Zfi882UuwJmXZg9gMTb9WpydC6tt7cbfUMSAOP5UBvc2hvI34VIbpzYtjHGlJVN/rCMOa3Rc8ndPMo8zBQFGt97Kv1vT/OkvYA9u0RWQh7Gr0T11KJPE4DrQc7eTsTToQ6uHDIpgCdDnZBsKELCsckRKKKgz2/v4CQMow24="
