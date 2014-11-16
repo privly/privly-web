@@ -64,9 +64,17 @@ class Users::InvitationsController < Devise::InvitationsController
         User.find(:first, :conditions => [ "email = ?", email])
       ).deliver # sends the email
     end
-    redirect_to welcome_path, 
-      :notice => "Thanks " + email + 
-        "! When we are ready for more users we will send you a message."
+
+    respond_to do |format|
+      format.json {
+        return render :json => {:success => true}
+      }
+      format.any {
+        redirect_to welcome_path,
+          :notice => "Thanks " + email +
+            "! When we are ready for more users we will send you a message."
+      }
+    end
   end
   
   # == A user is using one of their invitations
