@@ -41,28 +41,25 @@ class Users::InvitationsController < Devise::InvitationsController
     
     # Make sure it is not creating a duplicate user
     email.downcase!
-    if User.where(:email => email).count > 0
-      redirect_to welcome_path, :notice => "Thanks " + email + 
-        "! When we are ready for more users we will send you a message."
-      return
-    end
-    
-    # Don't send the invitation
-    self.resource = resource_class.invite!(params[resource_name], current_inviter) do |u|
-      u.email = email
-      if Privly::Application.config.send_invitations
-        u.pending_invitation = false
-        u.can_post = true
-      else
-        u.skip_invitation = true
-        u.pending_invitation = true
+    if User.where(:email => email).count == 0
+      self.resource = resource_class.invite!(params[resource_name], current_inviter) do |u|
+        u.email = email
+
+        # Don't send the invitation
+        if Privly::Application.config.send_invitations
+          u.pending_invitation = false
+          u.can_post = true
+        else
+          u.skip_invitation = true
+          u.pending_invitation = true
+        end
       end
-    end
-    
-    if resource.errors.empty? and not Privly::Application.config.send_invitations
-      Notifier.pending_invitation(
-        User.find(:first, :conditions => [ "email = ?", email])
-      ).deliver # sends the email
+
+      if resource.errors.empty? and not Privly::Application.config.send_invitations
+        Notifier.pending_invitation(
+          User.find(:first, :conditions => [ "email = ?", email])
+        ).deliver # sends the email
+      end
     end
 
     respond_to do |format|
@@ -203,5 +200,4 @@ class Users::InvitationsController < Devise::InvitationsController
     end
     
   end
-  
 end
