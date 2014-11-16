@@ -12,8 +12,8 @@ env:
 script:
 - RAILS_ENV=test bundle exec rake --trace db:migrate test
 - cd public/apps # Run the selenium tests
-- "bundle exec ruby test/selenium/run_all.rb -p sauce_firefox_web -c http://localhost:3000"
-- "bundle exec ruby test/selenium/run_all.rb -p sauce_chrome_web -c http://localhost:3000"
+- "if [ ${TRAVIS_PULL_REQUEST} = 'false' ]; then bundle exec ruby test/selenium/run_all.rb -p sauce_firefox_web -c http://localhost:3000; fi" # Don't run on pull requests
+- "if [ ${TRAVIS_PULL_REQUEST} = 'false' ]; then bundle exec ruby test/selenium/run_all.rb -p sauce_chrome_web -c http://localhost:3000; fi" # Don't run on pull requests
 before_script:
 - cp config/database.travis.yml config/database.yml
 - mysql -e 'create database privly_test'
