@@ -53,7 +53,7 @@ These shell commands step through a standard installation.
       # Edit the database.yml file appropriately
     
     # Run installation scripts
-    bundle install #Installs the required gems
+    bundle install #Installs the required gems, you may need to add "sudo" in front of command
     rake db:create #Creates the Database
     rake db:schema:load #Loads the Scheme
     rake db:seed #Seeds the DB
