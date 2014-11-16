@@ -8,4 +8,5 @@ Disallow: /users/
 Disallow: /token_authentications/
 Disallow: /shares/
 Disallow: /admin/
+Disallow: /apps/
 Allow: /pages/
