@@ -22,6 +22,9 @@ group :test do
   gem 'selenium-webdriver'
 end
 
+# Records test coverage
+gem "codeclimate-test-reporter", group: :test, require: nil
+
 group :test, :development do
   # These are the target gems of this tutorial
   gem 'sauce', '~> 3.1.1'

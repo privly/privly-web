@@ -68,6 +68,8 @@ GEM
     childprocess (0.5.5)
       ffi (~> 1.0, >= 1.0.11)
     cmdparse (2.0.6)
+    codeclimate-test-reporter (0.4.1)
+      simplecov (>= 0.7.1, < 1.0.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -83,6 +85,7 @@ GEM
     devise_invitable (1.2.1)
       actionmailer (>= 3.2.6, < 5)
       devise (~> 3.0.0)
+    docile (1.1.5)
     erubis (2.7.0)
     execjs (2.2.2)
     ffi (1.9.6)
@@ -198,6 +201,11 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    simplecov (0.9.1)
+      docile (~> 1.1.0)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     sprockets (2.2.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -230,6 +238,7 @@ DEPENDENCIES
   airbrake
   capistrano (~> 2.15.5)
   capybara (~> 2.0.3)
+  codeclimate-test-reporter
   coffee-rails (~> 3.2.1)
   devise
   devise_invitable (= 1.2.1)
