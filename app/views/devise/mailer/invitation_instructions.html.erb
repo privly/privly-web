@@ -3,7 +3,7 @@
   %>
 <p>Hello <%= @resource.email %>!</p>
 
-<p>You now have a preview account at <%= root_url %>. Click to <%= link_to 'verify', accept_invitation(@resource, :invitation_token => @resource.invitation_token) %> your account.</p>
+<p>You now have a preview account at <%= root_url %>. Click to <%= link_to 'verify', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %> your account.</p>
 
 <p>We recommend you watch this <a href="https://vimeo.com/83073455">overview video</a> and if you are technically minded, this <a href="https://vimeo.com/83258935">technical video</a>.</p>
 
