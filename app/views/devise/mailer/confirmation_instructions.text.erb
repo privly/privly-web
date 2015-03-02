@@ -1,18 +1,31 @@
-Welcome <%= @resource.email %>!
+<% # This email is sent when the user is invited to the system with 
+   # a valid invitation. The user is able to immediatly activate an account.
+  %>
+Hello <%= @resource.email %>!
 
-Privly is still in private alpha. The extension works on most sites, but there are <%= link_to "bugs", pages_bug_url %>, and we need more review before you should post anything private. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_url %> so we can fix the problem for you. There are bound to be some rough edges when you are interfacing with the entire internet, but in most cases, Privly will work wherever you bring it.
+You now have a preview account at <%= root_url %>. Click to verify <%= accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %> your account.
 
-You can confirm your account through the link below:
+We recommend you watch the overview video (https://vimeo.com/83073455) and if you are technically minded, technical video (https://vimeo.com/83258935).
 
-<%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %>
+Warning: Privly is currently "in alpha". You should not trust your life, liberty, or privacy to alpha stage software. Strong security assurances cannot come without time and exposure to the real world.
 
+We are opening this server for accounts so users can influence the development of the system.  People who are not active members of the community may lose the ability to post new content if demands on our servers outpace our resources. If you find a problem, please report it so we can fix it for everyone.
 
-    Thanks!
+How to Use:
+1. make sure you verify your account here <%= accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %>
+2. Download the extension for your browser. Either Chrome (https://chrome.google.com/webstore/detail/privly/pkokikcdapfpkkkjpdaamjanniaempol) or Firefox (https://addons.mozilla.org/en-US/firefox/addon/privly/)
+3. Restart your browser
+4. Right-click on any text area and select "New Message"
+5. Fill in the content you want to share in the Privly Message form and click save
+6. Submit the link on the original page
+
+    Thanks for the Support!
     
     -<%= Privly::Application.config.name %>
 
-Follow our Twitter: https://twitter.com/#!/Privly
+Follow our Twitter for updates: https://twitter.com/#!/Privly
+Join our development mailing list for discussion: https://groups.google.com/group/privly
 
-<% # This email is sent when a user signs up for an account and is granted
-   # access immediatly.
+<% # This email is sent when the user is invited to the system with 
+   # a valid invitation. The user is able to immediatly activate an account.
   %>

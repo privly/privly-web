@@ -1,19 +1,34 @@
-<% # This email is sent when a user signs up for an account and is granted
-   # access immediatly.
+<% # This email is sent when the user is invited to the system with 
+   # a valid invitation. The user is able to immediatly activate an account.
   %>
+<p>Hello <%= @resource.email %>!</p>
 
-<p>Welcome <%= @resource.email %>!</p>
+<p>You now have a preview account at <%= root_url %>. Click to <%= link_to 'verify', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %> your account.</p>
 
-<p>Privly is still in private alpha. The extension works on most sites, but there are <%= link_to "bugs", pages_bug_url %>, and we need more review before you should post anything private. When you find a problem, make sure you <%= link_to "report a bug", pages_bug_url %> so we can fix the problem for you. There are bound to be some rough edges when you are interfacing with the entire internet, but in most cases, Privly will work wherever you bring it.</p>
+<p>We recommend you watch this <a href="https://vimeo.com/83073455">overview video</a> and if you are technically minded, this <a href="https://vimeo.com/83258935">technical video</a>.</p>
 
-<p>You can confirm your account through the link below:</p>
+<p><strong>Warning:</strong> Privly is currently "in alpha". You should not trust your life, liberty, or privacy to alpha stage software. Strong security assurances come from time and exposure to the real world.
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+We are opening this server for accounts so users can influence the development of the system. People who are not active members of the community may lose the ability to post new content if demands on our servers outpace our resources. If you find a problem, please <%= link_to "report it", pages_bug_url %> so we can fix it for everyone.</p>
 
 <p>
-    Thanks!
+  <strong>How to Use:</strong>
+</p>
+<ol>
+  <li>Make sure you <%= link_to 'verify your account', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></li>
+  <li>Download the extension for your browser. Either <a href="https://chrome.google.com/webstore/detail/privly/pkokikcdapfpkkkjpdaamjanniaempol">Chrome</a> or <a href="https://addons.mozilla.org/en-US/firefox/addon/privly/">Firefox</a></li>.
+  <li>Restart your browser</li>
+  <li>Right-click on any text area and select "New Message"</li>
+  <li>Fill in the content you want to share in the Privly Message form and click save</li>
+  <li>Submit the link on the original page</li>
+</ol>
+
+<p>
+    Thanks for the Support!
     <br />
     -<%= Privly::Application.config.name %>
 </p>
 
-<p><%= link_to 'Follow our Twitter', "https://twitter.com/#!/Privly" %> for updates.</p>
+<p>
+  <%= link_to 'Follow our Twitter', "https://twitter.com/#!/Privly" %> for updates and join our <a href="https://groups.google.com/group/privly">development mailing list</a> for discussion.
+</p>

@@ -3,22 +3,23 @@
   %>
 Hello <%= @resource.email %>!
 
-Someone has invited you to <%= root_url %>, you can accept it through the link below. Make sure you read this entire email before using the Privly Project.
+You now have a preview account at <%= root_url %>. Click to verify <%= accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %> your account.
 
 We recommend you watch the overview video (https://vimeo.com/83073455) and if you are technically minded, technical video (https://vimeo.com/83258935).
 
-Warning: Software in Alpha testing is not secure. If you want to use Privly with private data, you should wait until the Beta release. We are opening this server for accounts so users can influence the development of the system. When you find a problem, make sure you report the bug (<%= pages_bug_url %>) so we can fix the problem for you.
+Warning: Privly is currently "in alpha". You should not trust your life, liberty, or privacy to alpha stage software. Strong security assurances cannot come without time and exposure to the real world.
+
+We are opening this server for accounts so users can influence the development of the system.  People who are not active members of the community may lose the ability to post new content if demands on our servers outpace our resources. If you find a problem, please report it so we can fix it for everyone.
 
 How to Use:
-1. Visit and complete the forms -> <%= accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %>
-2. Download the extension for your browser: https://priv.ly/pages/download.html
+1. make sure you verify your account here <%= accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %>
+2. Download the extension for your browser. Either Chrome (https://chrome.google.com/webstore/detail/privly/pkokikcdapfpkkkjpdaamjanniaempol) or Firefox (https://addons.mozilla.org/en-US/firefox/addon/privly/)
 3. Restart your browser
-4. Right-click on a form that you want to post Privly-type content to
-5. Select the Privly Application you want to post with (ZeroBin, PlainPost, etc)
-6. Submit the Privly App's form
-7. Submit the form on the page
+4. Right-click on any text area and select "New Message"
+5. Fill in the content you want to share in the Privly Message form and click save
+6. Submit the link on the original page
 
-    Thanks for the Support, and let us know how it goes!
+    Thanks for the Support!
     
     -<%= Privly::Application.config.name %>
 
