@@ -2,7 +2,8 @@ This API provides for serialized JSON storage for [privly-applications](https://
 
 # Version History
 
-**Version:** 0.1, Wrote this document
+**Version:** 0.1.1, Added Registration Endpoint  
+**Version:** 0.1, Wrote this document  
 
 # CSRF Protection
 
@@ -62,6 +63,24 @@ The auth token can be automatically added to AJAX requests if you first call  [p
 **Does not require CSRF token.**
 
 To destroy the current authentication token you should generate a new token and choose not to store it.
+
+# Registration
+
+When a user wants a new account on the server they must register for the account.
+This endpoint generates a confirmation email sent to the specified account.
+The account will not be active until the user confirms their email address.
+
+POST `/users/invitation`.
+
+**Parameters**  
+
+"user[email]" : "email@domain.com"  
+
+**Headers**  
+
+Accept:application/json  
+
+**Requires CSRF token (see above).**  
 
 # Posts
 
