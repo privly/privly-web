@@ -50,7 +50,7 @@ These shell commands step through a standard installation.
     # option 1 since you will not need to setup MySQL.
     # Option 1: SQLite.
         cp config/database.yml.sqlite.example config/database.yml
-        emacs gemfile # or use the editor of your choice on gemfile
+        emacs Gemfile # or use the editor of your choice on gemfile
         # uncomment the gemfile line: gem 'sqlite3'
         # comment the gemfile line: gem 'mysql2'
     # Option 2: MySQL.
