@@ -59,3 +59,6 @@ gem 'useragent'
 
 # Error reporting service
 gem "airbrake"
+
+# Support Ruby 1.9.3
+gem 'cmdparse', '= 2.0.6'
