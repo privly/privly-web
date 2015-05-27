@@ -26,8 +26,7 @@ end
 gem "codeclimate-test-reporter", group: :test, require: nil
 
 group :test, :development do
-  # These are the target gems of this tutorial
-  gem 'sauce', '~> 3.1.1'
+  gem 'sauce', '~> 3.5.6'
   gem 'sauce-connect'
   gem 'capybara', '~> 2.4.4'
 end
