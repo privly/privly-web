@@ -37,6 +37,10 @@ gem 'capistrano', '~> 2.15.5'
 # To use debugger
 # gem 'ruby-debug'
 
+#Javascript runtime
+gem 'execjs'
+gem 'therubyracer'
+
 # Authentication
 gem 'devise' #https://github.com/plataformatec/devise
 
