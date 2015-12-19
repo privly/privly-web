@@ -48,7 +48,7 @@ ActiveAdmin.register User do
     end
     
     # Show, edit, delete
-    default_actions
+    actions
     
     column "Invite Status" do |user|
       if user.can_post

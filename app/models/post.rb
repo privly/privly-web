@@ -21,8 +21,6 @@ class Post < ActiveRecord::Base
   
   validates_inclusion_of :public, :in => [false, true]
   
-  attr_accessible :content, :structured_content
-  
   # The default number of records to display per page
   paginates_per 10
   

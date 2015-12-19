@@ -18,20 +18,12 @@ class User < ActiveRecord::Base
   before_validation :process_email
   
   validates :email,
-           :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
+           :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   
   validates :domain,
-            :format => { :with => /^@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
+            :format => { :with => /\A@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   
   validates :authentication_token, :uniqueness => true, :allow_nil => true
-  
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  
-  # ActiveAdmin permissions
-  attr_accessible :alpha_invites, :beta_invites, :forever_account_value,
-    :permissioned_requests_served, :nonpermissioned_requests_served, :can_post,
-    :as => :admin
   
   # Downcase the email and store the email's domain in a separate
   # column.
