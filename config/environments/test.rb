@@ -39,4 +39,27 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Where the email will come from
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  # Set this variable to change the displayed name of the site.
+  config.name = "Site Name"
+
+  # The host new injectible links should be created on.
+  # You should generally set this to the domain of your server
+  config.link_domain_host = "localhost:3000"
+
+  config.action_mailer.default_url_options = { :host => 'localhost' }
+
+  # Required protocol, choose "http" or "https"
+  config.required_protocol = "http"
+
+  # Don't send invitations to users by default.
+  # Setting this to false will send users
+  # accounts when they sign up for invitations,
+  # while setting it to true will send them
+  # a message that the system is currently in closed Alpha.
+  config.send_invitations = false
+
 end
