@@ -150,7 +150,7 @@ class Post < ActiveRecord::Base
     # Used by cron jobs to delete all the burnt posts. Call it on the Post model,
     # Post.destroy_burnt_posts, to clear out all the posts which expired.
     def destroy_burnt_posts
-      posts_to_destroy = Post.find :all, :conditions => ['burn_after_date < ?', Time.now]
+      posts_to_destroy = Post.where 'burn_after_date < ?', Time.now
       for post in posts_to_destroy
         post.destroy
       end
