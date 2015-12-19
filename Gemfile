@@ -16,6 +16,10 @@ end
 # Records test coverage
 gem "codeclimate-test-reporter", group: :test, require: nil
 
+group :development do
+  gem 'web-console', '~> 2.0'
+end
+
 group :test, :development do
   gem 'sauce', '~> 3.5.6'
   gem 'sauce-connect'
@@ -43,9 +47,10 @@ gem 'rdiscount'
 # Useragent inspection
 gem 'useragent'
 
-# Error reporting service
-gem "airbrake"
-
+group :production do
+  # Error reporting service
+  gem "airbrake"
+end
 
 # may be required on OSX
 #brew install libxml2 ####libxslt libiconv
