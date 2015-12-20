@@ -53,5 +53,8 @@ group :production do
   gem "airbrake"
 end
 
+# Test Coverage
+gem 'coveralls', require: false
+
 # may be required on OSX
 #brew install libxml2 ####libxslt libiconv
