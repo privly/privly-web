@@ -3,7 +3,11 @@
 # by AJAX. 
  
 class SessionsController < Devise::SessionsController
-  
+
+  # Deprecated line added in transitioning from Rails 3 to Rails 4
+  # https://github.com/privly/privly-web/issues/159
+  skip_before_filter :verify_authenticity_token , :only => [:destroy]
+
   def create
     if request.xhr?
       resource = warden.authenticate!(
