@@ -273,6 +273,7 @@ DEPENDENCIES
   devise_invitable
   jquery-rails
   json
+  minitest
   mysql2
   rails (~> 4.2.0)
   rdiscount
