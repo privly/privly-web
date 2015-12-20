@@ -17,7 +17,7 @@ env:
   - secure: "RKsUBS3kTUzwXfnKFcFKlGHxUB1a3o/xRhCAw9cbKVTGr0wiTWZJ4UKq4UF0JF9AIAYSTqSS22UjCrX87GFb04YZ+H9CHdZQbEycPuNQJJA14k4J1D/NJ4PXD35o79z+SvbnUPNIWU8xOPAo1G8vIzJ8qFCZX2bcjTpimimcuhQ="#CODECLIMATE_REPO_TOKEN=************************************************(privly/privly-web)
   - secure: "csM3Gh4XnywHAtMeMPgvo9WJzVZRVtYch9DauAG26V6tnxkccNJY7msBF9F87yoKzKYYjQGjAO9OTacixqIdTeNAHOnTm5FqBx9yndjljUquN//VF9E4DDYjIYzkxNORB/8lJoYcZ2lkgENXSXitbNRq0njfk7BC5FlgwNydWS8="#CODECLIMATE_REPO_TOKEN=************************************************(smcgregor/privly-web)
 script:
-- RAILS_ENV=test bundle exec rake --trace db:migrate test
+- RAILS_ENV=test bundle exec rake db:migrate test
 - cd public/apps # Run the selenium tests
 - "if [ ${TRAVIS_PULL_REQUEST} = 'false' ]; then bundle exec ruby test/selenium/run_all.rb -p sauce_firefox_web -r experimental -c http://localhost:3000; fi" # Don't run on pull requests
 - "if [ ${TRAVIS_PULL_REQUEST} = 'false' ]; then bundle exec ruby test/selenium/run_all.rb -p sauce_chrome_web -r experimental -c http://localhost:3000; fi" # Don't run on pull requests
