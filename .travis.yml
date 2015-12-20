@@ -15,7 +15,8 @@ env:
   - secure: igbBspDa8i+Ov1nLd+VwaN6gYGtIhp1ZBvaPHfqZbfdifrTYfLYgwHe/JlR2/Bll54S0qtyoMgqh+vIlN0bjkaq0+sgQD6DWxrnZqBwWZuVZbSjgFNpaukVL3vSysosIi9BuFVwzpD1DYFF5wtcNpm83ZAKdlZY5KVucOqqQzp8=#SAUCE_USERNAME=smcgregor(smcgregor/privly-web)
   - secure: fwabmjAsNwJPTcu3+PUbe5mqxnTlAEsZoPMq69t1cZ8QYb0rmal0FkgrDd9z7XbxTovLPiWMsv5gVSyWmRoQjqm6vLzc+acjjybhqJyI8cctzaBzTuTmGjZNUkUJ2O6tsMD7haXKKibz26QUesX0bq9316fSGsh55uGbc89RwxU=#SAUCE_ACCESS_KEY=********-****-****-****-************(smcgregor/privly-web)
 script:
-- RAILS_ENV=test bundle exec rake --trace db:migrate test
+- RAILS_ENV=test bundle exec rake --trace db:migrate
+- RAILS_ENV=test bundle exec rake test
 - cd public/apps # Run the selenium tests
 - "if [ ${TRAVIS_PULL_REQUEST} = 'false' ]; then bundle exec ruby test/selenium/run_all.rb -p sauce_firefox_web -r experimental -c http://localhost:3000; fi" # Don't run on pull requests
 - "if [ ${TRAVIS_PULL_REQUEST} = 'false' ]; then bundle exec ruby test/selenium/run_all.rb -p sauce_chrome_web -r experimental -c http://localhost:3000; fi" # Don't run on pull requests
@@ -29,5 +30,3 @@ before_script:
 - "bundle exec rails server -p 3000 &" # Start the server for Selenium testing
 addons:
   sauce_connect: true
-after_success:
-  - coveralls
