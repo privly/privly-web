@@ -2,7 +2,7 @@ before_install:
 - git submodule update --init --recursive
 language: ruby
 rvm:
-- 1.9.3
+- 2.1.1
 env:
   global:
   - DB=mysql
@@ -14,10 +14,9 @@ env:
   - secure: "KhjeIasYp3lUvm4nJcZ5v9Kl8tPO7WXq0sdwpK0prmi+ixpG9zg3tn/WDGDy1lZchYVr/aFzrXuLVvX7Y2AYC8TENifvMrVNiK65BasFXYAsPdWS1zsOnjOM8EUIF+uLTOQU1a+E2adlyY0SSVRo/v3LGg6Wu4btmm7macSGBcg="#SAUCE_URL="http://smcgregor:********-****-****-****-************@ondemand.saucelabs.com:80/wd/hub"(smcgregor/privly-web)
   - secure: igbBspDa8i+Ov1nLd+VwaN6gYGtIhp1ZBvaPHfqZbfdifrTYfLYgwHe/JlR2/Bll54S0qtyoMgqh+vIlN0bjkaq0+sgQD6DWxrnZqBwWZuVZbSjgFNpaukVL3vSysosIi9BuFVwzpD1DYFF5wtcNpm83ZAKdlZY5KVucOqqQzp8=#SAUCE_USERNAME=smcgregor(smcgregor/privly-web)
   - secure: fwabmjAsNwJPTcu3+PUbe5mqxnTlAEsZoPMq69t1cZ8QYb0rmal0FkgrDd9z7XbxTovLPiWMsv5gVSyWmRoQjqm6vLzc+acjjybhqJyI8cctzaBzTuTmGjZNUkUJ2O6tsMD7haXKKibz26QUesX0bq9316fSGsh55uGbc89RwxU=#SAUCE_ACCESS_KEY=********-****-****-****-************(smcgregor/privly-web)
-  - secure: "RKsUBS3kTUzwXfnKFcFKlGHxUB1a3o/xRhCAw9cbKVTGr0wiTWZJ4UKq4UF0JF9AIAYSTqSS22UjCrX87GFb04YZ+H9CHdZQbEycPuNQJJA14k4J1D/NJ4PXD35o79z+SvbnUPNIWU8xOPAo1G8vIzJ8qFCZX2bcjTpimimcuhQ="#CODECLIMATE_REPO_TOKEN=************************************************(privly/privly-web)
-  - secure: "csM3Gh4XnywHAtMeMPgvo9WJzVZRVtYch9DauAG26V6tnxkccNJY7msBF9F87yoKzKYYjQGjAO9OTacixqIdTeNAHOnTm5FqBx9yndjljUquN//VF9E4DDYjIYzkxNORB/8lJoYcZ2lkgENXSXitbNRq0njfk7BC5FlgwNydWS8="#CODECLIMATE_REPO_TOKEN=************************************************(smcgregor/privly-web)
 script:
-- RAILS_ENV=test bundle exec rake --trace db:migrate test
+- RAILS_ENV=test bundle exec rake --trace db:migrate
+- RAILS_ENV=test bundle exec rake test
 - cd public/apps # Run the selenium tests
 - "if [ ${TRAVIS_PULL_REQUEST} = 'false' ]; then bundle exec ruby test/selenium/run_all.rb -p sauce_firefox_web -r experimental -c http://localhost:3000; fi" # Don't run on pull requests
 - "if [ ${TRAVIS_PULL_REQUEST} = 'false' ]; then bundle exec ruby test/selenium/run_all.rb -p sauce_chrome_web -r experimental -c http://localhost:3000; fi" # Don't run on pull requests

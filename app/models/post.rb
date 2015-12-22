@@ -21,8 +21,6 @@ class Post < ActiveRecord::Base
   
   validates_inclusion_of :public, :in => [false, true]
   
-  attr_accessible :content, :structured_content
-  
   # The default number of records to display per page
   paginates_per 10
   
@@ -64,9 +62,9 @@ class Post < ActiveRecord::Base
   # who already have access to the content.
   def privly_URL
     
-    privlyDataURL = Privly::Application.config.required_protocol +
+    privlyDataURL = Rails.application.config.required_protocol +
       "://" +
-      Privly::Application.config.link_domain_host +
+      Rails.application.config.link_domain_host +
       "/posts/" +
       self.id.to_s + 
       ".json"
@@ -75,9 +73,9 @@ class Post < ActiveRecord::Base
       privlyDataURL += "?random_token=" + self.random_token
     end
       
-    Privly::Application.config.required_protocol +
+    Rails.application.config.required_protocol +
       "://" +
-      Privly::Application.config.link_domain_host +
+      Rails.application.config.link_domain_host +
       "/apps/" + 
       self.privly_application + "/show?" + 
       self.url_parameters.to_query + 
@@ -105,7 +103,7 @@ class Post < ActiveRecord::Base
         :privlyBurntAfter => self.burn_after_date.to_i,
         :burntAfter => self.burn_after_date.to_i, # Deprecated
         :privlyInject1 => true, 
-        :host => Privly::Application.config.link_domain_host,
+        :host => Rails.application.config.link_domain_host,
         :port => nil}
       return sharing_url_parameters
     else
@@ -113,7 +111,7 @@ class Post < ActiveRecord::Base
         :privlyInjectableApplication => injectable_application_name,
         :random_token => self.random_token,
         :privlyInject1 => true, 
-        :host => Privly::Application.config.link_domain_host,
+        :host => Rails.application.config.link_domain_host,
         :port => nil}
       return sharing_url_parameters
     end
@@ -142,7 +140,7 @@ class Post < ActiveRecord::Base
   def data_url_parameters
     parameters = {
       :random_token => self.random_token,
-      :host => Privly::Application.config.link_domain_host,
+      :host => Rails.application.config.link_domain_host,
       :port => nil}
     return parameters
   end
@@ -152,7 +150,7 @@ class Post < ActiveRecord::Base
     # Used by cron jobs to delete all the burnt posts. Call it on the Post model,
     # Post.destroy_burnt_posts, to clear out all the posts which expired.
     def destroy_burnt_posts
-      posts_to_destroy = Post.find :all, :conditions => ['burn_after_date < ?', Time.now]
+      posts_to_destroy = Post.where 'burn_after_date < ?', Time.now
       for post in posts_to_destroy
         post.destroy
       end
