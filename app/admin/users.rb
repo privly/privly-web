@@ -48,7 +48,7 @@ ActiveAdmin.register User do
     end
     
     # Show, edit, delete
-    default_actions
+    actions
     
     column "Invite Status" do |user|
       if user.can_post
@@ -91,7 +91,7 @@ ActiveAdmin.register User do
   batch_action :update_user_via_email, :confirm => "Are you sure you want to send them the update email?" do |selection|
     User.find(selection).each do |user|
       if user.can_post
-        Notifier.update_invited_user(user)
+        Notifier.update_invited_user(user).deliver_now
       end
     end
     redirect_to collection_path, :alert => "Users Have Been Updated via email"

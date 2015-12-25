@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # Core System
-gem 'rails', '~> 3.2.0'
+gem 'rails', '~> 4.2.0'
 gem 'json'
 gem 'jquery-rails'
 
@@ -9,21 +9,17 @@ gem 'jquery-rails'
 gem 'mysql2' # Comment out this line to use another Database type
 # gem 'sqlite3'
 
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails', "~> 3.2.3"
-  gem 'coffee-rails', "~> 3.2.1"
-  gem 'uglifier', '>=1.0.3'
-end
-
 group :test do
   gem 'selenium-webdriver'
+  gem 'minitest'
 end
 
 # Records test coverage
 gem "codeclimate-test-reporter", group: :test, require: nil
+
+group :development do
+  gem 'web-console', '~> 2.0'
+end
 
 group :test, :development do
   gem 'sauce', '~> 3.5.6'
@@ -37,18 +33,14 @@ gem 'capistrano', '~> 2.15.5'
 # To use debugger
 # gem 'ruby-debug'
 
-#Javascript runtime
-gem 'execjs'
-gem 'therubyracer'
-
 # Authentication
 gem 'devise' #https://github.com/plataformatec/devise
 
 # This version is currently required for Devise 3+ on Rails 3.2
-gem 'devise_invitable', '= 1.2.1'
+gem 'devise_invitable'
 
 # Administration interface
-gem "activeadmin"
+gem 'activeadmin', '~> 1.0.0.pre2'
 
 # Markdown lightweight markup language gem
 gem 'rdiscount'
@@ -56,8 +48,13 @@ gem 'rdiscount'
 # Useragent inspection
 gem 'useragent'
 
-# Error reporting service
-gem "airbrake"
+group :production do
+  # Error reporting service
+  gem "airbrake"
+end
 
-# Support Ruby 1.9.3
-gem 'cmdparse', '= 2.0.6'
+# Test Coverage
+gem 'coveralls', require: false
+
+# may be required on OSX
+#brew install libxml2 ####libxslt libiconv

@@ -57,8 +57,8 @@ class Users::InvitationsController < Devise::InvitationsController
 
       if resource.errors.empty? and not Privly::Application.config.send_invitations
         Notifier.pending_invitation(
-          User.find(:first, :conditions => [ "email = ?", email])
-        ).deliver # sends the email
+          User.find_by email: email
+        ).deliver_now # sends the email
       end
     end
 
@@ -195,7 +195,7 @@ class Users::InvitationsController < Devise::InvitationsController
     if not user.pending_invitation or not user.confirmation_sent_at.nil?
       redirect_to admin_users_path, :notice => 'That user is already pending an account.'
     else
-      Notifier.update(user).deliver # sends the email
+      Notifier.update(user).deliver_now # sends the email
       redirect_to admin_users_path, :notice => 'You updated the user.'
     end
     

@@ -3,7 +3,7 @@
   %>
 <p>Hello <%= @resource.email %>!</p>
 
-<p>You now have a preview account at <%= root_url %>. Click to <%= link_to 'verify', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %> your account.</p>
+<p>You now have a preview account at <%= root_url %>. Click to <%= link_to 'verify', accept_invitation_url(@resource, :invitation_token => @token) %> your account.</p>
 
 <p>We recommend you watch this <a href="https://vimeo.com/83073455">overview video</a> and if you are technically minded, this <a href="https://vimeo.com/83258935">technical video</a>.</p>
 
@@ -15,7 +15,7 @@ We are opening this server for accounts so users can influence the development o
   <strong>How to Use:</strong>
 </p>
 <ol>
-  <li>Make sure you <%= link_to 'verify your account', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></li>
+  <li>Make sure you <%= link_to 'verify your account', accept_invitation_url(@resource, :invitation_token => @token) %></li>
   <li>Download the extension for your browser. Either <a href="https://chrome.google.com/webstore/detail/privly/pkokikcdapfpkkkjpdaamjanniaempol">Chrome</a> or <a href="https://addons.mozilla.org/en-US/firefox/addon/privly/">Firefox</a>.</li>
   <li>Restart your browser</li>
   <li>Right-click on any text area and select "New Message"</li>
