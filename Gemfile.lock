@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/ekho/capistrano-git-submodule-strategy.git
+  revision: e3b8a78fbe7d3f7d03d473ee488a9c805f8f6fac
+  ref: e3b8a78fbe7d3f7d03d473ee488a9c805f8f6fac
+  specs:
+    capistrano-git-submodule-strategy (0.1.17)
+      capistrano (~> 3.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -49,9 +57,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    airbrake (5.0.0)
+    airbrake (5.0.1)
       airbrake-ruby (~> 1.0)
-    airbrake-ruby (1.0.0)
+    airbrake-ruby (1.0.1)
     arbre (1.0.3)
       activesupport (>= 3.0.0)
     arel (6.0.3)
@@ -62,12 +70,18 @@ GEM
       sass (~> 3.4)
       thor (~> 0.19)
     builder (3.2.2)
-    capistrano (2.15.7)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.1.0)
+    capistrano (3.4.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (~> 1.3)
+    capistrano-bundler (1.1.4)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
+    capistrano-passenger (0.2.0)
+      capistrano (~> 3.0)
+    capistrano-rails (1.1.5)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -138,6 +152,7 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    libv8 (3.16.14.13)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -149,8 +164,6 @@ GEM
     mysql2 (0.4.2)
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
-      net-ssh (>= 2.6.5)
-    net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (3.0.1)
     net-ssh-gateway (1.2.0)
@@ -199,6 +212,7 @@ GEM
       i18n
       polyamorous (~> 1.2)
     rdiscount (2.1.8)
+    ref (2.0.0)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
     rest-client (1.8.0)
@@ -247,8 +261,14 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sshkit (1.8.1)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     term-ansicolor (1.3.2)
       tins (~> 1.0)
+    therubyracer (0.12.2)
+      libv8 (~> 3.16.14.0)
+      ref
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
@@ -276,7 +296,9 @@ PLATFORMS
 DEPENDENCIES
   activeadmin (~> 1.0.0.pre2)
   airbrake
-  capistrano (~> 2.15.5)
+  capistrano-git-submodule-strategy (~> 0.1)!
+  capistrano-passenger
+  capistrano-rails
   capybara (~> 2.4.4)
   codeclimate-test-reporter
   coveralls
@@ -291,6 +313,7 @@ DEPENDENCIES
   sauce (~> 3.5.6)
   sauce-connect
   selenium-webdriver
+  therubyracer
   useragent
   web-console (~> 2.0)
 
