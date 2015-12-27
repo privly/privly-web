@@ -23,8 +23,8 @@ group :development do
 end
 
 group :production do
-  # Error reporting service
-  gem "airbrake"
+  gem "airbrake" # Error reporting service
+  gem 'therubyracer' # JavaScript runtime
 end
 
 group :development, :production do
