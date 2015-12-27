@@ -22,14 +22,17 @@ group :development do
   gem 'web-console', '~> 2.0'
 end
 
+group :development, :production do
+  gem "capistrano-rails" # Deploy with Capistrano
+  gem 'capistrano-passenger'
+  gem 'capistrano-git-submodule-strategy', '~> 0.1', :github => 'ekho/capistrano-git-submodule-strategy', :ref => "e3b8a78fbe7d3f7d03d473ee488a9c805f8f6fac"
+end
+
 group :test, :development do
   gem 'sauce', '~> 3.5.6'
   gem 'sauce-connect'
   gem 'capybara', '~> 2.4.4'
 end
-
-# Deploy with Capistrano
-gem 'capistrano', '~> 2.15.5'
 
 # To use debugger
 # gem 'ruby-debug'
