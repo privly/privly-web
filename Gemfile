@@ -22,6 +22,11 @@ group :development do
   gem 'web-console', '~> 2.0'
 end
 
+group :production do
+  # Error reporting service
+  gem "airbrake"
+end
+
 group :development, :production do
   gem "capistrano-rails" # Deploy with Capistrano
   gem 'capistrano-passenger'
@@ -52,8 +57,6 @@ gem 'rdiscount'
 # Useragent inspection
 gem 'useragent'
 
-# Error reporting service
-gem "airbrake"
 
 # Test Coverage
 gem 'coveralls', require: false
