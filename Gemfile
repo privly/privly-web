@@ -48,10 +48,8 @@ gem 'rdiscount'
 # Useragent inspection
 gem 'useragent'
 
-group :production do
-  # Error reporting service
-  gem "airbrake"
-end
+# Error reporting service
+gem "airbrake"
 
 # Test Coverage
 gem 'coveralls', require: false
