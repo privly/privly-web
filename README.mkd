@@ -11,7 +11,7 @@ For more information on what Privly is, [read about us](https://priv.ly/pages/ab
 [![Build Status](https://travis-ci.org/privly/privly-web.svg)](https://travis-ci.org/privly/privly-web)
 [![Dependency Status](https://gemnasium.com/privly/privly-web.png?travis)](https://gemnasium.com/privly/privly-web)
 [![Code Climate](https://codeclimate.com/github/privly/privly-web/badges/gpa.svg)](https://codeclimate.com/github/privly/privly-web)
-[![Test Coverage](https://codeclimate.com/github/privly/privly-web/badges/coverage.svg)](https://codeclimate.com/github/privly/privly-web)
+[![Coverage Status](https://coveralls.io/repos/privly/privly-web/badge.svg?branch=master&service=github)](https://coveralls.io/github/privly/privly-web?branch=master)
 
 The Privly-Web content server is currently maintained by [Sean McGregor](https://github.com/smcgregor), on behalf of the [Privly Foundation](http://www.privly.org).
 
