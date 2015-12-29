@@ -13,8 +13,6 @@ For more information on what Privly is, [read about us](https://priv.ly/pages/ab
 [![Code Climate](https://codeclimate.com/github/privly/privly-web/badges/gpa.svg)](https://codeclimate.com/github/privly/privly-web)
 [![Test Coverage](https://codeclimate.com/github/privly/privly-web/badges/coverage.svg)](https://codeclimate.com/github/privly/privly-web)
 
-For information about our development path, please see the [central wiki](https://github.com/privly/privly-organization/wiki/Version-List).
-
 The Privly-Web content server is currently maintained by [Sean McGregor](https://github.com/smcgregor), on behalf of the [Privly Foundation](http://www.privly.org).
 
 ## About this Content Server ##
@@ -23,7 +21,6 @@ This server currently supports:
 
 * All the applications found in the [Privly Applications](https://github.com/privly/privly-applications) repository.
 * Serialized JSON storage for any text content.
-* Sharing by email, domain, and IP Address.
 
 **Server API**  
 
@@ -33,7 +30,7 @@ Read about the [API](https://github.com/privly/privly-web/blob/master/API.md).
 
 Prerequisites:
 
-* Ruby 1.9.2+ (Ruby 2.* is not recommended due to gem conflicts)
+* Ruby 2+
  * To check what version of Ruby you are running, type `ruby --version` in your terminal
  * To update/install Ruby, check out the [Ruby website](https://www.ruby-lang.org/en/downloads/)
 * [Bundler](http://bundler.io/)
@@ -76,16 +73,16 @@ User accounts could be in one of several states:
 1. **Can Post:** The user can create content on the server. This is usually the state after the user has verified their email address and has paid whatever toll they need to support hosting expenses.
 1. **Can't Post:** In order to create new content on the server, a user must have posting permission. You will only generally use this option if the user is abusing the content server or not contributing enough to hosting costs. There is no option for locking a user account completely, because they should maintain access to content they have already created.
 
-**Retrieving User Account Activation Tokens**  
-You can retrieve emails when you are running a development server by examining the web server's log.
+**Retrieving User Account Activation Tokens for Development Server**  
+You can retrieve emails by examining the web server's log that is usually printed in the console that launched the web server.
 
 ## Testing/Submitting Bugs ##
 
-If you have discovered a bug, only [open a public issue](https://github.com/privly/privly-web/issues/new) on GitHub if it could not possibly be a security related bug. If the bug affects the security of the system, please report it privately at [privly.org](http://www.privly.org/content/bug-report). If it is an urgent issue, please email privly@privly.org. We will then fix the bug and follow a process of responsible disclosure.
+If you have discovered a bug, only [open a public issue](https://github.com/privly/privly-web/issues/new) on GitHub if it could not possibly be a security related bug. If it is an urgent issue, please email privly@privly.org. We will then fix the bug and follow a process of responsible disclosure if it is a security bug.
 
 ## Developer Documentation ##
 
-Discussion of system concepts and high level processes are found in the [central wiki](https://github.com/privly/privly-organization/wiki).
+Developers should start with the [development guide](https://priv.ly/pages/develop). We also have a [central wiki](https://github.com/privly/privly-organization/wiki) and a [blog](https://www.privly.org/blog).
 
 ## Resources ##
 
@@ -95,8 +92,6 @@ Discussion of system concepts and high level processes are found in the [central
 [Testing Mailing List](http://groups.google.com/group/privly-test)  
 [Announcement Mailing List](http://groups.google.com/group/privly-announce)  
 [Central Wiki](https://github.com/privly/privly-organization/wiki)  
-[Submit a Bug](http://www.privly.org/content/bug-report)  
-[IRC](http://www.privly.org/content/irc)  
 [Production Content Server](https://privlyalpha.org)  
 [Development Content Server](https://dev.privly.org)  
 [Download Extension](https://priv.ly/pages/download)  
