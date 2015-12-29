@@ -92,9 +92,6 @@ class ActiveAdminControllerTest < ActionController::TestCase
       :password_confirmation => "password"}
     assert_redirected_to admin_user_path(:id => 1)
     
-    put :update, :id => 1
-    assert_redirected_to admin_user_path(:id => 1)
-    
     get :edit, :id => 1
     assert_response :success
     

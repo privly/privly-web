@@ -235,6 +235,10 @@ class PostsController < ApplicationController
       @post.public = false
     end
 
+    if params[:post][:structured_content]
+      @post.structured_content = params[:post][:structured_content]
+    end
+
     set_burn_date
     
     # The random token will be required for users other than the owner
@@ -242,7 +246,7 @@ class PostsController < ApplicationController
     # if it is not assigned here.
     @post.random_token = params[:post][:random_token]
     
-    @post.update_attributes(params[:post])
+    @post.update_attributes(post_params_create)
     
     respond_to do |format|
       if @post.save
@@ -350,11 +354,15 @@ class PostsController < ApplicationController
     unless params[:post][:random_token].nil?
       @post.random_token = params[:post][:random_token]
     end
-    
+
+    if params[:post][:structured_content]
+      @post.structured_content = params[:post][:structured_content]
+    end
+
     set_burn_date
     
     respond_to do |format|
-      if @post.update_attributes(params[:post])
+      if @post.update_attributes(post_params_update)
         format.json { render :json => get_json, :callback => params[:callback] }
       else
         format.json { render :json => @post.errors,
@@ -567,5 +575,19 @@ class PostsController < ApplicationController
       end
       
     end
-  
+
+    def post_params_create
+      #all_structured_content = params.require(:post).fetch(:structured_content, nil).try(:permit!)
+      params.require(:post).permit(
+        :content,
+        :public,
+        :privly_application)#.merge(:structured_content => all_structured_content)
+    end
+
+    def post_params_update
+      #all_structured_content = params.require(:post).fetch(:structured_content, nil).try(:permit!)
+      params.require(:post).permit(
+        :content)#.merge(:structured_content => all_structured_content)
+    end
+
 end

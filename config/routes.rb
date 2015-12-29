@@ -1,7 +1,7 @@
 Privly::Application.routes.draw do
 
   root :to => "welcome#index"
-  match '/' => 'welcome#index', :as => :welcome
+  match '/' => 'welcome#index', :as => :welcome, :via => [:get]
 
   get "users/sign_in" => redirect("/apps/Login/new.html"), :as => :sign_in
 

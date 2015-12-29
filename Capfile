@@ -1,24 +1,28 @@
-load 'deploy' if respond_to?(:namespace) # cap2 differentiator
+# Load DSL and set up stages
+require 'capistrano/setup'
 
-# Uncomment if you are using Rails' asset pipeline
-load 'deploy/assets'
+# Include default deployment tasks
+require 'capistrano/deploy'
+require 'capistrano/git-submodule-strategy'
 
-Dir['vendor/gems/*/recipes/*.rb','vendor/plugins/*/recipes/*.rb'].each { |plugin| load(plugin) }
+# Include tasks from other gems included in your Gemfile
+#
+# For documentation on these, see for example:
+#
+#   https://github.com/capistrano/rvm
+#   https://github.com/capistrano/rbenv
+#   https://github.com/capistrano/chruby
+#   https://github.com/capistrano/bundler
+#   https://github.com/capistrano/rails
+#   https://github.com/capistrano/passenger
+#
+# require 'capistrano/rvm'
+# require 'capistrano/rbenv'
+# require 'capistrano/chruby'
+require 'capistrano/bundler'
+require 'capistrano/rails/assets'
+require 'capistrano/rails/migrations'
+require 'capistrano/passenger'
 
-load 'config/deploy' # remove this line to skip loading any of the default tasks
-
-namespace :deploy do
-
-    after "deploy:assets:symlink" do
-      symlink_shared
-    end
-    
-    desc "Symbolic links the production environment and database.yml in the shared folder"
-    task :symlink_shared, :hosts => "#{domain}" do
-        run "ln -s #{privly_shared_path}production.rb #{latest_release}/config/environments/production.rb"
-        run "ln -s #{privly_shared_path}database.yml #{latest_release}/config/database.yml"
-        run "rm #{latest_release}/config/initializers/secret_token.rb"
-        run "ln -s #{privly_shared_path}secret_token.rb #{latest_release}/config/initializers/secret_token.rb"
-        run "ln -s #{privly_shared_path}airbrake.rb #{latest_release}/config/initializers/airbrake.rb"
-    end
-end
+# Load custom tasks from `lib/capistrano/tasks` if you have any defined
+#Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }

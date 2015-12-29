@@ -3,7 +3,7 @@
   %>
 Hello <%= @resource.email %>!
 
-You now have a preview account at <%= root_url %>. Click to verify <%= accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %> your account.
+You now have a preview account at <%= root_url %>. Click to verify <%= accept_invitation_url(@resource, :invitation_token => @token) %> your account.
 
 We recommend you watch the overview video (https://vimeo.com/83073455) and if you are technically minded, technical video (https://vimeo.com/83258935).
 
@@ -12,7 +12,7 @@ Warning: Privly is currently "in alpha". You should not trust your life, liberty
 We are opening this server for accounts so users can influence the development of the system.  People who are not active members of the community may lose the ability to post new content if demands on our servers outpace our resources. If you find a problem, please report it so we can fix it for everyone.
 
 How to Use:
-1. make sure you verify your account here <%= accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %>
+1. make sure you verify your account here <%= accept_invitation_url(@resource, :invitation_token => @token) %>
 2. Download the extension for your browser. Either Chrome (https://chrome.google.com/webstore/detail/privly/pkokikcdapfpkkkjpdaamjanniaempol) or Firefox (https://addons.mozilla.org/en-US/firefox/addon/privly/)
 3. Restart your browser
 4. Right-click on any text area and select "New Message"
