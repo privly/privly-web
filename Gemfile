@@ -13,6 +13,7 @@ gem 'mysql2' # Comment out this line to use another Database type
 group :test do
   gem 'selenium-webdriver'
   gem 'minitest'
+  gem 'test-unit' # For selenium test cases
 end
 
 # Records test coverage
