@@ -2,21 +2,37 @@
     New Token Authentication
 <% end %>
 
-<h1>html</h1>
-<%= form_tag(token_authentications_path, :method => "post") do %>
-  <p>Email</p><%= email_field_tag "email" %>
-  <p>Password</p><%= password_field_tag "password" %>
-  <p></p><%= submit_tag("New Token") %>
-<% end %>
+<h1>Token Authentications</h1>
+
+<p>
+  This page is provided to simplify integration
+  with the content server's token authentications.
+  If you don't know what that means, then you probably
+  don't belong here.
+</p>
+
+<h2>html</h2>
+<form action="/token_authentications" accept-charset="UTF-8" method="post">
+  <input name="utf8" type="hidden" value="✓">
+  <p>Email</p>
+  <input type="email" name="email" id="email">
+  <p>Password</p>
+  <input type="password" name="password" id="password">
+  <p></p>
+  <input type="submit" name="commit" value="New Token">
+</form>
 
 <br />
 
-<h1>json</h1>
-<%= form_tag(token_authentications_path(:format => :json), :method => "post") do %>
-  <p>Email</p><%= email_field_tag "email" %>
-  <p>Password</p><%= password_field_tag "password" %>
-  <p></p><%= submit_tag("New Token") %>
-<% end %>
+<h2>json</h2>
+<form action="/token_authentications.json" accept-charset="UTF-8" method="post">
+  <p>Email</p>
+  <input type="email" name="email" id="email">
+  <p>Password</p>
+  <input type="password" name="password" id="password">
+  <p></p>
+  <input type="submit" name="commit" value="New Token">
+</form>
 
 <br />
 
