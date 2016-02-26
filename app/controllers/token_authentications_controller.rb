@@ -4,7 +4,8 @@
 # are currently only used by mobile apps.
 #
 class TokenAuthenticationsController < ApplicationController
-  
+
+  skip_before_filter :verify_authenticity_token , :only => [:new, :create]
   before_filter :authenticate_user!, :except => [:new, :create]
   
   # == Get the Example TokenAuthentications Form
