@@ -44,7 +44,7 @@ end
 # gem 'ruby-debug'
 
 # Authentication
-gem 'devise' #https://github.com/plataformatec/devise
+gem 'devise', '~> 3.5.10' #https://github.com/plataformatec/devise
 
 # This version is currently required for Devise 3+ on Rails 3.2
 gem 'devise_invitable'
