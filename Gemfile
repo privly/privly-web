@@ -1,10 +1,11 @@
 source 'http://rubygems.org'
-ruby "2.2.5"
+ruby "2.2.6"
 
 # Core System
 gem 'rails', '~> 4.2.0'
 gem 'json'
 gem 'jquery-rails'
+gem 'jquery-ui-rails', '~> 5.0.5'
 
 # Database gem
 gem 'mysql2' # Comment out this line to use another Database type
@@ -35,7 +36,8 @@ group :development, :production do
 end
 
 group :test, :development do
-  gem 'sauce', '~> 3.5.6'
+  gem 'selenium-client'
+  gem 'selenium-webdriver'
   gem 'sauce-connect'
   gem 'capybara', '~> 2.4.4'
 end
