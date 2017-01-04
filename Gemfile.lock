@@ -251,6 +251,7 @@ GEM
     sauce_whisk (0.0.21)
       json (~> 1.8.1)
       rest-client (~> 1.8.0)
+    selenium-client (1.2.18)
     selenium-webdriver (3.0.5)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
@@ -320,6 +321,7 @@ DEPENDENCIES
   rails (~> 4.2.0)
   rdiscount
   sauce-connect
+  selenium-client
   selenium-webdriver
   test-unit
   therubyracer

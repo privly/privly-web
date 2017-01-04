@@ -36,6 +36,7 @@ group :development, :production do
 end
 
 group :test, :development do
+  gem 'selenium-client'
   gem 'selenium-webdriver'
   gem 'sauce-connect'
   gem 'capybara', '~> 2.4.4'
