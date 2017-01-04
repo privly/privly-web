@@ -30,7 +30,8 @@ group :production do
 end
 
 group :development, :production do
-  gem "capistrano-rails" # Deploy with Capistrano
+  gem "capistrano", '~> 3.6.0' # Deploy with Capistrano
+  gem "capistrano-rails"
   gem 'capistrano-passenger'
   gem 'capistrano-git-submodule-strategy', '~> 0.1', :github => 'ekho/capistrano-git-submodule-strategy', :ref => "e3b8a78fbe7d3f7d03d473ee488a9c805f8f6fac"
 end
