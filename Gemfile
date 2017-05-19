@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby "2.2.6"
+ruby "2.2.7"
 
 # Core System
 gem 'rails', '~> 4.2.0'
@@ -8,8 +8,9 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 5.0.5'
 
 # Database gem
-gem 'mysql2' # Comment out this line to use another Database type
-# gem 'sqlite3'
+group :development do
+  gem 'sqlite3'
+end
 
 group :test do
   gem 'selenium-webdriver'
@@ -25,6 +26,7 @@ group :development do
 end
 
 group :production do
+  gem 'mysql2'
   gem "airbrake" # Error reporting service
   gem 'therubyracer' # JavaScript runtime
 end
