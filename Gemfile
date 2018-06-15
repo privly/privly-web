@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby "2.2.9"
+ruby "2.2.10"
 
 # Core System
 gem 'rails', '~> 4.2.0'
