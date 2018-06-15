@@ -26,7 +26,7 @@ group :development do
 end
 
 group :production do
-  gem 'mysql2'
+  gem 'mysql2', '~> 0.4.10'
   gem "airbrake" # Error reporting service
   gem 'therubyracer' # JavaScript runtime
 end

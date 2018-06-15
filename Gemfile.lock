@@ -180,7 +180,7 @@ GEM
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
-    mysql2 (0.5.1)
+    mysql2 (0.4.10)
     net-http-persistent (3.0.0)
       connection_pool (~> 2.2)
     net-scp (1.2.1)
@@ -339,7 +339,7 @@ DEPENDENCIES
   jquery-ui-rails (~> 5.0.5)
   json
   minitest
-  mysql2
+  mysql2 (~> 0.4.10)
   rails (~> 4.2.0)
   rdiscount
   sauce-connect
