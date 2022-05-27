@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/ekho/capistrano-git-submodule-strategy.git
+  remote: https://github.com/ekho/capistrano-git-submodule-strategy.git
   revision: e3b8a78fbe7d3f7d03d473ee488a9c805f8f6fac
   ref: e3b8a78fbe7d3f7d03d473ee488a9c805f8f6fac
   specs:
@@ -178,7 +178,7 @@ GEM
     polyamorous (1.3.0)
       activerecord (>= 3.0)
     power_assert (0.2.7)
-    rack (1.6.4)
+    rack (1.6.13)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5.1)
