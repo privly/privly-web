@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/ekho/capistrano-git-submodule-strategy.git
+  remote: https://github.com/ekho/capistrano-git-submodule-strategy.git
   revision: e3b8a78fbe7d3f7d03d473ee488a9c805f8f6fac
   ref: e3b8a78fbe7d3f7d03d473ee488a9c805f8f6fac
   specs:
@@ -273,10 +273,10 @@ GEM
       libv8 (~> 3.16.14.0)
       ref
     thor (0.19.1)
-    thread_safe (0.3.5)
+    thread_safe (0.3.6)
     tilt (2.0.2)
     tins (1.6.0)
-    tzinfo (1.2.2)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
